@@ -15,7 +15,7 @@
         <EntityTypeShape EntityType="ConstructionSiteModel.Shipper" Width="1.5" PointX="1.5" PointY="28.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ConstructionSiteModel.Size" Width="1.5" PointX="3.75" PointY="10.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ConstructionSiteModel.Supplier" Width="1.5" PointX="3.75" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConstructionSiteModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="false" />
         <EntityTypeShape EntityType="ConstructionSiteModel.Role" Width="1.5" PointX="3.75" PointY="18.125" IsExpanded="true" />
         <AssociationConnector Association="ConstructionSiteModel.FK_Account_Account" ManuallyRouted="false" />
         <AssociationConnector Association="ConstructionSiteModel.FK_Order_Account" ManuallyRouted="false" />

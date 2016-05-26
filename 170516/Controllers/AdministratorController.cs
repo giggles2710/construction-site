@@ -27,6 +27,7 @@ namespace _170516.Controllers
             return PartialView("_PartialAccount", accountModel);
         }
 
+        [HttpGet]
         public ActionResult ViewProductCategory()
         {
             return View("ViewProductCategory", "_AdminLayout");
@@ -36,6 +37,18 @@ namespace _170516.Controllers
         public ActionResult AddProductCategory()
         {
             return PartialView("_AddProductCategoryPartial");
+        }
+
+        [HttpGet]
+        public ActionResult ViewProduct()
+        {
+            return View("ViewProduct", "_AdminLayout");
+        }
+
+        [HttpGet]
+        public ActionResult AddProduct()
+        {
+            return PartialView("_AddProductPartial");
         }
     }
 }

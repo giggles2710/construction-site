@@ -1329,6 +1329,8 @@
     <Content Include="Views\Administrator\_PartialAccount.cshtml" />
     <Content Include="Views\Administrator\ViewProductCategory.cshtml" />
     <Content Include="Views\Administrator\_AddProductCategoryPartial.cshtml" />
+    <Content Include="Views\Administrator\ViewProduct.cshtml" />
+    <Content Include="Views\Administrator\_AddProductPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
