@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -31,6 +32,30 @@ namespace _170516.Controllers
         public ActionResult AddColor()
         {
             return PartialView("_AddColorPartial");
+        }
+
+        [HttpPost]
+        public JsonResult UploadImage()
+        {
+            HttpPostedFileBase myFile = Request.Files["ImageUpload"];
+
+            byte[] data;
+            using (Stream inputStream = myFile.InputStream)
+            {
+                MemoryStream memoryStream = inputStream as MemoryStream;
+                if (memoryStream == null)
+                {
+                    memoryStream = new MemoryStream();
+                    inputStream.CopyTo(memoryStream);
+                }
+                data = memoryStream.ToArray();
+            }
+
+            var names = myFile.FileName.Split('.');
+            var fileType = names[names.Length - 1];
+            var base64Source = string.Format("data:image/{0};base64, {1}", fileType, Convert.ToBase64String(data));
+
+            return Json(new { base64Thumbnail = base64Source }, JsonRequestBehavior.AllowGet);
         }
     }
 }

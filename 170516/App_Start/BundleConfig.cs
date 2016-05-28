@@ -23,17 +23,30 @@ namespace _170516
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jquery_upload").Include(
+                      "~/Scripts/jquery-upload/vendor/jquery.ui.widget.js",
+                      "~/Scripts/jquery-upload/vendor/load-image.all.min.js",
+                      "~/Scripts/jquery-upload/vendor/canvas-to-blob.min.js",
+                      "~/Scripts/jquery-upload/jquery.iframe-transport.js",
+                      "~/Scripts/jquery-upload/jquery.fileupload.js",
+                      "~/Scripts/jquery-upload/jquery.fileupload-process.js",
+                      "~/Scripts/jquery-upload/jquery.fileupload-image.js",
+                      "~/Scripts/jquery-upload/jquery.fileupload-audio.js",
+                      "~/Scripts/jquery-upload/jquery.fileupload-video.js",
+                      "~/Scripts/jquery-upload/jquery.fileupload-validate.js",
+                      "~/Scripts/respond.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/admin_script").Include(
                         "~/Scripts/bootstrap.js",
-                          "~/Scripts/respond.js",
-                          "~/Scripts/Admin/js/custom.js"));
+                        "~/Scripts/respond.js",
+                        "~/Scripts/Admin/js/custom.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/flatly.min.css",
                       "~/Content/common.css"));
 
             bundles.Add(new StyleBundle("~/Content/admin_css").Include(
-                      "~/Content/Admin/bootstrap/css/bootstrap.css",
+                      "~/Content/flatly.min.css",
                       "~/Content/common.css",
                       "~/Content/Admin/css/styles.css"));
         }

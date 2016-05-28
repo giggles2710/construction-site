@@ -7,6 +7,13 @@ namespace _170516.Models.Administrator
 {
     public class CreateProductModel
     {
+        public CreateProductModel()
+        {
+            this.SupplierList = new List<CreateProductSupplierListItem>();
+            this.AvailableColorList = new List<CreateProductColorListItem>();
+            this.CategoryList = new List<CreateProductCategoryListItem>();
+        }
+
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
         public int ProductCategoryID { get; set; }
