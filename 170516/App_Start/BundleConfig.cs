@@ -30,10 +30,11 @@ namespace _170516
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/flatly.min.css",
-                      "~/Content/Site.css"));
+                      "~/Content/common.css"));
 
             bundles.Add(new StyleBundle("~/Content/admin_css").Include(
                       "~/Content/Admin/bootstrap/css/bootstrap.css",
+                      "~/Content/common.css",
                       "~/Content/Admin/css/styles.css"));
         }
     }

@@ -574,7 +574,6 @@ body {
 
 .panel-heading > .panel-title, .content-box-header .panel-title {
     float: left;
-    padding: 10px 15px;
     padding-top: 0px;
 }
 
@@ -712,3 +711,28 @@ body {
 .input-form label {
     text-align: left !important;
 }
+
+/*data-table*/
+.dataTables_paginate {
+    float: right;
+}
+
+    .dataTables_paginate ul {
+        margin-top: 0;
+    }
+
+.dataTables_show_item_div {
+    margin-bottom: 10px;
+}
+
+    .dataTables_show_item_div span, select {
+        vertical-align: top;
+    }
+
+.dataTables_show_item_search {
+    margin-bottom: 10px;
+}
+
+    .dataTables_show_item_search span, select {
+        vertical-align: top;
+    }
