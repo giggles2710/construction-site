@@ -2,42 +2,43 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Thêm Danh Mục Sản Phẩm</h4>
+            <h4 class="modal-title">Thêm Màu Sắc Mới</h4>
         </div>
         <div class="modal-body">
-            <div class="form-horizontal input-form">
-                <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-3 control-label">Thêm Màu Mới</label>
-                    <div class="col-sm-9">
-                        <input type="email" class="form-control" id="inputEmail3">
+            <form id="AddColorForm" action="@Url.Action("AddColor","Administrator")" method="post">
+                <div class="form-horizontal input-form">
+                    <div class="form-group">
+                        <label for="ColorName" class="col-sm-3 control-label">Tên Màu</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="ColorName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ColorDescription" class="col-sm-3 control-label">Mô Tả</label>
+                        <div class="col-sm-9">
+                            <textarea id="ColorDescription" class="form-control" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ColorFileUpload" class="col-sm-3 control-label">Ảnh Màu</label>
+                        <div class="col-sm-9">
+                            <button type="button" class="btn btn-default" id="ColorFileUploadButton">Chọn ảnh...</button>
+                            <input type="file" class="form-control" id="ColorFileUpload" name="ImageUpload" style="display:none;" />
+                            <input type="hidden" id="ColorBase64String" />
+                            <div id="ColorImagePreview" style="display:none;" class="colorImagePreviewCanvas">
+                                <span class="fileName"></span>
+                                <div class="filePreview" />
+                                <button class="btn btn-sm btn-primary" type="button"><i class="glyphicon glyphicon-upload"></i></button>
+                                <button class="btn btn-sm btn-default" type="reset"><i class="glyphicon glyphicon-remove"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Mô Tả</label>
-                    <div class="col-sm-9">
-                        <textarea class="form-control" rows="5"></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Danh Mục Chính</label>
-                    <div class="col-sm-9">
-                        <select class="form-control">
-                            <option value="hello1">Hello 1</option>
-                            <option value="hello1">Hello 2</option>
-                            <option value="hello1">Hello 3</option>
-                            <option value="hello1">Hello 1</option>
-                            <option value="hello1">Hello 1</option>
-                            <option value="hello1">Hello 1</option>
-                            <option value="hello1">Hello 1</option>
-                            <option value="hello1">Hello 1</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-            <button type="button" class="btn btn-primary">Lưu</button>
+            <button type="submit" class="btn btn-primary" data-submit="AddColorForm">Lưu</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>            
         </div>
     </div>
 </div>

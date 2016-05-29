@@ -68,5 +68,11 @@ namespace _170516.Controllers
 
             return View("AddProduct", "_AdminLayout", model);
         }
+
+        [HttpGet]
+        public ActionResult AddColor()
+        {
+            return PartialView("_AddColorPartial");
+        }
     }
 }

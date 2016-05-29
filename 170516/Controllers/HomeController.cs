@@ -28,12 +28,6 @@ namespace _170516.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult AddColor()
-        {
-            return PartialView("_AddColorPartial");
-        }
-
         [HttpPost]
         public JsonResult UploadImage()
         {
