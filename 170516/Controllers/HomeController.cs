@@ -52,10 +52,9 @@ namespace _170516.Controllers
             }
 
             var names = myFile.FileName.Split('.');
-            var fileType = names[names.Length - 1];
-            var base64Source = string.Format("data:image/{0};base64, {1}", fileType, Convert.ToBase64String(data));
+            var fileType = names[names.Length - 1];            
 
-            return Json(new { base64Thumbnail = base64Source }, JsonRequestBehavior.AllowGet);
+            return Json(new { base64Thumbnail = Convert.ToBase64String(data), fileTye = fileType }, JsonRequestBehavior.AllowGet);
         }
     }
 }

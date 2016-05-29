@@ -1350,6 +1350,7 @@
     <Content Include="Views\Administrator\_AddColorPartial.cshtml" />
     <Content Include="Views\Administrator\ViewProduct.cshtml" />
     <Content Include="Views\Administrator\AddProduct.cshtml" />
+    <Content Include="Views\Home\_AddColorPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
