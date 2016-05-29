@@ -31,7 +31,6 @@ namespace _170516.Entities
         public int SizeID { get; set; }
         public int ColorID { get; set; }
         public string AvailableColor { get; set; }
-        public int QuantityPerUnit { get; set; }
         public decimal UnitPrice { get; set; }
         public double Rating { get; set; }
         public int IsDiscountAvailable { get; set; }

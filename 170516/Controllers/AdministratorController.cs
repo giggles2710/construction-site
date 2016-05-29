@@ -1,4 +1,5 @@
-﻿using _170516.Models;
+﻿using _170516.Entities;
+using _170516.Models;
 using _170516.Models.Administrator;
 using System;
 using System.Collections.Generic;
@@ -73,6 +74,36 @@ namespace _170516.Controllers
         public ActionResult AddColor()
         {
             return PartialView("_AddColorPartial");
+        }
+
+        [HttpPost]
+        public JsonResult AddColor(CreateColorModel model)
+        {
+            Color color = null;
+
+            if (ModelState.IsValid)
+            {
+                color = new Color
+                {
+                    ColorName = model.ColorName,
+                    Image = Convert.FromBase64String(model.ColorBase64String),
+                    ColorDescription = model.ColorDescription,
+                    Extension = model.Extension
+                };
+
+                dbContext.Colors.Add(color);
+
+                try
+                {
+                    dbContext.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { isError = true, result = ex.Message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            return Json(new { isError = true, result = color }, JsonRequestBehavior.AllowGet);
         }
     }
 }

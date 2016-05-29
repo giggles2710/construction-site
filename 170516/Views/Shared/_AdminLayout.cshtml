@@ -71,6 +71,15 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jquery_upload")
     @Scripts.Render("~/bundles/admin_script")
+    @Scripts.Render("~/bundles/main_script")
+
+    <script type="text/javascript">
+        var staticUrl = {
+            addColor: "@Url.Action("AddColor","Administrator")",
+            uploadFile: "@Url.Action("UploadImage", "Home")"
+        }
+    </script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

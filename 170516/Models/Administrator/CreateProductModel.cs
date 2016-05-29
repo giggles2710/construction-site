@@ -47,6 +47,6 @@ namespace _170516.Models.Administrator
     {
         public int ColorID { get; set; }
         public string ColorName { get; set; }
-        public string RGB { get; set; }
+        public string Base64 { get; set; }
     }
 }

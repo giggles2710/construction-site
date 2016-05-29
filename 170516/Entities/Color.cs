@@ -22,8 +22,9 @@ namespace _170516.Entities
     
         public int ColorID { get; set; }
         public string ColorName { get; set; }
-        public string ColorCode { get; set; }
+        public string ColorDescription { get; set; }
         public byte[] Image { get; set; }
+        public string Extension { get; set; }
     
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<Product> Products { get; set; }

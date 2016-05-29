@@ -220,6 +220,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Administrator\CreateColorModel.cs" />
     <Compile Include="Models\Administrator\CreateProductModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -242,8 +243,9 @@
     <Content Include="Scripts\Admin\js\custom.js" />
     <Content Include="Scripts\Admin\js\editors.js" />
     <Content Include="Scripts\Admin\js\forms.js" />
-    <Content Include="Scripts\Admin\js\Administrator\category.js" />
-    <Content Include="Scripts\Admin\js\Administrator\product.js" />
+    <Content Include="Scripts\Admin\category.js" />
+    <Content Include="Scripts\Common\main.js" />
+    <Content Include="Scripts\Admin\product.js" />
     <Content Include="Scripts\Admin\js\stats.js" />
     <Content Include="Scripts\Admin\js\tables.js" />
     <Content Include="Scripts\Admin\vendors\address\address.css" />

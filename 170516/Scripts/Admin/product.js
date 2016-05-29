@@ -36,10 +36,6 @@
     });
 });
 
-var staticUrl = {
-    uploadFile: "/Home/UploadImage"
-}
-
 var addProductModel = {
     showAddColorModal: function (modalName) {
         // get add product category modal
@@ -55,6 +51,8 @@ var addProductModel = {
                 $addColorModal.on('shown.bs.modal', function () {
                     // apply binding
                     addColorModel.ApplyScriptBinding();
+                }).on('hidden.bs.modal', function () {
+                    // scroll to addColor link 
                 });
                 // then show it
                 $addColorModal.modal('show');
@@ -74,7 +72,43 @@ var addColorModel = {
 
         // binding form
         $('.modal-footer button[type="submit"]').on('click', function () {
-            $('#AddColorForm').submit();
+            $.ajax({
+                url: staticUrl.addColor,
+                data: $('#AddColorForm').serialize(),
+                async: true,
+                method: "POST",
+                success: function (data) {
+                    if (data != null) {
+                        if (!data.isError) {
+                            // create a row in color list
+                            var $colorGroup = $('ColorGroup');
+
+                            if ($colorGroup.find('ul').length < 0) {
+                                // create list item
+                                var ul = $('<ul/>').addClass('list-group');
+                                $colorGroup.append(ul);
+                            }
+
+                            var $ul = $(ul);
+                            var li = $('<li/>').addClass('list-group-item');
+                            var codeIdInput = $("<input type='hidden' />").val(data.result.ColorID).appendTo(li);
+                            var removeLink = $('<a href="#"><i class="glyphicon glyphicon-remove"></i></a>').on('click', function () {
+                                // call remove
+                            }).appendTo(li);
+                            var span = $('<span/>').text(data.result.ColorName).appendTo(li);
+                            var img = $('<img/>').attr('src', Util.getBase64Url(data.result.Extension, data.result.Base64String)).appendTo(li);
+
+                            var $ul = $(ul).append(li);
+
+                            // success
+                            $('#AddColorModal').modal('hide');
+                        } else {
+                            // error
+                            $('#AddColorForm .error-summary').text(data.result);
+                        }
+                    }
+                }
+            })
         });
 
         // initialize file upload plugin
@@ -101,6 +135,7 @@ var addColorModel = {
                     $('#ColorImagePreview .fileName').text('');
                     $('#ColorImagePreview .filePreview').html('');
                     $('#ColorImagePreview').attr('style', 'display:none;');
+                    $("#ColorImagePreview button[type='button']").prop('disabled', false);
                     $('#ColorFileUploadButton').show();
                 });
                 // binding submit button
@@ -123,6 +158,7 @@ var addColorModel = {
             // upload success
             if (data.result.base64Thumbnail != null) {
                 $('#ColorBase64String').val(data.result.base64Thumbnail);
+                $('#ColorFileType').val(data.result.fileType);
             }
         }).on('fileuploadfail', function (e, data) {
             // upload fail

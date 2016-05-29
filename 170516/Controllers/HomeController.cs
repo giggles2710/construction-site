@@ -48,7 +48,7 @@ namespace _170516.Controllers
             var names = myFile.FileName.Split('.');
             var fileType = names[names.Length - 1];            
 
-            return Json(new { base64Thumbnail = Convert.ToBase64String(data), fileTye = fileType }, JsonRequestBehavior.AllowGet);
+            return Json(new { base64Thumbnail = Convert.ToBase64String(data), fileType = fileType }, JsonRequestBehavior.AllowGet);
         }
     }
 }

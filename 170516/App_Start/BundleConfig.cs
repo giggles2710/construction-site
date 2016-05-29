@@ -41,6 +41,9 @@ namespace _170516
                         "~/Scripts/respond.js",
                         "~/Scripts/Admin/js/custom.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/main_script").Include(
+                        "~/Scripts/Common/main.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/flatly.min.css",
                       "~/Content/common.css"));

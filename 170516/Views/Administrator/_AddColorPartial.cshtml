@@ -5,18 +5,19 @@
             <h4 class="modal-title">Thêm Màu Sắc Mới</h4>
         </div>
         <div class="modal-body">
-            <form id="AddColorForm" action="@Url.Action("AddColor","Administrator")" method="post">
+            <form id="AddColorForm">
                 <div class="form-horizontal input-form">
+                    <div class="error-summary"></div>
                     <div class="form-group">
                         <label for="ColorName" class="col-sm-3 control-label">Tên Màu</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="ColorName">
+                            <input type="text" class="form-control" id="ColorName" name="ColorName">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="ColorDescription" class="col-sm-3 control-label">Mô Tả</label>
                         <div class="col-sm-9">
-                            <textarea id="ColorDescription" class="form-control" rows="5"></textarea>
+                            <textarea id="ColorDescription" name="ColorDescription" class="form-control" rows="5"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -24,7 +25,8 @@
                         <div class="col-sm-9">
                             <button type="button" class="btn btn-default" id="ColorFileUploadButton">Chọn ảnh...</button>
                             <input type="file" class="form-control" id="ColorFileUpload" name="ImageUpload" style="display:none;" />
-                            <input type="hidden" id="ColorBase64String" />
+                            <input type="hidden" id="ColorBase64String" name="ColorBase64String" />
+                            <input type="hidden" id="ColorFileType" name="Extension" />
                             <div id="ColorImagePreview" style="display:none;" class="colorImagePreviewCanvas">
                                 <span class="fileName"></span>
                                 <div class="filePreview" />
@@ -38,7 +40,7 @@
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-primary" data-submit="AddColorForm">Lưu</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>            
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
         </div>
     </div>
 </div>
