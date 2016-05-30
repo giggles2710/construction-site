@@ -42,7 +42,7 @@ namespace _170516.Controllers
 
         [HttpGet]
         public ActionResult ViewProduct(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
-        {            
+        {
             var pageNo = 0;
             var pageSize = 0;
 
@@ -53,8 +53,11 @@ namespace _170516.Controllers
             //IQueryable<Product> products = dbContext.Products
             //    .Where(p => string.IsNullOrWhiteSpace(searchText) || searchText.Equals(p.Name));
 
+            var temp = dbContext.Products;
+
+            
             IQueryable<Product> products = dbContext.Products
-                .Where(p => string.IsNullOrWhiteSpace(searchText));
+                .Where(p => p.IsAvailable);
 
             switch (sortField)
             {
@@ -146,7 +149,6 @@ namespace _170516.Controllers
         {
             var product = new Product
             {
-                CategoryID = model.ProductCategoryID,
                 DateModified = DateTime.Now,
                 Description = model.ProductDescription,
                 Discount = model.ProductDiscount,
@@ -155,13 +157,24 @@ namespace _170516.Controllers
                 Name = model.ProductName,
                 Rating = 0,
                 Size = model.ProductSize,
-                SupplierID = model.ProductSupplierID,
                 UnitPrice = (decimal)model.ProductPrice,
                 UnitsInStock = model.ProductQuantity,
                 UnitsOnOrder = 0,
                 UnitWeight = model.ProductWeight,
                 UnitName = model.ProductUnit
             };
+
+            // product supplier id
+            if (model.ProductSupplierID == 0)
+                product.SupplierID = null;
+            else
+                product.SupplierID = model.ProductSupplierID;
+
+            // product category id
+            if (model.ProductCategoryID == 0)
+                product.CategoryID = null;
+            else
+                product.CategoryID = model.ProductCategoryID;
 
             // product image
             if (!string.IsNullOrWhiteSpace(model.ProductImage))

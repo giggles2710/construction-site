@@ -101,7 +101,7 @@
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
           <Property Name="Image" Type="varbinary" MaxLength="50" />
           <Property Name="ImageType" Type="nvarchar" MaxLength="5" />
-          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="CategoryID" Type="int" />
           <Property Name="UnitsOnOrder" Type="int" Nullable="false" />
           <Property Name="UnitsInStock" Type="int" Nullable="false" />
           <Property Name="UnitWeight" Type="float" />
@@ -251,7 +251,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
@@ -457,7 +457,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="Binary" MaxLength="50" FixedLength="false" />
           <Property Name="ImageType" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" />
           <Property Name="UnitsOnOrder" Type="Int32" Nullable="false" />
           <Property Name="UnitsInStock" Type="Int32" Nullable="false" />
           <Property Name="UnitWeight" Type="Double" />
@@ -576,7 +576,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">

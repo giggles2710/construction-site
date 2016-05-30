@@ -1273,6 +1273,8 @@
     <Content Include="Scripts\Admin\vendors\tinymce\js\tinymce\skins\lightgray\fonts\icomoon.ttf" />
     <Content Include="Scripts\Admin\vendors\tinymce\js\tinymce\skins\lightgray\fonts\icomoon.woff" />
     <Content Include="Scripts\Admin\vendors\tinymce\js\tinymce\skins\lightgray\fonts\readme.md" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
     <EntityDeploy Include="Entities\ConstructionEntity.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ConstructionEntity.Designer.cs</LastGenOutput>
@@ -1290,8 +1292,6 @@
       <DependentUpon>ConstructionEntity.edmx</DependentUpon>
       <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
     </Content>
-    <Content Include="Content\toastr.scss" />
-    <Content Include="Content\toastr.less" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
