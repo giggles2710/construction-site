@@ -107,6 +107,8 @@ var addColorModel = {
                             $('#AddColorForm .error-summary').text(data.result);
                         }
                     }
+                }, error: function (e) {
+
                 }
             })
         });

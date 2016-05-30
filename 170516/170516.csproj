@@ -1349,8 +1349,6 @@
     <Content Include="Views\Administrator\Index.cshtml" />
     <Content Include="Views\Administrator\_PartialAccount.cshtml" />
     <Content Include="Views\Administrator\ViewProductCategory.cshtml" />
-    <Content Include="Views\Administrator\ViewProduct.cshtml" />
-    <Content Include="Views\Administrator\AddProduct.cshtml" />
     <Content Include="Views\Administrator\_AddColorPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>

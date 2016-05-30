@@ -103,7 +103,7 @@ namespace _170516.Controllers
                 }
             }
 
-            return Json(new { isError = true, result = color }, JsonRequestBehavior.AllowGet);
+            return Json(new { isError = false, result = color }, JsonRequestBehavior.AllowGet);
         }
     }
 }
