@@ -22,15 +22,12 @@ namespace _170516.Entities
         public int Quantity { get; set; }
         public Nullable<double> Discount { get; set; }
         public decimal Total { get; set; }
-        public int SizeID { get; set; }
-        public int ColorID { get; set; }
+        public int Size { get; set; }
         public bool IsFulfilled { get; set; }
         public Nullable<System.DateTime> ShipDate { get; set; }
         public Nullable<System.DateTime> PaidDate { get; set; }
     
-        public virtual Color Color { get; set; }
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
-        public virtual Size Size { get; set; }
     }
 }

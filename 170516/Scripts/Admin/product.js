@@ -1,4 +1,33 @@
-﻿$(document).ready(function () {
+﻿$(document).ready(function () {    
+    // suubmit form
+    $('#SubmitAddProduct').on('click', function () {
+        // validate before submit form
+        if (addProductModel.ValidateAddProduct()) {
+            $.ajax({
+                url: staticUrl.addProduct,
+                data: $('#AddProductForm').serialize(),
+                async: true,
+                method: "POST",
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    if (data != null) {
+                        if (data.isResult == false) {
+                            toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
+                        } else {
+                            $('#AddProductForm')[0].reset();
+                            // Display an info toast with no title
+                            toastr.success('Sản phẩm mới lưu thành công.')
+                        }
+                    }                    
+                }, error: function (e) {
+                    toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
+                }
+            });
+        }
+    });
+
+
     // add product category
     $('#addColorLink').on('click', function (e) {
         // show modal
@@ -30,9 +59,11 @@
         if (data.result.base64Thumbnail != null && data.result.fileType != null) {
             var fileSrc = "data:image/" + data.result.fileType + ";base64, " + data.result.base64Thumbnail;
             $('#ImageBox').attr('src', fileSrc);
+            $('#ProductImage').val(data.result.fileType + ":" + data.result.base64Thumbnail);
         }
     }).on('fileuploadfail', function (e, data) {
         // upload fail
+        toastr.error('Tải ảnh không thành công. Vui lòng thử lại.');
     });
 });
 
@@ -58,11 +89,119 @@ var addProductModel = {
                 $addColorModal.modal('show');
             }
         });
+    },
+    ValidateAddProduct: function () {
+        // validate add color screen
+        var $productName = $('#ProductName');
+        var $productQuantity = $('#ProductQuantity');
+        var $productWeight = $('#ProductWeight');
+        var $productSize = $('#ProductSize');
+        var $productPrice = $('#ProductPrice');
+        var $productUnit = $('#ProductUnit');
+        var isValid = true;
+
+        // product name
+        if ($productName.val() == null || $productName.val() == '' || $productName.val() == undefined) {
+            $productName.parent().addClass('has-error');
+            $productName.nextAll('span.input-error-box').text("Làm ơn nhập tên sản phẩm.");
+            isValid = false;
+        } else {
+            $productName.parent().removeClass('has-error');
+            $productName.nextAll('span.input-error-box').text("");
+        }
+
+        // product quantity
+        if ($productQuantity.val() == null || $productQuantity.val() == '' || $productQuantity.val() == undefined) {
+            $productQuantity.parent().addClass('has-error');
+            $productQuantity.nextAll('span.input-error-box').text("Làm ơn nhập số lượng sản phẩm trong kho.");
+            isValid = false;
+        } else {
+            $productQuantity.parent().removeClass('has-error');
+            $productQuantity.nextAll('span.input-error-box').text("");
+        }
+
+        // product weight
+        if ($productWeight.val() == null || $productWeight.val() == '' || $productWeight.val() == undefined) {
+            $productWeight.parent().addClass('has-error');
+            $productWeight.nextAll('span.input-error-box').text("Làm ơn nhập khối lượng sản phẩm.");
+            isValid = false;
+        } else {
+            // test regex
+            if (sampleRegex.floatRegex.test($productWeight.val())) {
+                $productWeight.parent().addClass('has-error');
+                $productWeight.nextAll('span.input-error-box').text("Làm ơn chỉ nhập chữ số và dấu phẩy (,).");
+                isValid = false;
+            } else {
+                $productWeight.parent().removeClass('has-error');
+                $productWeight.nextAll('span.input-error-box').text("");
+            }
+        }
+
+        // product size
+        if ($productSize.val() == null || $productSize.val() == '' || $productSize.val() == undefined) {
+            $productSize.parent().addClass('has-error');
+            $productSize.nextAll('span.input-error-box').text("Làm ơn nhập kích cỡ sản phẩm.");
+            isValid = false;
+        } else {
+            $productSize.parent().removeClass('has-error');
+            $productSize.nextAll('span.input-error-box').text("");
+        }
+
+        // product price
+        if ($productPrice.val() == null || $productPrice.val() == '' || $productPrice.val() == undefined) {
+            $productPrice.parent().addClass('has-error');
+            $productPrice.nextAll('span.input-error-box').text("Làm ơn nhập giá của sản phẩm.");
+            isValid = false;
+        } else {
+            // test regex
+            if (sampleRegex.floatRegex.test($productPrice.val())) {
+                $productPrice.parent().addClass('has-error');
+                $productPrice.nextAll('span.input-error-box').text("Làm ơn chỉ nhập chữ số và dấu phẩy (,).");
+                isValid = false;
+            } else {
+                $productPrice.parent().removeClass('has-error');
+                $productPrice.nextAll('span.input-error-box').text("");
+            }
+        }
+
+        // product unit
+        if ($productUnit.val() == null || $productUnit.val() == '' || $productUnit.val() == undefined) {
+            $productUnit.parent().addClass('has-error');
+            $productUnit.nextAll('span.input-error-box').text("Làm ơn nhập đơn vị của sản phẩm.");
+            isValid = false;
+        } else {
+            $productUnit.parent().removeClass('has-error');
+            $productUnit.nextAll('span.input-error-box').text("");
+        }
+
+        return isValid;
     }
 }
 
 var addColorModel = {
     ApplyScriptBinding: function () {
+        // decide to show table or form
+        // get the list of available colors
+        //$.ajax({
+        //    url: staticUrl.getAvailableColors,
+        //    async: true,
+        //    method: "GET",
+        //    dataType: "json",
+        //    cache: false,
+        //    success: function (data) {
+        //        if (data != null && data.length > 0) {
+        //            // so show the available color list with our data
+        //            $('#AddColorForm').attr('style', 'display:none;');
+        //            $('#colorAvailableList').show();
+        //        } else {
+        //            // show the form so everybody can insert data
+        //            $('#colorAvailableList').attr('style', 'display:none;');
+        //            $('#AddColorForm').show();
+        //        }
+        //    }
+        //});
+
+
         // button
         $('#ColorFileUploadButton').on('click', function () {
             $('#ColorFileUpload').trigger('click');
@@ -72,45 +211,50 @@ var addColorModel = {
 
         // binding form
         $('.modal-footer button[type="submit"]').on('click', function () {
-            $.ajax({
-                url: staticUrl.addColor,
-                data: $('#AddColorForm').serialize(),
-                async: true,
-                method: "POST",
-                success: function (data) {
-                    if (data != null) {
-                        if (!data.isError) {
-                            // create a row in color list
-                            var $colorGroup = $('ColorGroup');
+            // validate before submit form
+            if (addColorModel.ValidateAddColor()) {
+                $.ajax({
+                    url: staticUrl.addColor,
+                    data: $('#AddColorForm').serialize(),
+                    async: true,
+                    method: "POST",
+                    dataType: "json",
+                    cache: false,
+                    success: function (data) {
+                        if (data != null) {
+                            if (!data.isError) {
+                                // create a row in color list
+                                var $colorGroup = $('ColorGroup');
 
-                            if ($colorGroup.find('ul').length < 0) {
-                                // create list item
-                                var ul = $('<ul/>').addClass('list-group');
-                                $colorGroup.append(ul);
+                                if ($colorGroup.find('ul').length < 0) {
+                                    // create list item
+                                    var ul = $('<ul/>').addClass('list-group');
+                                    $colorGroup.append(ul);
+                                }
+
+                                var $ul = $(ul);
+                                var li = $('<li/>').addClass('list-group-item');
+                                var codeIdInput = $("<input type='hidden' />").val(data.result.ColorID).appendTo(li);
+                                var removeLink = $('<a href="#"><i class="glyphicon glyphicon-remove"></i></a>').on('click', function () {
+                                    // call remove
+                                }).appendTo(li);
+                                var span = $('<span/>').text(data.result.ColorName).appendTo(li);
+                                var img = $('<img/>').attr('src', Util.getBase64Url(data.result.Extension, data.result.Base64String)).appendTo(li);
+
+                                var $ul = $(ul).append(li);
+
+                                // success
+                                $('#AddColorModal').modal('hide');
+                            } else {
+                                // error
+                                $('#AddColorForm .error-summary').text(data.result);
                             }
-
-                            var $ul = $(ul);
-                            var li = $('<li/>').addClass('list-group-item');
-                            var codeIdInput = $("<input type='hidden' />").val(data.result.ColorID).appendTo(li);
-                            var removeLink = $('<a href="#"><i class="glyphicon glyphicon-remove"></i></a>').on('click', function () {
-                                // call remove
-                            }).appendTo(li);
-                            var span = $('<span/>').text(data.result.ColorName).appendTo(li);
-                            var img = $('<img/>').attr('src', Util.getBase64Url(data.result.Extension, data.result.Base64String)).appendTo(li);
-
-                            var $ul = $(ul).append(li);
-
-                            // success
-                            $('#AddColorModal').modal('hide');
-                        } else {
-                            // error
-                            $('#AddColorForm .error-summary').text(data.result);
                         }
-                    }
-                }, error: function (e) {
+                    }, error: function (e) {
 
-                }
-            })
+                    }
+                });
+            }
         });
 
         // initialize file upload plugin
@@ -160,10 +304,37 @@ var addColorModel = {
             // upload success
             if (data.result.base64Thumbnail != null) {
                 $('#ColorBase64String').val(data.result.base64Thumbnail);
-                $('#ColorFileType').val(data.result.fileType);
+                $('#Extension').val(data.result.fileType);
             }
         }).on('fileuploadfail', function (e, data) {
             // upload fail
         });
+    },
+    ValidateAddColor: function () {
+        // validate add color screen
+        var $colorName = $('#ColorName');
+        var $colorDescription = $('#ColorDescription');
+        var $colorBase64String = $('#ColorBase64String');
+        var isValid = true;
+
+        if ($colorName.val() == null || $colorName.val() == '' || $colorName.val() == undefined) {
+            $colorName.parent().addClass('has-error');
+            $colorName.nextAll('span.input-error-box').text("Tên màu không được bỏ trống.");
+            isValid = false;
+        } else {
+            $colorName.parent().removeClass('has-error');
+            $colorName.nextAll('span.input-error-box').text("");
+        }
+
+        if ($colorBase64String.val() == null || $colorBase64String.val() == '' || $colorBase64String.val() == undefined) {
+            $colorBase64String.parent().addClass('has-error');
+            $colorBase64String.parent().nextAll('span.input-error-box').text("Ảnh đại diện cho màu không được bỏ trống.");
+            isValid = false;
+        } else {
+            $colorBase64String.parent().removeClass('has-error');
+            $colorBase64String.parent().nextAll('span.input-error-box').text("");
+        }
+
+        return isValid;
     }
 }

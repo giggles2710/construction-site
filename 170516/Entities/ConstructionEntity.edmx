@@ -36,16 +36,6 @@
           <Property Name="CreatedUserID" Type="int" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="Color">
-          <Key>
-            <PropertyRef Name="ColorID" />
-          </Key>
-          <Property Name="ColorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ColorName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ColorDescription" Type="nvarchar" MaxLength="150" />
-          <Property Name="Image" Type="varbinary(max)" Nullable="false" />
-          <Property Name="Extension" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="CustomerID" />
@@ -97,8 +87,7 @@
           <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="Discount" Type="float" />
           <Property Name="Total" Type="money" Nullable="false" />
-          <Property Name="SizeID" Type="int" Nullable="false" />
-          <Property Name="ColorID" Type="int" Nullable="false" />
+          <Property Name="Size" Type="int" Nullable="false" />
           <Property Name="IsFulfilled" Type="bit" Nullable="false" />
           <Property Name="ShipDate" Type="date" />
           <Property Name="PaidDate" Type="date" />
@@ -108,24 +97,24 @@
             <PropertyRef Name="ProductID" />
           </Key>
           <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Image" Type="varbinary" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Image" Type="varbinary" MaxLength="50" />
+          <Property Name="ImageType" Type="nvarchar" MaxLength="5" />
           <Property Name="CategoryID" Type="int" Nullable="false" />
           <Property Name="UnitsOnOrder" Type="int" Nullable="false" />
           <Property Name="UnitsInStock" Type="int" Nullable="false" />
-          <Property Name="UnitWeight" Type="float" Nullable="false" />
+          <Property Name="UnitWeight" Type="float" />
           <Property Name="Discount" Type="float" />
-          <Property Name="SizeID" Type="int" Nullable="false" />
-          <Property Name="ColorID" Type="int" Nullable="false" />
-          <Property Name="AvailableColor" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Size" Type="nvarchar" MaxLength="50" />
           <Property Name="UnitPrice" Type="money" Nullable="false" />
+          <Property Name="UnitName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Rating" Type="float" Nullable="false" />
-          <Property Name="IsDiscountAvailable" Type="int" Nullable="false" />
+          <Property Name="IsDiscountAvailable" Type="bit" Nullable="false" />
           <Property Name="IsAvailable" Type="bit" Nullable="false" />
           <Property Name="SupplierID" Type="int" />
           <Property Name="DateModified" Type="date" Nullable="false" />
-          <Property Name="CreatedUserID" Type="int" Nullable="false" />
+          <Property Name="CreatedUserID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -148,14 +137,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="Address" Type="nvarchar" MaxLength="50" />
           <Property Name="City" Type="nvarchar" MaxLength="50" />
           <Property Name="District" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="Size">
-          <Key>
-            <PropertyRef Name="SizeID" />
-          </Key>
-          <Property Name="SizeID" Type="int" Nullable="false" />
-          <Property Name="SizeName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="SizeDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -233,18 +214,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderDetail_Color">
-          <End Role="Color" Type="Self.Color" Multiplicity="1" />
-          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Color">
-              <PropertyRef Name="ColorID" />
-            </Principal>
-            <Dependent Role="OrderDetail">
-              <PropertyRef Name="ColorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OrderDetail_Order">
           <End Role="Order" Type="Self.Order" Multiplicity="1" />
           <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
@@ -269,20 +238,8 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderDetail_Size">
-          <End Role="Size" Type="Self.Size" Multiplicity="1" />
-          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Size">
-              <PropertyRef Name="SizeID" />
-            </Principal>
-            <Dependent Role="OrderDetail">
-              <PropertyRef Name="SizeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Product_Account">
-          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Account">
@@ -302,30 +259,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </Principal>
             <Dependent Role="Product">
               <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Product_Color">
-          <End Role="Color" Type="Self.Color" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Color">
-              <PropertyRef Name="ColorID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="ColorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Product_Size">
-          <End Role="Size" Type="Self.Size" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Size">
-              <PropertyRef Name="SizeID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="SizeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -356,13 +289,11 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
         <EntityContainer Name="ConstructionSiteModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Color" EntityType="Self.Color" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shipper" EntityType="Self.Shipper" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Size" EntityType="Self.Size" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" store:Type="Tables" store:Schema="dbo">
@@ -387,10 +318,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             <End Role="Shipper" EntitySet="Shipper" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderDetail_Color" Association="Self.FK_OrderDetail_Color">
-            <End Role="Color" EntitySet="Color" />
-            <End Role="OrderDetail" EntitySet="OrderDetail" />
-          </AssociationSet>
           <AssociationSet Name="FK_OrderDetail_Order" Association="Self.FK_OrderDetail_Order">
             <End Role="Order" EntitySet="Order" />
             <End Role="OrderDetail" EntitySet="OrderDetail" />
@@ -399,24 +326,12 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             <End Role="Product" EntitySet="Product" />
             <End Role="OrderDetail" EntitySet="OrderDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderDetail_Size" Association="Self.FK_OrderDetail_Size">
-            <End Role="Size" EntitySet="Size" />
-            <End Role="OrderDetail" EntitySet="OrderDetail" />
-          </AssociationSet>
           <AssociationSet Name="FK_Product_Account" Association="Self.FK_Product_Account">
             <End Role="Account" EntitySet="Account" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
           <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
             <End Role="Category" EntitySet="Category" />
-            <End Role="Product" EntitySet="Product" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Color" Association="Self.FK_Product_Color">
-            <End Role="Color" EntitySet="Color" />
-            <End Role="Product" EntitySet="Product" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Size" Association="Self.FK_Product_Size">
-            <End Role="Size" EntitySet="Size" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
           <AssociationSet Name="FK_Product_Supplier" Association="Self.FK_Product_Supplier">
@@ -469,18 +384,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="CreatedUserID" Type="Int32" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
-        </EntityType>
-        <EntityType Name="Color">
-          <Key>
-            <PropertyRef Name="ColorID" />
-          </Key>
-          <Property Name="ColorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ColorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ColorDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="Extension" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_Color" FromRole="Color" ToRole="OrderDetail" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Product_Color" FromRole="Color" ToRole="Product" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -538,44 +441,39 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="Discount" Type="Double" />
           <Property Name="Total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="SizeID" Type="Int32" Nullable="false" />
-          <Property Name="ColorID" Type="Int32" Nullable="false" />
+          <Property Name="Size" Type="Int32" Nullable="false" />
           <Property Name="IsFulfilled" Type="Boolean" Nullable="false" />
           <Property Name="ShipDate" Type="DateTime" Precision="0" />
           <Property Name="PaidDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Color" Relationship="Self.FK_OrderDetail_Color" FromRole="OrderDetail" ToRole="Color" />
           <NavigationProperty Name="Order" Relationship="Self.FK_OrderDetail_Order" FromRole="OrderDetail" ToRole="Order" />
           <NavigationProperty Name="Product" Relationship="Self.FK_OrderDetail_Product" FromRole="OrderDetail" ToRole="Product" />
-          <NavigationProperty Name="Size" Relationship="Self.FK_OrderDetail_Size" FromRole="OrderDetail" ToRole="Size" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductID" />
           </Key>
           <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Image" Type="Binary" MaxLength="50" FixedLength="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="Binary" MaxLength="50" FixedLength="false" />
+          <Property Name="ImageType" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
           <Property Name="UnitsOnOrder" Type="Int32" Nullable="false" />
           <Property Name="UnitsInStock" Type="Int32" Nullable="false" />
-          <Property Name="UnitWeight" Type="Double" Nullable="false" />
+          <Property Name="UnitWeight" Type="Double" />
           <Property Name="Discount" Type="Double" />
-          <Property Name="SizeID" Type="Int32" Nullable="false" />
-          <Property Name="ColorID" Type="Int32" Nullable="false" />
-          <Property Name="AvailableColor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Size" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="UnitName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Rating" Type="Double" Nullable="false" />
-          <Property Name="IsDiscountAvailable" Type="Int32" Nullable="false" />
+          <Property Name="IsDiscountAvailable" Type="Boolean" Nullable="false" />
           <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
           <Property Name="SupplierID" Type="Int32" />
           <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CreatedUserID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedUserID" Type="Int32" />
           <NavigationProperty Name="Account" Relationship="Self.FK_Product_Account" FromRole="Product" ToRole="Account" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
-          <NavigationProperty Name="Color" Relationship="Self.FK_Product_Color" FromRole="Product" ToRole="Color" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_Product" FromRole="Product" ToRole="OrderDetail" />
-          <NavigationProperty Name="Size" Relationship="Self.FK_Product_Size" FromRole="Product" ToRole="Size" />
           <NavigationProperty Name="Supplier" Relationship="Self.FK_Product_Supplier" FromRole="Product" ToRole="Supplier" />
         </EntityType>
         <EntityType Name="Shipper">
@@ -590,16 +488,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="District" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Shipper" FromRole="Shipper" ToRole="Order" />
-        </EntityType>
-        <EntityType Name="Size">
-          <Key>
-            <PropertyRef Name="SizeID" />
-          </Key>
-          <Property Name="SizeID" Type="Int32" Nullable="false" />
-          <Property Name="SizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SizeDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_Size" FromRole="Size" ToRole="OrderDetail" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Product_Size" FromRole="Size" ToRole="Product" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -664,7 +552,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_Account">
-          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Account">
@@ -696,30 +584,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </Principal>
             <Dependent Role="Product">
               <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderDetail_Color">
-          <End Role="Color" Type="Self.Color" Multiplicity="1" />
-          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Color">
-              <PropertyRef Name="ColorID" />
-            </Principal>
-            <Dependent Role="OrderDetail">
-              <PropertyRef Name="ColorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Product_Color">
-          <End Role="Color" Type="Self.Color" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Color">
-              <PropertyRef Name="ColorID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="ColorID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -771,30 +635,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderDetail_Size">
-          <End Role="Size" Type="Self.Size" Multiplicity="1" />
-          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Size">
-              <PropertyRef Name="SizeID" />
-            </Principal>
-            <Dependent Role="OrderDetail">
-              <PropertyRef Name="SizeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Product_Size">
-          <End Role="Size" Type="Self.Size" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Size">
-              <PropertyRef Name="SizeID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="SizeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Product_Supplier">
           <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -810,13 +650,11 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
         <EntityContainer Name="ConstructionSiteEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Colors" EntityType="Self.Color" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Shippers" EntityType="Self.Shipper" />
-          <EntitySet Name="Sizes" EntityType="Self.Size" />
           <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
@@ -840,14 +678,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderDetail_Color" Association="Self.FK_OrderDetail_Color">
-            <End Role="Color" EntitySet="Colors" />
-            <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Color" Association="Self.FK_Product_Color">
-            <End Role="Color" EntitySet="Colors" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
           <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Order" EntitySet="Orders" />
@@ -863,14 +693,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <AssociationSet Name="FK_OrderDetail_Product" Association="Self.FK_OrderDetail_Product">
             <End Role="Product" EntitySet="Products" />
             <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderDetail_Size" Association="Self.FK_OrderDetail_Size">
-            <End Role="Size" EntitySet="Sizes" />
-            <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Size" Association="Self.FK_Product_Size">
-            <End Role="Size" EntitySet="Sizes" />
-            <End Role="Product" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK_Product_Supplier" Association="Self.FK_Product_Supplier">
             <End Role="Supplier" EntitySet="Suppliers" />
@@ -913,17 +735,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
                 <ScalarProperty Name="DateModified" ColumnName="DateModified" />
                 <ScalarProperty Name="CreatedUserID" ColumnName="CreatedUserID" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Colors">
-            <EntityTypeMapping TypeName="ConstructionSiteModel.Color">
-              <MappingFragment StoreEntitySet="Color">
-                <ScalarProperty Name="ColorID" ColumnName="ColorID" />
-                <ScalarProperty Name="ColorName" ColumnName="ColorName" />
-                <ScalarProperty Name="ColorDescription" ColumnName="ColorDescription" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Extension" ColumnName="Extension" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -979,8 +790,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="SizeID" ColumnName="SizeID" />
-                <ScalarProperty Name="ColorID" ColumnName="ColorID" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
                 <ScalarProperty Name="IsFulfilled" ColumnName="IsFulfilled" />
                 <ScalarProperty Name="ShipDate" ColumnName="ShipDate" />
                 <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
@@ -994,15 +804,15 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ImageType" ColumnName="ImageType" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="UnitsOnOrder" ColumnName="UnitsOnOrder" />
                 <ScalarProperty Name="UnitsInStock" ColumnName="UnitsInStock" />
                 <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="SizeID" ColumnName="SizeID" />
-                <ScalarProperty Name="ColorID" ColumnName="ColorID" />
-                <ScalarProperty Name="AvailableColor" ColumnName="AvailableColor" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
                 <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="UnitName" ColumnName="UnitName" />
                 <ScalarProperty Name="Rating" ColumnName="Rating" />
                 <ScalarProperty Name="IsDiscountAvailable" ColumnName="IsDiscountAvailable" />
                 <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
@@ -1022,15 +832,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="District" ColumnName="District" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sizes">
-            <EntityTypeMapping TypeName="ConstructionSiteModel.Size">
-              <MappingFragment StoreEntitySet="Size">
-                <ScalarProperty Name="SizeID" ColumnName="SizeID" />
-                <ScalarProperty Name="SizeName" ColumnName="SizeName" />
-                <ScalarProperty Name="SizeDescription" ColumnName="SizeDescription" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

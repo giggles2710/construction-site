@@ -42,16 +42,19 @@ namespace _170516
                         "~/Scripts/Admin/js/custom.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/main_script").Include(
-                        "~/Scripts/Common/main.js"));
+                        "~/Scripts/Common/main.js",
+                        "~/Scripts/toastr.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/flatly.min.css",
-                      "~/Content/common.css"));
+                      "~/Content/common.css",
+                      "~/Content/toastr.css"));
 
             bundles.Add(new StyleBundle("~/Content/admin_css").Include(
                       "~/Content/flatly.min.css",
                       "~/Content/common.css",
-                      "~/Content/Admin/css/styles.css"));
+                      "~/Content/Admin/css/styles.css",
+                       "~/Content/toastr.css"));
         }
     }
 }

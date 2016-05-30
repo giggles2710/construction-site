@@ -52,7 +52,7 @@
             </div>
             <div class="col-md-10">
                 <!-- body content -->
-                    @RenderBody()
+                @RenderBody()
                 <!-- end body-->
             </div>
         </div>
@@ -66,7 +66,7 @@
 
             </div>
         </footer>
-    </div>    
+    </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jquery_upload")
@@ -76,8 +76,13 @@
     <script type="text/javascript">
         var staticUrl = {
             addColor: "@Url.Action("AddColor","Administrator")",
-            uploadFile: "@Url.Action("UploadImage", "Home")"
-        }
+            uploadFile: "@Url.Action("UploadImage", "Home")",
+            addProduct: "@Url.Action("AddProduct","Administrator")"
+        };
+
+        var sampleRegex = {
+            floatRegex: new RegExp("^\d{0,2}(\.\d{0,2}){0,1}$")
+        };
     </script>
 
     @RenderSection("scripts", required: false)

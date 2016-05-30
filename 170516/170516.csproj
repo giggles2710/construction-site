@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -170,9 +172,6 @@
     <Compile Include="Entities\Category.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Color.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\ConstructionEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -206,9 +205,6 @@
     <Compile Include="Entities\Shipper.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Size.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\Supplier.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
@@ -222,6 +218,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Administrator\CreateColorModel.cs" />
     <Compile Include="Models\Administrator\CreateProductModel.cs" />
+    <Compile Include="Models\Administrator\ViewProductModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -239,6 +236,8 @@
     <Content Include="Content\Admin\css\styles.css" />
     <Content Include="Content\Admin\images\facebook.png" />
     <Content Include="Content\Image\image_placeholder.jpg" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="Scripts\Admin\js\calendar.js" />
     <Content Include="Scripts\Admin\js\custom.js" />
     <Content Include="Scripts\Admin\js\editors.js" />
@@ -1291,6 +1290,8 @@
       <DependentUpon>ConstructionEntity.edmx</DependentUpon>
       <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
     </Content>
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1317,7 +1318,10 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="SQL Scripts\DB_Initial.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1395,6 +1399,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

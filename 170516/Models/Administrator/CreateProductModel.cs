@@ -23,7 +23,8 @@ namespace _170516.Models.Administrator
         public string ProductSize { get; set; }
         public int ProductSupplierID { get; set; }
         public double ProductPrice { get; set; }
-        public double ProductUnit { get; set; }
+        public string ProductUnit { get; set; }
+        public string ProductImage { get; set; }
 
         // another information
         public List<CreateProductCategoryListItem> CategoryList { get; set; }

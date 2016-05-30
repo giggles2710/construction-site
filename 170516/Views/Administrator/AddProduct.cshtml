@@ -10,19 +10,14 @@
             <div class="panel-heading">
                 @*nav bar*@
                 <ol class="breadcrumb">
-                    <li><a href="#">Quản Lý Sản Phẩm</a></li>
+                    <li><a href="@Url.Action("ViewProduct","Administrator")">Quản Lý Sản Phẩm</a></li>
                     <li class="active">Tạo Sản Phẩm</li>
                 </ol>
                 <div class="panel-title title-3">Tạo Sản Phẩm Mới</div>
             </div>
             <div class="panel-body">
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-
+                <form id="AddProductForm">
                     <div class="form-horizontal">
-                        @Html.ValidationSummary(true)
-
                         <div class="row">
                             <div class="col-md-4 col-lg-4">
                                 <div class="form-group">
@@ -32,6 +27,7 @@
                                         <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
                                         <div id="ImagePreviewBox" class="preview-box" style="max-width:80%;"></div>
                                         <input id="ImageUpload" type="file" class="image-file-input" name="ImageUpload" />
+                                        <input id="ProductImage" type="hidden" name="ProductImage" />
                                         <h6 id="ImageName" class="image-name"></h6>
                                     </div>
                                 </div>
@@ -39,10 +35,10 @@
                             <div class="col-md-8 col-lg-8">
                                 <!-- PRODUCT NAME -->
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductName">Tên Sản Phẩm</label>
+                                    <label class="col-sm-3 control-label" for="ProductName">Tên Sản Phẩm <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="ProductName">
-                                        <span class="field-validation-valid" data-valmsg-for="ProductName" data-valmsg-replace="true"></span>
+                                        <input type="text" class="form-control" id="ProductName" name="ProductName">
+                                        <span class="input-error-box text-danger"></span>
                                     </div>
                                 </div>
                                 <!-- PRODUCT CATEGORY -->
@@ -51,7 +47,7 @@
                                     <div class="col-sm-7">
                                         @if (Model.CategoryList.Any())
                                         {
-                                            <select id="ProductCategoryID" class="form-control">
+                                            <select id="ProductCategoryID" class="form-control" name="ProductCategoryID">
                                                 @foreach (var category in Model.CategoryList)
                                                 {
                                                     <option value="@category.CategoryID">@category.CategoryName</option>
@@ -66,38 +62,39 @@
 
                                     </div>
                                 </div>
-                                <!-- QUANTITY -->
+                                <!-- QUANTITY UNIT IN STOCK -->
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductQuantity">Số Lượng</label>
+                                    <label class="col-sm-3 control-label" for="ProductQuantity">Số Lượng <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        <input type="number" class="form-control" id="ProductQuantity">
-                                        <span class="field-validation-valid" data-valmsg-for="ProductQuantity" data-valmsg-replace="true"></span>
+                                        <input type="number" class="form-control" id="ProductQuantity" name="ProductQuantity">
+                                        <span class="input-error-box text-danger"></span>
                                     </div>
                                 </div>
                                 <!-- WEIGHT -->
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductWeight">Cân Nặng</label>
+                                    <label class="col-sm-3 control-label" for="ProductWeight">Cân Nặng <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control double-input large-input" id="ProductWeight">
+                                        <input type="text" class="form-control double-input large-input" id="ProductWeight" name="ProductWeight">
                                         <h6>kilogram</h6>
-                                        <span class="field-validation-valid" data-valmsg-for="ProductWeight" data-valmsg-replace="true"></span>
+                                        <br />
+                                        <span class="input-error-box text-danger"></span>
                                     </div>
                                 </div>
                                 <!-- DISCOUNT -->
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ProductDiscount">Khuyến Mãi</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control double-input large-input" id="ProductDiscount">
+                                        <input type="text" class="form-control double-input large-input" id="ProductDiscount" name="ProductDiscount">
                                         <h6>%</h6>
-                                        <span class="field-validation-valid" data-valmsg-for="ProductDiscount" data-valmsg-replace="true"></span>
+                                        <span class="input-error-box text-danger"></span>
                                     </div>
                                 </div>
                                 <!-- SIZE -->
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductSize">Kích Cỡ</label>
+                                    <label class="col-sm-3 control-label" for="ProductSize">Kích Cỡ <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="ProductSize">
-                                        <span class="field-validation-valid" data-valmsg-for="ProductSize" data-valmsg-replace="true"></span>
+                                        <input type="text" class="form-control" id="ProductSize" name="ProductSize">
+                                        <span class="input-error-box text-danger"></span>
                                     </div>
                                 </div>
                                 <!-- SUPPLIER -->
@@ -106,13 +103,12 @@
                                     <div class="col-sm-7">
                                         @if (Model.SupplierList.Any())
                                         {
-                                            <select id="ProductSupplierID" class="form-control">
+                                            <select id="ProductSupplierID" name="ProductSupplierID" class="form-control">
                                                 @foreach (var supplier in Model.SupplierList)
                                                 {
                                                     <option value="@supplier.SupplierID">@supplier.SupplierName</option>
                                                 }
                                             </select>
-                                            <span class="field-validation-valid" data-valmsg-for="ProductSupplierID" data-valmsg-replace="true"></span>
                                         }
                                         else
                                         {
@@ -122,63 +118,63 @@
                                 </div>
                                 <!-- PRICE -->
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductPrice">Giá</label>
+                                    <label class="col-sm-3 control-label" for="ProductPrice">Giá <span class="text-danger">*</span></label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="ProductPrice">
-                                        <span class="field-validation-valid" data-valmsg-for="ProductPrice" data-valmsg-replace="true"></span>
+                                        <input type="text" class="form-control" id="ProductPrice" name="ProductPrice">
+                                        <span class="input-error-box text-danger"></span>
                                     </div>
-                                    <label class="col-sm-1 control-label" for="ProductUnit">Đơn Vị</label>
+                                    <label class="col-sm-1 control-label" for="ProductUnit">Đơn Vị <span class="text-danger">*</span></label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="ProductUnit">
-                                        <span class="field-validation-valid" data-valmsg-for="ProductUnit" data-valmsg-replace="true"></span>
+                                        <input type="text" class="form-control" id="ProductUnit" name="ProductUnit">
+                                        <span class="input-error-box text-danger"></span>
                                     </div>
                                 </div>
                                 <!-- DESCRIPTION -->
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ProductDescription">Mô Tả</label>
                                     <div class="col-sm-7">
-                                        <textarea class="form-control" id="ProductDescription"></textarea>
-                                        <span class="field-validation-valid" data-valmsg-for="ProductDescription" data-valmsg-replace="true"></span>
+                                        <textarea class="form-control" id="ProductDescription" name="ProductDescription"></textarea>
+                                        <span class="input-error-box text-danger"></span>
                                     </div>
                                 </div>
                                 <!-- COLOR -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Màu Sắc</label>
-                                    <div class="col-sm-7">
-                                        <a href="#" id="addColorLink" data-modal="AddColor">Thêm màu sắc mới</a>
-                                        <div class="color-group-div" id="ColorGroup">
-                                            @if (!Model.AvailableColorList.Any())
-                                            {
-                                                <ul class="list-group">
-                                                    @foreach (var color in Model.AvailableColorList)
-                                                    {
-                                                        <li class="list-group-item">
-                                                            <input type="hidden" value="@color.ColorID" />
-                                                            <a href="#"><i class="glyphicon glyphicon-remove"></i></a>
-                                                            <span>@color.ColorName</span>
-                                                            <img src="@color.Base64" />
-                                                        </li>
-                                                    }
-                                                </ul>
-                                            }
+                                @*<div class="form-group">
+                                        <label class="col-sm-3 control-label">Màu Sắc</label>
+                                        <div class="col-sm-7">
+                                            <a href="#" id="addColorLink" data-modal="AddColor">Thêm màu sắc mới</a>
+                                            <div class="color-group-div" id="ColorGroup">
+                                                @if (!Model.AvailableColorList.Any())
+                                                {
+                                                    <ul class="list-group">
+                                                        @foreach (var color in Model.AvailableColorList)
+                                                        {
+                                                            <li class="list-group-item">
+                                                                <input type="hidden" value="@color.ColorID" />
+                                                                <a href="#"><i class="glyphicon glyphicon-remove"></i></a>
+                                                                <span>@color.ColorName</span>
+                                                                <img src="@color.Base64" />
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                }
+                                            </div>
+                                            <span class="field-validation-valid" data-valmsg-for="ProductColorID" data-valmsg-replace="true"></span>
                                         </div>
-                                        <span class="field-validation-valid" data-valmsg-for="ProductColorID" data-valmsg-replace="true"></span>
-                                    </div>
-                                </div>
+                                    </div>*@
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12 col-lg-12">
                                 <div class="form-group">
                                     <div class="col-md-12 form-button">
-                                        <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
-                                        <button class="btn btn-danger" type="submit"><i class="glyphicon glyphicon-remove"></i> Xóa</button>
+                                        <button class="btn btn-primary" type="button" id="SubmitAddProduct"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                                        <button class="btn btn-danger" type="reset"><i class="glyphicon glyphicon-remove"></i> Xóa</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                }
+                </form>
             </div>
         </div>
     </div>

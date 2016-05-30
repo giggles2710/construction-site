@@ -23,27 +23,25 @@ namespace _170516.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public byte[] Image { get; set; }
+        public string ImageType { get; set; }
         public int CategoryID { get; set; }
         public int UnitsOnOrder { get; set; }
         public int UnitsInStock { get; set; }
-        public double UnitWeight { get; set; }
+        public Nullable<double> UnitWeight { get; set; }
         public Nullable<double> Discount { get; set; }
-        public int SizeID { get; set; }
-        public int ColorID { get; set; }
-        public string AvailableColor { get; set; }
+        public string Size { get; set; }
         public decimal UnitPrice { get; set; }
+        public string UnitName { get; set; }
         public double Rating { get; set; }
-        public int IsDiscountAvailable { get; set; }
+        public bool IsDiscountAvailable { get; set; }
         public bool IsAvailable { get; set; }
         public Nullable<int> SupplierID { get; set; }
         public System.DateTime DateModified { get; set; }
-        public int CreatedUserID { get; set; }
+        public Nullable<int> CreatedUserID { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual Category Category { get; set; }
-        public virtual Color Color { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-        public virtual Size Size { get; set; }
         public virtual Supplier Supplier { get; set; }
     }
 }

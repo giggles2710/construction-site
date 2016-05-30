@@ -8,18 +8,10 @@ namespace _170516.Models.Administrator
 {
     public class CreateColorModel
     {
-        [Required]
-        [StringLength(50)]
+        public int ColorID { get; set; }
         public string ColorName { get; set; }
-
-        [Required]
-        [StringLength(150)]
         public string ColorDescription { get; set; }
-
-        [Required]
         public string ColorBase64String { get; set; }
-
-        [Required]
         public string Extension { get; set; }
     }
 }
