@@ -41,6 +41,98 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
+        public ActionResult UpdateProductDetail(int id)
+        {
+            var product = dbContext.Products.FirstOrDefault(p => p.ProductID == id);
+
+            if (product != null)
+            {
+                var model = new DetailProductModel
+                {
+                    Description = product.Description,
+                    Discount = product.Discount.GetValueOrDefault(),
+                    Price = (double)product.UnitPrice,
+                    ProductName = product.Name,
+                    ProductUnit = product.UnitName,
+                    QuantityUnit = product.UnitsInStock,
+                    Size = product.Size,
+                    Weight = product.UnitWeight.GetValueOrDefault()
+                };
+
+                // category
+                if (product.Category != null)
+                {
+                    model.CategoryID = product.Category.CategoryID;
+                    model.CategoryName = product.Category.Name;
+                }
+
+                // supplier 
+                if (product.Supplier != null)
+                {
+                    model.SupplierID = product.Supplier.SupplierID;
+                    model.SupplierName = product.Supplier.CompanyName;
+                }
+
+                // image
+                if (product.Image != null && !string.IsNullOrEmpty(product.ImageType))
+                {
+                    model.ImageSrc = string.Format(Constant.ImageSourceFormat, product.ImageType, Convert.ToBase64String(product.Image));
+                }
+
+                return View("ViewProductDetail", "_AdminLayout", model);
+            }
+
+            // should be throw error
+            return View("ViewProductDetail", "_AdminLayout", new DetailProductModel());
+        }
+
+        [HttpGet]
+        public ActionResult ViewProductDetail(int id)
+        {
+            var product = dbContext.Products.FirstOrDefault(p => p.ProductID == id);
+
+            if (product != null)
+            {
+                var model = new DetailProductModel
+                {                    
+                    Description = product.Description,
+                    Discount = product.Discount.GetValueOrDefault(),
+                    Price = (double)product.UnitPrice,
+                    ProductName = product.Name,
+                    ProductUnit = product.UnitName,
+                    QuantityUnit = product.UnitsInStock,
+                    Size = product.Size,
+                    Weight = product.UnitWeight.GetValueOrDefault()
+                };
+
+                // category
+                if (product.Category != null)
+                {
+                    model.CategoryID = product.Category.CategoryID;
+                    model.CategoryName = product.Category.Name;
+                }
+
+                // supplier 
+                if (product.Supplier != null)
+                {
+                    model.SupplierID = product.Supplier.SupplierID;
+                    model.SupplierName = product.Supplier.CompanyName;
+                }
+
+                // image
+                if (product.Image != null && !string.IsNullOrEmpty(product.ImageType))
+                {
+                    model.ImageSrc = string.Format(Constant.ImageSourceFormat, product.ImageType, Convert.ToBase64String(product.Image));
+                }
+
+                return View("ViewProductDetail", "_AdminLayout", model);
+            }
+
+            // should be throw error
+            return View("ViewProductDetail", "_AdminLayout", new DetailProductModel());
+        }
+
+        [HttpGet]
         public ActionResult ViewProduct(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
         {
             var pageNo = 0;
@@ -50,14 +142,8 @@ namespace _170516.Controllers
             if (itemsPerPage == null) pageSize = 10;
             if (isAsc == null) isAsc = true;
 
-            //IQueryable<Product> products = dbContext.Products
-            //    .Where(p => string.IsNullOrWhiteSpace(searchText) || searchText.Equals(p.Name));
-
-            var temp = dbContext.Products;
-
-            
             IQueryable<Product> products = dbContext.Products
-                .Where(p => p.IsAvailable);
+                .Where(p => string.IsNullOrWhiteSpace(searchText) || searchText.Equals(p.Name));
 
             switch (sortField)
             {
@@ -100,11 +186,11 @@ namespace _170516.Controllers
                     ProductID = p.ProductID,
                     ProductName = p.Name,
                     QuantityInStock = p.UnitsInStock,
-                    CategoryName = p.Category != null ? p.Category.Name : string.Empty,
+                    CategoryName = p.Category != null ? p.Category.Name : Constant.ProductEmptyCategory,
                     DateModified = p.DateModified,
-                    ModifiedUser = "0"
+                    ModifiedUser = p.CreatedUserID == 0 ? string.Empty : "0"
                 })
-                .Skip(pageSize * pageNo)
+                .Skip(pageSize * (pageNo - 1))
                 .Take(pageSize).ToList();
 
             var model = new ViewProductModel();
