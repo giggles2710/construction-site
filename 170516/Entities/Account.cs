@@ -29,11 +29,11 @@ namespace _170516.Entities
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public string EmailAddress { get; set; }
-        public int RoleID { get; set; }
+        public Nullable<int> RoleID { get; set; }
         public string HashToken { get; set; }
         public bool IsActive { get; set; }
         public System.DateTime ModifiedDate { get; set; }
-        public int CreatedUserID { get; set; }
+        public Nullable<int> CreatedUserID { get; set; }
         public string Note { get; set; }
     
         public virtual ICollection<Account> Account1 { get; set; }

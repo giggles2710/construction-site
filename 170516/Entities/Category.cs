@@ -25,7 +25,7 @@ namespace _170516.Entities
         public Nullable<int> ParentID { get; set; }
         public byte[] Image { get; set; }
         public System.DateTime DateModified { get; set; }
-        public int CreatedUserID { get; set; }
+        public Nullable<int> CreatedUserID { get; set; }
         public bool IsActive { get; set; }
     
         public virtual ICollection<Product> Products { get; set; }

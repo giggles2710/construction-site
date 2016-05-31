@@ -9,18 +9,18 @@
           <Key>
             <PropertyRef Name="AccountID" />
           </Key>
-          <Property Name="AccountID" Type="int" Nullable="false" />
+          <Property Name="AccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="EmailAddress" Type="nvarchar(max)" />
-          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="int" />
           <Property Name="HashToken" Type="nvarchar(max)" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="ModifiedDate" Type="date" Nullable="false" />
-          <Property Name="CreatedUserID" Type="int" Nullable="false" />
+          <Property Name="CreatedUserID" Type="int" />
           <Property Name="Note" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Category">
@@ -33,7 +33,7 @@
           <Property Name="ParentID" Type="int" />
           <Property Name="Image" Type="varbinary(max)" />
           <Property Name="DateModified" Type="date" Nullable="false" />
-          <Property Name="CreatedUserID" Type="int" Nullable="false" />
+          <Property Name="CreatedUserID" Type="int" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Customer">
@@ -102,7 +102,6 @@
           <Property Name="Image" Type="varbinary" MaxLength="50" />
           <Property Name="ImageType" Type="nvarchar" MaxLength="5" />
           <Property Name="CategoryID" Type="int" />
-          <Property Name="UnitsOnOrder" Type="int" Nullable="false" />
           <Property Name="UnitsInStock" Type="int" Nullable="false" />
           <Property Name="UnitWeight" Type="float" />
           <Property Name="Discount" Type="float" />
@@ -142,7 +141,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Key>
             <PropertyRef Name="SupplierID" />
           </Key>
-          <Property Name="SupplierID" Type="int" Nullable="false" />
+          <Property Name="SupplierID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CompanyName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ContactFName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ContactLName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -167,7 +166,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK_Account_Account">
-          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
           <End Role="Account1" Type="Self.Account" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Account">
@@ -352,18 +351,18 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Key>
             <PropertyRef Name="AccountID" />
           </Key>
-          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EmailAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" />
           <Property Name="HashToken" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CreatedUserID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedUserID" Type="Int32" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Account1" Relationship="Self.FK_Account_Account" FromRole="Account" ToRole="Account1" />
           <NavigationProperty Name="Account2" Relationship="Self.FK_Account_Account" FromRole="Account1" ToRole="Account" />
@@ -381,7 +380,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="ParentID" Type="Int32" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CreatedUserID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedUserID" Type="Int32" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
         </EntityType>
@@ -458,7 +457,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="Image" Type="Binary" MaxLength="50" FixedLength="false" />
           <Property Name="ImageType" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="CategoryID" Type="Int32" />
-          <Property Name="UnitsOnOrder" Type="Int32" Nullable="false" />
           <Property Name="UnitsInStock" Type="Int32" Nullable="false" />
           <Property Name="UnitWeight" Type="Double" />
           <Property Name="Discount" Type="Double" />
@@ -493,7 +491,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Key>
             <PropertyRef Name="SupplierID" />
           </Key>
-          <Property Name="SupplierID" Type="Int32" Nullable="false" />
+          <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ContactFName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ContactLName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -528,7 +526,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <NavigationProperty Name="Account" Relationship="Self.FK_Role_Account" FromRole="Role" ToRole="Account" />
         </EntityType>
         <Association Name="FK_Account_Account">
-          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
           <End Role="Account1" Type="Self.Account" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Account">
@@ -806,7 +804,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="ImageType" ColumnName="ImageType" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="UnitsOnOrder" ColumnName="UnitsOnOrder" />
                 <ScalarProperty Name="UnitsInStock" ColumnName="UnitsInStock" />
                 <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />

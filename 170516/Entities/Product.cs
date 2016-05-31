@@ -25,7 +25,6 @@ namespace _170516.Entities
         public byte[] Image { get; set; }
         public string ImageType { get; set; }
         public Nullable<int> CategoryID { get; set; }
-        public int UnitsOnOrder { get; set; }
         public int UnitsInStock { get; set; }
         public Nullable<double> UnitWeight { get; set; }
         public Nullable<double> Discount { get; set; }

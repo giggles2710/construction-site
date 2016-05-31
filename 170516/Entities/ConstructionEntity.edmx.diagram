@@ -4,17 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="04f2a7601d9d4ecf856c4f8e407b7014" Name="Diagram1">
+      <Diagram DiagramId="b2a463ec205f410c9e8912a71de408f2" Name="Diagram1">
         <EntityTypeShape EntityType="ConstructionSiteModel.Account" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConstructionSiteModel.Category" Width="1.5" PointX="3.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConstructionSiteModel.Customer" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConstructionSiteModel.Order" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConstructionSiteModel.OrderDetail" Width="1.5" PointX="8.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.Category" Width="1.5" PointX="3.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.Customer" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.Order" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.OrderDetail" Width="1.5" PointX="8.25" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ConstructionSiteModel.Product" Width="1.5" PointX="6" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConstructionSiteModel.Shipper" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConstructionSiteModel.Supplier" Width="1.5" PointX="3.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.Shipper" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.Supplier" Width="1.5" PointX="3.75" PointY="10.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ConstructionSiteModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConstructionSiteModel.Role" Width="1.5" PointX="3" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.Role" Width="1.5" PointX="3" PointY="16.875" IsExpanded="true" />
         <AssociationConnector Association="ConstructionSiteModel.FK_Account_Account" ManuallyRouted="false" />
         <AssociationConnector Association="ConstructionSiteModel.FK_Order_Account" ManuallyRouted="false" />
         <AssociationConnector Association="ConstructionSiteModel.FK_Product_Account" ManuallyRouted="false" />
