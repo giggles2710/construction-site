@@ -218,7 +218,10 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Administrator\CreateColorModel.cs" />
     <Compile Include="Models\Administrator\CreateProductModel.cs" />
+    <Compile Include="Models\Administrator\DetailProductModel.cs" />
+    <Compile Include="Models\Administrator\UpdateProductModel.cs" />
     <Compile Include="Models\Administrator\ViewProductModel.cs" />
+    <Compile Include="Models\Constant.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -1356,6 +1359,8 @@
     <Content Include="Views\Administrator\_AddColorPartial.cshtml" />
     <Content Include="Views\Administrator\AddProduct.cshtml" />
     <Content Include="Views\Administrator\ViewProduct.cshtml" />
+    <Content Include="Views\Administrator\ViewProductDetail.cshtml" />
+    <Content Include="Views\Administrator\UpdateProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,116 @@
+﻿@model _170516.Models.Administrator.DetailProductModel
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box-large">
+            <div class="panel-heading">
+                <ol class="breadcrumb">
+                    <li><a href="@Url.Action("ViewProduct","Administrator")">Quản Lý Sản Phẩm</a></li>
+                    <li class="active">Chi tiết sản phẩm</li>
+                </ol>
+                <div class="panel-title title-3">@Model.ProductName</div>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-8 col-lg-8">
+                            <!-- PRODUCT NAME -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="ProductName">Tên Sản Phẩm</label>
+                                <div class="col-sm-7">
+                                    <span class="info-box">@Model.ProductName</span>
+                                </div>
+                            </div>
+                            <!-- PRODUCT CATEGORY -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="ProductCategoryID">Danh Mục</label>
+                                <div class="col-sm-7">
+                                    <span class="info-box">@Model.CategoryName</span>
+                                </div>
+                            </div>
+                            <!-- QUANTITY UNIT IN STOCK -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="ProductQuantity">Số Lượng</label>
+                                <div class="col-sm-7">
+                                    <span class="info-box">@Model.QuantityUnit</span>
+                                </div>
+                            </div>
+                            <!-- WEIGHT -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="ProductWeight">Cân Nặng</label>
+                                <div class="col-sm-7">
+                                    <span class="info-box">@Model.Weight</span>
+                                    <h6>kilogram</h6>
+                                </div>
+                            </div>
+                            <!-- DISCOUNT -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="ProductDiscount">Khuyến Mãi</label>
+                                <div class="col-sm-7">
+                                    <span class="info-box">@Model.Discount</span>
+                                    <h6>%</h6>
+                                </div>
+                            </div>
+                            <!-- SIZE -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="ProductSize">Kích Cỡ</label>
+                                <div class="col-sm-7">
+                                    <span class="info-box">@Model.Size</span>
+                                </div>
+                            </div>
+                            <!-- SUPPLIER -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="ProductSupplierID">Nhà Phân Phối</label>
+                                <div class="col-sm-7">
+                                    <span class="info-box">@Model.SupplierName</span>
+                                </div>
+                            </div>
+                            <!-- PRICE -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="ProductPrice">Giá</label>
+                                <div class="col-sm-3">
+                                    <span class="info-box">@Model.Price</span>
+                                    <h6>VND</h6>
+                                </div>
+                                <label class="col-sm-1 control-label" for="ProductUnit">Đơn Vị</label>
+                                <div class="col-sm-3">
+                                    <span class="info-box">@Model.ProductUnit</span>
+                                </div>
+                            </div>
+                            <!-- DESCRIPTION -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="ProductDescription">Mô Tả</label>
+                                <div class="col-sm-7">
+                                    <p>@Model.Description</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                            <div class="form-group">
+                                <!-- IMAGE -->
+                                <div class="image-box">
+                                    @if (!string.IsNullOrWhiteSpace(Model.ImageSrc))
+                                    {
+                                        <img id="ImageBox" src="@Model.ImageSrc" class="image-box" />
+                                    }
+                                    else
+                                    {
+                                        <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id='AddColorModal' class='modal fade' data-url='@Url.Action("AddColor", "Administrator")'>
+</div>
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/Admin/product.js")"></script>
+}

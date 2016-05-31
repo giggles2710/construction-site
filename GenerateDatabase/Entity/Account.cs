@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace _170516.Entities
+namespace GenerateDatabase.Entity
 {
     using System;
     using System.Collections.Generic;

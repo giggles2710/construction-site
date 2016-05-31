@@ -97,7 +97,7 @@
                                             <td class="center">@product.DateModified.ToString("dd/MM/yyyy hh:mm")</td>
                                             <td class="center">@product.ModifiedUser</td>
                                             <td class="center">
-                                                <a href="@Url.Action("ViewProduct","Administrator",new {id = product.ProductID})"><i class="glyphicon glyphicon-search"></i></a>
+                                                <a href="@Url.Action("ViewProductDetail","Administrator",new {id = product.ProductID})"><i class="glyphicon glyphicon-search"></i></a>
                                                 <a href="@Url.Action("UpdateProduct","Administrator",new {id = product.ProductID})"><i class="glyphicon glyphicon-pencil"></i></a>
                                                 <a href="@Url.Action("RemoveProduct","Administrator",new {id = product.ProductID})"><i class="glyphicon glyphicon-remove"></i></a>
                                             </td>
