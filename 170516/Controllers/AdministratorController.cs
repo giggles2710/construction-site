@@ -245,7 +245,6 @@ namespace _170516.Controllers
                 Size = model.ProductSize,
                 UnitPrice = (decimal)model.ProductPrice,
                 UnitsInStock = model.ProductQuantity,
-                UnitsOnOrder = 0,
                 UnitWeight = model.ProductWeight,
                 UnitName = model.ProductUnit
             };
