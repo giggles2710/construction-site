@@ -4,6 +4,12 @@
         // show modal
         productCategoryModel.getAddProductCategory();
     });
+
+    $('#btnCreateCategory').on('click', function () {
+        alert('abc');
+        productCategoryModel.createCategory();
+    });
+    
 });
 
 var productCategoryModel = {
@@ -19,6 +25,21 @@ var productCategoryModel = {
 
                 // then show it
                 $('#addProductCategoryModal').modal('show');
+            }
+        });
+    },
+
+    createCategory: function () {
+        $.ajax({
+            url: '@Url.Action("AddProductCategory", "Administrator")',
+            type: 'POST',
+            data: $("#createCategoryForm").serialize(),
+            success: function (data) {
+                if (data.isResult) {
+                    alert('created');
+                } else {
+                    alert('error');
+                }
             }
         });
     }

@@ -29,15 +29,68 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
-        public ActionResult ViewProductCategory()
+        public ActionResult ViewProductCategory(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
         {
-            return View("ViewProductCategory", "_AdminLayout");
+            var pageNo = 0;
+            var pageSize = 0;            
+
+            if (page == null) pageNo = 1;
+            if (itemsPerPage == null) pageSize = 10;
+            if (isAsc == null) isAsc = true;
+            
+            // do the query
+            var categoriesModel = dbContext.Categories
+                .Select(c => new ViewProductCategoryItem
+                {
+                    CategoryID = c.CategoryID,
+                    Name = c.Name,
+                    Description = c.Description                    
+                })
+                .OrderBy(c => c.Name)
+                .Skip(pageSize * (pageNo - 1))
+                .Take(pageSize).ToList();
+
+            var model = new ViewProductCategoryModel();
+            model.CurrentPage = pageNo;
+            model.SearchText = searchText;
+            model.ItemOnPage = pageSize;
+            model.StartIndex = pageSize * pageNo - pageSize + 1;
+            model.EndIndex = model.StartIndex + pageSize;
+            model.TotalNumber = dbContext.Products.Count();
+            model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
+            model.Categories = categoriesModel;
+
+            return View("ViewProductCategory", "_AdminLayout", model);
         }
 
         [HttpGet]
         public ActionResult AddProductCategory()
         {
             return PartialView("_AddProductCategoryPartial");
+        }
+
+        [HttpPost]
+        public JsonResult AddProductCategory(ViewProductCategoryItem model)
+        {
+            var category = new Category {
+                Name = model.Name,
+                Description = model.Description,
+                IsActive = true,
+                DateModified = DateTime.Now,                
+            };
+
+            dbContext.Categories.Add(category);
+
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

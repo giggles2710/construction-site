@@ -1,4 +1,5 @@
-﻿@{
+﻿@model _170516.Models.Administrator.ViewProductCategoryModel
+@{
     ViewBag.Title = "Quản Lý Danh Mục";
 }
 
@@ -8,7 +9,7 @@
             <div class="panel-heading">
                 <div class="panel-title title-3">Danh Sách Danh Mục</div>
                 <div class="panel-options">
-                    <a id="addBtn" href="#" class="btn btn-primary btn-xs" style="margin-top:0px;"><i class="glyphicon glyphicon-plus"></i> Thêm</a>
+                    <a id="addBtn" href="#" class="btn btn-primary btn-xs" style="margin-top:0px;"><i class="glyphicon glyphicon-plus"></i> Thêm</a>                    
                 </div>
             </div>
             <div class="panel-body">
@@ -18,29 +19,23 @@
                             <th>#</th>
                             <th>Tên</th>
                             <th>Mô Tả</th>
-                            <th>Nhóm</th>
-                            <th></th>
+                            <th></th>                            
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>mdo</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>fat</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>twitter</td>
-                        </tr>
+                        @foreach (var item in Model.Categories)
+                        {
+                            <tr>
+                                <td>@item.CategoryID</td>
+                                <td>@item.Name</td>
+                                <td>@item.Description</td>
+                                <td>
+                                    <a href="@Url.Action("ViewProductCategoryDetail","Administrator",new {id = item.CategoryID})"><i class="glyphicon glyphicon-search"></i></a>
+                                    <a href="@Url.Action("UpdateProductCategory","Administrator",new {id = item.CategoryID})"><i class="glyphicon glyphicon-pencil"></i></a>
+                                    <a href="@Url.Action("RemoveProductCategory","Administrator",new {id = item.CategoryID})"><i class="glyphicon glyphicon-remove"></i></a>
+                                </td>
+                            </tr>
+                        }                                               
                     </tbody>
                 </table>
             </div>
@@ -52,7 +47,7 @@
 </div>
 
 @section Scripts
-{
-    <script src="@Url.Content("~/Scripts/Admin/js/ProductCategory/main.js")"></script>
+{   
+    <script src="@Url.Content("~/Scripts/Admin/category.js")"></script>
 }
 
