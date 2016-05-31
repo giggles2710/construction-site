@@ -8,7 +8,7 @@ namespace _170516.Models.Administrator
 {
     public class CreateColorModel
     {
-        public int ColorID { get; set; }
+        public int ColorID { get; set; } // color id
         public string ColorName { get; set; }
         public string ColorDescription { get; set; }
         public string ColorBase64String { get; set; }

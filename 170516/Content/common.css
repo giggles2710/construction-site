@@ -1,0 +1,101 @@
+﻿.image-box {
+    text-align: center;
+}
+
+    .image-box img {
+        width: 80%;
+        border: 2px dashed gray;
+    }
+
+    .image-box input[type='file'] {
+        display: none;
+    }
+
+    .image-box:hover {
+        cursor: pointer;
+    }
+
+    .image-box .image-upload-button-box {
+        text-align: center;
+    }
+
+.small-input {
+    width: 15%;
+    margin-right: 10px;
+    float: left;
+}
+
+.quarter-input {
+    width: 29%;
+    margin-right: 10px;
+    float: left;
+}
+
+.large-input {
+    width: 83%;
+    margin-right: 10px;
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.float-left {
+    float: left;
+}
+
+.margin-right-10 {
+    margin-right: 10px;
+}
+
+.margin-right-5 {
+    margin-right: 5px;
+}
+
+.margin-left-5 {
+    margin-left: 5px;
+}
+
+.image-upload-button-box {
+    margin-top: 10px;
+}
+
+.form-button {
+    text-align: center;
+    padding-top: 30px;
+}
+
+.form-horizontal a {
+    display: inline-block;
+    margin-bottom: 0;
+    padding-top: 11px;
+}
+
+.colorImagePreviewCanvas {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    display: inline-block;
+    width: 100%;
+}
+
+    .colorImagePreviewCanvas .fileName {
+        margin-left: 15px;
+    }
+
+    .colorImagePreviewCanvas .filePreview {
+        float: left;
+    }
+
+    .colorImagePreviewCanvas .btnUpload {
+        float: right;
+        margin-left: 10px;
+    }
+
+    .colorImagePreviewCanvas .btnCancel {
+        float: right;
+    }
+
+.input-error-box {
+    line-height: 25px;
+}
