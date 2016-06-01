@@ -220,8 +220,10 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Administrator\CreateColorModel.cs" />
+    <Compile Include="Models\Administrator\CreateProductCategoryModel.cs" />
     <Compile Include="Models\Administrator\CreateProductModel.cs" />
     <Compile Include="Models\Administrator\DetailProductModel.cs" />
+    <Compile Include="Models\Administrator\DetailsCustomerModel.cs" />
     <Compile Include="Models\Administrator\UpdateProductModel.cs" />
     <Compile Include="Models\Administrator\ViewProductCategoryModel.cs" />
     <Compile Include="Models\Administrator\ViewProductModel.cs" />
@@ -245,6 +247,7 @@
     <Content Include="Content\Image\image_placeholder.jpg" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
+    <Content Include="Scripts\Admin\customer.js" />
     <Content Include="Scripts\Admin\js\calendar.js" />
     <Content Include="Scripts\Admin\js\custom.js" />
     <Content Include="Scripts\Admin\js\editors.js" />
@@ -1365,7 +1368,11 @@
     <Content Include="Views\Administrator\ViewProduct.cshtml" />
     <Content Include="Views\Administrator\ViewProductDetail.cshtml" />
     <Content Include="Views\Administrator\UpdateProduct.cshtml" />
-    <Content Include="Views\Administrator\_AddProductCategoryPartial.cshtml" />
+    <Content Include="Views\Administrator\AddProductCategory.cshtml" />
+    <Content Include="Views\Administrator\UpdateProductCategory.cshtml" />
+    <Content Include="Views\Administrator\ViewProductCategoryDetail.cshtml" />
+    <Content Include="Views\Administrator\ViewCustomerDetails.cshtml" />
+    <Content Include="Views\Administrator\UpdateCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

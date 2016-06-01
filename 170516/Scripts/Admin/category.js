@@ -1,15 +1,95 @@
-﻿$(document).ready(function () {
-    // add product category
-    $('#addBtn').on('click', function () {
-        // show modal
-        productCategoryModel.getAddProductCategory();
-    });
+﻿$(document).ready(function () {    
 
     $('#btnCreateCategory').on('click', function () {
-        alert('abc');
         productCategoryModel.createCategory();
     });
+
+    $('#btnUpdateCategoryLink').on('click', function () {
+        window.location = '/Administrator/UpdateProductCategory/' + $('#CategoryID').val();
+    });
     
+
+    $('#SubmitAddProductCategory').on('click', function () {
+        var form = $("#addProductCategoryForm");
+        form.validate();        
+        if (form.valid())
+        {            
+            $.ajax({
+                url: staticUrl.addProductCategory,
+                data: $('#addProductCategoryForm').serialize(),
+                async: true,
+                method: "POST",
+                dataType: "json",
+                cache: false,
+                success: function (data) {                    
+                    if (data != null) {
+                        if (data.isResult == false) {
+                            toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
+                        } else {
+                            $('#addProductCategoryForm')[0].reset();
+                            // Display an info toast with no title
+                            toastr.success('Danh mục mới lưu thành công.')
+                        }
+                    }
+                }, error: function (e) {
+                    toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
+                }
+            });
+        }                                              
+    });
+    
+    $('#SubmitUpdateProductCategory').on('click', function () {
+        var form = $("#updateProductCategoryForm");
+        form.validate();
+        if (form.valid()) {            
+            $.ajax({
+                url: staticUrl.updateProductCategory,
+                data: $('#updateProductCategoryForm').serialize(),
+                async: true,
+                method: "POST",
+                dataType: "json",
+                cache: false,
+                success: function (data) {                    
+                    if (data != null) {
+                        if (data.isResult == false) {
+                            toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
+                        } else {                            
+                            // Display an info toast with no title
+                            toastr.success('Danh mục đã chỉnh sữa thành công.');                            
+                        }
+                    }
+                }, error: function (e) {
+                    toastr.error('Có lỗi xảy ra trong quá trình chỉnh sữa. Vui lòng thử lại.');
+                }
+            });
+        }
+    });
+
+    $('#btnDeleteProductCategory').on('click', function () {
+        $.ajax({
+            url: '/Administrator/DeleteProductCategory',
+            data: {
+                id: $('#CategoryID').val()
+            },
+            traditional: true,
+            async: true,
+            method: "POST",            
+            cache: false,
+            success: function (data) {
+                if (data != null) {
+                    if (data.isResult == false) {
+                        toastr.error(data.result);
+                    } else {
+                        // Display an info toast with no title
+                        toastr.success('Danh mục đã được xóa thành công.');
+                        window.location = staticUrl.viewProductCategory;
+                    }
+                }
+            }, error: function (e) {
+                toastr.error('Có lỗi xảy ra trong quá trình xóa. Vui lòng thử lại.');
+            }
+        });
+    });
 });
 
 var productCategoryModel = {
@@ -27,20 +107,5 @@ var productCategoryModel = {
                 $('#addProductCategoryModal').modal('show');
             }
         });
-    },
-
-    createCategory: function () {
-        $.ajax({
-            url: '@Url.Action("AddProductCategory", "Administrator")',
-            type: 'POST',
-            data: $("#createCategoryForm").serialize(),
-            success: function (data) {
-                if (data.isResult) {
-                    alert('created');
-                } else {
-                    alert('error');
-                }
-            }
-        });
-    }
+    },    
 }
