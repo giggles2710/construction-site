@@ -9,5 +9,6 @@ namespace _170516.Models
     {
         public const string ProductEmptyCategory = "Chưa có dữ liệu";
         public const string ImageSourceFormat = "data:image/{0};base64, {1}";
+        public const string StringEmpty = "STRING_EMPTY";
     }
 }

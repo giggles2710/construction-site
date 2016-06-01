@@ -32,19 +32,19 @@ namespace _170516.Controllers
         public ActionResult ViewProductCategory(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
         {
             var pageNo = 0;
-            var pageSize = 0;            
+            var pageSize = 0;
 
             if (page == null) pageNo = 1;
             if (itemsPerPage == null) pageSize = 10;
             if (isAsc == null) isAsc = true;
-            
+
             // do the query
             var categoriesModel = dbContext.Categories
                 .Select(c => new ViewProductCategoryItem
                 {
                     CategoryID = c.CategoryID,
                     Name = c.Name,
-                    Description = c.Description                    
+                    Description = c.Description
                 })
                 .OrderBy(c => c.Name)
                 .Skip(pageSize * (pageNo - 1))
@@ -72,11 +72,12 @@ namespace _170516.Controllers
         [HttpPost]
         public JsonResult AddProductCategory(ViewProductCategoryItem model)
         {
-            var category = new Category {
+            var category = new Category
+            {
                 Name = model.Name,
                 Description = model.Description,
                 IsActive = true,
-                DateModified = DateTime.Now,                
+                DateModified = DateTime.Now,
             };
 
             dbContext.Categories.Add(category);
@@ -147,7 +148,7 @@ namespace _170516.Controllers
             if (product != null)
             {
                 var model = new DetailProductModel
-                {                    
+                {
                     Description = product.Description,
                     Discount = product.Discount.GetValueOrDefault(),
                     Price = (double)product.UnitPrice,
@@ -194,6 +195,8 @@ namespace _170516.Controllers
             if (page == null) pageNo = 1;
             if (itemsPerPage == null) pageSize = 10;
             if (isAsc == null) isAsc = true;
+            if (string.IsNullOrEmpty(searchText)) searchText = null;
+            if (string.IsNullOrEmpty(sortField)) sortField = "ProductName";
 
             IQueryable<Product> products = dbContext.Products
                 .Where(p => string.IsNullOrWhiteSpace(searchText) || searchText.Equals(p.Name));
@@ -255,6 +258,7 @@ namespace _170516.Controllers
             model.TotalNumber = dbContext.Products.Count();
             model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
             model.Products = productsModel;
+            model.SortField = sortField;
 
             return View("ViewProduct", "_AdminLayout", model);
         }

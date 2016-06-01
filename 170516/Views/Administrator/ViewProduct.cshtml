@@ -1,9 +1,7 @@
 ﻿@model _170516.Models.Administrator.ViewProductModel
-
 @{
     ViewBag.Title = "Quản lý sản phẩm";
 }
-
 <div class="row">
     <div class="col-md-12">
         <div class="content-box-large">
@@ -36,7 +34,6 @@
                                         {
                                             <option value="10">10</option>
                                         }
-
                                         @if (Model.ItemOnPage == 25)
                                         {
                                             <option value="25" selected>25</option>
@@ -45,7 +42,6 @@
                                         {
                                             <option value="25">25</option>
                                         }
-
                                         @if (Model.ItemOnPage == 50)
                                         {
                                             <option value="50" selected>50</option>
@@ -54,7 +50,6 @@
                                         {
                                             <option value="50">50</option>
                                         }
-
                                         @if (Model.ItemOnPage == 100)
                                         {
                                             <option value="100" selected>100</option>
@@ -79,12 +74,12 @@
                             <table class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info" style="width: 100%;">
                                 <thead>
                                     <tr role="row">
-                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 174px;">Tên</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 211px;">Danh Mục</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 193px;">Số Lượng</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 151px;">Ngày Cập Nhật</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 111px;">Người Cập Nhật</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 111px;"></th>
+                                        <th class="sorting_asc center" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 174px;">Tên</th>
+                                        <th class="sorting center" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 211px;">Danh Mục</th>
+                                        <th class="sorting center" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 193px;">Số Lượng</th>
+                                        <th class="sorting center" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 151px;">Ngày Cập Nhật</th>
+                                        <th class="sorting center" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 111px;">Người Cập Nhật</th>
+                                        <th class="sorting center" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 111px;"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -97,9 +92,9 @@
                                             <td class="center">@product.DateModified.ToString("dd/MM/yyyy hh:mm")</td>
                                             <td class="center">@product.ModifiedUser</td>
                                             <td class="center">
-                                                <a href="@Url.Action("ViewProductDetail","Administrator",new {id = product.ProductID})"><i class="glyphicon glyphicon-search"></i></a>
-                                                <a href="@Url.Action("UpdateProduct","Administrator",new {id = product.ProductID})"><i class="glyphicon glyphicon-pencil"></i></a>
-                                                <a href="@Url.Action("RemoveProduct","Administrator",new {id = product.ProductID})"><i class="glyphicon glyphicon-remove"></i></a>
+                                                <a class="action-link" href="@Url.Action("ViewProductDetail","Administrator",new {id = product.ProductID})"><i class="glyphicon glyphicon-search"></i></a>
+                                                <a class="action-link" href="@Url.Action("UpdateProduct","Administrator",new {id = product.ProductID})"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                <a class="action-link" href="@Url.Action("RemoveProduct","Administrator",new {id = product.ProductID})"><i class="glyphicon glyphicon-remove"></i></a>
                                             </td>
                                         </tr>
                                     }
@@ -120,11 +115,15 @@
                                     {
                                         if (i == 0)
                                         {
-                                            <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#">@((Model.CurrentPage + i).ToString())</a></li>
+                                            <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
+                                                <a href="@Url.Action("ViewProduct", "Adminstrator", new {page = Model.StartPage+i, itemsPerPage = Model.ItemOnPage, searchText = "NULL", sortField = Model.SortField, isAsc = Model.IsAsc})">@((Model.CurrentPage + i).ToString())</a>
+                                            </li>
                                         }
                                         else
                                         {
-                                            <li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="#">@((Model.CurrentPage + i).ToString())</a></li>
+                                            <li class="paginate_button" aria-controls="dataTables-example" tabindex="0">
+                                                <a href="@Url.Action("ViewProduct", "Adminstrator", new { page = Model.StartPage + i})">@((Model.CurrentPage + i).ToString())</a>
+                                            </li>
                                         }
                                     }
                                     <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="#">Sau</a></li>
@@ -145,4 +144,3 @@
 {
     <script src="@Url.Content("~/Scripts/Admin/product.js")"></script>
 }
-

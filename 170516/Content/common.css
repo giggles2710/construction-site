@@ -99,3 +99,15 @@
 .input-error-box {
     line-height: 25px;
 }
+
+.action-link {
+    margin-left: 5px;
+}
+
+td.center {
+    text-align: center;
+}
+
+th.center {
+    text-align: center;
+}
