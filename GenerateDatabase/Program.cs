@@ -22,12 +22,12 @@ namespace GenerateDatabase
 
             // generate category
             Console.WriteLine("==== GENERATING CATEGORY ====");
-            //generator.GenerateCategory();
+            generator.GenerateCategory();
             Console.WriteLine("==== DONE ====");
 
             // generate supplier
             Console.WriteLine("==== GENERATING SUPPLIER ====");
-            //generator.GenerateSupplier();
+            generator.GenerateSupplier();
             Console.WriteLine("==== DONE ====");
 
             // generate product
@@ -80,16 +80,19 @@ namespace GenerateDatabase
         {
             for (var i = 0; i < 300; i++)
             {
-                var category = new Category
-                {
-                    CreatedUserID = random.Next(1, 300),
-                    DateModified = DateTime.Now,
-                    Description = UtilityHelper.RandomString(150),
-                    IsActive = random.Next() % 2 != 0,
-                    Name = UtilityHelper.RandomString(50)
-                };
+                var category = dbContext.Categories.FirstOrDefault(c => c.CategoryID == i);
 
-                dbContext.Categories.Add(category);
+                if (category == null)
+                    category = new Category();
+
+                category.CreatedUserID = random.Next(1, 300);
+                category.DateModified = DateTime.Now;
+                category.Description = UtilityHelper.RandomString(150);
+                category.IsActive = random.Next() % 2 != 0;
+                category.Name = UtilityHelper.RandomString(20);
+
+                if (category == null)
+                    dbContext.Categories.Add(category);
             }
 
             dbContext.SaveChanges();
@@ -99,22 +102,34 @@ namespace GenerateDatabase
         {
             for (var i = 0; i < 300; i++)
             {
-                var supplier = new Supplier
-                {
-                    Address1 = UtilityHelper.RandomString(50),
-                    Address2 = random.Next() % 2 != 0 ? UtilityHelper.RandomString(50) : string.Empty,
-                    City = "Da Nang",
-                    CompanyName = string.Format("Supplier {0}", UtilityHelper.RandomString(10)),
-                    ContactFName = UtilityHelper.RandomString(10),
-                    ContactLName = UtilityHelper.RandomString(10),
-                    Discount = random.Next() % 2 != 0 ? random.NextDouble() : 0,
-                    EmailAddress = string.Format("Supplier_{0}.TEST@gmail.com", i),
-                    Fax = random.Next() % 2 != 0 ? UtilityHelper.RandomTelephoneNumber() : null,
-                    Phone = UtilityHelper.RandomTelephoneNumber(),
-                    ProductType = UtilityHelper.RandomString(10)
-                };
+                var supplier = dbContext.Suppliers.FirstOrDefault(s => s.SupplierID == i);
 
-                dbContext.Suppliers.Add(supplier);
+                if (supplier == null)
+                    supplier = new Supplier();
+
+                supplier.Address1 = UtilityHelper.RandomString(50);
+                supplier.Address2 = random.Next() % 2 != 0 ? UtilityHelper.RandomString(50) : string.Empty;
+                supplier.City = "Da Nang";
+                supplier.CompanyName = string.Format("Supplier {0}", UtilityHelper.RandomString(10));
+                supplier.Discount = random.Next() % 2 != 0 ? random.NextDouble() : 0;
+                supplier.EmailAddress = string.Format("Supplier_{0}.TEST@gmail.com", i);
+                supplier.Fax = random.Next() % 2 != 0 ? UtilityHelper.RandomTelephoneNumber() : null;
+                supplier.Phone = UtilityHelper.RandomTelephoneNumber();
+                supplier.ProductType = UtilityHelper.RandomString(20);
+
+                if (random.Next() % 2 != 0)
+                {
+                    supplier.ContactFName = UtilityHelper.RandomString(15);
+                    supplier.ContactLName = UtilityHelper.RandomString(15);
+                }
+                else
+                {
+                    supplier.ContactFName = string.Empty;
+                    supplier.ContactLName = string.Empty;
+                }
+
+                if (supplier == null)
+                    dbContext.Suppliers.Add(supplier);
             }
 
             try
@@ -144,27 +159,29 @@ namespace GenerateDatabase
         {
             for (var i = 0; i < 300; i++)
             {
-                var product = new Product
-                {
-                    CategoryID = random.Next(1, 300),
-                    CreatedUserID = random.Next(1,300),
-                    DateModified = DateTime.Now,
-                    Description = random.Next() % 2 != 0 ? UtilityHelper.RandomString(50) : string.Empty,
-                    Discount = random.Next() % 2 != 0 ? random.NextDouble() : 0,
-                    IsAvailable = random.Next() % 2 != 0,
-                    Name = UtilityHelper.RandomString(20),
-                    Rating = 0,
-                    Size = string.Format("{0} X {1}", random.Next(1,100), random.Next(1, 100)),
-                    SupplierID = random.Next(1,300),
-                    UnitName = "vien",
-                    UnitPrice = (decimal)random.NextDouble(),
-                    UnitsInStock = random.Next(1, 100),
-                    UnitWeight = random.NextDouble()
-                };
+                var product = dbContext.Products.FirstOrDefault(p => p.ProductID == i);
 
+                if (product == null)
+                    product = new Product();
+
+                product.CategoryID = random.Next(1, 300);
+                product.CreatedUserID = random.Next(1, 300);
+                product.DateModified = DateTime.Now;
+                product.Description = random.Next() % 2 != 0 ? UtilityHelper.RandomString(50) : string.Empty;
+                product.Discount = random.Next() % 2 != 0 ? random.NextDouble() : 0;
+                product.IsAvailable = random.Next() % 2 != 0;
+                product.Name = UtilityHelper.RandomString(20);
+                product.Rating = 0;
+                product.Size = string.Format("{0} X {1}", random.Next(1, 100), random.Next(1, 100));
+                product.SupplierID = random.Next(1, 300);
+                product.UnitName = "vien";
+                product.UnitPrice = (decimal)random.NextDouble();
+                product.UnitsInStock = random.Next(1, 100);
+                product.UnitWeight = random.NextDouble();
                 product.IsDiscountAvailable = product.Discount.GetValueOrDefault() > 0;
 
-                dbContext.Products.Add(product);
+                if (product == null)
+                    dbContext.Products.Add(product);
             }
 
             try
