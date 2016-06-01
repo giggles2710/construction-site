@@ -43,15 +43,18 @@ namespace _170516
 
             bundles.Add(new ScriptBundle("~/bundles/main_script").Include(
                         "~/Scripts/Common/main.js",
+                        "~/Scripts/bootbox.min.js",
                         "~/Scripts/toastr.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/flatly.min.css",
+                      "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/common.css",
                       "~/Content/toastr.css"));
 
             bundles.Add(new StyleBundle("~/Content/admin_css").Include(
                       "~/Content/flatly.min.css",
+                      "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/common.css",
                       "~/Content/Admin/css/styles.css",
                        "~/Content/toastr.css"));

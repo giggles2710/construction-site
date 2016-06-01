@@ -95,49 +95,37 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
-        public ActionResult UpdateProductDetail(int id)
+        public ActionResult UpdateProduct(int id)
         {
             var product = dbContext.Products.FirstOrDefault(p => p.ProductID == id);
 
             if (product != null)
             {
-                var model = new DetailProductModel
+                var model = new CreateProductModel
                 {
-                    Description = product.Description,
-                    Discount = product.Discount.GetValueOrDefault(),
-                    Price = (double)product.UnitPrice,
+                    ProductDescription = product.Description,
+                    ProductDiscount = product.Discount.GetValueOrDefault(),
+                    ProductPrice = (double)product.UnitPrice,
                     ProductName = product.Name,
                     ProductUnit = product.UnitName,
-                    QuantityUnit = product.UnitsInStock,
-                    Size = product.Size,
-                    Weight = product.UnitWeight.GetValueOrDefault()
+                    ProductQuantity = product.UnitsInStock,
+                    ProductSize = product.Size,
+                    ProductWeight = product.UnitWeight.GetValueOrDefault()
                 };
 
                 // category
                 if (product.Category != null)
-                {
-                    model.CategoryID = product.Category.CategoryID;
-                    model.CategoryName = product.Category.Name;
-                }
+                    model.SelectedCategoryID = product.Category.CategoryID;
 
                 // supplier 
                 if (product.Supplier != null)
-                {
-                    model.SupplierID = product.Supplier.SupplierID;
-                    model.SupplierName = product.Supplier.CompanyName;
-                }
+                    model.SelectedSupplierID = product.Supplier.SupplierID;
 
-                // image
-                if (product.Image != null && !string.IsNullOrEmpty(product.ImageType))
-                {
-                    model.ImageSrc = string.Format(Constant.ImageSourceFormat, product.ImageType, Convert.ToBase64String(product.Image));
-                }
-
-                return View("ViewProductDetail", "_AdminLayout", model);
+                return View("UpdateProduct", "_AdminLayout", model);
             }
 
             // should be throw error
-            return View("ViewProductDetail", "_AdminLayout", new DetailProductModel());
+            return View("UpdateProduct", "_AdminLayout", new DetailProductModel());
         }
 
         [HttpGet]
@@ -189,49 +177,68 @@ namespace _170516.Controllers
         [HttpGet]
         public ActionResult ViewProduct(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
         {
-            var pageNo = 0;
-            var pageSize = 0;
+            var pageNo = page.GetValueOrDefault();
+            var pageSize = itemsPerPage.GetValueOrDefault();
 
-            if (page == null) pageNo = 1;
-            if (itemsPerPage == null) pageSize = 10;
+            if (pageNo == 0) pageNo = 1;
+            if (pageSize == 0) pageSize = 10;
             if (isAsc == null) isAsc = true;
             if (string.IsNullOrEmpty(searchText)) searchText = null;
-            if (string.IsNullOrEmpty(sortField)) sortField = "ProductName";
+            if (string.IsNullOrEmpty(sortField)) sortField = "QuantityInStock";
 
-            IQueryable<Product> products = dbContext.Products
-                .Where(p => string.IsNullOrWhiteSpace(searchText) || searchText.Equals(p.Name));
+            IQueryable<Product> products;
 
             switch (sortField)
             {
                 case "QuantityInStock":
                     if (isAsc.GetValueOrDefault())
-                        products = products.OrderBy(p => p.UnitsInStock);
+                        products = dbContext.Products
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderBy(p => p.UnitsInStock);
                     else
-                        products = products.OrderByDescending(p => p.UnitsInStock);
+                        products = dbContext.Products
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderByDescending(p => p.UnitsInStock);
                     break;
                 case "CategoryName":
                     if (isAsc.GetValueOrDefault())
-                        products = products.OrderBy(p => p.Category.Name);
+                        products = dbContext.Products
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderBy(p => p.Category.Name);
                     else
-                        products = products.OrderByDescending(p => p.Category.Name);
+                        products = dbContext.Products
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderByDescending(p => p.Category.Name);
                     break;
                 case "DateModified":
                     if (isAsc.GetValueOrDefault())
-                        products = products.OrderBy(p => p.DateModified);
+                        products = dbContext.Products
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderBy(p => p.DateModified);
                     else
-                        products = products.OrderByDescending(p => p.DateModified);
+                        products = dbContext.Products
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderByDescending(p => p.DateModified);
                     break;
                 case "ModifiedUser":
                     if (isAsc.GetValueOrDefault())
-                        products = dbContext.Products.OrderBy(p => p.CreatedUserID);
+                        products = dbContext.Products
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderBy(p => p.CreatedUserID);
                     else
-                        products = dbContext.Products.OrderByDescending(p => p.CreatedUserID);
+                        products = dbContext.Products
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderByDescending(p => p.CreatedUserID);
                     break;
                 default:
                     if (isAsc.GetValueOrDefault())
-                        products = dbContext.Products.OrderBy(p => p.Name);
+                        products = dbContext.Products
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderBy(p => p.Name);
                     else
-                        products = dbContext.Products.OrderByDescending(p => p.Name);
+                        products = dbContext.Products
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderByDescending(p => p.Name);
                     break;
             }
 
@@ -254,8 +261,8 @@ namespace _170516.Controllers
             model.SearchText = searchText;
             model.ItemOnPage = pageSize;
             model.StartIndex = pageSize * pageNo - pageSize + 1;
-            model.EndIndex = model.StartIndex + pageSize;
-            model.TotalNumber = dbContext.Products.Count();
+            model.EndIndex = model.StartIndex + pageSize - 1;
+            model.TotalNumber = products.Count();
             model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
             model.Products = productsModel;
             model.SortField = sortField;

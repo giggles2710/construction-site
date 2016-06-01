@@ -26,6 +26,10 @@ namespace _170516.Models.Administrator
         public string ProductUnit { get; set; }
         public string ProductImage { get; set; }
 
+        // for update
+        public int SelectedCategoryID { get; set; }
+        public int SelectedSupplierID { get; set; }
+
         // another information
         public List<CreateProductCategoryListItem> CategoryList { get; set; }
         public List<CreateProductSupplierListItem> SupplierList { get; set; }

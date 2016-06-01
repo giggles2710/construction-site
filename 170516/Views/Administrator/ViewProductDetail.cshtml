@@ -16,80 +16,84 @@
                 <div class="form-horizontal">
                     <div class="row">
                         <div class="col-md-8 col-lg-8">
-                            <!-- PRODUCT NAME -->
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductName">Tên Sản Phẩm</label>
-                                <div class="col-sm-7">
-                                    <span class="info-box">@Model.ProductName</span>
+                            <fieldset class="form-group">
+                                <!-- PRODUCT NAME -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductName">Tên Sản Phẩm</label>
+                                    <div class="col-sm-7">
+                                        <h6 class="info-box">@Model.ProductName</h6>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- PRODUCT CATEGORY -->
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductCategoryID">Danh Mục</label>
-                                <div class="col-sm-7">
-                                    <span class="info-box">@Model.CategoryName</span>
+                                <!-- PRODUCT CATEGORY -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductCategoryID">Danh Mục</label>
+                                    <div class="col-sm-7">
+                                        <h6 class="info-box">@Model.CategoryName</h6>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- QUANTITY UNIT IN STOCK -->
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductQuantity">Số Lượng</label>
-                                <div class="col-sm-7">
-                                    <span class="info-box">@Model.QuantityUnit</span>
+                                <!-- QUANTITY UNIT IN STOCK -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductQuantity">Số Lượng</label>
+                                    <div class="col-sm-7">
+                                        <h6 class="info-box">@Model.QuantityUnit</h6>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- WEIGHT -->
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductWeight">Cân Nặng</label>
-                                <div class="col-sm-7">
-                                    <span class="info-box">@Model.Weight</span>
-                                    <h6>kilogram</h6>
+                                <!-- WEIGHT -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductWeight">Cân Nặng</label>
+                                    <div class="col-sm-7">
+                                        <h6 class="info-box">@Model.Weight kilogram</h6>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- DISCOUNT -->
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductDiscount">Khuyến Mãi</label>
-                                <div class="col-sm-7">
-                                    <span class="info-box">@Model.Discount</span>
-                                    <h6>%</h6>
+                                <!-- DISCOUNT -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductDiscount">Khuyến Mãi</label>
+                                    <div class="col-sm-7">
+                                        @if (Model.Discount == 0)
+                                    {
+                                            <h6 class="info-box">Không áp dụng khuyến mãi</h6>
+                                    }
+                                    else
+                                    {
+                                            <h6 class="info-box">@Model.Discount %</h6>
+                                    }
+
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- SIZE -->
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductSize">Kích Cỡ</label>
-                                <div class="col-sm-7">
-                                    <span class="info-box">@Model.Size</span>
+                                <!-- SIZE -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductSize">Kích Cỡ</label>
+                                    <div class="col-sm-7">
+                                        <h6 class="info-box">@Model.Size</h6>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- SUPPLIER -->
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductSupplierID">Nhà Phân Phối</label>
-                                <div class="col-sm-7">
-                                    <span class="info-box">@Model.SupplierName</span>
+                                <!-- SUPPLIER -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductSupplierID">Nhà Phân Phối</label>
+                                    <div class="col-sm-7">
+                                        <h6 class="info-box">@Model.SupplierName</h6>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- PRICE -->
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductPrice">Giá</label>
-                                <div class="col-sm-3">
-                                    <span class="info-box">@Model.Price</span>
-                                    <h6>VND</h6>
+                                <!-- PRICE -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductPrice">Giá</label>
+                                    <div class="col-sm-7">
+                                        <h6 class="info-box">@Model.Price VND / @Model.ProductUnit</h6>
+                                    </div>
                                 </div>
-                                <label class="col-sm-1 control-label" for="ProductUnit">Đơn Vị</label>
-                                <div class="col-sm-3">
-                                    <span class="info-box">@Model.ProductUnit</span>
+                                <!-- DESCRIPTION -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductDescription">Mô Tả</label>
+                                    <div class="col-sm-7">
+                                        <p class="h6-style info-box">@Model.Description</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- DESCRIPTION -->
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductDescription">Mô Tả</label>
-                                <div class="col-sm-7">
-                                    <p>@Model.Description</p>
-                                </div>
-                            </div>
+                            </fieldset>
                         </div>
                         <div class="col-md-4 col-lg-4">
                             <div class="form-group">
                                 <!-- IMAGE -->
+                                <label class="control-label" for="ProductDescription">Ảnh Sản Phẩm</label>
                                 <div class="image-box">
                                     @if (!string.IsNullOrWhiteSpace(Model.ImageSrc))
                                     {

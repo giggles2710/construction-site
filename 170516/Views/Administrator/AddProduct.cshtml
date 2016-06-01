@@ -18,20 +18,7 @@
             <div class="panel-body">
                 <form id="AddProductForm">
                     <div class="form-horizontal">
-                        <div class="row">
-                            <div class="col-md-4 col-lg-4">
-                                <div class="form-group">
-                                    @*<label class="control-label">Ảnh Sản Phẩm</label>*@
-                                    <!-- IMAGE -->
-                                    <div class="image-box">
-                                        <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
-                                        <div id="ImagePreviewBox" class="preview-box" style="max-width:80%;"></div>
-                                        <input id="ImageUpload" type="file" class="image-file-input" name="ImageUpload" />
-                                        <input id="ProductImage" type="hidden" name="ProductImage" />
-                                        <h6 id="ImageName" class="image-name"></h6>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="row">                            
                             <div class="col-md-8 col-lg-8">
                                 <!-- PRODUCT NAME -->
                                 <div class="form-group">
@@ -133,34 +120,23 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ProductDescription">Mô Tả</label>
                                     <div class="col-sm-7">
-                                        <textarea class="form-control" id="ProductDescription" name="ProductDescription"></textarea>
+                                        <textarea class="form-control" id="ProductDescription" name="ProductDescription" style="height: 115px;"></textarea>
                                         <span class="input-error-box text-danger"></span>
                                     </div>
                                 </div>
-                                <!-- COLOR -->
-                                @*<div class="form-group">
-                                        <label class="col-sm-3 control-label">Màu Sắc</label>
-                                        <div class="col-sm-7">
-                                            <a href="#" id="addColorLink" data-modal="AddColor">Thêm màu sắc mới</a>
-                                            <div class="color-group-div" id="ColorGroup">
-                                                @if (!Model.AvailableColorList.Any())
-                                                {
-                                                    <ul class="list-group">
-                                                        @foreach (var color in Model.AvailableColorList)
-                                                        {
-                                                            <li class="list-group-item">
-                                                                <input type="hidden" value="@color.ColorID" />
-                                                                <a href="#"><i class="glyphicon glyphicon-remove"></i></a>
-                                                                <span>@color.ColorName</span>
-                                                                <img src="@color.Base64" />
-                                                            </li>
-                                                        }
-                                                    </ul>
-                                                }
-                                            </div>
-                                            <span class="field-validation-valid" data-valmsg-for="ProductColorID" data-valmsg-replace="true"></span>
-                                        </div>
-                                    </div>*@
+                            </div>
+                            <div class="col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="ProductDescription">Ảnh Sản Phẩm</label>
+                                    <!-- IMAGE -->
+                                    <div class="image-box">
+                                        <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
+                                        <div id="ImagePreviewBox" class="preview-box" style="max-width:80%;"></div>
+                                        <input id="ImageUpload" type="file" class="image-file-input" name="ImageUpload" />
+                                        <input id="ProductImage" type="hidden" name="ProductImage" />
+                                        <h6 id="ImageName" class="image-name"></h6>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">

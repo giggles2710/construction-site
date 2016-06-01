@@ -1,5 +1,38 @@
-﻿$(document).ready(function () {    
-    // suubmit form
+﻿$(document).ready(function () {
+    // btn search
+    $('#dataTables_search').on('click', function () {
+        addProductModel.ViewProduct();
+    });
+
+    // when change value of number of item shown in the grid
+    $('#dataTables_showNumberSelect').on('change', function () {
+        addProductModel.ViewProduct();
+    });
+
+    // before delete, show confirmation dialog
+    $('.action-link.remove-link').on('click', function () {
+        var removeUrl = $(this).data('url');
+
+        bootbox.dialog({
+            message: "Bạn có chắc là muốn xóa sản phẩm này không?",
+            title: "Xóa sản phẩm",
+            buttons: {
+                okAction: {
+                    label: "Xóa",
+                    className: "btn btn-primary btn-sm",
+                    callback: function () {
+                        window.location.href = removeUrl;
+                    }
+                },
+                noAction: {
+                    label: "Hủy",
+                    className: "btn btn-default btn-sm"
+                }
+            }
+        });
+    });
+
+    // submit form
     $('#SubmitAddProduct').on('click', function () {
         // validate before submit form
         if (addProductModel.ValidateAddProduct()) {
@@ -19,7 +52,7 @@
                             // Display an info toast with no title
                             toastr.success('Sản phẩm mới lưu thành công.')
                         }
-                    }                    
+                    }
                 }, error: function (e) {
                     toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
                 }
@@ -27,11 +60,10 @@
         }
     });
 
-
     // add product category
     $('#addColorLink').on('click', function (e) {
         // show modal
-        addProductModel.showAddColorModal($(this).data('modal'));
+        addProductModel.ShowAddColorModal($(this).data('modal'));
     });
 
     $('#ImageBox').on('click', function (e) {
@@ -68,7 +100,7 @@
 });
 
 var addProductModel = {
-    showAddColorModal: function (modalName) {
+    ShowAddColorModal: function (modalName) {
         // get add product category modal
         var modalID = '#' + modalName + 'Modal';
         var url = $(modalID).data('url');
@@ -175,6 +207,19 @@ var addProductModel = {
         }
 
         return isValid;
+    },
+    ViewProduct: function () {
+        var $activatePage = $('.pageinate_button.active');
+        var page = 1; // page
+        if ($activatePage.length > 0)
+            page = $activatePage[0].text;
+
+        var itemsOnPage = $('#dataTables_showNumberSelect').val(); // items on page
+        var searchText = $('#dataTables_show_item_search input[type="search"]').val(); // search text
+        var sortField = $('#dataTables_sort_field_hidden').val(); // sort field
+        var directionField = $('#dataTables_sort_direction_hidden').val(); // direction field
+
+        window.location.href = staticUrl.viewProduct + "?page=" + page + "&itemsPerPage=" + itemsOnPage + "&searchText=" + searchText + "&sortField=" + sortField + "&isAsc=" + directionField;
     }
 }
 

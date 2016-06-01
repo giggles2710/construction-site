@@ -575,9 +575,8 @@ body {
 .panel-heading > .panel-title, .content-box-header .panel-title {
     float: left;
     padding-top: 0px;
-    width: 100%;
+    width: 80%;
     border-bottom: 2px solid;
-    border-radius: 2px;
     color: #2c3e50;
     line-height: 40px;
     margin-bottom: 15px;
@@ -594,6 +593,11 @@ body {
 .panel-heading > .panel-options, .content-box-header .panel-options {
     float: right;
     padding-right: 15px;
+    width: 20%;
+    border-bottom: 2px solid;
+    color: #2c3e50;
+    line-height: 40px;
+    margin-bottom: 15px;
 }
 
     .panel-heading > .panel-options > a, .content-box-header .panel-options > a {
@@ -742,3 +746,7 @@ body {
     .dataTables_show_item_search span, select {
         vertical-align: top;
     }
+
+label {
+    color: #2c3e50 !important;
+}

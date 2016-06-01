@@ -13,7 +13,6 @@ namespace _170516.Models.Administrator
         public int TotalPage { get; set; }
         public int StartIndex { get; set; }
         public int EndIndex { get; set; }
-        public int StartPage { get; set; }
         public int ItemOnPage { get; set; }
         public string SearchText { get; set; }
         public string SortField { get; set; }

@@ -1,5 +1,6 @@
 ﻿.image-box {
-    text-align: center;
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
     .image-box img {
@@ -102,6 +103,7 @@
 
 .action-link {
     margin-left: 5px;
+    margin-right: 5px;
 }
 
 td.center {
@@ -110,4 +112,43 @@ td.center {
 
 th.center {
     text-align: center;
+}
+
+.dataTable_grid {
+    max-height: 500px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+
+.dataTables_show_item_div {
+    float: left;
+}
+
+    .dataTables_show_item_div label {
+        margin-right: 10px;
+    }
+
+.dataTables_search_div {
+    float: right;
+}
+
+    .dataTables_search_div label {
+        margin-right: 10px;
+    }
+
+.h6-style {
+    font-size: 13px;
+    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    color: inherit;
+}
+
+.info-box {
+    margin-top: 10px;
+    border-bottom: 2px dashed #2c3e50;
+    padding-bottom: 7px;
+    font-size: 14px;
 }
