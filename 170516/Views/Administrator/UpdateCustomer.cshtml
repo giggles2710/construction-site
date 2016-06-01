@@ -1,0 +1,134 @@
+﻿@model _170516.Models.Administrator.DetailsCustomerModel
+
+@{
+    ViewBag.Title = "UpdateCustomer";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box-large">
+            <div class="panel-heading">
+                @*nav bar*@
+                <ol class="breadcrumb">
+                    <li><a href="@Url.Action("ViewProductCategory","Administrator")">Quản Lý Khách hàng</a></li>
+                    <li class="active">Chỉnh sửa khách hàng</li>
+                </ol>
+                <div class="panel-title title-3">Chỉnh sửa khách hàng</div>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "updateCustomerForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <div class="row">
+                            @Html.ValidationSummary(true)
+                            <div class="col-md-12 col-lg-12">
+                                
+                                @Html.HiddenFor(model => model.CustomerID)
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="ProductName">Họ <span class="text-danger">*</span></label>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="ProductName">Tên <span class="text-danger">*</span></label>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+                                    
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="ProductName">Email Address <span class="text-danger">*</span></label>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(model => model.EmailAddress, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.EmailAddress, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="ProductName">Số điện thoại <span class="text-danger">*</span></label>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="ProductName">Địa chỉ  <span class="text-danger">*</span></label>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.Address, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="ProductName">Huyện/Phường <span class="text-danger">*</span></label>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(model => model.District, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.District, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="ProductName">Tỉnh/Thành phố <span class="text-danger">*</span></label>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(model => model.City, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.City, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="ProductName">Số điện thoại khi ship đến <span class="text-danger">*</span></label>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(model => model.ShipPhone, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.ShipPhone, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="ProductName">Địa chỉ ship đến  <span class="text-danger">*</span></label>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(model => model.ShipAddress, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.ShipAddress, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>   
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="ProductName">Huyện/Phường nơi ship  <span class="text-danger">*</span></label>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(model => model.ShipDistrict, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.ShipDistrict, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>   
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="ProductName">Tỉnh/Thành phố nơi ship  <span class="text-danger">*</span></label>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(model => model.ShipCity, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.ShipCity, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>                           
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <div class="col-md-12 form-button">
+                                        <button class="btn btn-primary" type="button" id="SubmitUpdateCustomer"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                                        <button class="btn btn-danger" type="button" id="btnDeleteCustomer"><i class="glyphicon glyphicon-remove"></i> Xóa</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/Admin/customer.js")"></script>
+}

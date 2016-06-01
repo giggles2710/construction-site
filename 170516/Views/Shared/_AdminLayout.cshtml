@@ -69,6 +69,7 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jquery_upload")
     @Scripts.Render("~/bundles/admin_script")
     @Scripts.Render("~/bundles/main_script")
@@ -77,6 +78,13 @@
         var staticUrl = {
             addColor: "@Url.Action("AddColor","Administrator")",
             uploadFile: "@Url.Action("UploadImage", "Home")",
+            addProduct: "@Url.Action("AddProduct","Administrator")",
+            viewProductCategory: "@Url.Action("ViewProductCategory","Administrator")",
+            addProductCategory: "@Url.Action("AddProductCategory", "Administrator")",
+            updateProductCategory: "@Url.Action("UpdateProductCategory", "Administrator")",
+            deleteProductCategory: "@Url.Action("DeleteProductCategory", "Administrator")",
+
+            updateCustomer: "@Url.Action("UpdateCustomer","Administrator")"
             addProduct: "@Url.Action("AddProduct","Administrator")",
             viewProduct: "@Url.Action("ViewProduct","Administrator")"
         };

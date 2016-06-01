@@ -40,6 +40,7 @@ namespace _170516.Controllers
 
             // do the query
             var categoriesModel = dbContext.Categories
+                .Where(c => c.IsActive)
                 .Select(c => new ViewProductCategoryItem
                 {
                     CategoryID = c.CategoryID,
@@ -66,11 +67,22 @@ namespace _170516.Controllers
         [HttpGet]
         public ActionResult AddProductCategory()
         {
-            return PartialView("_AddProductCategoryPartial");
+            var model = new CreateProductCategoryModel();
+
+            // get all category items
+            model.CategoryList = dbContext.Categories
+                .Where(c => c.IsActive)
+                .Select(c => new CreateProductCategoryListItem
+                {
+                    CategoryID = c.CategoryID,
+                    CategoryName = c.Name
+                }).ToList();
+
+            return View(model);
         }
 
         [HttpPost]
-        public JsonResult AddProductCategory(ViewProductCategoryItem model)
+        public JsonResult AddProductCategory(CreateProductCategoryModel model)
         {
             var category = new Category
             {
@@ -78,6 +90,7 @@ namespace _170516.Controllers
                 Description = model.Description,
                 IsActive = true,
                 DateModified = DateTime.Now,
+                ParentID = model.ParentID
             };
 
             dbContext.Categories.Add(category);
@@ -92,6 +105,82 @@ namespace _170516.Controllers
             }
 
             return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult UpdateProductCategory(int id)
+        {
+            var model = new CreateProductCategoryModel();
+
+            var category = dbContext.Categories.FirstOrDefault(c => c.CategoryID == id);
+
+            if (category == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            model.CategoryID = category.CategoryID;
+            model.ParentID = category.ParentID;
+            model.Name = category.Name;
+            model.Description = category.Description;
+
+            // get all category items
+            model.CategoryList = dbContext.Categories
+                .Where(c => c.IsActive)
+                .Select(c => new CreateProductCategoryListItem
+                {
+                    CategoryID = c.CategoryID,
+                    CategoryName = c.Name
+                }).ToList();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateProductCategory(CreateProductCategoryModel model)
+        {
+            var category = dbContext.Categories.FirstOrDefault(c => c.CategoryID == model.CategoryID);
+            category.Name = model.Name;
+            category.Description = model.Description;
+            category.ParentID = model.ParentID;                        
+
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ViewProductCategoryDetail(int id)
+        {
+            var category = dbContext.Categories.FirstOrDefault(c => c.CategoryID == id);
+            if (category == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var categoryDetail = new CreateProductCategoryModel
+            {
+                CategoryID = category.CategoryID,
+                Name = category.Name,
+                Description = category.Description,
+            };
+
+            if (category.ParentID != null)
+            {
+                var parentCategory = dbContext.Categories.FirstOrDefault(c => c.CategoryID == category.ParentID);
+                if (parentCategory != null)
+                {
+                    categoryDetail.ParentCategoryName = parentCategory.Name;
+                }
+            }
+
+            return View(categoryDetail);
         }
 
         [HttpGet]
@@ -122,7 +211,7 @@ namespace _170516.Controllers
                     model.SelectedSupplierID = product.Supplier.SupplierID;
 
                 return View("UpdateProduct", "_AdminLayout", model);
-            }
+                }
 
             // should be throw error
             return View("UpdateProduct", "_AdminLayout", new DetailProductModel());
@@ -386,5 +475,93 @@ namespace _170516.Controllers
 
         //    return Json(new { isError = false, result = model }, JsonRequestBehavior.AllowGet);
         //}
+
+        [HttpGet]
+        public ActionResult ViewCustomerDetails(int id)
+        {
+            var customer = dbContext.Customers.FirstOrDefault(c => c.CustomerID == id);
+
+            if (customer == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var customerView = new DetailsCustomerModel
+            {
+                CustomerID = customer.CustomerID,
+                Address = customer.Address,
+                City = customer.City,
+                District = customer.District,
+                EmailAddress = customer.EmailAddress,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                Phone = customer.Phone,
+                ShipAddress = customer.ShipAddress,
+                ShipCity = customer.ShipCity,
+                ShipDistrict = customer.ShipDistrict,
+                ShipPhone = customer.ShipPhone,
+                DateEntered = customer.DateEntered
+            };
+
+            return View(customerView);
+        }
+
+        [HttpGet]
+        public ActionResult UpdateCustomer(int id)
+        {
+            var model = new DetailsCustomerModel();
+
+            var customer = dbContext.Customers.FirstOrDefault(c => c.CustomerID == id);
+
+            model.CustomerID = customer.CustomerID;
+            model.FirstName = customer.FirstName;
+            model.LastName = customer.LastName;
+            model.Address = customer.Address;
+            model.City = customer.City;
+            model.District = customer.District;
+            model.Phone = customer.Phone;
+            model.EmailAddress = customer.EmailAddress;
+            model.ShipAddress = customer.ShipAddress;
+            model.ShipCity = customer.ShipCity;
+            model.ShipDistrict = customer.ShipDistrict;
+            model.ShipPhone = customer.ShipPhone;
+
+            if (customer == null)
+            {
+                return RedirectToAction("Index");
+            }
+            
+            return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateCustomer(DetailsCustomerModel model)
+        {
+            var customer = dbContext.Customers.FirstOrDefault(c => c.CustomerID == model.CustomerID);
+
+            customer.FirstName = model.FirstName;
+            customer.LastName = model.LastName;
+            customer.Address = model.Address;
+            customer.City = model.City;
+            customer.District = model.District;
+            customer.Phone = model.Phone;
+            customer.EmailAddress = model.EmailAddress;
+            customer.ShipAddress = model.ShipAddress;
+            customer.ShipCity = model.ShipCity;
+            customer.ShipDistrict = model.ShipDistrict;
+            customer.ShipPhone = model.ShipPhone;            
+
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
