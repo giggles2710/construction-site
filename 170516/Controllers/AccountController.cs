@@ -33,7 +33,7 @@ namespace _170516.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            return View("Login", "_LayoutPlain");
         }
 
         //
@@ -45,7 +45,7 @@ namespace _170516.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
+                var user = await UserManager.FindAsync(model.EmailAddress, model.Password);
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);

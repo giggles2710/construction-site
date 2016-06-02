@@ -1408,6 +1408,7 @@
     <Content Include="Views\Administrator\ViewProductCategoryDetail.cshtml" />
     <Content Include="Views\Administrator\ViewCustomerDetails.cshtml" />
     <Content Include="Views\Administrator\UpdateCustomer.cshtml" />
+    <Content Include="Views\Shared\_LayoutPlain.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
