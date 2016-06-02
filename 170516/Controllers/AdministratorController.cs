@@ -3,6 +3,8 @@ using _170516.Models;
 using _170516.Models.Administrator;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -142,7 +144,7 @@ namespace _170516.Controllers
             var category = dbContext.Categories.FirstOrDefault(c => c.CategoryID == model.CategoryID);
             category.Name = model.Name;
             category.Description = model.Description;
-            category.ParentID = model.ParentID;                        
+            category.ParentID = model.ParentID;
 
             try
             {
@@ -190,8 +192,9 @@ namespace _170516.Controllers
 
             if (product != null)
             {
-                var model = new CreateProductModel
+                var model = new UpdateProductModel
                 {
+                    ProductID = product.ProductID,
                     ProductDescription = product.Description,
                     ProductDiscount = product.Discount.GetValueOrDefault(),
                     ProductPrice = (double)product.UnitPrice,
@@ -210,11 +213,110 @@ namespace _170516.Controllers
                 if (product.Supplier != null)
                     model.SelectedSupplierID = product.Supplier.SupplierID;
 
-                return View("UpdateProduct", "_AdminLayout", model);
+                // image
+                if (product.Image != null && !string.IsNullOrEmpty(product.ImageType))
+                {
+                    model.ProductImage = string.Format(Constant.ImageSourceFormat, product.ImageType, Convert.ToBase64String(product.Image));
                 }
 
+                // get all category items
+                model.CategoryList = dbContext.Categories
+                    .Where(c => c.IsActive)
+                    .Select(c => new CreateProductCategoryListItem
+                    {
+                        CategoryID = c.CategoryID,
+                        CategoryName = c.Name
+                    }).ToList();
+
+                // get all existing supplier
+                model.SupplierList = dbContext.Suppliers.Select(s => new CreateProductSupplierListItem
+                {
+                    SupplierID = s.SupplierID,
+                    SupplierName = s.CompanyName
+                }).ToList();
+
+                return View("UpdateProduct", "_AdminLayout", model);
+            }
+
             // should be throw error
-            return View("UpdateProduct", "_AdminLayout", new DetailProductModel());
+            return View("UpdateProduct", "_AdminLayout", new UpdateProductModel());
+        }
+
+        [HttpPost]
+        public ActionResult UpdateProduct(UpdateProductModel model)
+        {
+            try
+            {
+                var product = dbContext.Products.FirstOrDefault(p => p.ProductID == model.ProductID);
+
+                if (product != null)
+                {
+                    product.DateModified = DateTime.Now;
+                    product.Description = model.ProductDescription;
+                    product.Discount = model.ProductDiscount;
+                    product.IsAvailable = true;
+                    product.IsDiscountAvailable = model.ProductDiscount > 0;
+                    product.Name = model.ProductName;
+                    product.Rating = 0;
+                    product.Size = model.ProductSize;
+                    product.UnitPrice = (decimal)model.ProductPrice;
+                    product.UnitsInStock = model.ProductQuantity;
+                    product.UnitWeight = model.ProductWeight;
+                    product.UnitName = model.ProductUnit;
+
+                    // product supplier id
+                    if (model.ProductSupplierID == 0)
+                        product.SupplierID = null;
+                    else
+                        product.SupplierID = model.ProductSupplierID;
+
+                    // product category id
+                    if (model.ProductCategoryID == 0)
+                        product.CategoryID = null;
+                    else
+                        product.CategoryID = model.ProductCategoryID;
+
+                    // product image
+                    if (!string.IsNullOrWhiteSpace(model.ProductImage))
+                    {
+                        var imageInfos = model.ProductImage.Split(':');
+
+                        if (imageInfos.Length > 0)
+                        {
+                            product.ImageType = imageInfos[0]; // file type
+                            product.Image = Convert.FromBase64String(imageInfos[1]); // base 64 string
+                        }
+                    }
+
+                    dbContext.Entry(product).State = EntityState.Modified;
+                    dbContext.SaveChanges();
+                }
+                else
+                {
+                    return Json(new { isResult = false, result = Constant.ProductNotFound }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -233,7 +335,8 @@ namespace _170516.Controllers
                     ProductUnit = product.UnitName,
                     QuantityUnit = product.UnitsInStock,
                     Size = product.Size,
-                    Weight = product.UnitWeight.GetValueOrDefault()
+                    Weight = product.UnitWeight.GetValueOrDefault(),
+                    DateModified = product.DateModified
                 };
 
                 // category
@@ -256,6 +359,12 @@ namespace _170516.Controllers
                     model.ImageSrc = string.Format(Constant.ImageSourceFormat, product.ImageType, Convert.ToBase64String(product.Image));
                 }
 
+                // user modified
+                if (product.Account != null)
+                {
+                    model.UserModified = string.Format("{0} {1}", product.Account.LastName, product.Account.FirstName);
+                }
+
                 return View("ViewProductDetail", "_AdminLayout", model);
             }
 
@@ -273,7 +382,7 @@ namespace _170516.Controllers
             if (pageSize == 0) pageSize = 10;
             if (isAsc == null) isAsc = true;
             if (string.IsNullOrEmpty(searchText)) searchText = null;
-            if (string.IsNullOrEmpty(sortField)) sortField = "QuantityInStock";
+            if (string.IsNullOrEmpty(sortField)) sortField = "ProductName";
 
             IQueryable<Product> products;
 
@@ -355,6 +464,7 @@ namespace _170516.Controllers
             model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
             model.Products = productsModel;
             model.SortField = sortField;
+            model.IsAsc = isAsc.GetValueOrDefault();
 
             return View("ViewProduct", "_AdminLayout", model);
         }
@@ -530,7 +640,7 @@ namespace _170516.Controllers
             {
                 return RedirectToAction("Index");
             }
-            
+
             return View(model);
         }
 
@@ -549,7 +659,7 @@ namespace _170516.Controllers
             customer.ShipAddress = model.ShipAddress;
             customer.ShipCity = model.ShipCity;
             customer.ShipDistrict = model.ShipDistrict;
-            customer.ShipPhone = model.ShipPhone;            
+            customer.ShipPhone = model.ShipPhone;
 
             try
             {
@@ -561,6 +671,32 @@ namespace _170516.Controllers
             }
 
             return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult RemoveProduct(int id)
+        {
+            try
+            {
+                var product = dbContext.Products.FirstOrDefault(p => p.ProductID == id);
+
+                if (product != null)
+                {
+                    // remove it
+                    dbContext.Products.Remove(product);
+                    dbContext.SaveChanges();
+                }
+                else
+                {
+                    return Json(new { isResult = false, result = Constant.ProductNotFound }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
         }
 
     }

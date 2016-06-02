@@ -211,9 +211,6 @@
     <Compile Include="Entities\Supplier.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\sysdiagram.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1290,23 +1287,6 @@
     <Content Include="Scripts\Admin\vendors\tinymce\js\tinymce\skins\lightgray\fonts\readme.md" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
-    <EntityDeploy Include="Entities\ConstructionEntity.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ConstructionEntity.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Entities\ConstructionEntity.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-      <LastGenOutput>ConstructionEntity.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entities\ConstructionEntity.edmx.diagram">
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-    </Content>
-    <Content Include="Entities\ConstructionEntity.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-      <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
-    </Content>
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff" />
@@ -1340,6 +1320,23 @@
     <Content Include="Content\font-awesome\scss\_screen-reader.scss" />
     <Content Include="Content\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\font-awesome\scss\_variables.scss" />
+    <EntityDeploy Include="Entities\ConstructionEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ConstructionEntity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Entities\ConstructionEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <LastGenOutput>ConstructionEntity.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entities\ConstructionEntity.edmx.diagram">
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+    </Content>
+    <Content Include="Entities\ConstructionEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

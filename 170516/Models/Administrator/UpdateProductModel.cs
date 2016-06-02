@@ -13,6 +13,7 @@ namespace _170516.Models.Administrator
             this.CategoryList = new List<CreateProductCategoryListItem>();
         }
 
+        public int ProductID { get; set; }
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
         public int ProductCategoryID { get; set; }
@@ -24,6 +25,10 @@ namespace _170516.Models.Administrator
         public double ProductPrice { get; set; }
         public string ProductUnit { get; set; }
         public string ProductImage { get; set; }
+        
+        // for update
+        public int SelectedCategoryID { get; set; }
+        public int SelectedSupplierID { get; set; }
 
         // another information
         public List<CreateProductCategoryListItem> CategoryList { get; set; }

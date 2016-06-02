@@ -1,4 +1,24 @@
 ﻿$(document).ready(function () {
+    // check to toast when delete success
+    if (window.sessionStorage.DeletedStatus == "true") {
+        toastr.success(window.sessionStorage.DeletedMessage);
+        window.sessionStorage.DeletedStatus = null;
+    } else if (window.sessionStorage.DeletedStatus == "false") {
+        toastr.error(window.sessionStorage.DeletedMessage)
+        window.sessionStorage.DeletedStatus = null;
+    }
+
+    // sorting header
+    $(".dataTable th").on('click', function () {
+        var sortStr = $(this).data('sort');
+        var direction = $(this).data('direction');
+
+        if (!Util.IsNullOrWhiteSpace(sortStr) && !Util.IsNullOrWhiteSpace(direction)) {
+            // do sort
+            addProductModel.SortProduct(sortStr, direction == "asc");
+        }
+    });
+
     // btn search
     $('#dataTables_search').on('click', function () {
         addProductModel.ViewProduct();
@@ -12,6 +32,7 @@
     // before delete, show confirmation dialog
     $('.action-link.remove-link').on('click', function () {
         var removeUrl = $(this).data('url');
+        var currentViewUrl = addProductModel.GetCurrentViewProductUrl();
 
         bootbox.dialog({
             message: "Bạn có chắc là muốn xóa sản phẩm này không?",
@@ -21,15 +42,67 @@
                     label: "Xóa",
                     className: "btn btn-primary btn-sm",
                     callback: function () {
-                        window.location.href = removeUrl;
+                        // ajax - remove
+                        $.ajax({
+                            url: removeUrl,
+                            method: "POST",
+                            success: function (data) {
+                                if (data != null) {
+                                    if (data.isResult == true) {
+                                        window.sessionStorage.DeletedStatus = true;
+                                        window.sessionStorage.DeletedMessage = 'Xóa sản phẩm thành công.';                                       
+                                    } else {
+                                        window.sessionStorage.DeletedStatus = false;
+                                        window.sessionStorage.DeletedMessage = data.result;
+                                    }
+
+                                    window.location.href = currentViewUrl;
+                                }
+                                
+                            }, error: function (data) {
+                                toastr.error(data.result);
+
+                                window.sessionStorage.IsDeletedStatus = null;
+                            }
+                        });
                     }
                 },
                 noAction: {
                     label: "Hủy",
-                    className: "btn btn-default btn-sm"
+                    className: "btn btn-default btn-sm",
+                    callback: function () {
+
+                    }
                 }
             }
         });
+    });
+    
+    // submit form
+    $('#SubmitUpdateProduct').on('click', function () {
+        // validate before submit form
+        if (addProductModel.ValidateAddProduct()) {
+            $.ajax({
+                url: staticUrl.updateProduct,
+                data: $('#UpdateProductForm').serialize(),
+                async: true,
+                method: "POST",
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    if (data != null) {
+                        if (data.isResult == false) {
+                            toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
+                        } else {
+                            // Display an info toast with no title
+                            toastr.success('Cập nhật sản phẩm thành công.')
+                        }
+                    }
+                }, error: function (e) {
+                    toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
+                }
+            });
+        }
     });
 
     // submit form
@@ -209,6 +282,9 @@ var addProductModel = {
         return isValid;
     },
     ViewProduct: function () {
+        window.location.href = addProductModel.GetCurrentViewProductUrl();
+    },
+    GetCurrentViewProductUrl: function () {
         var $activatePage = $('.pageinate_button.active');
         var page = 1; // page
         if ($activatePage.length > 0)
@@ -219,7 +295,19 @@ var addProductModel = {
         var sortField = $('#dataTables_sort_field_hidden').val(); // sort field
         var directionField = $('#dataTables_sort_direction_hidden').val(); // direction field
 
-        window.location.href = staticUrl.viewProduct + "?page=" + page + "&itemsPerPage=" + itemsOnPage + "&searchText=" + searchText + "&sortField=" + sortField + "&isAsc=" + directionField;
+        return staticUrl.viewProduct + "?page=" + page + "&itemsPerPage="
+            + itemsOnPage + "&searchText=" + searchText + "&sortField=" + sortField + "&isAsc=" + directionField;
+    },
+    SortProduct: function (sortField, isAsc) {
+        var $activatePage = $('.pageinate_button.active');
+        var page = 1; // page
+        if ($activatePage.length > 0)
+            page = $activatePage[0].text;
+        var itemsOnPage = $('#dataTables_showNumberSelect').val(); // items on page
+        var searchText = $('#dataTables_show_item_search input[type="search"]').val(); // search text
+
+        window.location.href = staticUrl.viewProduct + "?page=" + page + "&itemsPerPage="
+            + itemsOnPage + "&searchText=" + searchText + "&sortField=" + sortField + "&isAsc=" + isAsc;
     }
 }
 

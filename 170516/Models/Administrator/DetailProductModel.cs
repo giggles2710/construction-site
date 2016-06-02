@@ -20,5 +20,7 @@ namespace _170516.Models.Administrator
         public double Price { get; set; }
         public string ProductUnit { get; set; }
         public string Description { get; set; }
+        public DateTime DateModified { get; set; }
+        public string UserModified { get; set; }
     }
 }

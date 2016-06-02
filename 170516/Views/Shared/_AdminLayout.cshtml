@@ -85,12 +85,35 @@
             deleteProductCategory: "@Url.Action("DeleteProductCategory", "Administrator")",
             updateCustomer: "@Url.Action("UpdateCustomer","Administrator")",
             addProduct: "@Url.Action("AddProduct","Administrator")",
-            viewProduct: "@Url.Action("ViewProduct","Administrator")"
+            viewProduct: "@Url.Action("ViewProduct","Administrator")",
+            updateProduct: "@Url.Action("UpdateProduct", "Administrator")"
         };
 
         var sampleRegex = {
             floatRegex: new RegExp("^\d{0,2}(\.\d{0,2}){0,1}$")
         };
+
+        // environment
+        window.$environment = 'DEVELOPMENT';
+
+        // config of toastr
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
     </script>
 
     @RenderSection("scripts", required: false)

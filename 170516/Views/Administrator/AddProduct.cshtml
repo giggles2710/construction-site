@@ -56,26 +56,7 @@
                                         <input type="number" class="form-control" id="ProductQuantity" name="ProductQuantity">
                                         <span class="input-error-box text-danger"></span>
                                     </div>
-                                </div>
-                                <!-- WEIGHT -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductWeight">Cân Nặng <span class="text-danger">*</span></label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control double-input large-input" id="ProductWeight" name="ProductWeight">
-                                        <h6>kilogram</h6>
-                                        <br />
-                                        <span class="input-error-box text-danger"></span>
-                                    </div>
-                                </div>
-                                <!-- DISCOUNT -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductDiscount">Khuyến Mãi</label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control double-input large-input" id="ProductDiscount" name="ProductDiscount">
-                                        <h6>%</h6>
-                                        <span class="input-error-box text-danger"></span>
-                                    </div>
-                                </div>
+                                </div>                                                              
                                 <!-- SIZE -->
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ProductSize">Kích Cỡ <span class="text-danger">*</span></label>
@@ -103,16 +84,39 @@
                                         }
                                     </div>
                                 </div>
+                                <!-- WEIGHT -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductWeight">Cân Nặng <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control double-input large-input" id="ProductWeight" name="ProductWeight">
+                                        <h6>kilogram</h6>
+                                        <br />
+                                        <span class="input-error-box text-danger"></span>
+                                    </div>
+                                </div>  
+                                <!-- DISCOUNT -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductDiscount">Khuyến Mãi</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control double-input large-input" id="ProductDiscount" name="ProductDiscount">
+                                        <h6>%</h6>
+                                        <span class="input-error-box text-danger"></span>
+                                    </div>
+                                </div>
                                 <!-- PRICE -->
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ProductPrice">Giá <span class="text-danger">*</span></label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="ProductPrice" name="ProductPrice">
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control double-input large-input" id="ProductPrice" name="ProductPrice">
+                                        <h6>VNĐ</h6>
                                         <span class="input-error-box text-danger"></span>
                                     </div>
-                                    <label class="col-sm-1 control-label" for="ProductUnit">Đơn Vị <span class="text-danger">*</span></label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="ProductUnit" name="ProductUnit">
+                                </div>
+                                <!-- UNIT -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductUnit">Đơn vị <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control double-input" id="ProductUnit" name="ProductUnit">
                                         <span class="input-error-box text-danger"></span>
                                     </div>
                                 </div>
@@ -127,14 +131,14 @@
                             </div>
                             <div class="col-md-4 col-lg-4">
                                 <div class="form-group">
-                                    <label class="control-label" for="ProductDescription">Ảnh Sản Phẩm</label>
+                                    <label class="control-label">Ảnh Sản Phẩm</label>
                                     <!-- IMAGE -->
                                     <div class="image-box">
                                         <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
                                         <div id="ImagePreviewBox" class="preview-box" style="max-width:80%;"></div>
                                         <input id="ImageUpload" type="file" class="image-file-input" name="ImageUpload" />
                                         <input id="ProductImage" type="hidden" name="ProductImage" />
-                                        <h6 id="ImageName" class="image-name"></h6>
+                                        <h5 id="ImageName" class="image-name"></h5>
                                     </div>
                                 </div>
                             </div>

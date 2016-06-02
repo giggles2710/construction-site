@@ -35,6 +35,8 @@ namespace _170516.Entities
         public System.DateTime ModifiedDate { get; set; }
         public Nullable<int> CreatedUserID { get; set; }
         public string Note { get; set; }
+        public byte[] Image { get; set; }
+        public string ImageType { get; set; }
     
         public virtual ICollection<Account> Account1 { get; set; }
         public virtual Account Account2 { get; set; }
