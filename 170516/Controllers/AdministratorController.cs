@@ -33,35 +33,95 @@ namespace _170516.Controllers
         [HttpGet]
         public ActionResult ViewProductCategory(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
         {
-            var pageNo = 0;
-            var pageSize = 0;
+            var pageNo = page.GetValueOrDefault();
+            var pageSize = itemsPerPage.GetValueOrDefault();
 
             if (page == null) pageNo = 1;
             if (itemsPerPage == null) pageSize = 10;
             if (isAsc == null) isAsc = true;
+            if (string.IsNullOrEmpty(searchText)) searchText = null;
+            if (string.IsNullOrEmpty(sortField)) sortField = "CategoryName";
+
+            IQueryable<Category> categories;
+
+            switch (sortField)
+            {
+                case "CategoryName":
+                    if (isAsc.GetValueOrDefault())
+                        categories = dbContext.Categories
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderBy(p => p.Name);
+                    else
+                        categories = dbContext.Categories
+                          .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderByDescending(p => p.Name);
+                    break;
+                case "CategoryDescription":
+                    if (isAsc.GetValueOrDefault())
+                        categories = dbContext.Categories
+                          .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderBy(p => p.Description);
+                    else
+                        categories = dbContext.Categories
+                          .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderByDescending(p => p.Description);
+                    break;                
+                case "DateModified":
+                    if (isAsc.GetValueOrDefault())
+                        categories = dbContext.Categories
+                          .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderBy(p => p.DateModified);
+                    else
+                        categories = dbContext.Categories
+                          .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderByDescending(p => p.DateModified);
+                    break;
+                case "CreatedUser":
+                    if (isAsc.GetValueOrDefault())
+                        categories = dbContext.Categories
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderBy(p => p.CreatedUserID);
+                    else
+                        categories = dbContext.Categories
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderByDescending(p => p.CreatedUserID);
+                    break;
+                default:
+                    if (isAsc.GetValueOrDefault())
+                        categories = dbContext.Categories
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderBy(p => p.Name);
+                    else
+                        categories = dbContext.Categories
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderByDescending(p => p.Name);
+                    break;
+            }
 
             // do the query
-            var categoriesModel = dbContext.Categories
-                .Where(c => c.IsActive)
+            var categoriesModel = categories
                 .Select(c => new ViewProductCategoryItem
                 {
                     CategoryID = c.CategoryID,
                     Name = c.Name,
-                    Description = c.Description
-                })
-                .OrderBy(c => c.Name)
+                    Description = c.Description,
+                    DateModified = c.DateModified,
+                    CreatedUserID = c.CreatedUserID == 0 ? string.Empty : "0"
+                })                
                 .Skip(pageSize * (pageNo - 1))
                 .Take(pageSize).ToList();
 
-            var model = new ViewProductCategoryModel();
+            var model = new ViewProductCategoryModel();           
             model.CurrentPage = pageNo;
             model.SearchText = searchText;
             model.ItemOnPage = pageSize;
             model.StartIndex = pageSize * pageNo - pageSize + 1;
-            model.EndIndex = model.StartIndex + pageSize;
-            model.TotalNumber = dbContext.Products.Count();
+            model.EndIndex = model.StartIndex + pageSize - 1;
+            model.TotalNumber = categories.Count();
             model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
             model.Categories = categoriesModel;
+            model.SortField = sortField;
+            model.IsAsc = isAsc.GetValueOrDefault();
 
             return View("ViewProductCategory", "_AdminLayout", model);
         }
@@ -95,6 +155,18 @@ namespace _170516.Controllers
                 ParentID = model.ParentID
             };
 
+            // product image
+            if (!string.IsNullOrWhiteSpace(model.CategoryImage))
+            {
+                var imageInfos = model.CategoryImage.Split(':');
+
+                if (imageInfos.Length > 0)
+                {
+                    category.ImageType = imageInfos[0]; // file type
+                    category.Image = Convert.FromBase64String(imageInfos[1]); // base 64 string
+                }
+            }
+
             dbContext.Categories.Add(category);
 
             try
@@ -126,6 +198,12 @@ namespace _170516.Controllers
             model.Name = category.Name;
             model.Description = category.Description;
 
+            // image
+            if (category.Image != null && !string.IsNullOrEmpty(category.ImageType))
+            {
+                model.CategoryImage = string.Format(Constant.ImageSourceFormat, category.ImageType, Convert.ToBase64String(category.Image));
+            }
+
             // get all category items
             model.CategoryList = dbContext.Categories
                 .Where(c => c.IsActive)
@@ -145,6 +223,18 @@ namespace _170516.Controllers
             category.Name = model.Name;
             category.Description = model.Description;
             category.ParentID = model.ParentID;
+
+            // product image
+            if (!string.IsNullOrWhiteSpace(model.CategoryImage))
+            {
+                var imageInfos = model.CategoryImage.Split(':');
+
+                if (imageInfos.Length > 0)
+                {
+                    category.ImageType = imageInfos[0]; // file type
+                    category.Image = Convert.FromBase64String(imageInfos[1]); // base 64 string
+                }
+            }
 
             try
             {
@@ -166,11 +256,14 @@ namespace _170516.Controllers
                 return RedirectToAction("Index");
             }
 
-            var categoryDetail = new CreateProductCategoryModel
+            var categoryDetail = new ViewProductCategoryItem
             {
                 CategoryID = category.CategoryID,
                 Name = category.Name,
                 Description = category.Description,
+                DateModified = category.DateModified,
+                CreatedUserID = category.CreatedUserID == 0 ? string.Empty : "0"
+                                               
             };
 
             if (category.ParentID != null)
@@ -181,6 +274,14 @@ namespace _170516.Controllers
                     categoryDetail.ParentCategoryName = parentCategory.Name;
                 }
             }
+
+            // image
+            if (category.Image != null && !string.IsNullOrEmpty(category.ImageType))
+            {
+                categoryDetail.CategoryImage = string.Format(Constant.ImageSourceFormat, category.ImageType, Convert.ToBase64String(category.Image));
+            }
+
+
 
             return View(categoryDetail);
         }
@@ -697,6 +798,31 @@ namespace _170516.Controllers
             }
 
             return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult RemoveProductCategory(int id)
+        {
+            var category = dbContext.Categories.FirstOrDefault(c => c.CategoryID == id);
+
+            if (category == null)
+            {
+                return Json(new { isResult = false, result = "Không tìm thấy Danh mục. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                category.IsActive = false;
+                try
+                {
+                    dbContext.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { isResult = false, result = ex.Message }, JsonRequestBehavior.AllowGet);
+                }
+
+                return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
+            }
         }
 
     }

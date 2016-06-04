@@ -24,6 +24,11 @@ namespace _170516.Models.Administrator
     {
         public int CategoryID { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }        
+        public string Description { get; set; }
+        public System.DateTime DateModified { get; set; }
+        public string CreatedUserID { get; set; }
+
+        public string CategoryImage { get; set; }
+        public string ParentCategoryName { get; set; }
     }
 }
