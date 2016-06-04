@@ -1,0 +1,126 @@
+﻿@model _170516.Models.Administrator.CreateSupplierModel
+
+@{
+    ViewBag.Title = "ViewSupplierDetails";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box-large">
+            <div class="panel-heading">
+                @*nav bar*@
+                <ol class="breadcrumb">
+                    <li><a href="@Url.Action("ViewSupplier","Administrator")">Quản Lý nhà cung cấp</a></li>
+                    <li class="active">Chi tiết nhà cung cấp</li>
+                </ol>
+                <div class="panel-title title-3">@Model.CompanyName</div>
+            </div>
+            <div class="panel-body">             
+                    <div class="form-horizontal">
+                        <div class="row">
+                            <div class="col-md-8 col-lg-8">
+                                @Html.HiddenFor(model => model.SupplierID)
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="CompanyName">Tên nhà cung cấp <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <span class="info-box">@Model.CompanyName</span>
+                                    </div>
+                                </div>                               
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ContactLName">Họ Tên liên lạc<span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <span class="info-box">@string.Format("{0} {1}", Model.ContactFName, Model.ContactLName)</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="Address1">Địa chỉ 1: <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <span class="info-box">@Model.Address1</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="Address2">Địa chỉ 2: <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <span class="info-box">@Model.Address2</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="City">Tỉnh/Thành phố: <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <span class="info-box">@Model.City</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="Phone">Số điện thoại: <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <span class="info-box">@Model.Phone</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="Fax">Fax: <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <span class="info-box">@Model.Fax</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="EmailAddress">Email address: <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <span class="info-box">@Model.EmailAddress</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="Discount">Discount: <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <span class="info-box">@Model.Discount</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductType">Product Type: <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <span class="info-box">@Model.ProductType</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="control-label">Ảnh Danh mục</label>
+                                    <!-- IMAGE -->
+                                    <div class="image-box">
+                                        @if (string.IsNullOrEmpty(Model.Logo))
+                                        {
+                                            <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
+                                        }
+                                        else
+                                        {
+                                            <img id="ImageBox" src="@Model.Logo" class="image-box" />
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <div class="col-md-12 form-button">
+                                        <button class="btn btn-primary" type="button" id="btnUpdateSupplierLink"><i class="glyphicon glyphicon-floppy-disk"></i> Chỉnh sửa</button>
+                                        <button class="btn btn-danger" type="reset" id="btnDeleteSupplier"><i class="glyphicon glyphicon-remove"></i>Xóa</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/Admin/supplier.js")"></script>
+}
