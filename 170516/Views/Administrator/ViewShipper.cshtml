@@ -1,22 +1,24 @@
-﻿@model _170516.Models.Administrator.ViewProductCategoryModel
+﻿@model _170516.Models.Administrator.ViewShipperModel
 @{
-    ViewBag.Title = "Quản Lý Danh Mục";
+    ViewBag.Title = "ViewShipper";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 
 <div class="row">
     <div class="col-md-12">
         <div class="content-box-large">
             <div class="panel-heading">
                 <ol class="breadcrumb">
-                    <li class="active">Quản Lý Danh mục</li>
+                    <li class="active">Quản Lý Shipper</li>
                 </ol>
-                <div class="panel-title title-3">Danh Sách Danh Mục</div>
+                <div class="panel-title title-3">Danh Sách Shipper</div>
                 <div class="panel-options">
-                    <a id="addBtn" href="@Url.Action("AddProductCategory", "Administrator")" class="btn btn-primary btn-xs" style="margin-top:0px;"><i class="glyphicon glyphicon-plus"></i> Thêm</a>
+                    <a id="addBtn" href="@Url.Action("AddShipper", "Administrator")" class="btn btn-primary btn-xs" style="margin-top:0px;"><i class="glyphicon glyphicon-plus"></i> Thêm</a>
                 </div>
             </div>
             <div class="panel-body">
-             @if (Model.Categories.Any())
+                @if (Model.Shippers.Any())
             {
                     <div class="row">
                         <div class="col-sm-6">
@@ -24,7 +26,7 @@
                             <input type="hidden" id="dataTables_sort_direction_hidden" value="@Model.IsAsc" />
                             <div class="dataTables_show_item_div form-inline">
                                 <label><span>Hiển thị</span></label>
-                                <select id="dataTables_showNumberSelectCategory" aria-controls="dataTables-example" class="form-control input-sm">
+                                <select id="dataTables_showNumberSelectShipper" aria-controls="dataTables-example" class="form-control input-sm">
                                     @if (Model.ItemOnPage == 10)
                                     {
                                         <option value="10" selected>10</option>
@@ -70,94 +72,127 @@
                                 {
                                     <input type="search" class="form-control input-sm" value="@Model.SearchText">
                                 }
-                                <button type="button" id="dataTables_searchCategory" class="btn btn-default btn-sm"><i class="fa fa-search"></i></button>
+                                <button type="button" id="dataTables_searchShipper" class="btn btn-default btn-sm"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-sm-12 dataTable_grid">
-                            <table class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" id="dataTable_category" role="grid" aria-describedby="dataTables-example_info" style="width: 100%;">
+                            <table class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" id="dataTable_shipper" role="grid" aria-describedby="dataTables-example_info" style="width: 100%;">
                                 <thead>
                                     <tr role="row">
                                         <th class="center" tabindex="0" rowspan="1" colspan="1">#</th>
-                                        @if (Model.SortField.Equals("CategoryName"))
+                                        @if (Model.SortField.Equals("CompanyName"))
                                         {
                                             if (Model.IsAsc)
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="CategoryName" data-direction="desc" colspan="1">Tên <i class="fa fa-fw fa-sort-asc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="CompanyName" data-direction="desc" colspan="1">Tên công ty<i class="fa fa-fw fa-sort-asc"></i></th>
                                             }
                                             else
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="CategoryName" data-direction="asc" colspan="1">Tên <i class="fa fa-fw fa-sort-desc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="CompanyName" data-direction="asc" colspan="1">Tên công ty <i class="fa fa-fw fa-sort-desc"></i></th>
                                             }
                                         }
                                         else
                                         {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="CategoryName" data-direction="asc" colspan="1">Tên <i class="fa fa-fw fa-sort-asc"></i></th>
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="CompanyName" data-direction="asc" colspan="1">Tên công ty <i class="fa fa-fw fa-sort-asc"></i></th>
                                         }
-                                        @if (Model.SortField.Equals("CategoryDescription"))
+                                        @if (Model.SortField.Equals("Phone"))
                                         {
                                             if (Model.IsAsc)
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="CategoryDescription" data-direction="desc" colspan="1">Mô tả <i class="fa fa-fw fa-sort-asc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="Phone" data-direction="desc" colspan="1">Phone <i class="fa fa-fw fa-sort-asc"></i></th>
                                             }
                                             else
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="CategoryDescription" data-direction="asc" colspan="1">Mô tả <i class="fa fa-fw fa-sort-desc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="Phone" data-direction="asc" colspan="1">Phone <i class="fa fa-fw fa-sort-desc"></i></th>
                                             }
                                         }
                                         else
                                         {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="CategoryDescription" data-direction="asc" colspan="1">Mô tả <i class="fa fa-fw fa-sort-asc"></i></th>
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="Phone" data-direction="asc" colspan="1">Phone <i class="fa fa-fw fa-sort-asc"></i></th>
                                         }
 
-                                        @if (Model.SortField.Equals("DateModified"))
+                                        @if (Model.SortField.Equals("EmailAddress"))
                                         {
                                             if (Model.IsAsc)
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="DateModified" data-direction="desc" colspan="1">Ngày cập nhật <i class="fa fa-fw fa-sort-asc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="EmailAddress" data-direction="desc" colspan="1">Email Addresss <i class="fa fa-fw fa-sort-asc"></i></th>
                                             }
                                             else
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="DateModified" data-direction="asc" colspan="1">Ngày cập nhật <i class="fa fa-fw fa-sort-desc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="EmailAddress" data-direction="asc" colspan="1">Email Addresss <i class="fa fa-fw fa-sort-desc"></i></th>
                                             }
                                         }
                                         else
                                         {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="DateModified" data-direction="asc" colspan="1">Ngày cập nhật <i class="fa fa-fw fa-sort-asc"></i></th>
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="EmailAddress" data-direction="asc" colspan="1">Email Addresss <i class="fa fa-fw fa-sort-asc"></i></th>
                                         }
-                                        @if (Model.SortField.Equals("CreatedUser"))
+                                        @if (Model.SortField.Equals("Address"))
                                         {
                                             if (Model.IsAsc)
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="CreatedUser" data-direction="desc" colspan="1">Người tạo <i class="fa fa-fw fa-sort-asc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="Address" data-direction="desc" colspan="1">Địa chỉ <i class="fa fa-fw fa-sort-asc"></i></th>
                                             }
                                             else
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="CreatedUser" data-direction="asc" colspan="1">Người tạo <i class="fa fa-fw fa-sort-desc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="Address" data-direction="asc" colspan="1">Địa chỉ <i class="fa fa-fw fa-sort-desc"></i></th>
                                             }
                                         }
                                         else
                                         {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="CreatedUser" data-direction="asc" colspan="1">Người tạo<i class="fa fa-fw fa-sort-asc"></i></th>
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="Address" data-direction="asc" colspan="1">Địa chỉ<i class="fa fa-fw fa-sort-asc"></i></th>
+                                        }
+
+                                        @if (Model.SortField.Equals("City"))
+                                        {
+                                            if (Model.IsAsc)
+                                            {
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="City" data-direction="desc" colspan="1">Huyện/Phường <i class="fa fa-fw fa-sort-asc"></i></th>
+                                            }
+                                            else
+                                            {
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="City" data-direction="asc" colspan="1">Huyện/Phường <i class="fa fa-fw fa-sort-desc"></i></th>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="City" data-direction="asc" colspan="1">Huyện/Phường<i class="fa fa-fw fa-sort-asc"></i></th>
+                                        }
+                                        @if (Model.SortField.Equals("District"))
+                                        {
+                                            if (Model.IsAsc)
+                                            {
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="District" data-direction="desc" colspan="1">District <i class="fa fa-fw fa-sort-asc"></i></th>
+                                            }
+                                            else
+                                            {
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="District" data-direction="asc" colspan="1">District <i class="fa fa-fw fa-sort-desc"></i></th>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="Address" data-direction="asc" colspan="1">Địa chỉ<i class="fa fa-fw fa-sort-asc"></i></th>
                                         }
                                         <th class="center" tabindex="0" rowspan="1" colspan="1"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @for (var i = 1; i <= Model.Categories.Count; i++)
+                                    @for (var i = 1; i <= Model.Shippers.Count; i++)
                                     {
                                         <tr class="gradeA odd" role="row">
                                             <td>@i</td>
-                                            <td>@Model.Categories[i - 1].Name</td>
-                                            <td>@Model.Categories[i - 1].Description</td>
-                                            <td>@Model.Categories[i - 1].DateModified.ToString("dd/MM/yyyy hh:mm")</td>
-                                            <td>@Model.Categories[i - 1].CreatedUserID</td>
-                                            <td>                                                
-                                                <a class="action-link detail-link" title="Chi tiết" href="@Url.Action("ViewProductCategoryDetail", "Administrator", new { id = Model.Categories[i - 1].CategoryID })"><i class="fa fa-info-circle"></i></a>
-                                                <a class="action-link update-link" title="Cập nhật" href="@Url.Action("UpdateProductCategory", "Administrator", new { id = Model.Categories[i - 1].CategoryID })"><i class="fa fa-pencil"></i></a>
-                                                <a class="action-link remove-link category" title="Xóa" href="#" data-url="@Url.Action("RemoveProductCategory", "Administrator", new { id = Model.Categories[i - 1].CategoryID })"><i class="fa fa-remove"></i></a>
+                                            <td>@Model.Shippers[i - 1].CompanyName</td>
+                                            <td>@Model.Shippers[i - 1].Phone</td>
+                                            <td>@Model.Shippers[i - 1].EmailAddress</td>
+                                            <td>@Model.Shippers[i - 1].Address</td>
+                                            <td>@Model.Shippers[i - 1].City</td>
+                                            <td>@Model.Shippers[i - 1].District</td>                                            
+                                            <td>
+                                                <a class="action-link detail-link" title="Chi tiết" href="@Url.Action("ViewShipperDetails", "Administrator", new { id = Model.Shippers[i - 1].ShipperID })"><i class="fa fa-info-circle"></i></a>
+                                                <a class="action-link update-link" title="Cập nhật" href="@Url.Action("UpdateShipper", "Administrator", new { id = Model.Shippers[i - 1].ShipperID })"><i class="fa fa-pencil"></i></a>
+                                                <a class="action-link remove-link shipper" title="Xóa" href="#" data-url="@Url.Action("RemoveShipper", "Administrator", new { id = Model.Shippers[i - 1].ShipperID })"><i class="fa fa-remove"></i></a>
                                             </td>
                                         </tr>
                                     }
@@ -167,7 +202,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="dataTables_info" role="status" aria-live="polite">Hiển thị từ @Model.StartIndex tới @Model.EndIndex trong @Model.TotalNumber danh mục</div>
+                            <div class="dataTables_info" role="status" aria-live="polite">Hiển thị từ @Model.StartIndex tới @Model.EndIndex trong @Model.TotalNumber shipper</div>
                         </div>
                         <div class="col-sm-6">
                             <div class="dataTables_paginate">
@@ -181,7 +216,7 @@
                                     else
                                     {
                                         <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-                                            <a href="@Url.Action("ViewProductCategory", "Administrator", new {page = Model.CurrentPage - 1, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc})">Trước</a>
+                                            <a href="@Url.Action("ViewShipper", "Administrator", new {page = Model.CurrentPage - 1, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc})">Trước</a>
                                         </li>
                                     }
 
@@ -192,13 +227,13 @@
                                             if (i == 0)
                                             {
                                                 <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
-                                                    <a href="@Url.Action("ViewProductCategory", "Administrator", new {page = Model.CurrentPage + i, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc})">@((Model.CurrentPage + i).ToString())</a>
+                                                    <a href="@Url.Action("ViewShipper", "Administrator", new {page = Model.CurrentPage + i, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc})">@((Model.CurrentPage + i).ToString())</a>
                                                 </li>
                                             }
                                             else
                                             {
                                                 <li class="paginate_button" aria-controls="dataTables-example" tabindex="0">
-                                                    <a href="@Url.Action("ViewProductCategory", "Administrator", new { page = Model.CurrentPage + i, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc })">@((Model.CurrentPage + i).ToString())</a>
+                                                    <a href="@Url.Action("ViewShipper", "Administrator", new { page = Model.CurrentPage + i, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc })">@((Model.CurrentPage + i).ToString())</a>
                                                 </li>
                                             }
                                         }
@@ -213,7 +248,7 @@
                                     else
                                     {
                                         <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                                            <a href="@Url.Action("ViewProductCategory", "Administrator", new {page = Model.CurrentPage + 1, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc})">Sau</a>
+                                            <a href="@Url.Action("ViewShipper", "Administrator", new {page = Model.CurrentPage + 1, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc})">Sau</a>
                                         </li>
                                     }
                                 </ul>
@@ -223,7 +258,7 @@
                 }
                 else
                 {
-                    <h5>Không có danh mục nào được lưu trong cơ sở dữ liệu. Vui lòng tạo sản phẩm mới tại <a href="@Url.Action("AddProductCategory", "Administrator")">đây</a></h5>
+                    <h5>Không có shipper nào được lưu trong cơ sở dữ liệu. Vui lòng tạo shipper tại <a href="@Url.Action("AddShipper", "Administrator")">đây</a></h5>
                 }
             </div>
         </div>
@@ -233,6 +268,5 @@
 
 @section Scripts
 {
-    <script src="@Url.Content("~/Scripts/Admin/category.js")"></script>
+    <script src="@Url.Content("~/Scripts/Admin/shipper.js")"></script>
 }
-

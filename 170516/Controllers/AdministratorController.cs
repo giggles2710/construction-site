@@ -1095,5 +1095,222 @@ namespace _170516.Controllers
 
         #endregion
 
+        # region Shipper
+        public ActionResult ViewShipper(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
+        {
+            var pageNo = page.GetValueOrDefault();
+            var pageSize = itemsPerPage.GetValueOrDefault();
+
+            if (pageNo == 0) pageNo = 1;
+            if (pageSize == 0) pageSize = 10;
+            if (isAsc == null) isAsc = true;
+            if (string.IsNullOrEmpty(searchText)) searchText = null;
+            if (string.IsNullOrEmpty(sortField)) sortField = "CompanyName";
+
+            IQueryable<Shipper> shipper;
+            shipper = dbContext.Shippers
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.CompanyName.Contains(searchText));
+
+            switch (sortField)
+            {
+                case "Phone":
+                    if (isAsc.GetValueOrDefault())
+                        shipper = shipper.OrderBy(s => s.Phone);
+                    else
+                        shipper = shipper.OrderByDescending(s => s.Phone);
+                    break;
+                case "EmailAddress":
+                    if (isAsc.GetValueOrDefault())
+                        shipper = shipper.OrderBy(s => s.EmailAddress);
+                    else
+                        shipper = shipper.OrderByDescending(s => s.EmailAddress);
+                    break;
+                case "Address":
+                    if (isAsc.GetValueOrDefault())
+                        shipper = shipper.OrderBy(s => s.Address);
+                    else
+                        shipper = shipper.OrderByDescending(s => s.Address);
+                    break;
+                case "City":
+                    if (isAsc.GetValueOrDefault())
+                        shipper = shipper.OrderBy(s => s.City);
+                    else
+                        shipper = shipper.OrderByDescending(s => s.City);
+                    break;
+                case "District":
+                    if (isAsc.GetValueOrDefault())
+                        shipper = shipper.OrderBy(s => s.District);
+                    else
+                        shipper = shipper.OrderByDescending(s => s.District);
+                    break;
+                default:
+                    if (isAsc.GetValueOrDefault())
+                        shipper = shipper.OrderBy(s => s.CompanyName);
+                    else
+                        shipper = shipper.OrderByDescending(s => s.CompanyName);
+                    break;
+            }
+
+
+            var shipperModel = shipper.Select(s => new ViewShipperItem
+            {
+                ShipperID = s.ShipperID,
+                CompanyName = s.CompanyName,
+                Phone = s.Phone,
+                EmailAddress = s.EmailAddress,
+                Address = s.Address,
+                City = s.City,
+                District = s.District
+            }).Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
+
+           
+
+            var model = new ViewShipperModel();
+            model.CurrentPage = pageNo;
+            model.SearchText = searchText;
+            model.ItemOnPage = pageSize;
+            model.StartIndex = pageSize * pageNo - pageSize + 1;
+            model.EndIndex = model.StartIndex + pageSize - 1;
+            model.TotalNumber = shipper.Count();
+            model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
+            model.Shippers = shipperModel;
+            model.SortField = sortField;
+            model.IsAsc = isAsc.GetValueOrDefault();
+
+            return View(model);
+        }
+
+        public ActionResult ViewShipperDetails(int id)
+        {
+            var shipper = dbContext.Shippers.FirstOrDefault(s => s.ShipperID == id);
+            if (shipper == null)
+            {
+                return RedirectToAction("ViewShipper");
+            }
+
+            var shipperDetailsModel = new CreateShipperModel
+            {
+                ShipperID = shipper.ShipperID,                
+                CompanyName = shipper.CompanyName,
+                Phone = shipper.Phone,
+                EmailAddress = shipper.EmailAddress,
+                Address = shipper.Address,
+                City = shipper.City,
+                District = shipper.District
+            };
+            
+
+            return View(shipperDetailsModel);
+        }
+
+        [HttpGet]
+        public ActionResult AddShipper()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult AddShipper(CreateShipperModel model)
+        {
+            var shipper = new Shipper
+            {               
+                CompanyName = model.CompanyName,
+                Phone = model.Phone,
+                EmailAddress = model.EmailAddress,
+                Address = model.Address,
+                City = model.City,
+                District = model.District
+            };
+         
+
+            dbContext.Shippers.Add(shipper);
+
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult UpdateShipper(int id)
+        {
+            var shipper = dbContext.Shippers.FirstOrDefault(s => s.ShipperID == id);
+
+            if (shipper == null)
+            {
+                return RedirectToAction("ViewShipper");
+            }
+
+            var ShipperUpdateModel = new CreateShipperModel
+            {
+                ShipperID = shipper.ShipperID,
+                CompanyName = shipper.CompanyName,
+                Phone = shipper.Phone,
+                EmailAddress = shipper.EmailAddress,
+                Address = shipper.Address,
+                City = shipper.City,
+                District = shipper.District
+            };
+
+            
+            return View(ShipperUpdateModel);
+        }
+        [HttpPost]
+        public JsonResult UpdateShipper(CreateShipperModel model)
+        {
+            var shipper = dbContext.Shippers.FirstOrDefault(s => s.ShipperID == model.ShipperID);
+
+            shipper.CompanyName = shipper.CompanyName;
+            shipper.Phone = shipper.Phone;
+            shipper.EmailAddress = shipper.EmailAddress;
+            shipper.Address = shipper.Address;
+            shipper.City = shipper.City;
+            shipper.District = shipper.District;
+
+           
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public JsonResult RemoveShipper(int id)
+        {
+            try
+            {
+                var shipper = dbContext.Shippers.FirstOrDefault(p => p.ShipperID == id);
+
+                if (shipper != null)
+                {
+                    // remove it
+                    dbContext.Shippers.Remove(shipper);
+                    dbContext.SaveChanges();
+                }
+                else
+                {
+                    return Json(new { isResult = false, result = Constant.ShipperNotFound }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 }

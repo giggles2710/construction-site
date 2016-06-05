@@ -219,12 +219,14 @@
     <Compile Include="Models\Administrator\CreateColorModel.cs" />
     <Compile Include="Models\Administrator\CreateProductCategoryModel.cs" />
     <Compile Include="Models\Administrator\CreateProductModel.cs" />
+    <Compile Include="Models\Administrator\CreateShipperModel.cs" />
     <Compile Include="Models\Administrator\CreateSupplierModel.cs" />
     <Compile Include="Models\Administrator\DetailProductModel.cs" />
     <Compile Include="Models\Administrator\DetailsCustomerModel.cs" />
     <Compile Include="Models\Administrator\UpdateProductModel.cs" />
     <Compile Include="Models\Administrator\ViewProductCategoryModel.cs" />
     <Compile Include="Models\Administrator\ViewProductModel.cs" />
+    <Compile Include="Models\Administrator\ViewShipperModel.cs" />
     <Compile Include="Models\Administrator\ViewSupplierModel.cs" />
     <Compile Include="Models\Constant.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -256,6 +258,7 @@
     <Content Include="Scripts\Admin\js\editors.js" />
     <Content Include="Scripts\Admin\js\forms.js" />
     <Content Include="Scripts\Admin\category.js" />
+    <Content Include="Scripts\Admin\shipper.js" />
     <Content Include="Scripts\Admin\supplier.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\Common\main.js" />
@@ -1416,6 +1419,10 @@
     <Content Include="Views\Administrator\ViewSupplierDetails.cshtml" />
     <Content Include="Views\Administrator\UpdateSupplier.cshtml" />
     <Content Include="Views\Administrator\ViewSupplier.cshtml" />
+    <Content Include="Views\Administrator\ViewShipper.cshtml" />
+    <Content Include="Views\Administrator\ViewShipperDetails.cshtml" />
+    <Content Include="Views\Administrator\AddShipper.cshtml" />
+    <Content Include="Views\Administrator\UpdateShipper.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
