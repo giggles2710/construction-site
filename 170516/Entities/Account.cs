@@ -22,7 +22,7 @@ namespace _170516.Entities
             this.Roles = new HashSet<Role>();
         }
     
-        public int AccountID { get; set; }
+        public string AccountID { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string FirstName { get; set; }
@@ -33,10 +33,12 @@ namespace _170516.Entities
         public string HashToken { get; set; }
         public bool IsActive { get; set; }
         public System.DateTime ModifiedDate { get; set; }
-        public Nullable<int> CreatedUserID { get; set; }
+        public string CreatedUserID { get; set; }
         public string Note { get; set; }
         public byte[] Image { get; set; }
         public string ImageType { get; set; }
+        public Nullable<int> FailedLoginCount { get; set; }
+        public Nullable<System.DateTime> EndDeactiveTime { get; set; }
     
         public virtual ICollection<Account> Account1 { get; set; }
         public virtual Account Account2 { get; set; }

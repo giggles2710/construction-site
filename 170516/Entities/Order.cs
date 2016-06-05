@@ -34,7 +34,7 @@ namespace _170516.Entities
         public Nullable<decimal> Paid { get; set; }
         public Nullable<System.DateTime> PaymentDate { get; set; }
         public System.DateTime ModifiedDate { get; set; }
-        public Nullable<int> ModifiedUserID { get; set; }
+        public string ModifiedUserID { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual Customer Customer { get; set; }

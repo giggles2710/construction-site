@@ -31,6 +31,8 @@ namespace GenerateDatabase.Entity
         public string EmailAddress { get; set; }
         public double Discount { get; set; }
         public string ProductType { get; set; }
+        public byte[] Logo { get; set; }
+        public string ImageType { get; set; }
         public Nullable<bool> IsDiscountAvailable { get; set; }
     
         public virtual ICollection<Product> Products { get; set; }

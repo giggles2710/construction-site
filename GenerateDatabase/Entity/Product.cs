@@ -36,7 +36,7 @@ namespace GenerateDatabase.Entity
         public bool IsAvailable { get; set; }
         public Nullable<int> SupplierID { get; set; }
         public System.DateTime DateModified { get; set; }
-        public Nullable<int> CreatedUserID { get; set; }
+        public string CreatedUserID { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual Category Category { get; set; }

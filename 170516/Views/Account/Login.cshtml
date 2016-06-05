@@ -10,71 +10,29 @@
         <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
         <img id="profile-img" class="profile-img-card" src="http://design.ubuntu.com/wp-content/uploads/ubuntu-logo32.png" />
         <p id="profile-name" class="profile-name-card"></p>
-        <form class="form-signin">
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <span id="reauth-email" class="reauth-email"></span>
-            <input type="email" id="EmailAddress" name="EmailAddress" class="form-control" placeholder="Địa chỉ Email" required autofocus>
+            <input type="email" id="Email" name="Email" class="form-control" placeholder="Địa chỉ Email" required autofocus>
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
             <input type="password" id="Password" name="Password" class="form-control" placeholder="Mật khẩu" required>
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
             <div id="remember" class="checkbox">
                 <label>
                     <input type="checkbox" id="RememberMe" name="RememberMe" value="remember-me"> Nhớ tài khoản
                 </label>
             </div>
-            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Đăng Nhập</button>
-        </form><!-- /form -->
-        <a href="#" class="forgot-password">
-            Quên mật khẩu?
-        </a>
+            <button class="btn btn-lg btn-primary btn-block btn-signin" id="LoginBtn" type="submit">Đăng Nhập</button>
+            <a href="#" class="forgot-password">
+                Quên mật khẩu?
+            </a>
+        }
     </div><!-- /card-container -->
 </div><!-- /container -->
 
-@*<div class="row">
-        <div class="col-md-8">
-            <section id="loginForm">
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <h4>Use a local account to log in.</h4>
-                    <hr />
-                    @Html.ValidationSummary(true)
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.UserName)
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Password)
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <div class="checkbox">
-                                @Html.CheckBoxFor(m => m.RememberMe)
-                                @Html.LabelFor(m => m.RememberMe)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Log in" class="btn btn-default" />
-                        </div>
-                    </div>
-                    <p>
-                        @Html.ActionLink("Register", "Register") if you don't have a local account.
-                    </p>
-                }
-            </section>
-        </div>
-        <div class="col-md-4">
-            <section id="socialLoginForm">
-                @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
-            </section>
-        </div>
-    </div>*@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

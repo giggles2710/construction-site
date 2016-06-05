@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using _170516.Models;
+using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(_170516.Startup))]

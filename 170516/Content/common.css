@@ -157,12 +157,6 @@ th.center {
     margin-top: 60px;
 }
 
-/*body, html {
-    height: 100%;
-    background-repeat: no-repeat;
-    background-color: #2c3e50; 
-}*/
-
 .card-container.card {
     max-width: 350px;
     padding: 40px 40px;
@@ -286,3 +280,28 @@ th.center {
     .card-container.card.forgot-password:focus {
         color: rgb(12, 97, 33);
     }
+
+.main-content {
+    margin-top: 80px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 12px;
+}
+
+.validation-summary-errors {
+}
+
+    .validation-summary-errors ul, li {
+        list-style: none;
+        font-size: 14px;
+        padding-left: 10px;
+    }
+
+.nav-dropdown-menu {
+}
+
+    .nav-dropdown-menu li:hover {
+    }
+
+.nav-dropdown-toggle {
+    padding-top: 13px !important;
+}

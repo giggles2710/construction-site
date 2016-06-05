@@ -12,6 +12,8 @@ namespace _170516.Entities
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class ConstructionSiteEntities : DbContext
     {
@@ -34,5 +36,36 @@ namespace _170516.Entities
         public virtual DbSet<Shipper> Shippers { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+    
+        public virtual ObjectResult<string> CheckUniqueEmailAddress(string emailAddress)
+        {
+            var emailAddressParameter = emailAddress != null ?
+                new ObjectParameter("EmailAddress", emailAddress) :
+                new ObjectParameter("EmailAddress", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("CheckUniqueEmailAddress", emailAddressParameter);
+        }
+    
+        public virtual ObjectResult<GetHashTokenByEmailAddress_Result> GetHashTokenByEmailAddress(string emailAddress)
+        {
+            var emailAddressParameter = emailAddress != null ?
+                new ObjectParameter("EmailAddress", emailAddress) :
+                new ObjectParameter("EmailAddress", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetHashTokenByEmailAddress_Result>("GetHashTokenByEmailAddress", emailAddressParameter);
+        }
+    
+        public virtual ObjectResult<LoginByEmailAdress_Result> LoginByEmailAdress(string emailAddress, string password)
+        {
+            var emailAddressParameter = emailAddress != null ?
+                new ObjectParameter("EmailAddress", emailAddress) :
+                new ObjectParameter("EmailAddress", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<LoginByEmailAdress_Result>("LoginByEmailAdress", emailAddressParameter, passwordParameter);
+        }
     }
 }

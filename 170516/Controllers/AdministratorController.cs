@@ -449,7 +449,7 @@ namespace _170516.Controllers
                     QuantityInStock = p.UnitsInStock,
                     CategoryName = p.Category != null ? p.Category.Name : Constant.ProductEmptyCategory,
                     DateModified = p.DateModified,
-                    ModifiedUser = p.CreatedUserID == 0 ? string.Empty : "0"
+                    ModifiedUser = p.CreatedUserID
                 })
                 .Skip(pageSize * (pageNo - 1))
                 .Take(pageSize).ToList();

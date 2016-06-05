@@ -17,7 +17,7 @@ namespace GenerateDatabase
 
             // generate account
             Console.WriteLine("==== GENERATING USER ====");
-            //generator.GenerateUser();
+            generator.GenerateUser();
             Console.WriteLine("==== DONE ====");
 
             // generate category
@@ -57,7 +57,8 @@ namespace GenerateDatabase
             {
                 var account = new Account
                 {
-                    EmailAddress = string.Format("User_{0}.TEST@gmail.com", i),
+                    AccountID = Guid.NewGuid().ToString(),
+                    EmailAddress = string.Format("User_{0}.TEST@gmail.com", i).ToLower(),
                     FirstName = "User",
                     LastName = i.ToString(),
                     ModifiedDate = DateTime.Now,
@@ -165,7 +166,7 @@ namespace GenerateDatabase
                     product = new Product();
 
                 product.CategoryID = random.Next(1, 300);
-                product.CreatedUserID = random.Next(1, 300);
+                product.CreatedUserID = string.Empty;
                 product.DateModified = DateTime.Now;
                 product.Description = random.Next() % 2 != 0 ? UtilityHelper.RandomString(50) : string.Empty;
                 product.Discount = random.Next() % 2 != 0 ? random.NextDouble() : 0;

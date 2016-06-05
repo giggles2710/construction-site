@@ -12,6 +12,6 @@ namespace _170516.Models
         public const string StringEmpty = "STRING_EMPTY";
         public const string ProductNotFound = "Sản phẩm này không còn tồn tại trong hệ thống.";
         public const string ErrorOccur = "Có lỗi xảy ra trong quá trình cập nhật dữ liệu.";
-
+        public const string InvalidLogin = "Địa chỉ email hoặc mật khẩu không đúng.";
     }
 }

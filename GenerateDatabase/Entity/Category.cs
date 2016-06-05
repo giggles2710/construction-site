@@ -24,6 +24,7 @@ namespace GenerateDatabase.Entity
         public string Description { get; set; }
         public Nullable<int> ParentID { get; set; }
         public byte[] Image { get; set; }
+        public string ImageType { get; set; }
         public System.DateTime DateModified { get; set; }
         public Nullable<int> CreatedUserID { get; set; }
         public bool IsActive { get; set; }

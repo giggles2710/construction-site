@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="AccountID" />
           </Key>
-          <Property Name="AccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountID" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -20,10 +20,12 @@
           <Property Name="HashToken" Type="nvarchar(max)" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="ModifiedDate" Type="date" Nullable="false" />
-          <Property Name="CreatedUserID" Type="int" />
+          <Property Name="CreatedUserID" Type="nvarchar" MaxLength="50" />
           <Property Name="Note" Type="nvarchar(max)" />
           <Property Name="Image" Type="varbinary(max)" />
           <Property Name="ImageType" Type="nvarchar" MaxLength="50" />
+          <Property Name="FailedLoginCount" Type="int" />
+          <Property Name="EndDeactiveTime" Type="datetime" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -76,7 +78,7 @@
           <Property Name="Paid" Type="money" />
           <Property Name="PaymentDate" Type="date" />
           <Property Name="ModifiedDate" Type="date" Nullable="false" />
-          <Property Name="ModifiedUserID" Type="int" />
+          <Property Name="ModifiedUserID" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -116,7 +118,7 @@
           <Property Name="IsAvailable" Type="bit" Nullable="false" />
           <Property Name="SupplierID" Type="int" />
           <Property Name="DateModified" Type="date" Nullable="false" />
-          <Property Name="CreatedUserID" Type="int" />
+          <Property Name="CreatedUserID" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -125,7 +127,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             <PropertyRef Name="RoleID" />
             <PropertyRef Name="RoleName" />
           </Key>
-          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Shipper">
@@ -280,6 +282,16 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="CheckUniqueEmailAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetHashTokenByEmailAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="LoginByEmailAdress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="ConstructionSiteModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -345,7 +357,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Key>
             <PropertyRef Name="AccountID" />
           </Key>
-          <Property Name="AccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -356,10 +368,12 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="HashToken" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CreatedUserID" Type="Int32" />
+          <Property Name="CreatedUserID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ImageType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FailedLoginCount" Type="Int32" />
+          <Property Name="EndDeactiveTime" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Account1" Relationship="Self.FK_Account_Account" FromRole="Account" ToRole="Account1" />
           <NavigationProperty Name="Account2" Relationship="Self.FK_Account_Account" FromRole="Account1" ToRole="Account" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Account" FromRole="Account" ToRole="Order" />
@@ -419,7 +433,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="Paid" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="PaymentDate" Type="DateTime" Precision="0" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ModifiedUserID" Type="Int32" />
+          <Property Name="ModifiedUserID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Account" Relationship="Self.FK_Order_Account" FromRole="Order" ToRole="Account" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
           <NavigationProperty Name="Shipper" Relationship="Self.FK_Order_Shipper" FromRole="Order" ToRole="Shipper" />
@@ -465,7 +479,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
           <Property Name="SupplierID" Type="Int32" />
           <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CreatedUserID" Type="Int32" />
+          <Property Name="CreatedUserID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Account" Relationship="Self.FK_Product_Account" FromRole="Product" ToRole="Account" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_Product" FromRole="Product" ToRole="OrderDetail" />
@@ -510,7 +524,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             <PropertyRef Name="RoleID" />
             <PropertyRef Name="RoleName" />
           </Key>
-          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="Self.FK_Role_Account" FromRole="Role" ToRole="Account" />
         </EntityType>
@@ -684,7 +698,25 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             <End Role="Supplier" EntitySet="Suppliers" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <FunctionImport Name="CheckUniqueEmailAddress" ReturnType="Collection(String)">
+            <Parameter Name="EmailAddress" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetHashTokenByEmailAddress" ReturnType="Collection(ConstructionSiteModel.GetHashTokenByEmailAddress_Result)">
+            <Parameter Name="EmailAddress" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="LoginByEmailAdress" ReturnType="Collection(ConstructionSiteModel.LoginByEmailAdress_Result)">
+            <Parameter Name="EmailAddress" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="GetHashTokenByEmailAddress_Result">
+          <Property Type="String" Name="AccountID" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="HashToken" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="LoginByEmailAdress_Result">
+          <Property Type="String" Name="AccountID" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -709,6 +741,8 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="ImageType" ColumnName="ImageType" />
+                <ScalarProperty Name="FailedLoginCount" ColumnName="FailedLoginCount" />
+                <ScalarProperty Name="EndDeactiveTime" ColumnName="EndDeactiveTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -852,6 +886,23 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CheckUniqueEmailAddress" FunctionName="ConstructionSiteModel.Store.CheckUniqueEmailAddress" />
+          <FunctionImportMapping FunctionImportName="GetHashTokenByEmailAddress" FunctionName="ConstructionSiteModel.Store.GetHashTokenByEmailAddress">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ConstructionSiteModel.GetHashTokenByEmailAddress_Result">
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="HashToken" ColumnName="HashToken" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="LoginByEmailAdress" FunctionName="ConstructionSiteModel.Store.LoginByEmailAdress">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ConstructionSiteModel.LoginByEmailAdress_Result">
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

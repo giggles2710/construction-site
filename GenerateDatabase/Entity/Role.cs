@@ -14,7 +14,7 @@ namespace GenerateDatabase.Entity
     
     public partial class Role
     {
-        public int RoleID { get; set; }
+        public string RoleID { get; set; }
         public string RoleName { get; set; }
     
         public virtual Account Account { get; set; }
