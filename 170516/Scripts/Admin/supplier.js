@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {    
+﻿$(document).ready(function () {
     // check to toast when delete success
     if (window.sessionStorage.DeletedStatus == "true") {
         toastr.success(window.sessionStorage.DeletedMessage);
@@ -8,58 +8,56 @@
         window.sessionStorage.DeletedStatus = null;
     }
 
-    $('#btnUpdateCategoryLink').on('click', function () {
-        window.location = '/Administrator/UpdateProductCategory/' + $('#CategoryID').val();
+    $('#btnUpdateSupplierLink').on('click', function () {
+        window.location = '/Administrator/UpdateSupplier/' + $('#SupplierID').val();
     });
-    
 
-    $('#SubmitAddProductCategory').on('click', function () {
-        var form = $("#addProductCategoryForm");
-        form.validate();        
-        if (form.valid())
-        {            
+    $('#SubmitAddSupplier').on('click', function () {
+        var form = $("#addSupplierForm");
+        form.validate();
+        if (form.valid()) {
             $.ajax({
-                url: staticUrl.addProductCategory,
-                data: $('#addProductCategoryForm').serialize(),
+                url: staticUrl.addSupplier,
+                data: $('#addSupplierForm').serialize(),
                 async: true,
                 method: "POST",
                 dataType: "json",
                 cache: false,
-                success: function (data) {                    
+                success: function (data) {
                     if (data != null) {
                         if (data.isResult == false) {
                             toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
                         } else {
-                            $('#addProductCategoryForm')[0].reset();
+                            $('#addSupplierForm')[0].reset();
                             // Display an info toast with no title
-                            toastr.success('Danh mục mới lưu thành công.')
+                            toastr.success('Nhà cung cấp mới được tạo thành công.')
                         }
                     }
                 }, error: function (e) {
                     toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
                 }
             });
-        }                                              
+        }
     });
-    
-    $('#SubmitUpdateProductCategory').on('click', function () {
-        var form = $("#updateProductCategoryForm");
+
+    $('#SubmitUpdateSupplier').on('click', function () {
+        var form = $("#updateSupplierForm");
         form.validate();
-        if (form.valid()) {            
+        if (form.valid()) {
             $.ajax({
-                url: staticUrl.updateProductCategory,
-                data: $('#updateProductCategoryForm').serialize(),
+                url: staticUrl.updateSupplier,
+                data: $('#updateSupplierForm').serialize(),
                 async: true,
                 method: "POST",
                 dataType: "json",
                 cache: false,
-                success: function (data) {                    
+                success: function (data) {
                     if (data != null) {
                         if (data.isResult == false) {
                             toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
-                        } else {                            
+                        } else {
                             // Display an info toast with no title
-                            toastr.success('Danh mục đã chỉnh sữa thành công.');                            
+                            toastr.success('Nhà cung cấp đã được chỉnh sữa thành công.');
                         }
                     }
                 }, error: function (e) {
@@ -69,11 +67,11 @@
         }
     });
 
-    $('#btnDeleteProductCategory').on('click', function () {        
+    $('#btnDeleteSupplier').on('click', function () {
 
         bootbox.dialog({
-            message: "Bạn có chắc là muốn xóa danh mục này không?",
-            title: "Xóa danh mục",
+            message: "Bạn có chắc là muốn xóa nhà cung cấp này không?",
+            title: "Xóa nhà cung cấp",
             buttons: {
                 okAction: {
                     label: "Xóa",
@@ -81,9 +79,9 @@
                     callback: function () {
                         // ajax - remove
                         $.ajax({
-                            url: '/Administrator/RemoveProductCategory',
+                            url: '/Administrator/RemoveSupplier',
                             data: {
-                                id: $('#CategoryID').val()
+                                id: $('#SupplierID').val()
                             },
                             traditional: true,
                             async: true,
@@ -93,13 +91,13 @@
                                 if (data != null) {
                                     if (data.isResult == true) {
                                         window.sessionStorage.DeletedStatus = true;
-                                        window.sessionStorage.DeletedMessage = 'Xóa danh mục thành công.';
+                                        window.sessionStorage.DeletedMessage = 'Xóa nhà cung cấp thành công.';
                                     } else {
                                         window.sessionStorage.DeletedStatus = false;
                                         window.sessionStorage.DeletedMessage = data.result;
                                     }
-                                    
-                                    window.location.href = staticUrl.viewProductCategory;
+
+                                    window.location.href = staticUrl.viewSupplier;
                                 }
 
                             }, error: function (data) {
@@ -122,13 +120,13 @@
     });
 
     // before delete, show confirmation dialog
-    $('.action-link.remove-link.category').on('click', function () {
+    $('.action-link.remove-link.supplier').on('click', function () {
         var removeUrl = $(this).data('url');
-        var currentViewUrl = productCategoryModel.GetCurrentViewProductCategoryUrl();
+        var currentViewUrl = supplierSupportModel.GetCurrentViewSupplierUrl();
 
         bootbox.dialog({
-            message: "Bạn có chắc là muốn xóa danh mục này không?",
-            title: "Xóa danh mục",
+            message: "Bạn có chắc là muốn xóa nhà cung cấp này không?",
+            title: "Xóa nhà cung cấp",
             buttons: {
                 okAction: {
                     label: "Xóa",
@@ -142,7 +140,7 @@
                                 if (data != null) {
                                     if (data.isResult == true) {
                                         window.sessionStorage.DeletedStatus = true;
-                                        window.sessionStorage.DeletedMessage = 'Xóa danh mục thành công.';
+                                        window.sessionStorage.DeletedMessage = 'Xóa nhà cung cấp thành công.';
                                     } else {
                                         window.sessionStorage.DeletedStatus = false;
                                         window.sessionStorage.DeletedMessage = data.result;
@@ -171,24 +169,24 @@
     });
 
     //search section
-    $("#dataTable_category th").on('click', function () {
+    $("#dataTable_supplier th").on('click', function () {
         var sortStr = $(this).data('sort');
         var direction = $(this).data('direction');
 
         if (!Util.IsNullOrWhiteSpace(sortStr) && !Util.IsNullOrWhiteSpace(direction)) {
             // do sort
-            productCategoryModel.SortCategory(sortStr, direction == "asc");
+            supplierSupportModel.SortSupplier(sortStr, direction == "asc");
         }
     });
 
     // btn search
-    $('#dataTables_searchCategory').on('click', function () {
-        productCategoryModel.ViewProductCategory();
+    $('#dataTables_searchSupplier').on('click', function () {
+        supplierSupportModel.ViewSupplier();
     });
 
     // when change value of number of item shown in the grid
-    $('#dataTables_showNumberSelectCategory').on('change', function () {
-        productCategoryModel.ViewProductCategory();
+    $('#dataTables_showNumberSelectSupplier').on('change', function () {
+        supplierSupportModel.ViewSupplier();
     });
 
     $('#ImageBox').on('click', function (e) {
@@ -216,7 +214,7 @@
         if (data.result.base64Thumbnail != null && data.result.fileType != null) {
             var fileSrc = "data:image/" + data.result.fileType + ";base64, " + data.result.base64Thumbnail;
             $('#ImageBox').attr('src', fileSrc);
-            $('#ProductImage').val(data.result.fileType + ":" + data.result.base64Thumbnail);
+            $('#SupplierImage').val(data.result.fileType + ":" + data.result.base64Thumbnail);
         }
     }).on('fileuploadfail', function (e, data) {
         // upload fail
@@ -224,49 +222,33 @@
     });
 });
 
-var productCategoryModel = {
-    getAddProductCategory: function () {
-        // get add product category modal
-        var url = $('#addProductCategoryModal').data('url');
-
-        $.ajax({
-            url: url,
-            method: "GET",
-            success: function (data) {
-                $('#addProductCategoryModal').html(data);
-
-                // then show it
-                $('#addProductCategoryModal').modal('show');
-            }
-        });
-    },
-    SortCategory: function (sortField, isAsc) {
+var supplierSupportModel = {
+    SortSupplier: function (sortField, isAsc) {
         var $activatePage = $('.pageinate_button.active');
         var page = 1; // page
         if ($activatePage.length > 0)
             page = $activatePage[0].text;
-        var itemsOnPage = $('#dataTables_showNumberSelectCategory').val(); // items on page
+        var itemsOnPage = $('#dataTables_showNumberSelectSupplier').val(); // items on page
         var searchText = $('#dataTables_show_item_search input[type="search"]').val(); // search text
 
-        window.location.href = staticUrl.viewProductCategory + "?page=" + page + "&itemsPerPage="
+        window.location.href = staticUrl.viewSupplier + "?page=" + page + "&itemsPerPage="
             + itemsOnPage + "&searchText=" + searchText + "&sortField=" + sortField + "&isAsc=" + isAsc;
     },
-    ViewProductCategory: function () {
-        window.location.href = productCategoryModel.GetCurrentViewProductCategoryUrl();
+    ViewSupplier: function () {
+        window.location.href = supplierSupportModel.GetCurrentViewSupplierUrl();
     },
-    GetCurrentViewProductCategoryUrl: function () {
+    GetCurrentViewSupplierUrl: function () {
         var $activatePage = $('.pageinate_button.active');
         var page = 1; // page
         if ($activatePage.length > 0)
             page = $activatePage[0].text;
 
-        var itemsOnPage = $('#dataTables_showNumberSelectCategory').val(); // items on page
+        var itemsOnPage = $('#dataTables_showNumberSelectSupplier').val(); // items on page
         var searchText = $('#dataTables_show_item_search input[type="search"]').val(); // search text
         var sortField = $('#dataTables_sort_field_hidden').val(); // sort field
         var directionField = $('#dataTables_sort_direction_hidden').val(); // direction field
 
-        return staticUrl.viewProductCategory + "?page=" + page + "&itemsPerPage="
+        return staticUrl.viewSupplier + "?page=" + page + "&itemsPerPage="
             + itemsOnPage + "&searchText=" + searchText + "&sortField=" + sortField + "&isAsc=" + directionField;
     }
-
-}
+};

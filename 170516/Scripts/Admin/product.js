@@ -30,7 +30,7 @@
     });
 
     // before delete, show confirmation dialog
-    $('.action-link.remove-link').on('click', function () {
+    $('.action-link.remove-link.product').on('click', function () {
         var removeUrl = $(this).data('url');
         var currentViewUrl = addProductModel.GetCurrentViewProductUrl();
 

@@ -23,6 +23,8 @@ namespace _170516.Models.Administrator
 
         public string ParentCategoryName { get; set; }
 
+        public string CategoryImage { get; set; }        
+
         public List<CreateProductCategoryListItem> CategoryList { get; set; }
     }
 }

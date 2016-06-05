@@ -23,27 +23,27 @@
                     <div class="form-horizontal">
                         <div class="row">      
                             @Html.ValidationSummary(true)                      
-                            <div class="col-md-12 col-lg-12">
+                            <div class="col-md-8 col-lg-8">
                                 <!-- PRODUCT CATEGORY NAME -->
                                 <div class="form-group">                                    
-                                    <label class="col-md-3 control-label" for="ProductName">Tên Danh mục <span class="text-danger">*</span></label>
-                                    <div class="col-md-7">
+                                    <label class="col-sm-3 control-label" for="ProductName">Tên Danh mục <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
                                         @Html.TextBoxFor(model => model.Name, new {@class= "form-control" }) <span class="input-error-box text-danger"></span>
                                         @Html.ValidationMessageFor(model => model.Name, null, new { @class= "input-error-box text-danger"})                                                                                
                                     </div>
                                 </div>
                                 <!-- PRODUCT CATEGORY DESCRIPTION -->
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="ProductName">Mô tả <span class="text-danger">*</span></label>
-                                    <div class="col-md-7">
+                                    <label class="col-sm-3 control-label" for="ProductName">Mô tả <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
                                         @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })<span class="input-error-box text-danger"></span>
                                         @Html.ValidationMessageFor(model => model.Description, null, new { @class = "input-error-box text-danger" })                                                                                  
                                     </div>
                                 </div>
                                 <!-- PRODUCT CATEGORY PARENT -->
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="ParentID">Danh Mục cha</label>
-                                    <div class="col-md-7">
+                                    <label class="col-sm-3 control-label" for="ParentID">Danh Mục cha</label>
+                                    <div class="col-sm-7">
                                         <select id="ParentID" class="form-control" name="ParentID">
                                             <option value=""></option>
                                             @foreach (var category in Model.CategoryList)
@@ -54,6 +54,20 @@
                                         <span class="field-validation-valid" data-valmsg-for="ParentID" data-valmsg-replace="true"></span>
                                 </div>
                                 </div>                                                                                                                            
+                            </div>
+
+                            <div class="col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="control-label">Ảnh Danh mục</label>
+                                    <!-- IMAGE -->
+                                    <div class="image-box">
+                                        <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
+                                        <div id="ImagePreviewBox" class="preview-box" style="max-width:80%;"></div>
+                                        <input id="ImageUpload" type="file" class="image-file-input" name="ImageUpload" />
+                                        <input id="ProductImage" type="hidden" name="CategoryImage" />
+                                        <h5 id="ImageName" class="image-name"></h5>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">

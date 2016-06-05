@@ -5,30 +5,28 @@ using System.Web;
 
 namespace _170516.Models.Administrator
 {
-    public class ViewProductCategoryModel
+    public class ViewShipperModel
     {
-        public List<ViewProductCategoryItem> Categories { get; set; }
+        public List<ViewShipperItem> Shippers { get; set; }
         public int TotalNumber { get; set; }
         public int CurrentPage { get; set; }
         public int TotalPage { get; set; }
         public int StartIndex { get; set; }
         public int EndIndex { get; set; }
-        public int StartPage { get; set; }
         public int ItemOnPage { get; set; }
         public string SearchText { get; set; }
         public string SortField { get; set; }
         public bool IsAsc { get; set; }
     }
 
-    public class ViewProductCategoryItem
+    public class ViewShipperItem
     {
-        public int CategoryID { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public System.DateTime DateModified { get; set; }
-        public string CreatedUserID { get; set; }
-
-        public string CategoryImage { get; set; }
-        public string ParentCategoryName { get; set; }
+        public int ShipperID { get; set; }
+        public string CompanyName { get; set; }
+        public string Phone { get; set; }
+        public string EmailAddress { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string District { get; set; }
     }
 }

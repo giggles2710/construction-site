@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {    
+﻿$(document).ready(function () {
     // check to toast when delete success
     if (window.sessionStorage.DeletedStatus == "true") {
         toastr.success(window.sessionStorage.DeletedMessage);
@@ -8,58 +8,56 @@
         window.sessionStorage.DeletedStatus = null;
     }
 
-    $('#btnUpdateCategoryLink').on('click', function () {
-        window.location = '/Administrator/UpdateProductCategory/' + $('#CategoryID').val();
+    $('#btnUpdateShipperLink').on('click', function () {
+        window.location = '/Administrator/UpdateShipper/' + $('#ShipperID').val();
     });
-    
 
-    $('#SubmitAddProductCategory').on('click', function () {
-        var form = $("#addProductCategoryForm");
-        form.validate();        
-        if (form.valid())
-        {            
+    $('#SubmitAddShipper').on('click', function () {
+        var form = $("#addShipperForm");
+        form.validate();
+        if (form.valid()) {
             $.ajax({
-                url: staticUrl.addProductCategory,
-                data: $('#addProductCategoryForm').serialize(),
+                url: staticUrl.addShipper,
+                data: $('#addShipperForm').serialize(),
                 async: true,
                 method: "POST",
                 dataType: "json",
                 cache: false,
-                success: function (data) {                    
+                success: function (data) {
                     if (data != null) {
                         if (data.isResult == false) {
                             toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
                         } else {
-                            $('#addProductCategoryForm')[0].reset();
+                            $('#addShipperForm')[0].reset();
                             // Display an info toast with no title
-                            toastr.success('Danh mục mới lưu thành công.')
+                            toastr.success('Shipper mới được tạo thành công.')
                         }
                     }
                 }, error: function (e) {
                     toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
                 }
             });
-        }                                              
+        }
     });
-    
-    $('#SubmitUpdateProductCategory').on('click', function () {
-        var form = $("#updateProductCategoryForm");
+
+    $('#SubmitUpdateShipper').on('click', function () {
+        var form = $("#updateShipperForm");
         form.validate();
-        if (form.valid()) {            
+        if (form.valid()) {
             $.ajax({
-                url: staticUrl.updateProductCategory,
-                data: $('#updateProductCategoryForm').serialize(),
+                url: staticUrl.updateShipper,
+                data: $('#updateShipperForm').serialize(),
                 async: true,
                 method: "POST",
                 dataType: "json",
                 cache: false,
-                success: function (data) {                    
+                success: function (data) {
                     if (data != null) {
                         if (data.isResult == false) {
                             toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
-                        } else {                            
+                        } else {
                             // Display an info toast with no title
-                            toastr.success('Danh mục đã chỉnh sữa thành công.');                            
+                            toastr.success('Shipper đã được chỉnh sữa thành công.');
                         }
                     }
                 }, error: function (e) {
@@ -69,11 +67,11 @@
         }
     });
 
-    $('#btnDeleteProductCategory').on('click', function () {        
+    $('#btnDeleteShipper').on('click', function () {
 
         bootbox.dialog({
-            message: "Bạn có chắc là muốn xóa danh mục này không?",
-            title: "Xóa danh mục",
+            message: "Bạn có chắc là muốn xóa nhà Shipper này không?",
+            title: "Xóa Shipper",
             buttons: {
                 okAction: {
                     label: "Xóa",
@@ -81,9 +79,9 @@
                     callback: function () {
                         // ajax - remove
                         $.ajax({
-                            url: '/Administrator/RemoveProductCategory',
+                            url: '/Administrator/RemoveShipper',
                             data: {
-                                id: $('#CategoryID').val()
+                                id: $('#ShipperID').val()
                             },
                             traditional: true,
                             async: true,
@@ -93,13 +91,13 @@
                                 if (data != null) {
                                     if (data.isResult == true) {
                                         window.sessionStorage.DeletedStatus = true;
-                                        window.sessionStorage.DeletedMessage = 'Xóa danh mục thành công.';
+                                        window.sessionStorage.DeletedMessage = 'Xóa Shipper thành công.';
                                     } else {
                                         window.sessionStorage.DeletedStatus = false;
                                         window.sessionStorage.DeletedMessage = data.result;
                                     }
-                                    
-                                    window.location.href = staticUrl.viewProductCategory;
+
+                                    window.location.href = staticUrl.viewShipper;
                                 }
 
                             }, error: function (data) {
@@ -122,13 +120,13 @@
     });
 
     // before delete, show confirmation dialog
-    $('.action-link.remove-link.category').on('click', function () {
+    $('.action-link.remove-link.shipper').on('click', function () {
         var removeUrl = $(this).data('url');
-        var currentViewUrl = productCategoryModel.GetCurrentViewProductCategoryUrl();
+        var currentViewUrl = shipperSupportModel.GetCurrentViewShipperUrl();
 
         bootbox.dialog({
-            message: "Bạn có chắc là muốn xóa danh mục này không?",
-            title: "Xóa danh mục",
+            message: "Bạn có chắc là muốn xóa Shipper này không?",
+            title: "Xóa Shipper",
             buttons: {
                 okAction: {
                     label: "Xóa",
@@ -142,7 +140,7 @@
                                 if (data != null) {
                                     if (data.isResult == true) {
                                         window.sessionStorage.DeletedStatus = true;
-                                        window.sessionStorage.DeletedMessage = 'Xóa danh mục thành công.';
+                                        window.sessionStorage.DeletedMessage = 'Xóa Shipper thành công.';
                                     } else {
                                         window.sessionStorage.DeletedStatus = false;
                                         window.sessionStorage.DeletedMessage = data.result;
@@ -171,102 +169,55 @@
     });
 
     //search section
-    $("#dataTable_category th").on('click', function () {
+    $("#dataTable_shipper th").on('click', function () {
         var sortStr = $(this).data('sort');
         var direction = $(this).data('direction');
 
         if (!Util.IsNullOrWhiteSpace(sortStr) && !Util.IsNullOrWhiteSpace(direction)) {
             // do sort
-            productCategoryModel.SortCategory(sortStr, direction == "asc");
+            shipperSupportModel.SortShipper(sortStr, direction == "asc");
         }
     });
 
     // btn search
-    $('#dataTables_searchCategory').on('click', function () {
-        productCategoryModel.ViewProductCategory();
+    $('#dataTables_searchShipper').on('click', function () {
+        shipperSupportModel.ViewShipper();
     });
 
     // when change value of number of item shown in the grid
-    $('#dataTables_showNumberSelectCategory').on('change', function () {
-        productCategoryModel.ViewProductCategory();
+    $('#dataTables_showNumberSelectShipper').on('change', function () {
+        shipperSupportModel.ViewShipper();
     });
 
-    $('#ImageBox').on('click', function (e) {
-        $('#ImageUpload').trigger('click');
-    });
-
-    // initialize file upload plugin
-    $('#ImageUpload').fileupload({
-        url: staticUrl.uploadFile,
-        dataType: 'json',
-        autoUpload: true,
-        acceptFileTypes: /(\.|\/)(jpe?g|png)$/i,
-        maxFileSize: 999000,
-        disableImageResize: /Android(?!.*Chrome)|Opera/
-            .test(window.navigator.userAgent)
-    }).on('fileuploadadd', function (e, data) {
-        // replace it with a canvas
-        $('#ImageName').text(data.files[0].name)
-
-        // put data to upload button
-        $('#ImageSubmitBtn').data(data);
-
-    }).on('fileuploaddone', function (e, data) {
-        // upload success
-        if (data.result.base64Thumbnail != null && data.result.fileType != null) {
-            var fileSrc = "data:image/" + data.result.fileType + ";base64, " + data.result.base64Thumbnail;
-            $('#ImageBox').attr('src', fileSrc);
-            $('#ProductImage').val(data.result.fileType + ":" + data.result.base64Thumbnail);
-        }
-    }).on('fileuploadfail', function (e, data) {
-        // upload fail
-        toastr.error('Tải ảnh không thành công. Vui lòng thử lại.');
-    });
 });
 
-var productCategoryModel = {
-    getAddProductCategory: function () {
-        // get add product category modal
-        var url = $('#addProductCategoryModal').data('url');
-
-        $.ajax({
-            url: url,
-            method: "GET",
-            success: function (data) {
-                $('#addProductCategoryModal').html(data);
-
-                // then show it
-                $('#addProductCategoryModal').modal('show');
-            }
-        });
-    },
-    SortCategory: function (sortField, isAsc) {
+var shipperSupportModel = {
+    SortShipper: function (sortField, isAsc) {
         var $activatePage = $('.pageinate_button.active');
         var page = 1; // page
         if ($activatePage.length > 0)
             page = $activatePage[0].text;
-        var itemsOnPage = $('#dataTables_showNumberSelectCategory').val(); // items on page
+        var itemsOnPage = $('#dataTables_showNumberSelectShipper').val(); // items on page
         var searchText = $('#dataTables_show_item_search input[type="search"]').val(); // search text
 
-        window.location.href = staticUrl.viewProductCategory + "?page=" + page + "&itemsPerPage="
+        window.location.href = staticUrl.viewShipper + "?page=" + page + "&itemsPerPage="
             + itemsOnPage + "&searchText=" + searchText + "&sortField=" + sortField + "&isAsc=" + isAsc;
     },
-    ViewProductCategory: function () {
-        window.location.href = productCategoryModel.GetCurrentViewProductCategoryUrl();
+    ViewShipper: function () {
+        window.location.href = shipperSupportModel.GetCurrentViewShipperUrl();
     },
-    GetCurrentViewProductCategoryUrl: function () {
+    GetCurrentViewShipperUrl: function () {
         var $activatePage = $('.pageinate_button.active');
         var page = 1; // page
         if ($activatePage.length > 0)
             page = $activatePage[0].text;
 
-        var itemsOnPage = $('#dataTables_showNumberSelectCategory').val(); // items on page
+        var itemsOnPage = $('#dataTables_showNumberSelectShipper').val(); // items on page
         var searchText = $('#dataTables_show_item_search input[type="search"]').val(); // search text
         var sortField = $('#dataTables_sort_field_hidden').val(); // sort field
         var directionField = $('#dataTables_sort_direction_hidden').val(); // direction field
 
-        return staticUrl.viewProductCategory + "?page=" + page + "&itemsPerPage="
+        return staticUrl.viewShipper + "?page=" + page + "&itemsPerPage="
             + itemsOnPage + "&searchText=" + searchText + "&sortField=" + sortField + "&isAsc=" + directionField;
     }
-
-}
+};

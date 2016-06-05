@@ -33,35 +33,95 @@ namespace _170516.Controllers
         [HttpGet]
         public ActionResult ViewProductCategory(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
         {
-            var pageNo = 0;
-            var pageSize = 0;
+            var pageNo = page.GetValueOrDefault();
+            var pageSize = itemsPerPage.GetValueOrDefault();
 
             if (page == null) pageNo = 1;
             if (itemsPerPage == null) pageSize = 10;
             if (isAsc == null) isAsc = true;
+            if (string.IsNullOrEmpty(searchText)) searchText = null;
+            if (string.IsNullOrEmpty(sortField)) sortField = "CategoryName";
+
+            IQueryable<Category> categories;
+
+            switch (sortField)
+            {
+                case "CategoryName":
+                    if (isAsc.GetValueOrDefault())
+                        categories = dbContext.Categories
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderBy(p => p.Name);
+                    else
+                        categories = dbContext.Categories
+                          .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderByDescending(p => p.Name);
+                    break;
+                case "CategoryDescription":
+                    if (isAsc.GetValueOrDefault())
+                        categories = dbContext.Categories
+                          .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderBy(p => p.Description);
+                    else
+                        categories = dbContext.Categories
+                          .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderByDescending(p => p.Description);
+                    break;                
+                case "DateModified":
+                    if (isAsc.GetValueOrDefault())
+                        categories = dbContext.Categories
+                          .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderBy(p => p.DateModified);
+                    else
+                        categories = dbContext.Categories
+                          .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderByDescending(p => p.DateModified);
+                    break;
+                case "CreatedUser":
+                    if (isAsc.GetValueOrDefault())
+                        categories = dbContext.Categories
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderBy(p => p.CreatedUserID);
+                    else
+                        categories = dbContext.Categories
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderByDescending(p => p.CreatedUserID);
+                    break;
+                default:
+                    if (isAsc.GetValueOrDefault())
+                        categories = dbContext.Categories
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderBy(p => p.Name);
+                    else
+                        categories = dbContext.Categories
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .OrderByDescending(p => p.Name);
+                    break;
+            }
 
             // do the query
-            var categoriesModel = dbContext.Categories
-                .Where(c => c.IsActive)
+            var categoriesModel = categories
                 .Select(c => new ViewProductCategoryItem
                 {
                     CategoryID = c.CategoryID,
                     Name = c.Name,
-                    Description = c.Description
-                })
-                .OrderBy(c => c.Name)
+                    Description = c.Description,
+                    DateModified = c.DateModified,
+                    CreatedUserID = c.CreatedUserID == 0 ? string.Empty : "0"
+                })                
                 .Skip(pageSize * (pageNo - 1))
                 .Take(pageSize).ToList();
 
-            var model = new ViewProductCategoryModel();
+            var model = new ViewProductCategoryModel();           
             model.CurrentPage = pageNo;
             model.SearchText = searchText;
             model.ItemOnPage = pageSize;
             model.StartIndex = pageSize * pageNo - pageSize + 1;
-            model.EndIndex = model.StartIndex + pageSize;
-            model.TotalNumber = dbContext.Products.Count();
+            model.EndIndex = model.StartIndex + pageSize - 1;
+            model.TotalNumber = categories.Count();
             model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
             model.Categories = categoriesModel;
+            model.SortField = sortField;
+            model.IsAsc = isAsc.GetValueOrDefault();
 
             return View("ViewProductCategory", "_AdminLayout", model);
         }
@@ -95,6 +155,18 @@ namespace _170516.Controllers
                 ParentID = model.ParentID
             };
 
+            // image
+            if (!string.IsNullOrWhiteSpace(model.CategoryImage))
+            {
+                var imageInfos = model.CategoryImage.Split(':');
+
+                if (imageInfos.Length > 0)
+                {
+                    category.ImageType = imageInfos[0]; // file type
+                    category.Image = Convert.FromBase64String(imageInfos[1]); // base 64 string
+                }
+            }
+
             dbContext.Categories.Add(category);
 
             try
@@ -126,6 +198,12 @@ namespace _170516.Controllers
             model.Name = category.Name;
             model.Description = category.Description;
 
+            // image
+            if (category.Image != null && !string.IsNullOrEmpty(category.ImageType))
+            {
+                model.CategoryImage = string.Format(Constant.ImageSourceFormat, category.ImageType, Convert.ToBase64String(category.Image));
+            }
+
             // get all category items
             model.CategoryList = dbContext.Categories
                 .Where(c => c.IsActive)
@@ -145,6 +223,18 @@ namespace _170516.Controllers
             category.Name = model.Name;
             category.Description = model.Description;
             category.ParentID = model.ParentID;
+
+            // product image
+            if (!string.IsNullOrWhiteSpace(model.CategoryImage))
+            {
+                var imageInfos = model.CategoryImage.Split(':');
+
+                if (imageInfos.Length > 0)
+                {
+                    category.ImageType = imageInfos[0]; // file type
+                    category.Image = Convert.FromBase64String(imageInfos[1]); // base 64 string
+                }
+            }
 
             try
             {
@@ -166,11 +256,14 @@ namespace _170516.Controllers
                 return RedirectToAction("Index");
             }
 
-            var categoryDetail = new CreateProductCategoryModel
+            var categoryDetail = new ViewProductCategoryItem
             {
                 CategoryID = category.CategoryID,
                 Name = category.Name,
                 Description = category.Description,
+                DateModified = category.DateModified,
+                CreatedUserID = category.CreatedUserID == 0 ? string.Empty : "0"
+                                               
             };
 
             if (category.ParentID != null)
@@ -181,6 +274,14 @@ namespace _170516.Controllers
                     categoryDetail.ParentCategoryName = parentCategory.Name;
                 }
             }
+
+            // image
+            if (category.Image != null && !string.IsNullOrEmpty(category.ImageType))
+            {
+                categoryDetail.CategoryImage = string.Format(Constant.ImageSourceFormat, category.ImageType, Convert.ToBase64String(category.Image));
+            }
+
+
 
             return View(categoryDetail);
         }
@@ -699,5 +800,517 @@ namespace _170516.Controllers
             return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult RemoveProductCategory(int id)
+        {
+            var category = dbContext.Categories.FirstOrDefault(c => c.CategoryID == id);
+
+            if (category == null)
+            {
+                return Json(new { isResult = false, result = "Không tìm thấy Danh mục. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                category.IsActive = false;
+                try
+                {
+                    dbContext.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { isResult = false, result = ex.Message }, JsonRequestBehavior.AllowGet);
+                }
+
+                return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        #region Supplier
+        public ActionResult ViewSupplier(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
+        {
+            var pageNo = page.GetValueOrDefault();
+            var pageSize = itemsPerPage.GetValueOrDefault();
+
+            if (pageNo == 0) pageNo = 1;
+            if (pageSize == 0) pageSize = 10;
+            if (isAsc == null) isAsc = true;
+            if (string.IsNullOrEmpty(searchText)) searchText = null;
+            if (string.IsNullOrEmpty(sortField)) sortField = "CompanyName";
+
+            IQueryable<Supplier> suppliers;
+            suppliers = dbContext.Suppliers
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.CompanyName.Contains(searchText));
+
+            var suppliersModel = suppliers.ToList().Select(s => new ViewSupplierItem {
+                SupplierID = s.SupplierID,
+                SupplierCompanyName = s.CompanyName,
+                SupplierContactName = string.Format("{0} {1}", s.ContactFName, s.ContactLName),
+                Address = s.Address1,
+                Email = s.EmailAddress,
+                ProductType =  s.ProductType
+            });
+
+            IEnumerable<ViewSupplierItem> result;
+
+            switch (sortField)
+            {
+                case "ProductType":
+                    if (isAsc.GetValueOrDefault())
+                        result = suppliersModel.OrderBy(s => s.SupplierCompanyName);
+                    else
+                        result = suppliersModel.OrderByDescending(s => s.SupplierCompanyName);
+                    break;
+                case "SupplierContactName":
+                    if (isAsc.GetValueOrDefault())
+                        result = suppliersModel.OrderBy(s => s.SupplierContactName);
+                    else
+                        result = suppliersModel.OrderByDescending(s => s.SupplierContactName);
+                    break;
+                case "Address":
+                    if (isAsc.GetValueOrDefault())
+                        result = suppliersModel.OrderBy(s => s.Address);
+                    else
+                        result = suppliersModel.OrderByDescending(s => s.Address);
+                    break;
+                case "Email":
+                    if (isAsc.GetValueOrDefault())
+                        result = suppliersModel.OrderBy(s => s.Email);
+                    else
+                        result = suppliersModel.OrderByDescending(s => s.Email);
+                    break;
+                default:
+                    if (isAsc.GetValueOrDefault())
+                        result = suppliersModel.OrderBy(s => s.SupplierCompanyName);
+                    else
+                        result = suppliersModel.OrderByDescending(s => s.SupplierCompanyName);
+                    break;
+            }
+
+            int totalRecord = result.Count();
+
+            result = result.Select( s=> s).Skip(pageSize * (pageNo - 1)).Take(pageSize);
+
+            var model = new ViewSupplierModel();
+            model.CurrentPage = pageNo;
+            model.SearchText = searchText;
+            model.ItemOnPage = pageSize;
+            model.StartIndex = pageSize * pageNo - pageSize + 1;
+            model.EndIndex = model.StartIndex + pageSize - 1;
+            model.TotalNumber = totalRecord;
+            model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
+            model.Suppliers = result.ToList();
+            model.SortField = sortField;
+            model.IsAsc = isAsc.GetValueOrDefault();
+
+            return View(model);
+        }
+
+        public ActionResult ViewSupplierDetails(int id)
+        {
+            var supplier = dbContext.Suppliers.FirstOrDefault(s => s.SupplierID == id);
+            if (supplier == null)
+            {
+                return RedirectToAction("ViewSupplier");
+            }
+
+            var supplierDetailsModel = new CreateSupplierModel
+            {
+                SupplierID = supplier.SupplierID,
+                CompanyName = supplier.CompanyName,
+                ContactFName = supplier.ContactFName,
+                ContactLName = supplier.ContactLName,
+                Address1 = supplier.Address1,
+                Address2 = supplier.Address2,
+                City = supplier.City,
+                Phone = supplier.Phone,
+                Fax = supplier.Fax,
+                EmailAddress = supplier.EmailAddress,
+                Discount = supplier.Discount,
+                ProductType = supplier.ProductType,
+                IsDiscountAvailable = supplier.IsDiscountAvailable,                
+            };
+
+            // image
+            if (supplier.Logo != null && !string.IsNullOrEmpty(supplier.ImageType))
+            {
+                supplierDetailsModel.Logo = string.Format(Constant.ImageSourceFormat, supplier.ImageType, Convert.ToBase64String(supplier.Logo));
+            }
+
+            return View(supplierDetailsModel);
+        }
+
+        [HttpGet]
+        public ActionResult AddSupplier()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult AddSupplier(CreateSupplierModel model)
+        {
+            var supplier = new Supplier {
+                CompanyName = model.CompanyName,
+                ContactFName = model.ContactFName,
+                ContactLName = model.ContactLName,
+                Address1 = model.Address1,
+                Address2 = model.Address2,
+                City = model.City,
+                Phone = model.Phone,
+                Fax = model.Fax,
+                EmailAddress = model.EmailAddress,
+                Discount = model.Discount,
+                ProductType = model.ProductType,
+                IsDiscountAvailable = model.Discount > 0
+            };
+
+
+            // image
+            if (!string.IsNullOrWhiteSpace(model.Logo))
+            {
+                var imageInfos = model.Logo.Split(':');
+
+                if (imageInfos.Length > 0)
+                {
+                    supplier.ImageType = imageInfos[0]; // file type
+                    supplier.Logo = Convert.FromBase64String(imageInfos[1]); // base 64 string
+                }
+            }
+
+            dbContext.Suppliers.Add(supplier);
+
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult UpdateSupplier(int id)
+        {
+            var supplier = dbContext.Suppliers.FirstOrDefault(s => s.SupplierID == id);
+
+            if (supplier == null)
+            {
+                return RedirectToAction("ViewSupplier");
+            }
+
+            var supplierUpdateModel = new CreateSupplierModel
+            {
+                SupplierID = supplier.SupplierID,
+                CompanyName = supplier.CompanyName,
+                ContactFName = supplier.ContactFName,
+                ContactLName = supplier.ContactLName,
+                Address1 = supplier.Address1,
+                Address2 = supplier.Address2,
+                City = supplier.City,
+                Phone = supplier.Phone,
+                Fax = supplier.Fax,
+                EmailAddress = supplier.EmailAddress,
+                Discount = supplier.Discount,
+                ProductType = supplier.ProductType,
+                IsDiscountAvailable = supplier.IsDiscountAvailable,
+            };
+
+            // image
+            if (supplier.Logo != null && !string.IsNullOrEmpty(supplier.ImageType))
+            {
+                supplierUpdateModel.Logo = string.Format(Constant.ImageSourceFormat, supplier.ImageType, Convert.ToBase64String(supplier.Logo));
+            }
+
+            return View(supplierUpdateModel);
+        }
+        [HttpPost]
+        public JsonResult UpdateSupplier(CreateSupplierModel model)
+        {
+            var supplier = dbContext.Suppliers.FirstOrDefault(s => s.SupplierID == model.SupplierID);
+
+            supplier.CompanyName = model.CompanyName;
+            supplier.ContactFName = model.ContactFName;
+            supplier.ContactLName = model.ContactLName;
+            supplier.Address1 = model.Address1;
+            supplier.Address2 = model.Address2;
+            supplier.City = model.City;
+            supplier.Phone = model.Phone;
+            supplier.Fax = model.Fax;
+            supplier.EmailAddress = model.EmailAddress;
+            supplier.Discount = model.Discount;
+            supplier.ProductType = model.ProductType;
+            supplier.IsDiscountAvailable = model.Discount > 0;
+
+            // image
+            if (!string.IsNullOrWhiteSpace(model.Logo))
+            {
+                var imageInfos = model.Logo.Split(':');
+
+                if (imageInfos.Length > 0)
+                {
+                    supplier.ImageType = imageInfos[0]; // file type
+                    supplier.Logo = Convert.FromBase64String(imageInfos[1]); // base 64 string
+                }
+            }
+
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public JsonResult RemoveSupplier(int id)
+        {
+            try
+            {
+                var supplier = dbContext.Suppliers.FirstOrDefault(p => p.SupplierID == id);
+
+                if (supplier != null)
+                {
+                    // remove it
+                    dbContext.Suppliers.Remove(supplier);
+                    dbContext.SaveChanges();
+                }
+                else
+                {
+                    return Json(new { isResult = false, result = Constant.SupplierNotFound }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
+        # region Shipper
+        public ActionResult ViewShipper(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
+        {
+            var pageNo = page.GetValueOrDefault();
+            var pageSize = itemsPerPage.GetValueOrDefault();
+
+            if (pageNo == 0) pageNo = 1;
+            if (pageSize == 0) pageSize = 10;
+            if (isAsc == null) isAsc = true;
+            if (string.IsNullOrEmpty(searchText)) searchText = null;
+            if (string.IsNullOrEmpty(sortField)) sortField = "CompanyName";
+
+            IQueryable<Shipper> shipper;
+            shipper = dbContext.Shippers
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.CompanyName.Contains(searchText));
+
+            switch (sortField)
+            {
+                case "Phone":
+                    if (isAsc.GetValueOrDefault())
+                        shipper = shipper.OrderBy(s => s.Phone);
+                    else
+                        shipper = shipper.OrderByDescending(s => s.Phone);
+                    break;
+                case "EmailAddress":
+                    if (isAsc.GetValueOrDefault())
+                        shipper = shipper.OrderBy(s => s.EmailAddress);
+                    else
+                        shipper = shipper.OrderByDescending(s => s.EmailAddress);
+                    break;
+                case "Address":
+                    if (isAsc.GetValueOrDefault())
+                        shipper = shipper.OrderBy(s => s.Address);
+                    else
+                        shipper = shipper.OrderByDescending(s => s.Address);
+                    break;
+                case "City":
+                    if (isAsc.GetValueOrDefault())
+                        shipper = shipper.OrderBy(s => s.City);
+                    else
+                        shipper = shipper.OrderByDescending(s => s.City);
+                    break;
+                case "District":
+                    if (isAsc.GetValueOrDefault())
+                        shipper = shipper.OrderBy(s => s.District);
+                    else
+                        shipper = shipper.OrderByDescending(s => s.District);
+                    break;
+                default:
+                    if (isAsc.GetValueOrDefault())
+                        shipper = shipper.OrderBy(s => s.CompanyName);
+                    else
+                        shipper = shipper.OrderByDescending(s => s.CompanyName);
+                    break;
+            }
+
+
+            var shipperModel = shipper.Select(s => new ViewShipperItem
+            {
+                ShipperID = s.ShipperID,
+                CompanyName = s.CompanyName,
+                Phone = s.Phone,
+                EmailAddress = s.EmailAddress,
+                Address = s.Address,
+                City = s.City,
+                District = s.District
+            }).Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
+
+           
+
+            var model = new ViewShipperModel();
+            model.CurrentPage = pageNo;
+            model.SearchText = searchText;
+            model.ItemOnPage = pageSize;
+            model.StartIndex = pageSize * pageNo - pageSize + 1;
+            model.EndIndex = model.StartIndex + pageSize - 1;
+            model.TotalNumber = shipper.Count();
+            model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
+            model.Shippers = shipperModel;
+            model.SortField = sortField;
+            model.IsAsc = isAsc.GetValueOrDefault();
+
+            return View(model);
+        }
+
+        public ActionResult ViewShipperDetails(int id)
+        {
+            var shipper = dbContext.Shippers.FirstOrDefault(s => s.ShipperID == id);
+            if (shipper == null)
+            {
+                return RedirectToAction("ViewShipper");
+            }
+
+            var shipperDetailsModel = new CreateShipperModel
+            {
+                ShipperID = shipper.ShipperID,                
+                CompanyName = shipper.CompanyName,
+                Phone = shipper.Phone,
+                EmailAddress = shipper.EmailAddress,
+                Address = shipper.Address,
+                City = shipper.City,
+                District = shipper.District
+            };
+            
+
+            return View(shipperDetailsModel);
+        }
+
+        [HttpGet]
+        public ActionResult AddShipper()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult AddShipper(CreateShipperModel model)
+        {
+            var shipper = new Shipper
+            {               
+                CompanyName = model.CompanyName,
+                Phone = model.Phone,
+                EmailAddress = model.EmailAddress,
+                Address = model.Address,
+                City = model.City,
+                District = model.District
+            };
+         
+
+            dbContext.Shippers.Add(shipper);
+
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult UpdateShipper(int id)
+        {
+            var shipper = dbContext.Shippers.FirstOrDefault(s => s.ShipperID == id);
+
+            if (shipper == null)
+            {
+                return RedirectToAction("ViewShipper");
+            }
+
+            var ShipperUpdateModel = new CreateShipperModel
+            {
+                ShipperID = shipper.ShipperID,
+                CompanyName = shipper.CompanyName,
+                Phone = shipper.Phone,
+                EmailAddress = shipper.EmailAddress,
+                Address = shipper.Address,
+                City = shipper.City,
+                District = shipper.District
+            };
+
+            
+            return View(ShipperUpdateModel);
+        }
+        [HttpPost]
+        public JsonResult UpdateShipper(CreateShipperModel model)
+        {
+            var shipper = dbContext.Shippers.FirstOrDefault(s => s.ShipperID == model.ShipperID);
+
+            shipper.CompanyName = shipper.CompanyName;
+            shipper.Phone = shipper.Phone;
+            shipper.EmailAddress = shipper.EmailAddress;
+            shipper.Address = shipper.Address;
+            shipper.City = shipper.City;
+            shipper.District = shipper.District;
+
+           
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public JsonResult RemoveShipper(int id)
+        {
+            try
+            {
+                var shipper = dbContext.Shippers.FirstOrDefault(p => p.ShipperID == id);
+
+                if (shipper != null)
+                {
+                    // remove it
+                    dbContext.Shippers.Remove(shipper);
+                    dbContext.SaveChanges();
+                }
+                else
+                {
+                    return Json(new { isResult = false, result = Constant.ShipperNotFound }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 }
