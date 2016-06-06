@@ -238,7 +238,7 @@
     <Compile Include="Models\Administrator\ViewShipperModel.cs" />
     <Compile Include="Models\Administrator\ViewSupplierModel.cs" />
     <Compile Include="Models\Constant.cs" />
-    <Compile Include="Models\ProductMenuItem.cs" />
+    <Compile Include="Models\ProductIndexModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utility\EncryptionHelper.cs" />
@@ -1445,7 +1445,6 @@
     <Content Include="Views\Administrator\AddShipper.cshtml" />
     <Content Include="Views\Administrator\UpdateShipper.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Product\_PartialProductItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

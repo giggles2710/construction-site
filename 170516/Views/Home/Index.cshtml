@@ -1,10 +1,30 @@
-﻿@{
+﻿@model _170516.Models.ProductIndexModel
+@{
     ViewBag.Title = "Trang Chủ";
 }
 
 <div class="col-lg-3 col-md-3 col-sm-4">
-    <!-- account -->
-    @{Html.RenderAction("ProductMenu", "Home");}
+    <!-- menu -->
+    <div class="main clearfix">
+        <div id="dl-menu" class="dl-menuwrapper">
+            <ul class="dl-menu">
+                @foreach (var item in Model.Menu)
+                {
+                    <li>
+                        <a href="#" data-id="@item.CategoryId">@item.CategoryName</a>
+                        @if (item.HasSubMenu)
+                        {
+                        <ul class="dl-submenu">
+                            <li><a href="#"></a></li>
+                        </ul>
+                        }
+                    </li>
+
+
+                }
+            </ul>
+        </div>
+    </div>
 </div>
 <div class="col-lg-9 col-md-9 col-sm-8">
     <div class="jumbotron">

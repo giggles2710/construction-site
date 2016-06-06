@@ -90,7 +90,9 @@ namespace GenerateDatabase
                 category.DateModified = DateTime.Now;
                 category.Description = UtilityHelper.RandomString(150);
                 category.IsActive = random.Next() % 2 != 0;
-                category.Name = UtilityHelper.RandomString(20);
+                category.Name = UtilityHelper.RandomString(5);
+                if (random.Next() % 2 != 0)
+                    category.ParentID = random.Next(1, 300);
 
                 if (category == null)
                     dbContext.Categories.Add(category);
