@@ -171,6 +171,7 @@
     <Compile Include="Controllers\AdministratorController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Entities\Account.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
@@ -237,6 +238,7 @@
     <Compile Include="Models\Administrator\ViewShipperModel.cs" />
     <Compile Include="Models\Administrator\ViewSupplierModel.cs" />
     <Compile Include="Models\Constant.cs" />
+    <Compile Include="Models\ProductMenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utility\EncryptionHelper.cs" />
@@ -253,6 +255,8 @@
     <Content Include="Content\Admin\css\stats.css" />
     <Content Include="Content\Admin\css\styles.css" />
     <Content Include="Content\Admin\images\facebook.png" />
+    <Content Include="Content\dlMenu\css\component.css" />
+    <Content Include="Content\dlMenu\fonts\license.txt" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
@@ -1352,7 +1356,15 @@
       <DependentUpon>ConstructionEntity.edmx</DependentUpon>
       <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
     </Content>
+    <Content Include="Content\dlMenu\fonts\icomoon.dev.svg" />
+    <Content Include="Content\dlMenu\fonts\icomoon.eot" />
+    <Content Include="Content\dlMenu\fonts\icomoon.svg" />
+    <Content Include="Content\dlMenu\fonts\icomoon.ttf" />
+    <Content Include="Content\dlMenu\fonts\icomoon.woff" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
+    <Content Include="Scripts\dlMenu\jquery.dlmenu.js" />
+    <Content Include="Scripts\dlMenu\modernizr.custom.js" />
+    <Content Include="Scripts\Home\index.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />
@@ -1432,6 +1444,8 @@
     <Content Include="Views\Administrator\ViewShipperDetails.cshtml" />
     <Content Include="Views\Administrator\AddShipper.cshtml" />
     <Content Include="Views\Administrator\UpdateShipper.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\_PartialProductItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

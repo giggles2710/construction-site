@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _170516.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Web.Mvc;
 
 namespace _170516.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
@@ -46,9 +47,38 @@ namespace _170516.Controllers
             }
 
             var names = myFile.FileName.Split('.');
-            var fileType = names[names.Length - 1];            
+            var fileType = names[names.Length - 1];
 
             return Json(new { base64Thumbnail = Convert.ToBase64String(data), fileType = fileType }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ProductMenu(int? id)
+        {
+            var categories = new List<ProductMenuItem>();
+
+            if (id.GetValueOrDefault() > 0)
+            {
+                var categoryId = id.GetValueOrDefault();
+                // get the sub item of this id
+                categories = dbContext.Categories.Where(ca => ca.IsActive && ca.ParentID == categoryId).Select(c => new ProductMenuItem
+                {
+                    CategoryId = c.CategoryID,
+                    CategoryName = c.Name,
+                    HasSubMenu = dbContext.Categories.Count(cat => cat.ParentID == c.CategoryID) > 0
+                }).ToList();
+            }
+            else
+            {
+                // get all categories
+                categories = dbContext.Categories.Where(c => c.ParentID == null && c.IsActive).Select(ca => new ProductMenuItem
+                {
+                    CategoryId = ca.CategoryID,
+                    CategoryName = ca.Name,
+                    HasSubMenu = dbContext.Categories.Count(cat => cat.ParentID == ca.CategoryID) > 0
+                }).ToList();
+            }
+
+            return View("_PartialProductMenu", categories);
         }
     }
 }

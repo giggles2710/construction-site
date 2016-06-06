@@ -43,10 +43,13 @@ namespace _170516
 
             bundles.Add(new ScriptBundle("~/bundles/main_script").Include(
                         "~/Scripts/Common/main.js",
+                        "~/Scripts/dlMenu/jquery.dlmenu.js",
+                        "~/Scripts/dlMenu/modernizr.custom.js",
                         "~/Scripts/bootbox.min.js",
                         "~/Scripts/toastr.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                        "~/Content/dlMenu/css/component.css",
                       "~/Content/flatly.min.css",
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/common.css",
