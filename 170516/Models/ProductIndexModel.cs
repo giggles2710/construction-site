@@ -9,6 +9,7 @@ namespace _170516.Models
     {
         // menu
         public List<MenuCategoryItem> Menu { get; set; }
+        public List<MenuCategoryItem> MenuOnMainPage { get; set; }
 
         // main information
     }

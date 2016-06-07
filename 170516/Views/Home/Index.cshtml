@@ -36,25 +36,156 @@
         <h2>Danh mục sản phẩm</h2>
     </div>
     <div class="row">
-        @foreach (var category in Model.Menu)
+        @for (var i = 0; i < Model.MenuOnMainPage.Count; i++)
         {
-            <div class="col-md-4">
-                <h4>@category.CategoryName</h4>
-                <img src="@category.ImageSrc" />
-                <p>@category.Description</p>
-
-                @if (category.SubCategoryList.Count > 0)
+            <div class="row list-group">
+                @*first item in row*@
+                @if (i < Model.MenuOnMainPage.Count)
                 {
-                    <ul>
-                        @foreach (var subCategory in category.SubCategoryList)
-                        {
-                            <li><a href="@Url.Action("ShowProduct", "Product", new {id=subCategory.CategoryId})">@subCategory.CategoryName</a></li>
-                        }
-                    </ul>
+                    <div class="item  col-xs-3 col-lg-3">
+                        <div class="thumbnail">
+                            @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i].ImageSrc))
+                            {
+                                <img class="group list-group-image" src="@Model.MenuOnMainPage[i].ImageSrc" alt alt="" />
+                            }
+                            else
+                            {
+                                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                            }
+                            <div class="caption">
+                                <h4 class="group inner list-group-item-heading">
+                                    @Model.MenuOnMainPage[i].CategoryName
+                                </h4>
+                                @*<p class="group inner list-group-item-text">
+
+                                    </p>*@
+                                <div class="row">
+                                    @if (Model.MenuOnMainPage[i].SubCategoryList.Count > 0)
+                                    {
+                                        <ul>
+                                            @foreach (var subCategory in Model.MenuOnMainPage[i].SubCategoryList)
+                                            {
+                                                <li><a href="@Url.Action("ShowProduct", "Product", new { id = subCategory.CategoryId })">@subCategory.CategoryName</a></li>
+                                            }
+                                        </ul>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 }
 
+                @*second item in row*@
+                @if (i + 1 < Model.MenuOnMainPage.Count)
+                {
+                    <div class="item  col-xs-3 col-lg-3">
+                        <div class="thumbnail">
+                            @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i + 1].ImageSrc))
+                            {
+                                <img class="group list-group-image" src="@Model.MenuOnMainPage[i + 1].ImageSrc" alt="" />
+                            }
+                            else
+                            {
+                                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                            }
+                            <div class="caption">
+                                <h4 class="group inner list-group-item-heading">
+                                    @Model.MenuOnMainPage[i + 1].CategoryName
+                                </h4>
+                                @*<p class="group inner list-group-item-text">
+
+                                    </p>*@
+                                <div class="row">
+                                    @if (Model.MenuOnMainPage[i + 1].SubCategoryList.Count > 0)
+                                    {
+                                        <ul>
+                                            @foreach (var subCategory in Model.MenuOnMainPage[i + 1].SubCategoryList)
+                                            {
+                                                <li><a href="@Url.Action("ShowProduct", "Product", new { id = subCategory.CategoryId })">@subCategory.CategoryName</a></li>
+                                            }
+                                        </ul>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @*third item in row*@
+                @if (i + 2 < Model.MenuOnMainPage.Count)
+                {
+                    <div class="item  col-xs-3 col-lg-3">
+                        <div class="thumbnail">
+                            @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i + 2].ImageSrc))
+                            {
+                                <img class="group list-group-image" src="@Model.MenuOnMainPage[i + 2].ImageSrc" alt="" />
+                            }
+                            else
+                            {
+                                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                            }
+                            <div class="caption">
+                                <h4 class="group inner list-group-item-heading">
+                                    @Model.MenuOnMainPage[i + 2].CategoryName
+                                </h4>
+                                @*<p class="group inner list-group-item-text">
+
+                                    </p>*@
+                                <div class="row">
+                                    @if (Model.MenuOnMainPage[i + 2].SubCategoryList.Count > 0)
+                                    {
+                                        <ul>
+                                            @foreach (var subCategory in Model.MenuOnMainPage[i + 2].SubCategoryList)
+                                            {
+                                                <li><a href="@Url.Action("ShowProduct", "Product", new { id = subCategory.CategoryId })">@subCategory.CategoryName</a></li>
+                                            }
+                                        </ul>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @*fourth item in row*@
+                @if (i + 3 < Model.MenuOnMainPage.Count)
+                {
+                    <div class="item  col-xs-3 col-lg-3">
+                        <div class="thumbnail">
+                            @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i + 3].ImageSrc))
+                            {
+                                <img class="group list-group-image" src="@Model.MenuOnMainPage[i + 3].ImageSrc" alt="" />
+                            }
+                            else
+                            {
+                                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                            }
+                            <div class="caption">
+                                <h4 class="group inner list-group-item-heading">
+                                    @Model.MenuOnMainPage[i + 3].CategoryName
+                                </h4>
+                                @*<p class="group inner list-group-item-text">
+
+                                    </p>*@
+                                <div class="row">
+                                    @if (Model.MenuOnMainPage[i + 3].SubCategoryList.Count > 0)
+                                    {
+                                        <ul>
+                                            @foreach (var subCategory in Model.MenuOnMainPage[i + 3].SubCategoryList)
+                                            {
+                                                <li><a href="@Url.Action("ShowProduct", "Product", new { id = subCategory.CategoryId })">@subCategory.CategoryName</a></li>
+                                            }
+                                        </ul>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @{i = i + 3;}
             </div>
-        }
+        }        
     </div>
 </div>
 
@@ -62,3 +193,5 @@
 {
     <script src="@Url.Content("~/Scripts/Home/index.js")"></script>
 }
+
+

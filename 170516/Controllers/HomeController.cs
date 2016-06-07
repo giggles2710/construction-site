@@ -16,6 +16,7 @@ namespace _170516.Controllers
 
             // prepare menu
             indexModel.Menu = new List<MenuCategoryItem>();
+            indexModel.MenuOnMainPage = new List<MenuCategoryItem>();
 
             // get all categories
             indexModel.Menu = dbContext.Categories.Where(c => c.ParentID == null && c.IsActive).Select(ca => new MenuCategoryItem
@@ -40,6 +41,11 @@ namespace _170516.Controllers
                 if (item.ImageByte != null)
                 {
                     item.ImageSrc = string.Format(Constant.ImageSourceFormat, item.ImageType, Convert.ToBase64String(item.ImageByte));
+                }
+
+                if (item.SubCategoryList.Any())
+                {
+                    indexModel.MenuOnMainPage.Add(item);
                 }
             }
 

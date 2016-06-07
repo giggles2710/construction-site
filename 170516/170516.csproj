@@ -173,52 +173,52 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Entities\Account.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Category.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\ConstructionSite.Context.cs">
+    <Compile Include="Entities\ConstructionEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ConstructionSite.Context.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\ConstructionSite.cs">
+    <Compile Include="Entities\ConstructionEntity.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\ConstructionSite.Designer.cs">
+    <Compile Include="Entities\ConstructionEntity.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ConstructionSite.edmx</DependentUpon>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
     </Compile>
     <Compile Include="Entities\Customer.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\GetHashTokenByEmailAddress_Result.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\LoginByEmailAdress_Result.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Order.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\OrderDetail.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Product.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Role.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Shipper.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Supplier.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1345,24 +1345,24 @@
     <Content Include="Content\dlMenu\fonts\icomoon.svg" />
     <Content Include="Content\dlMenu\fonts\icomoon.ttf" />
     <Content Include="Content\dlMenu\fonts\icomoon.woff" />
-    <EntityDeploy Include="Entities\ConstructionSite.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ConstructionSite.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Entities\ConstructionSite.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionSite.edmx</DependentUpon>
-      <LastGenOutput>ConstructionSite.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entities\ConstructionSite.edmx.diagram">
-      <DependentUpon>ConstructionSite.edmx</DependentUpon>
-    </Content>
-    <Content Include="Entities\ConstructionSite.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionSite.edmx</DependentUpon>
-      <LastGenOutput>ConstructionSite.cs</LastGenOutput>
-    </Content>
     <Content Include="Content\Image\loading.svg" />
+    <EntityDeploy Include="Entities\ConstructionEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ConstructionEntity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Entities\ConstructionEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <LastGenOutput>ConstructionEntity.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entities\ConstructionEntity.edmx.diagram">
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+    </Content>
+    <Content Include="Entities\ConstructionEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\dlMenu\jquery.dlmenu.js" />
     <Content Include="Scripts\dlMenu\modernizr.custom.js" />
