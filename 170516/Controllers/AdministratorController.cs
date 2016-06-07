@@ -65,7 +65,7 @@ namespace _170516.Controllers
                         categories = dbContext.Categories
                           .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
                             .OrderByDescending(p => p.Description);
-                    break;                
+                    break;
                 case "DateModified":
                     if (isAsc.GetValueOrDefault())
                         categories = dbContext.Categories
@@ -107,11 +107,11 @@ namespace _170516.Controllers
                     Description = c.Description,
                     DateModified = c.DateModified,
                     CreatedUserID = c.CreatedUserID == 0 ? string.Empty : "0"
-                })                
+                })
                 .Skip(pageSize * (pageNo - 1))
                 .Take(pageSize).ToList();
 
-            var model = new ViewProductCategoryModel();           
+            var model = new ViewProductCategoryModel();
             model.CurrentPage = pageNo;
             model.SearchText = searchText;
             model.ItemOnPage = pageSize;
@@ -263,7 +263,7 @@ namespace _170516.Controllers
                 Description = category.Description,
                 DateModified = category.DateModified,
                 CreatedUserID = category.CreatedUserID == 0 ? string.Empty : "0"
-                                               
+
             };
 
             if (category.ParentID != null)
@@ -579,10 +579,10 @@ namespace _170516.Controllers
             model.CategoryList = dbContext.Categories
                 .Where(c => c.IsActive)
                 .Select(c => new CreateProductCategoryListItem
-            {
-                CategoryID = c.CategoryID,
-                CategoryName = c.Name
-            }).ToList();
+                {
+                    CategoryID = c.CategoryID,
+                    CategoryName = c.Name
+                }).ToList();
 
             // get all existing supplier
             model.SupplierList = dbContext.Suppliers.Select(s => new CreateProductSupplierListItem
@@ -841,13 +841,14 @@ namespace _170516.Controllers
             suppliers = dbContext.Suppliers
                             .Where(p => string.IsNullOrEmpty(searchText) || p.CompanyName.Contains(searchText));
 
-            var suppliersModel = suppliers.ToList().Select(s => new ViewSupplierItem {
+            var suppliersModel = suppliers.ToList().Select(s => new ViewSupplierItem
+            {
                 SupplierID = s.SupplierID,
                 SupplierCompanyName = s.CompanyName,
                 SupplierContactName = string.Format("{0} {1}", s.ContactFName, s.ContactLName),
                 Address = s.Address1,
                 Email = s.EmailAddress,
-                ProductType =  s.ProductType
+                ProductType = s.ProductType
             });
 
             IEnumerable<ViewSupplierItem> result;
@@ -888,7 +889,7 @@ namespace _170516.Controllers
 
             int totalRecord = result.Count();
 
-            result = result.Select( s=> s).Skip(pageSize * (pageNo - 1)).Take(pageSize);
+            result = result.Select(s => s).Skip(pageSize * (pageNo - 1)).Take(pageSize);
 
             var model = new ViewSupplierModel();
             model.CurrentPage = pageNo;
@@ -927,7 +928,7 @@ namespace _170516.Controllers
                 EmailAddress = supplier.EmailAddress,
                 Discount = supplier.Discount,
                 ProductType = supplier.ProductType,
-                IsDiscountAvailable = supplier.IsDiscountAvailable,                
+                IsDiscountAvailable = supplier.IsDiscountAvailable,
             };
 
             // image
@@ -948,7 +949,8 @@ namespace _170516.Controllers
         [HttpPost]
         public JsonResult AddSupplier(CreateSupplierModel model)
         {
-            var supplier = new Supplier {
+            var supplier = new Supplier
+            {
                 CompanyName = model.CompanyName,
                 ContactFName = model.ContactFName,
                 ContactLName = model.ContactLName,
@@ -1163,7 +1165,7 @@ namespace _170516.Controllers
                 District = s.District
             }).Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
 
-           
+
 
             var model = new ViewShipperModel();
             model.CurrentPage = pageNo;
@@ -1190,7 +1192,7 @@ namespace _170516.Controllers
 
             var shipperDetailsModel = new CreateShipperModel
             {
-                ShipperID = shipper.ShipperID,                
+                ShipperID = shipper.ShipperID,
                 CompanyName = shipper.CompanyName,
                 Phone = shipper.Phone,
                 EmailAddress = shipper.EmailAddress,
@@ -1198,7 +1200,7 @@ namespace _170516.Controllers
                 City = shipper.City,
                 District = shipper.District
             };
-            
+
 
             return View(shipperDetailsModel);
         }
@@ -1213,7 +1215,7 @@ namespace _170516.Controllers
         public JsonResult AddShipper(CreateShipperModel model)
         {
             var shipper = new Shipper
-            {               
+            {
                 CompanyName = model.CompanyName,
                 Phone = model.Phone,
                 EmailAddress = model.EmailAddress,
@@ -1221,7 +1223,7 @@ namespace _170516.Controllers
                 City = model.City,
                 District = model.District
             };
-         
+
 
             dbContext.Shippers.Add(shipper);
 
@@ -1257,7 +1259,7 @@ namespace _170516.Controllers
                 District = shipper.District
             };
 
-            
+
             return View(ShipperUpdateModel);
         }
         [HttpPost]
@@ -1272,7 +1274,7 @@ namespace _170516.Controllers
             shipper.City = shipper.City;
             shipper.District = shipper.District;
 
-           
+
             try
             {
                 dbContext.SaveChanges();
@@ -1311,6 +1313,254 @@ namespace _170516.Controllers
 
             return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
         }
+
+        #endregion
+
+        #region Orders
+        public ActionResult ViewOrder(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
+        {
+            var pageNo = page.GetValueOrDefault();
+            var pageSize = itemsPerPage.GetValueOrDefault();
+
+            if (pageNo == 0) pageNo = 1;
+            if (pageSize == 0) pageSize = 10;
+            if (isAsc == null) isAsc = true;
+            if (string.IsNullOrEmpty(searchText)) searchText = null;
+            if (string.IsNullOrEmpty(sortField)) sortField = "OrderDate";
+
+            IQueryable<Order> orders;
+            orders = dbContext.Orders
+                            .Where(p => string.IsNullOrEmpty(searchText) ||
+                            (p.Customer.FirstName.Contains(searchText) || p.Customer.LastName.Contains(searchText)));
+
+
+            var ordersModel = dbContext.Orders.ToList().Select(o => new ViewOrderItem
+            {
+                OrderID = o.OrderID,
+                OrderNumber = o.OrderNumber,
+                OrderStatus = o.OrderStatus,
+                OrderStatusToUser = GetOrderStatusToUser(o.OrderStatus),
+                IsFulfilled = o.IsFulfilled,
+                IsCanceled = o.IsCanceled,
+                CustomerID = o.CustomerID,
+                CustomerName = string.Format("{0} {1}", o.Customer.FirstName, o.Customer.LastName),
+                ShipperID = o.ShipperID,
+                ShipperCompanyName = o.Shipper.CompanyName,
+                OrderDate = o.OrderDate,
+                ShipDate = o.ShipDate,
+                PaymentDate = o.PaymentDate,
+                TotalIncome = o.OrderDetails.Sum(d => d.Total)
+            });            
+
+            IEnumerable<ViewOrderItem> result;
+
+            switch (sortField)
+            {
+                case "Customer":
+                    if (isAsc.GetValueOrDefault())
+                        result = ordersModel.OrderBy(s => s.CustomerName);
+                    else
+                        result = ordersModel.OrderByDescending(s => s.CustomerName);
+                    break;
+                case "Shipper":
+                    if (isAsc.GetValueOrDefault())
+                        result = ordersModel.OrderBy(s => s.ShipperCompanyName);
+                    else
+                        result = ordersModel.OrderByDescending(s => s.ShipperCompanyName);
+                    break;
+                case "Paid":
+                    if (isAsc.GetValueOrDefault())
+                        result = ordersModel.OrderBy(s => s.Paid);
+                    else
+                        result = ordersModel.OrderByDescending(s => s.Paid);
+                    break;
+                case "Freight":
+                    if (isAsc.GetValueOrDefault())
+                        result = ordersModel.OrderBy(s => s.Freight);
+                    else
+                        result = ordersModel.OrderByDescending(s => s.Freight);
+                    break;
+                case "SalesTax":
+                    if (isAsc.GetValueOrDefault())
+                        result = ordersModel.OrderBy(s => s.SalesTax);
+                    else
+                        result = ordersModel.OrderByDescending(s => s.SalesTax);
+                    break;
+                case "Total":
+                    if (isAsc.GetValueOrDefault())
+                        result = ordersModel.OrderBy(s => s.TotalIncome);
+                    else
+                        result = ordersModel.OrderByDescending(s => s.TotalIncome);
+                    break;
+                case "ShipDate":
+                    if (isAsc.GetValueOrDefault())
+                        result = ordersModel.OrderBy(s => s.ShipDate);
+                    else
+                        result = ordersModel.OrderByDescending(s => s.ShipDate);
+                    break;
+                case "PaymentDate":
+                    if (isAsc.GetValueOrDefault())
+                        result = ordersModel.OrderBy(s => s.PaymentDate);
+                    else
+                        result = ordersModel.OrderByDescending(s => s.PaymentDate);
+                    break;
+                case "OrderStatus":
+                    if (isAsc.GetValueOrDefault())
+                        result = ordersModel.OrderBy(s => s.OrderStatusToUser);
+                    else
+                        result = ordersModel.OrderByDescending(s => s.OrderStatusToUser);
+                    break;
+                default:
+                    if (isAsc.GetValueOrDefault())
+                        result = ordersModel.OrderBy(s => s.OrderDate);
+                    else
+                        result = ordersModel.OrderByDescending(s => s.OrderDate);
+                    break;
+            }
+
+            int totalRecord = result.Count();
+
+            result = result.Select(s => s).Skip(pageSize * (pageNo - 1)).Take(pageSize);
+
+            var model = new ViewOrderModel();
+            model.CurrentPage = pageNo;
+            model.SearchText = searchText;
+            model.ItemOnPage = pageSize;
+            model.StartIndex = pageSize * pageNo - pageSize + 1;
+            model.EndIndex = model.StartIndex + pageSize - 1;
+            model.TotalNumber = totalRecord;
+            model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
+            model.Orders = result.ToList();
+            model.SortField = sortField;
+            model.IsAsc = isAsc.GetValueOrDefault();
+
+            return View(model);
+        }
+
+        private string GetOrderStatusToUser(string orderStatus)
+        {
+            string result = string.Empty;
+            switch (orderStatus)
+            {
+                case Constant.OrderCanceledStatus:
+                    result ="Đơn hàng đã hủy";
+                    break;
+                case Constant.OrderFulfilledStatus:
+                    result= "Đơn hàng đã xong";
+                    break;
+                case Constant.OrderIsProcessingtatus:
+                    result= "Đang được xử lý";
+                    break;
+                case Constant.OrderDeliveredStatus:
+                    result ="Đã được chuyển đến";
+                    break;
+                default:
+                    break;
+            }
+
+            return result;
+        }
+        
+        [HttpGet]
+        public ActionResult UpdateOrder(int id)
+        {
+            var order = dbContext.Orders.FirstOrDefault(o => o.OrderID == id);
+
+            if (order == null)
+            {
+                return RedirectToAction("ViewOrder");
+            }
+
+            var updateOrderModel = new UpdateOrderModel {
+                OrderID = order.OrderID,
+                OrderNumber = order.OrderNumber,
+                CustomerID = order.CustomerID,
+                CustomerName = string.Format("{0} {1}", order.Customer.FirstName, order.Customer.LastName),
+                ShipperID = order.ShipperID,
+                Freight = order.Freight,
+                SalesTax = order.SalesTax,
+                Paid = order.Paid,
+                ShipDate = order.ShipDate,
+                PaymentDate = order.PaymentDate,
+                OrderDate = order.OrderDate,
+                IsFulfilled = order.IsFulfilled,
+                IsCanceled = order.IsCanceled,
+                OrderStatus = order.OrderStatus,
+                RequiredDate = order.RequiredDate
+            };
+
+            updateOrderModel.Shippers = dbContext.Shippers.Select(s => new ViewShipperItem {
+                ShipperID = s.ShipperID,
+                CompanyName = s.CompanyName
+            }).ToList();
+
+            return View(updateOrderModel);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateOrder(UpdateOrderModel model)
+        {
+            var order = dbContext.Orders.FirstOrDefault(o => o.OrderID == model.OrderID);
+
+            order.ShipperID = model.ShipperID;
+            order.Freight = model.Freight;
+            order.SalesTax = model.SalesTax;
+            order.Paid = model.Paid;
+            order.ShipDate = model.ShipDate;
+            order.RequiredDate = model.RequiredDate;
+            order.PaymentDate = model.PaymentDate;
+            order.OrderStatus = model.OrderStatus;
+
+            order.IsCanceled = order.OrderStatus == Constant.OrderCanceledStatus;
+            order.IsFulfilled = order.OrderStatus == Constant.OrderFulfilledStatus;
+            order.ModifiedDate = DateTime.Now;
+
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult CancelOrder(int id)
+        {
+            var order = dbContext.Orders.FirstOrDefault(o => o.OrderID == id);
+
+            try
+            {
+                if (order != null)
+                {
+                    // remove it
+                    order.IsCanceled = true;
+                    order.OrderStatus = Constant.OrderCanceledStatus;
+                    dbContext.SaveChanges();
+                }
+                else
+                {
+                    return Json(new { isResult = false, result = Constant.OrderNotFound }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult ViewOrderDetails(int id)
+        {
+            var order = dbContext.Orders.FirstOrDefault(o => o.OrderID == id);
+            return View();
+        }
+
         #endregion
     }
 }

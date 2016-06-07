@@ -1,0 +1,138 @@
+﻿
+@model _170516.Models.Administrator.UpdateOrderModel
+
+
+@{
+    ViewBag.Title = "UpdateOrder";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box-large">
+            <div class="panel-heading">
+                @*nav bar*@
+                <ol class="breadcrumb">
+                    <li><a href="@Url.Action("ViewOrder","Administrator")">Quản Lý Đơn hàng</a></li>
+                    <li class="active">Chỉnh sửa Đơn hàng</li>
+                </ol>
+                <div class="panel-title title-3">Chỉnh sửa Đơn hàng</div>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "updateOrderForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                @Html.HiddenFor(model => model.OrderID)
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="CompanyName">Tên khách hàng <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        @Html.LabelFor(model => model.CustomerName, new { @class = "form-control" }) 
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="Address1">Shipper <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <select id="ShipperID" class="form-control" name="ShipperID">                                           
+                                            @foreach (var shipper in Model.Shippers)
+                                            {
+                                                if (shipper.ShipperID == Model.ShipperID)
+                                                {
+                                                    <option selected="selected" value="@shipper.ShipperID">@shipper.CompanyName</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@shipper.ShipperID">@shipper.CompanyName</option>
+                                                }
+                                            }
+                                        </select>
+                                        <span class="field-validation-valid" data-valmsg-for="ShipperID" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="Address2">Cước <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        @Html.TextBoxFor(model => model.Freight, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.Freight, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="City">Thuế <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        @Html.TextBoxFor(model => model.SalesTax, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.SalesTax, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="Phone">Đã trả <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        @Html.TextBoxFor(model => model.Paid, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.Paid, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="Fax">Ngày đặt hàng <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">                                          
+                                        <span class="form-control">@Model.OrderDate.ToShortDateString()</span>                                     
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="Fax">Ngày yêu cầu <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <span class="form-control">@Model.RequiredDate.ToShortDateString()</span>                                        
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="Phone">Ngày ship <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        @Html.TextBox("ShipDate", Model.ShipDate.ToShortDateString(), new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.ShipDate, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="Phone">Ngày trả tiền <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        @Html.TextBox("PaymentDate", Model.PaymentDate.Value.ToShortDateString(), new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.PaymentDate, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="Phone">Trạng thái đơn hàng <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        @Html.DropDownListFor(model => model.OrderStatus, Model.Statuses, new { @class = "form-control" })                                      
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <div class="col-md-12 form-button">
+                                        <button class="btn btn-primary" type="button" id="SubmitUpdateOrder"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu </button>
+                                        <button class="btn btn-danger" type="reset"><i class="glyphicon glyphicon-remove"></i>Hủy</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/Admin/order.js")"></script>
+}
+
+
+
+

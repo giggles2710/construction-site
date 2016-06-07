@@ -232,7 +232,9 @@
     <Compile Include="Models\Administrator\CreateSupplierModel.cs" />
     <Compile Include="Models\Administrator\DetailProductModel.cs" />
     <Compile Include="Models\Administrator\DetailsCustomerModel.cs" />
+    <Compile Include="Models\Administrator\UpdateOrderModel.cs" />
     <Compile Include="Models\Administrator\UpdateProductModel.cs" />
+    <Compile Include="Models\Administrator\ViewOrderModel.cs" />
     <Compile Include="Models\Administrator\ViewProductCategoryModel.cs" />
     <Compile Include="Models\Administrator\ViewProductModel.cs" />
     <Compile Include="Models\Administrator\ViewShipperModel.cs" />
@@ -271,6 +273,7 @@
     <Content Include="Scripts\Admin\js\editors.js" />
     <Content Include="Scripts\Admin\js\forms.js" />
     <Content Include="Scripts\Admin\category.js" />
+    <Content Include="Scripts\Admin\order.js" />
     <Content Include="Scripts\Admin\shipper.js" />
     <Content Include="Scripts\Admin\supplier.js" />
     <Content Include="Scripts\bootbox.min.js" />
@@ -1448,6 +1451,8 @@
     <Content Include="Views\Administrator\UpdateShipper.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\_PartialSubCategory.cshtml" />
+    <Content Include="Views\Administrator\ViewOrder.cshtml" />
+    <Content Include="Views\Administrator\UpdateOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
