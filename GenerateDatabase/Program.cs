@@ -79,24 +79,91 @@ namespace GenerateDatabase
 
         public void GenerateCategory()
         {
-            for (var i = 0; i < 300; i++)
+            var parentCategory = new string[] { "Gạch và ngói", "Thiết bị vệ sinh", "Điện", "Cửa nhựa lõi thép", "Máy nước nóng NLMT", "Nước", "Sơn", "Đồ gỗ", "Nhôm kính - Inox", "Trang trí", "Vật dụng nhà bếp", "Cát - Đá", "Sắt - Thép", "Xi măng - Bê tông", "Thủy tinh", "Phụ gia xây dựng", "VL Gia Cố Nền Đất", "VLXD lỗi thời", "Cơ khí xây dựng", "Tư vấn thiết kế", "Thi công xây dựng" };
+            var gachVaNgoiCate = new string[] { "Gạch block", "Gạch cổ và Ngói cổ", "Gạch ngoại thất", "Gạch nhẹ", "Gạch nung", "Ngói màu", "Ngói nung", "Ngói tráng men", "Gạch ốp lát", "TOLE và Tấm lợp" };
+            var thietBiVeSinh = new string[] { "Bồn cầu", "Bồn rửa mặt", "Máy sấy khăn", "Nội thất phòng tắm", "Lavabo", "Bồn tiểu", "Vòi nước", "Bồn tắm", "Phụ kiện khác" };
+            var dien = new string[] { "Đèn chiếu sáng", "Dây và Cáp điện", "Thiết bị điện", "Thiết Bị Cơ Điện-Lạnh" };
+
+            // generate category
+            // parents
+            #region Parent Category
+
+            foreach (var parent in parentCategory)
             {
-                var category = dbContext.Categories.FirstOrDefault(c => c.CategoryID == i);
-
-                if (category == null)
-                    category = new Category();
-
-                category.CreatedUserID = random.Next(1, 300);
-                category.DateModified = DateTime.Now;
-                category.Description = UtilityHelper.RandomString(150);
-                category.IsActive = random.Next() % 2 != 0;
-                category.Name = UtilityHelper.RandomString(5);
-                if (random.Next() % 2 != 0)
-                    category.ParentID = random.Next(1, 300);
-
-                if (category == null)
-                    dbContext.Categories.Add(category);
+                dbContext.Categories.Add(new Category
+                {
+                    DateModified = DateTime.Now,
+                    Description = random.Next() % 2 != 0 ? UtilityHelper.RandomString(100) : string.Empty,
+                    IsActive = true,
+                    Name = parent
+                });
             }
+
+            dbContext.SaveChanges();
+
+            #endregion
+
+            #region Gach va Ngoi
+            var gachVaNgoiParent = dbContext.Categories.FirstOrDefault(c => c.Name.Equals("Gạch và ngói", StringComparison.OrdinalIgnoreCase));
+
+            if (gachVaNgoiParent != null)
+            {
+                foreach (var item in gachVaNgoiCate)
+                {
+                    dbContext.Categories.Add(new Category
+                    {
+                        DateModified = DateTime.Now,
+                        Description = random.Next() % 2 != 0 ? UtilityHelper.RandomString(100) : string.Empty,
+                        IsActive = true,
+                        Name = item,
+                        ParentID = gachVaNgoiParent.CategoryID
+                    });
+                }
+            }
+
+            #endregion
+
+            #region Thiet bi ve sinh
+
+            var thietbivesinhCate = dbContext.Categories.FirstOrDefault(c => c.Name.Equals("Thiết bị vệ sinh", StringComparison.OrdinalIgnoreCase));
+
+            if (thietbivesinhCate != null)
+            {
+                foreach (var item in thietBiVeSinh)
+                {
+                    dbContext.Categories.Add(new Category
+                    {
+                        DateModified = DateTime.Now,
+                        Description = random.Next() % 2 != 0 ? UtilityHelper.RandomString(100) : string.Empty,
+                        IsActive = true,
+                        Name = item,
+                        ParentID = thietbivesinhCate.CategoryID
+                    });
+                }
+            }
+            #endregion
+
+            #region Dien
+
+            var dienCategory = dbContext.Categories.FirstOrDefault(c => c.Name.Equals("Điện", StringComparison.OrdinalIgnoreCase));
+
+            if (dienCategory != null)
+            {
+                foreach (var item in dien)
+                {
+
+                    dbContext.Categories.Add(new Category
+                    {
+                        DateModified = DateTime.Now,
+                        Description = random.Next() % 2 != 0 ? UtilityHelper.RandomString(100) : string.Empty,
+                        IsActive = true,
+                        Name = item,
+                        ParentID = dienCategory.CategoryID
+                    });
+                }
+            }
+
+            #endregion
 
             dbContext.SaveChanges();
         }

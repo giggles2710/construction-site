@@ -55,74 +55,74 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\Account.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Category.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\ConstructionEntity.Context.cs">
+    <Compile Include="Entity\ConstructionSite.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ConstructionEntity.Context.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\ConstructionEntity.cs">
+    <Compile Include="Entity\ConstructionSite.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\ConstructionEntity.Designer.cs">
+    <Compile Include="Entity\ConstructionSite.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <DependentUpon>ConstructionSite.edmx</DependentUpon>
     </Compile>
     <Compile Include="Entity\Customer.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\GetHashTokenByEmailAddress_Result.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\LoginByEmailAdress_Result.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Order.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\OrderDetail.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Product.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Role.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Shipper.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Supplier.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="Entity\ConstructionEntity.edmx">
+    <EntityDeploy Include="Entity\ConstructionSite.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ConstructionEntity.Designer.cs</LastGenOutput>
+      <LastGenOutput>ConstructionSite.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Entity\ConstructionEntity.Context.tt">
+    <None Include="Entity\ConstructionSite.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-      <LastGenOutput>ConstructionEntity.Context.cs</LastGenOutput>
+      <DependentUpon>ConstructionSite.edmx</DependentUpon>
+      <LastGenOutput>ConstructionSite.Context.cs</LastGenOutput>
     </None>
-    <None Include="Entity\ConstructionEntity.edmx.diagram">
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+    <None Include="Entity\ConstructionSite.edmx.diagram">
+      <DependentUpon>ConstructionSite.edmx</DependentUpon>
     </None>
-    <None Include="Entity\ConstructionEntity.tt">
+    <None Include="Entity\ConstructionSite.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-      <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
+      <DependentUpon>ConstructionSite.edmx</DependentUpon>
+      <LastGenOutput>ConstructionSite.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

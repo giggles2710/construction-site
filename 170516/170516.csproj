@@ -173,52 +173,52 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Entities\Account.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Category.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\ConstructionEntity.Context.cs">
+    <Compile Include="Entities\ConstructionSite.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ConstructionEntity.Context.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\ConstructionEntity.cs">
+    <Compile Include="Entities\ConstructionSite.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\ConstructionEntity.Designer.cs">
+    <Compile Include="Entities\ConstructionSite.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <DependentUpon>ConstructionSite.edmx</DependentUpon>
     </Compile>
     <Compile Include="Entities\Customer.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\GetHashTokenByEmailAddress_Result.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\LoginByEmailAdress_Result.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Order.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\OrderDetail.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Product.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Role.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Shipper.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Supplier.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+      <DependentUpon>ConstructionSite.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -239,6 +239,7 @@
     <Compile Include="Models\Administrator\ViewSupplierModel.cs" />
     <Compile Include="Models\Constant.cs" />
     <Compile Include="Models\ProductIndexModel.cs" />
+    <Compile Include="Models\SubCategoryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utility\EncryptionHelper.cs" />
@@ -1339,28 +1340,29 @@
     <Content Include="Content\font-awesome\scss\_screen-reader.scss" />
     <Content Include="Content\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\font-awesome\scss\_variables.scss" />
-    <EntityDeploy Include="Entities\ConstructionEntity.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ConstructionEntity.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Entities\ConstructionEntity.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-      <LastGenOutput>ConstructionEntity.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entities\ConstructionEntity.edmx.diagram">
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-    </Content>
-    <Content Include="Entities\ConstructionEntity.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-      <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
-    </Content>
     <Content Include="Content\dlMenu\fonts\icomoon.dev.svg" />
     <Content Include="Content\dlMenu\fonts\icomoon.eot" />
     <Content Include="Content\dlMenu\fonts\icomoon.svg" />
     <Content Include="Content\dlMenu\fonts\icomoon.ttf" />
     <Content Include="Content\dlMenu\fonts\icomoon.woff" />
+    <EntityDeploy Include="Entities\ConstructionSite.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ConstructionSite.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Entities\ConstructionSite.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ConstructionSite.edmx</DependentUpon>
+      <LastGenOutput>ConstructionSite.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entities\ConstructionSite.edmx.diagram">
+      <DependentUpon>ConstructionSite.edmx</DependentUpon>
+    </Content>
+    <Content Include="Entities\ConstructionSite.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ConstructionSite.edmx</DependentUpon>
+      <LastGenOutput>ConstructionSite.cs</LastGenOutput>
+    </Content>
+    <Content Include="Content\Image\loading.svg" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\dlMenu\jquery.dlmenu.js" />
     <Content Include="Scripts\dlMenu\modernizr.custom.js" />
@@ -1445,6 +1447,7 @@
     <Content Include="Views\Administrator\AddShipper.cshtml" />
     <Content Include="Views\Administrator\UpdateShipper.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\_PartialSubCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

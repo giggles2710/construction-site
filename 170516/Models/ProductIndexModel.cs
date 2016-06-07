@@ -17,6 +17,16 @@ namespace _170516.Models
     {
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
-        public bool HasSubMenu { get; set; }
+        public string Description { get; set; }
+        public string ImageSrc { get; set; }
+        public string ImageType { get; set; }
+        public byte[] ImageByte { get; set; }
+        public List<MinimalCategoryItem> SubCategoryList { get; set; }
+    }
+
+    public class MinimalCategoryItem
+    {
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
     }
 }

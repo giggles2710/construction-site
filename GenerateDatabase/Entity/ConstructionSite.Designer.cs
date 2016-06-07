@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\Best Edu\170516\170516\GenerateDatabase\Entity\ConstructionEntity.edmx'. 
+﻿// T4 code generation is enabled for model 'E:\OUTDOOR\construction-site\GenerateDatabase\Entity\ConstructionSite.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

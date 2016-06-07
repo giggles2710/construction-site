@@ -21,13 +21,26 @@ namespace _170516.Controllers
             indexModel.Menu = dbContext.Categories.Where(c => c.ParentID == null && c.IsActive).Select(ca => new MenuCategoryItem
             {
                 CategoryId = ca.CategoryID,
-                CategoryName = ca.Name
+                CategoryName = ca.Name,
+                Description = ca.Description,
+                ImageByte = ca.Image,
+                ImageType = ca.ImageType
             }).ToList();
-
+            
             // fill up missing information
             foreach (var item in indexModel.Menu)
             {
-                item.HasSubMenu = dbContext.Categories.Where(c => c.ParentID == item.CategoryId).Count() > 0;
+                item.SubCategoryList = dbContext.Categories.Where(c => c.ParentID == item.CategoryId && c.IsActive).Select(ca => new MinimalCategoryItem
+                {
+                    CategoryId = ca.CategoryID,
+                    CategoryName = ca.Name
+                }).ToList();
+
+                // image
+                if (item.ImageByte != null)
+                {
+                    item.ImageSrc = string.Format(Constant.ImageSourceFormat, item.ImageType, Convert.ToBase64String(item.ImageByte));
+                }
             }
 
             return View(indexModel);

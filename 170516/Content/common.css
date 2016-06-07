@@ -308,3 +308,55 @@ th.center {
 .nav-dropdown-toggle {
     padding-top: 13px !important;
 }
+
+.loading {
+    display: block;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background: url("./Image/loading.svg") no-repeat;
+    width: 50px;
+    height: 50px;
+    padding-left: 180px;
+    z-index: 9000;
+    position: absolute;
+}
+
+body, html {
+    background-color: #ffffff;
+}
+
+.hero_wrapper {
+    margin-top: 5px;
+    padding-left: 0px !important;
+    position: relative;
+}
+
+    .hero_wrapper img {
+        width: 100%;
+        right: 0;
+        bottom: 0;
+        position: relative;
+    }
+
+.hero_info {
+    width: auto;
+    top: 220px;
+    left: 30px;
+    color: #ffffff;
+    text-shadow: 0 2px 0 rgba(51,51,51,.5);
+    line-height: 22px !important;
+    height: auto;
+    position: absolute;
+}
+
+    .hero_info h1 {
+        color: #ffffff;
+    }
+
+.hero_heading {
+    border-width: 0 1px 4px 1px;
+    border-color: #e7e7e7;
+    border-bottom: 4px solid #e7e7e7;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

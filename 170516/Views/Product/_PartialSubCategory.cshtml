@@ -1,0 +1,16 @@
+﻿@model _170516.Models.SubCategoryModel
+
+@foreach (var item in Model.SubCategoryMenu)
+{
+    <li>
+        <a href="#" data-id="@item.CategoryId">@item.CategoryName</a>
+        @if (item.SubCategoryList != null && item.SubCategoryList.Any())
+        {
+            <ul class="dl-submenu">
+                <li><a href="#"></a></li>
+            </ul>
+        }
+    </li>
+}
+
+
