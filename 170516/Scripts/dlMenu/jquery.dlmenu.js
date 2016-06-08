@@ -102,75 +102,122 @@
                 } else {
                     // get the sub categories and then merge it into the mark up
                     var $item = $(this);
+                    var submenu_links = $item.find('.dl-submenu').find('a');
+                    var isLoaded = false;
 
-                    $.ajax({
-                        url: staticUrl.GetSubCategory + '?id=' + categoryId,
-                        method: "GET",
-                        async: true,
-                        cache: false,
-                        beforeSend: function () {
-                            // show spinner
-                        },
-                        success: function (data) {
-                            if (data != null) {
-                                // merge html partial code into view
-                                var dlSubmenu = $item.find('ul.dl-submenu');
-                                if (dlSubmenu.length > 0) {
-                                    // remove the redundant li
-                                    var lis = $(dlSubmenu).find('li');
-                                    if (lis.length > 0) {
-                                        for (var i = 0; i < lis.length; i++) {
-                                            if (!$(lis[i]).hasClass('dl-back')) {
-                                                // remove it
-                                                $(lis[i]).remove();
-                                            }
-                                        }
-                                    }
-                                    // append right after it
-                                    $(dlSubmenu).append(data);
+                    for (var i = 0; i < submenu_links.length; i++) {
+                        var $tempLink = $(submenu_links[i]);
 
-                                    self._init();
+                        if ($tempLink.data('id') != null && $tempLink.data('id') != undefined && $tempLink.data('id') != "") {
+                            isLoaded = true;
+                            break;
+                        }
+                    }
+
+                    // if it is already loaded, so bring it on
+                    if (isLoaded) {
+                        // do the animation
+                        var $submenu = $item.children('ul.dl-submenu');
+
+                        if ($submenu.length > 0) {
+
+                            var $flyin = $submenu.clone().css('opacity', 0).insertAfter(self.$menu),
+                                onAnimationEndFn = function () {
+                                    self.$menu.off(self.animEndEventName).removeClass(self.options.animationClasses.classout).addClass('dl-subview');
+                                    $item.addClass('dl-subviewopen').parents('.dl-subviewopen:first').removeClass('dl-subviewopen').addClass('dl-subview');
+                                    $flyin.remove();
+                                };
+
+                            setTimeout(function () {
+                                $flyin.addClass(self.options.animationClasses.classin);
+                                self.$menu.addClass(self.options.animationClasses.classout);
+                                if (self.supportAnimations) {
+                                    self.$menu.on(self.animEndEventName, onAnimationEndFn);
+                                }
+                                else {
+                                    onAnimationEndFn.call();
                                 }
 
-                                setTimeout(function () {
-                                    // do the animation
-                                    $submenu = $item.children('ul.dl-submenu');
+                                self.options.onLevelClick($item, $item.children('a:first').text());
+                            });
 
-                                    if ($submenu.length > 0) {
+                            return false;
 
-                                        var $flyin = $submenu.clone().css('opacity', 0).insertAfter(self.$menu),
-                                            onAnimationEndFn = function () {
-                                                self.$menu.off(self.animEndEventName).removeClass(self.options.animationClasses.classout).addClass('dl-subview');
-                                                $item.addClass('dl-subviewopen').parents('.dl-subviewopen:first').removeClass('dl-subviewopen').addClass('dl-subview');
-                                                $flyin.remove();
-                                            };
-
-                                        setTimeout(function () {
-                                            $flyin.addClass(self.options.animationClasses.classin);
-                                            self.$menu.addClass(self.options.animationClasses.classout);
-                                            if (self.supportAnimations) {
-                                                self.$menu.on(self.animEndEventName, onAnimationEndFn);
-                                            }
-                                            else {
-                                                onAnimationEndFn.call();
-                                            }
-
-                                            self.options.onLevelClick($item, $item.children('a:first').text());
-                                        });
-
-                                        return false;
-
-                                    }
-                                    else {
-                                        self.options.onLinkClick($item, event);
-                                    }
-                                }, 200);
-                            }
-                        },
-                        error: function (error) {
-                            toastr.error("Error " + error.status + " : " + error.statusText);
                         }
-                    });
+                        else {
+                            self.options.onLinkClick($item, event);
+                        }
+                    } else {
+                        // call ajax to get the menu
+                        $.ajax({
+                            url: staticUrl.GetSubCategory + '?id=' + categoryId,
+                            method: "GET",
+                            async: true,
+                            cache: false,
+                            beforeSend: function () {
+                                // show spinner
+                            },
+                            success: function (data) {
+                                if (data != null) {
+                                    // merge html partial code into view
+                                    var dlSubmenu = $item.find('ul.dl-submenu');
+                                    if (dlSubmenu.length > 0) {
+                                        // remove the redundant li
+                                        var lis = $(dlSubmenu).find('li');
+                                        if (lis.length > 0) {
+                                            for (var i = 0; i < lis.length; i++) {
+                                                if (!$(lis[i]).hasClass('dl-back')) {
+                                                    // remove it
+                                                    $(lis[i]).remove();
+                                                }
+                                            }
+                                        }
+                                        // append right after it
+                                        $(dlSubmenu).append(data);
+
+                                        self._init();
+                                    }
+
+                                    setTimeout(function () {
+                                        // do the animation
+                                        var $submenu = $item.children('ul.dl-submenu');
+
+                                        if ($submenu.length > 0) {
+
+                                            var $flyin = $submenu.clone().css('opacity', 0).insertAfter(self.$menu),
+                                                onAnimationEndFn = function () {
+                                                    self.$menu.off(self.animEndEventName).removeClass(self.options.animationClasses.classout).addClass('dl-subview');
+                                                    $item.addClass('dl-subviewopen').parents('.dl-subviewopen:first').removeClass('dl-subviewopen').addClass('dl-subview');
+                                                    $flyin.remove();
+                                                };
+
+                                            setTimeout(function () {
+                                                $flyin.addClass(self.options.animationClasses.classin);
+                                                self.$menu.addClass(self.options.animationClasses.classout);
+                                                if (self.supportAnimations) {
+                                                    self.$menu.on(self.animEndEventName, onAnimationEndFn);
+                                                }
+                                                else {
+                                                    onAnimationEndFn.call();
+                                                }
+
+                                                self.options.onLevelClick($item, $item.children('a:first').text());
+                                            });
+
+                                            return false;
+
+                                        }
+                                        else {
+                                            self.options.onLinkClick($item, event);
+                                        }
+                                    }, 200);
+                                }
+                            },
+                            error: function (error) {
+                                toastr.error("Error " + error.status + " : " + error.statusText);
+                            }
+                        });
+                    }                    
                 }
             });
 
