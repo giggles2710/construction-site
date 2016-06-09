@@ -98,7 +98,7 @@
 
                 if ($(this).find('ul.dl-submenu').length == 0) {
                     // redirect to the category page
-                    window.location.href = staticUrl.ViewCategory + "?id=" + categoryId;
+                    getCategoryPage($item, categoryId, self);
                 } else {
                     // get the sub categories and then merge it into the mark up
                     var $item = $(this);
@@ -117,107 +117,11 @@
                     // if it is already loaded, so bring it on
                     if (isLoaded) {
                         // do the animation
-                        var $submenu = $item.children('ul.dl-submenu');
-
-                        if ($submenu.length > 0) {
-
-                            var $flyin = $submenu.clone().css('opacity', 0).insertAfter(self.$menu),
-                                onAnimationEndFn = function () {
-                                    self.$menu.off(self.animEndEventName).removeClass(self.options.animationClasses.classout).addClass('dl-subview');
-                                    $item.addClass('dl-subviewopen').parents('.dl-subviewopen:first').removeClass('dl-subviewopen').addClass('dl-subview');
-                                    $flyin.remove();
-                                };
-
-                            setTimeout(function () {
-                                $flyin.addClass(self.options.animationClasses.classin);
-                                self.$menu.addClass(self.options.animationClasses.classout);
-                                if (self.supportAnimations) {
-                                    self.$menu.on(self.animEndEventName, onAnimationEndFn);
-                                }
-                                else {
-                                    onAnimationEndFn.call();
-                                }
-
-                                self.options.onLevelClick($item, $item.children('a:first').text());
-                            });
-
-                            return false;
-
-                        }
-                        else {
-                            self.options.onLinkClick($item, event);
-                        }
+                        executeMenuAnimation(self, $item);
                     } else {
-                        // call ajax to get the menu
-                        $.ajax({
-                            url: staticUrl.GetSubCategory + '?id=' + categoryId,
-                            method: "GET",
-                            async: true,
-                            cache: false,
-                            beforeSend: function () {
-                                // show spinner
-                            },
-                            success: function (data) {
-                                if (data != null) {
-                                    // merge html partial code into view
-                                    var dlSubmenu = $item.find('ul.dl-submenu');
-                                    if (dlSubmenu.length > 0) {
-                                        // remove the redundant li
-                                        var lis = $(dlSubmenu).find('li');
-                                        if (lis.length > 0) {
-                                            for (var i = 0; i < lis.length; i++) {
-                                                if (!$(lis[i]).hasClass('dl-back')) {
-                                                    // remove it
-                                                    $(lis[i]).remove();
-                                                }
-                                            }
-                                        }
-                                        // append right after it
-                                        $(dlSubmenu).append(data);
-
-                                        self._init();
-                                    }
-
-                                    setTimeout(function () {
-                                        // do the animation
-                                        var $submenu = $item.children('ul.dl-submenu');
-
-                                        if ($submenu.length > 0) {
-
-                                            var $flyin = $submenu.clone().css('opacity', 0).insertAfter(self.$menu),
-                                                onAnimationEndFn = function () {
-                                                    self.$menu.off(self.animEndEventName).removeClass(self.options.animationClasses.classout).addClass('dl-subview');
-                                                    $item.addClass('dl-subviewopen').parents('.dl-subviewopen:first').removeClass('dl-subviewopen').addClass('dl-subview');
-                                                    $flyin.remove();
-                                                };
-
-                                            setTimeout(function () {
-                                                $flyin.addClass(self.options.animationClasses.classin);
-                                                self.$menu.addClass(self.options.animationClasses.classout);
-                                                if (self.supportAnimations) {
-                                                    self.$menu.on(self.animEndEventName, onAnimationEndFn);
-                                                }
-                                                else {
-                                                    onAnimationEndFn.call();
-                                                }
-
-                                                self.options.onLevelClick($item, $item.children('a:first').text());
-                                            });
-
-                                            return false;
-
-                                        }
-                                        else {
-                                            self.options.onLinkClick($item, event);
-                                        }
-                                    }, 200);
-                                }
-                            },
-                            error: function (error) {
-                                toastr.error("Error " + error.status + " : " + error.statusText);
-                            }
-                        });
-                    }                    
+                        // get sub menu
+                        getSubMenu($item, categoryId, self);
+                    }
                 }
             });
 
@@ -311,6 +215,105 @@
         if (window.console) {
             window.console.error(message);
         }
+    };    
+
+    var executeMenuAnimation = function (self, $item) {
+        var $submenu = $item.children('ul.dl-submenu');
+
+        if ($submenu.length > 0) {
+
+            var $flyin = $submenu.clone().css('opacity', 0).insertAfter(self.$menu),
+                onAnimationEndFn = function () {
+                    self.$menu.off(self.animEndEventName).removeClass(self.options.animationClasses.classout).addClass('dl-subview');
+                    $item.addClass('dl-subviewopen').parents('.dl-subviewopen:first').removeClass('dl-subviewopen').addClass('dl-subview');
+                    $flyin.remove();
+                };
+
+            setTimeout(function () {
+                $flyin.addClass(self.options.animationClasses.classin);
+                self.$menu.addClass(self.options.animationClasses.classout);
+                if (self.supportAnimations) {
+                    self.$menu.on(self.animEndEventName, onAnimationEndFn);
+                }
+                else {
+                    onAnimationEndFn.call();
+                }
+
+                self.options.onLevelClick($item, $item.children('a:first').text());
+            });
+
+            return false;
+
+        }
+        else {
+            self.options.onLinkClick($item, event);
+        }
+    }
+
+    var getCategoryPage = function ($item, categoryId, self) {
+        var viewCategoryLink = staticUrl.ViewCategory + "?id=" + categoryId;
+
+        // call ajax to get the view
+        $.ajax({
+            url: viewCategoryLink,
+            method: "GET",
+            async: true,
+            cache: false,
+            beforeSend: function () {
+                // show spinner
+            },
+            success: function (data) {
+                if (data != null) {
+                    // render it into main view
+                }
+            },
+            error: function (error) {
+                toastr.error("Error " + error.status + " : " + error.statusText);
+            }
+        });
+    }
+
+    var getSubMenu = function ($item, categoryId, self) {
+        // call ajax to get the menu
+        $.ajax({
+            url: staticUrl.GetSubCategory + '?id=' + categoryId,
+            method: "GET",
+            async: true,
+            cache: false,
+            beforeSend: function () {
+                // show spinner
+            },
+            success: function (data) {
+                if (data != null) {
+                    // merge html partial code into view
+                    var dlSubmenu = $item.find('ul.dl-submenu');
+                    if (dlSubmenu.length > 0) {
+                        // remove the redundant li
+                        var lis = $(dlSubmenu).find('li');
+                        if (lis.length > 0) {
+                            for (var i = 0; i < lis.length; i++) {
+                                if (!$(lis[i]).hasClass('dl-back')) {
+                                    // remove it
+                                    $(lis[i]).remove();
+                                }
+                            }
+                        }
+                        // append right after it
+                        $(dlSubmenu).append(data);
+
+                        self._init();
+                    }
+
+                    setTimeout(function () {
+                        // do the animation
+                        executeMenuAnimation(self, $item);
+                    }, 200);
+                }
+            },
+            error: function (error) {
+                toastr.error("Error " + error.status + " : " + error.statusText);
+            }
+        });
     };
 
     $.fn.dlmenu = function (options) {

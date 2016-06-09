@@ -30,12 +30,21 @@ namespace _170516.Models.Administrator
         public List<CreateProductCategoryListItem> CategoryList { get; set; }
         public List<CreateProductSupplierListItem> SupplierList { get; set; }
         public List<CreateProductColorListItem> AvailableColorList { get; set; }
+
+        public List<Tuple<int, string>> SpecificationType
+        {
+            get
+            {
+                return Constant.SpecificationType.ToList();
+            }
+        }
     }
 
     public class CreateProductCategoryListItem
     {
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
+        public int ParentID { get; set; }
     }
 
     public class CreateProductSupplierListItem

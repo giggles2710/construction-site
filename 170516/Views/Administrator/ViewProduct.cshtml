@@ -11,10 +11,7 @@
                 </ol>
                 <div class="panel-title title-3">Danh Sách Sản Phẩm</div>
                 <div class="panel-options">
-                    @if (Model.Products.Any())
-                    {
-                        <a id="addBtn" href="@Url.Action("AddProduct", "Administrator")" class="btn btn-success btn-xs" style="margin-top:0px;"><i class="fa fa-plus"></i> Tạo sản phẩm</a>
-                    }
+                    <a id="addBtn" href="@Url.Action("AddProduct", "Administrator")" class="btn btn-success btn-xs" style="margin-top:0px;"><i class="fa fa-plus"></i> Tạo sản phẩm</a>
                 </div>
             </div>
             <div class="panel-body">

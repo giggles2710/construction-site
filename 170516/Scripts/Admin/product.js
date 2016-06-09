@@ -8,6 +8,14 @@
         window.sessionStorage.DeletedStatus = null;
     }
 
+    // enable tiny mce
+    tinymce.init({
+        selector: '.tiny_mce_input',  // change this value according to your HTML
+        plugin: 'a_tinymce_plugin',
+        a_plugin_option: true,
+        a_configuration_option: 400
+    });
+
     // sorting header
     $(".dataTable th").on('click', function () {
         var sortStr = $(this).data('sort');
@@ -50,7 +58,7 @@
                                 if (data != null) {
                                     if (data.isResult == true) {
                                         window.sessionStorage.DeletedStatus = true;
-                                        window.sessionStorage.DeletedMessage = 'Xóa sản phẩm thành công.';                                       
+                                        window.sessionStorage.DeletedMessage = 'Xóa sản phẩm thành công.';
                                     } else {
                                         window.sessionStorage.DeletedStatus = false;
                                         window.sessionStorage.DeletedMessage = data.result;
@@ -58,7 +66,7 @@
 
                                     window.location.href = currentViewUrl;
                                 }
-                                
+
                             }, error: function (data) {
                                 toastr.error(data.result);
 
@@ -77,7 +85,7 @@
             }
         });
     });
-    
+
     // submit form
     $('#SubmitUpdateProduct').on('click', function () {
         // validate before submit form

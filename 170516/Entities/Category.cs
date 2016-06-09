@@ -16,6 +16,7 @@ namespace _170516.Entities
     {
         public Category()
         {
+            this.Category1 = new HashSet<Category>();
             this.Products = new HashSet<Product>();
         }
     
@@ -29,6 +30,8 @@ namespace _170516.Entities
         public Nullable<int> CreatedUserID { get; set; }
         public bool IsActive { get; set; }
     
+        public virtual ICollection<Category> Category1 { get; set; }
+        public virtual Category Category2 { get; set; }
         public virtual ICollection<Product> Products { get; set; }
     }
 }

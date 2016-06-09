@@ -43,8 +43,9 @@ namespace _170516
 
             bundles.Add(new ScriptBundle("~/bundles/main_script").Include(
                         "~/Scripts/Common/main.js",
-                        "~/Scripts/dlMenu/jquery.dlmenu.js",
+                        "~/Scripts/dlMenu/custom.dlmenu.js",
                         "~/Scripts/dlMenu/modernizr.custom.js",
+                        "~/Scripts/tinymce/tinymce.min.js",
                         "~/Scripts/bootbox.min.js",
                         "~/Scripts/toastr.min.js"));
 

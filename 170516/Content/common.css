@@ -432,3 +432,9 @@ body, html {
 }
 
 /* end list group*/
+
+.specification-header {
+    background: #ecf0f1;
+    font-weight: bold;
+    font-size: 13px;
+}

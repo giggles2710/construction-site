@@ -79,7 +79,7 @@ namespace GenerateDatabase
 
         public void GenerateCategory()
         {
-            var parentCategory = new string[] { "Gạch và ngói", "Thiết bị vệ sinh", "Điện", "Cửa nhựa lõi thép", "Máy nước nóng NLMT", "Nước", "Sơn", "Đồ gỗ", "Nhôm kính - Inox", "Trang trí", "Vật dụng nhà bếp", "Cát - Đá", "Sắt - Thép", "Xi măng - Bê tông", "Thủy tinh", "Phụ gia xây dựng", "VL Gia Cố Nền Đất", "VLXD lỗi thời", "Cơ khí xây dựng", "Tư vấn thiết kế", "Thi công xây dựng" };
+            var parentCategory = new string[] { "Gạch và ngói", "Thiết bị vệ sinh", "Điện", "Cửa nhựa lõi thép" };
             var gachVaNgoiCate = new string[] { "Gạch block", "Gạch cổ và Ngói cổ", "Gạch ngoại thất", "Gạch nhẹ", "Gạch nung", "Ngói màu", "Ngói nung", "Ngói tráng men", "Gạch ốp lát", "TOLE và Tấm lợp" };
             var thietBiVeSinh = new string[] { "Bồn cầu", "Bồn rửa mặt", "Máy sấy khăn", "Nội thất phòng tắm", "Lavabo", "Bồn tiểu", "Vòi nước", "Bồn tắm", "Phụ kiện khác" };
             var dien = new string[] { "Đèn chiếu sáng", "Dây và Cáp điện", "Thiết bị điện", "Thiết Bị Cơ Điện-Lạnh" };
@@ -121,6 +121,22 @@ namespace GenerateDatabase
                 }
             }
 
+            var gachBlock = dbContext.Categories.FirstOrDefault(c => c.Name.Equals("Gạch block", StringComparison.OrdinalIgnoreCase));
+
+            if (gachBlock != null)
+            {
+                for (var i = 0; i < 5; i++)
+                {
+                    dbContext.Categories.Add(new Category
+                    {
+                        DateModified = DateTime.Now,
+                        Description = random.Next() % 2 != 0 ? UtilityHelper.RandomString(100) : string.Empty,
+                        IsActive = true,
+                        Name = string.Format("Gạch block {0}",i),
+                        ParentID = gachBlock.CategoryID
+                    });
+                }
+            }
             #endregion
 
             #region Thiet bi ve sinh

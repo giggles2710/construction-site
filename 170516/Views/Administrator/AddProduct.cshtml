@@ -1,9 +1,7 @@
 ﻿@model _170516.Models.Administrator.CreateProductModel
-
 @{
     ViewBag.Title = "Tạo sản phẩm mới";
 }
-
 <div class="row">
     <div class="col-md-12">
         <div class="content-box-large">
@@ -18,63 +16,127 @@
             <div class="panel-body">
                 <form id="AddProductForm">
                     <div class="form-horizontal">
-                        <div class="row">                            
-                            <div class="col-md-8 col-lg-8">
-                                <!-- PRODUCT NAME -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductName">Tên Sản Phẩm <span class="text-danger">*</span></label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="ProductName" name="ProductName">
-                                        <span class="input-error-box text-danger"></span>
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Thông tin cơ bản</legend>
+                            <div class="row">
+                                <div class="col-md-8 col-lg-8">
+                                    <!-- PRODUCT NAME -->
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="ProductName">Tên Sản Phẩm <span class="text-danger">*</span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="ProductName" name="ProductName">
+                                            <span class="input-error-box text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <!-- PRODUCT CATEGORY -->
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="ProductCategoryID">Danh Mục</label>
+                                        <div class="col-sm-7">
+                                            @if (Model.CategoryList.Any())
+                                            {
+                                                <select id="ProductCategoryID" class="form-control" name="ProductCategoryID">
+                                                    @foreach (var category in Model.CategoryList)
+                                                    {
+                                                        <option value="@category.CategoryID">@category.CategoryName</option>
+                                                    }
+                                                </select>
+                                                <span class="field-validation-valid" data-valmsg-for="CategoryID" data-valmsg-replace="true"></span>
+                                            }
+                                            else
+                                            {
+                                                <h6>Chưa có dữ liệu</h6>
+                                            }
+                                        </div>
+                                    </div>
+                                    <!-- QUANTITY UNIT IN STOCK -->
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="ProductQuantity">Số Lượng <span class="text-danger">*</span></label>
+                                        <div class="col-sm-7">
+                                            <input type="number" class="form-control" id="ProductQuantity" name="ProductQuantity">
+                                            <span class="input-error-box text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <!-- SUPPLIER -->
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="ProductSupplierID">Nhà Phân Phối</label>
+                                        <div class="col-sm-7">
+                                            @if (Model.SupplierList.Any())
+                                            {
+                                                <select id="ProductSupplierID" name="ProductSupplierID" class="form-control">
+                                                    @foreach (var supplier in Model.SupplierList)
+                                                    {
+                                                        <option value="@supplier.SupplierID">@supplier.SupplierName</option>
+                                                    }
+                                                </select>
+                                            }
+                                            else
+                                            {
+                                                <h6>Chưa có dữ liệu</h6>
+                                            }
+                                        </div>
+                                    </div>
+                                    <!-- DISCOUNT -->
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="ProductDiscount">Khuyến Mãi</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control double-input large-input" id="ProductDiscount" name="ProductDiscount">
+                                            <h6>%</h6>
+                                            <span class="input-error-box text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <!-- PRICE -->
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="ProductPrice">Giá <span class="text-danger">*</span></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control double-input large-input" id="ProductPrice" name="ProductPrice">
+                                            <h6>VNĐ</h6>
+                                            <span class="input-error-box text-danger"></span>
+                                        </div>
                                     </div>
                                 </div>
-                                <!-- PRODUCT CATEGORY -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductCategoryID">Danh Mục</label>
-                                    <div class="col-sm-7">
-                                        @if (Model.CategoryList.Any())
-                                        {
-                                            <select id="ProductCategoryID" class="form-control" name="ProductCategoryID">
-                                                @foreach (var category in Model.CategoryList)
-                                                {
-                                                    <option value="@category.CategoryID">@category.CategoryName</option>
-                                                }
-                                            </select>
-                                            <span class="field-validation-valid" data-valmsg-for="CategoryID" data-valmsg-replace="true"></span>
-                                        }
-                                        else
-                                        {
-                                            <h6>Chưa có dữ liệu</h6>
-                                        }
+                                <div class="col-md-4 col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Ảnh Sản Phẩm</label>
+                                        <!-- IMAGE -->
+                                        <div class="image-box">
+                                            <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
+                                            <div id="ImagePreviewBox" class="preview-box" style="max-width:80%;"></div>
+                                            <input id="ImageUpload" type="file" class="image-file-input" name="ImageUpload" />
+                                            <input id="ProductImage" type="hidden" name="ProductImage" />
+                                            <h5 id="ImageName" class="image-name"></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
 
-                                    </div>
-                                </div>
-                                <!-- QUANTITY UNIT IN STOCK -->
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Đặc điểm</legend>
+                            <div class="row">
+                                <!-- SPECIFICATION FORM -->
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductQuantity">Số Lượng <span class="text-danger">*</span></label>
-                                    <div class="col-sm-7">
-                                        <input type="number" class="form-control" id="ProductQuantity" name="ProductQuantity">
-                                        <span class="input-error-box text-danger"></span>
-                                    </div>
-                                </div>                                                              
-                                <!-- SIZE -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductSize">Kích Cỡ <span class="text-danger">*</span></label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="ProductSize" name="ProductSize">
+                                    <label class="col-sm-2 control-label" for="SpecificationName">Tên đặc điểm <span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="SpecificationName" name="SpecificationName" />
                                         <span class="input-error-box text-danger"></span>
                                     </div>
                                 </div>
-                                <!-- SUPPLIER -->
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductSupplierID">Nhà Phân Phối</label>
-                                    <div class="col-sm-7">
-                                        @if (Model.SupplierList.Any())
+                                    <label class="col-sm-2 control-label" for="SpecificationValue">Giá trị <span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="SpecificationValue" name="SpecificationValue" />
+                                        <span class="input-error-box text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="SpecificationValue">Loại đặc điểm <span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        @if (Model.SpecificationType.Any())
                                         {
-                                            <select id="ProductSupplierID" name="ProductSupplierID" class="form-control">
-                                                @foreach (var supplier in Model.SupplierList)
+                                            <select id="SpecificationTypeID" name="SpecificationTypeID" class="form-control">
+                                                @foreach (var specificationType in Model.SpecificationType)
                                                 {
-                                                    <option value="@supplier.SupplierID">@supplier.SupplierName</option>
+                                                    <option value="@specificationType.Item1">@specificationType.Item2</option>
                                                 }
                                             </select>
                                         }
@@ -84,65 +146,50 @@
                                         }
                                     </div>
                                 </div>
-                                <!-- WEIGHT -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductWeight">Cân Nặng <span class="text-danger">*</span></label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control double-input large-input" id="ProductWeight" name="ProductWeight">
-                                        <h6>kilogram</h6>
-                                        <br />
-                                        <span class="input-error-box text-danger"></span>
-                                    </div>
-                                </div>  
-                                <!-- DISCOUNT -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductDiscount">Khuyến Mãi</label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control double-input large-input" id="ProductDiscount" name="ProductDiscount">
-                                        <h6>%</h6>
-                                        <span class="input-error-box text-danger"></span>
-                                    </div>
-                                </div>
-                                <!-- PRICE -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductPrice">Giá <span class="text-danger">*</span></label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control double-input large-input" id="ProductPrice" name="ProductPrice">
-                                        <h6>VNĐ</h6>
-                                        <span class="input-error-box text-danger"></span>
-                                    </div>
-                                </div>
-                                <!-- UNIT -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductUnit">Đơn vị <span class="text-danger">*</span></label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control double-input" id="ProductUnit" name="ProductUnit">
-                                        <span class="input-error-box text-danger"></span>
-                                    </div>
-                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- SPECIFICATION TABLE -->
+                                <table class="table col-sm-12">
+                                    <tbody>
+                                        <tr>
+                                            <td class="specification-header">Tui ten la</td>
+                                            <td>kich co cua tui</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="specification-header">Tui ten la 1111</td>
+                                            <td>kich co cua tui</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="specification-header">Tui ten la 2222</td>
+                                            <td>kich co cua tui</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="specification-header">Tui ten la 3333</td>
+                                            <td>kich co cua tui</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="specification-header">Tui ten la 444</td>
+                                            <td>kich co cua tui</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="fieldset">
+                            <legend class="fieldset-legend">Thông tin chung</legend>
+                            <div class="row">
                                 <!-- DESCRIPTION -->
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductDescription">Mô Tả</label>
-                                    <div class="col-sm-7">
-                                        <textarea class="form-control" id="ProductDescription" name="ProductDescription" style="height: 115px;"></textarea>
+                                    <label class="col-sm-2 control-label" for="ProductDescription">Mô Tả</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control tiny_mce_input" id="ProductDescription" name="ProductDescription" style="height: 115px;"></textarea>
                                         <span class="input-error-box text-danger"></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-lg-4">
-                                <div class="form-group">
-                                    <label class="control-label">Ảnh Sản Phẩm</label>
-                                    <!-- IMAGE -->
-                                    <div class="image-box">
-                                        <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
-                                        <div id="ImagePreviewBox" class="preview-box" style="max-width:80%;"></div>
-                                        <input id="ImageUpload" type="file" class="image-file-input" name="ImageUpload" />
-                                        <input id="ProductImage" type="hidden" name="ProductImage" />
-                                        <h5 id="ImageName" class="image-name"></h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </fieldset>
+
                         <div class="row">
                             <div class="col-md-12 col-lg-12">
                                 <div class="form-group">
@@ -159,10 +206,8 @@
         </div>
     </div>
 </div>
-
 <div id='AddColorModal' class='modal fade' data-url='@Url.Action("AddColor", "Administrator")'>
 </div>
-
 @section Scripts
 {
     <script src="@Url.Content("~/Scripts/Admin/product.js")"></script>

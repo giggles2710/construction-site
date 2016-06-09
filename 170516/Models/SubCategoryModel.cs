@@ -7,6 +7,6 @@ namespace _170516.Models
 {
     public class SubCategoryModel
     {
-        public List<MenuCategoryItem> SubCategoryMenu { get; set; }
+        public List<MenuCategoryItem> SubCategoryMenu { get; set; }        
     }
 }
