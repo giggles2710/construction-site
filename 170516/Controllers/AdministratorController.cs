@@ -1335,7 +1335,7 @@ namespace _170516.Controllers
                             (p.Customer.FirstName.Contains(searchText) || p.Customer.LastName.Contains(searchText)));
 
 
-            var ordersModel = dbContext.Orders.ToList().Select(o => new ViewOrderItem
+            var ordersModel = orders.ToList().Select(o => new ViewOrderItem
             {
                 OrderID = o.OrderID,
                 OrderNumber = o.OrderNumber,
@@ -1558,10 +1558,157 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
-        public ActionResult ViewOrderDetails(int id)
+        public ActionResult ViewOrderDetails(int id, int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
         {
+            if (id == 0)
+            {
+                return RedirectToAction("ViewOrder");
+            }
+
             var order = dbContext.Orders.FirstOrDefault(o => o.OrderID == id);
-            return View();
+
+            if (order == null)
+            {
+                return RedirectToAction("ViewOrder");
+            }
+
+            var pageNo = page.GetValueOrDefault();
+            var pageSize = itemsPerPage.GetValueOrDefault();
+
+            if (pageNo == 0) pageNo = 1;
+            if (pageSize == 0) pageSize = 10;
+            if (isAsc == null) isAsc = true;
+            if (string.IsNullOrEmpty(searchText)) searchText = null;
+            if (string.IsNullOrEmpty(sortField)) sortField = "OrderID";
+
+            var orderDetails = order.OrderDetails.Where(p => string.IsNullOrEmpty(searchText) || p.Product.Name.Contains(searchText));
+
+            var orderDetailsModel = orderDetails.ToList().Select(o => new ViewOrderDetailsItem {
+                OrderDetailID = o.OrderDetailID,
+                ProductID = o.ProductID,
+                ProductName = o.Product.Name,
+                OrderID = o.OrderID,
+                OrderNumber = o.OrderNumber,
+                Price = o.Price,
+                Quantity = o.Quantity,
+                Discount = o.Discount,
+                Total = o.Total,
+                Size = o.Size,
+                IsFulfilled = o.IsFulfilled, 
+                ShipDate = o.ShipDate,
+                PaidDate = o.PaidDate
+            });
+
+            IEnumerable<ViewOrderDetailsItem> result;
+
+            switch (sortField)
+            {
+                case "ProductName":
+                    if (isAsc.GetValueOrDefault())
+                        result = orderDetailsModel.OrderBy(s => s.ProductName);
+                    else
+                        result = orderDetailsModel.OrderByDescending(s => s.ProductName);
+                    break;
+                case "Price":
+                    if (isAsc.GetValueOrDefault())
+                        result = orderDetailsModel.OrderBy(s => s.Price);
+                    else
+                        result = orderDetailsModel.OrderByDescending(s => s.Price);
+                    break;
+                case "Quantity":
+                    if (isAsc.GetValueOrDefault())
+                        result = orderDetailsModel.OrderBy(s => s.Quantity);
+                    else
+                        result = orderDetailsModel.OrderByDescending(s => s.Quantity);
+                    break;
+                case "Discount":
+                    if (isAsc.GetValueOrDefault())
+                        result = orderDetailsModel.OrderBy(s => s.Discount);
+                    else
+                        result = orderDetailsModel.OrderByDescending(s => s.Discount);
+                    break;
+                case "Size":
+                    if (isAsc.GetValueOrDefault())
+                        result = orderDetailsModel.OrderBy(s => s.Size);
+                    else
+                        result = orderDetailsModel.OrderByDescending(s => s.Size);
+                    break;
+                case "Total":
+                    if (isAsc.GetValueOrDefault())
+                        result = orderDetailsModel.OrderBy(s => s.Total);
+                    else
+                        result = orderDetailsModel.OrderByDescending(s => s.Total);
+                    break;
+                case "IsFulfilled":
+                    if (isAsc.GetValueOrDefault())
+                        result = orderDetailsModel.OrderBy(s => s.IsFulfilled);
+                    else
+                        result = orderDetailsModel.OrderByDescending(s => s.IsFulfilled);
+                    break;
+                case "PaymentDate":
+                    if (isAsc.GetValueOrDefault())
+                        result = orderDetailsModel.OrderBy(s => s.PaidDate);
+                    else
+                        result = orderDetailsModel.OrderByDescending(s => s.PaidDate);
+                    break;
+                case "ShipDate":
+                    if (isAsc.GetValueOrDefault())
+                        result = orderDetailsModel.OrderBy(s => s.ShipDate);
+                    else
+                        result = orderDetailsModel.OrderByDescending(s => s.ShipDate);
+                    break;
+                default:
+                    if (isAsc.GetValueOrDefault())
+                        result = orderDetailsModel.OrderBy(s => s.OrderID);
+                    else
+                        result = orderDetailsModel.OrderByDescending(s => s.OrderID);
+                    break;
+            }
+
+            int totalRecord = result.Count();
+
+            result = result.Select(s => s).Skip(pageSize * (pageNo - 1)).Take(pageSize);
+
+            var model = new ViewOrderDetailsModel();
+            model.OrderID = id;
+            model.CurrentPage = pageNo;
+            model.SearchText = searchText;
+            model.ItemOnPage = pageSize;
+            model.StartIndex = pageSize * pageNo - pageSize + 1;
+            model.EndIndex = model.StartIndex + pageSize - 1;
+            model.TotalNumber = totalRecord;
+            model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
+            model.OrderDetails = result.ToList();
+            model.SortField = sortField;
+            model.IsAsc = isAsc.GetValueOrDefault();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult CancelOrderProduct(int id)
+        {
+            var orderDetails = dbContext.OrderDetails.FirstOrDefault(o => o.OrderDetailID == id);
+
+            try
+            {
+                if (orderDetails != null)
+                {
+                    // remove it
+                    dbContext.OrderDetails.Remove(orderDetails);
+                    dbContext.SaveChanges();
+                }
+                else
+                {
+                    return Json(new { isResult = false, result = Constant.OrderDetailsNotFound }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

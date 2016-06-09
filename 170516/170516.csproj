@@ -246,6 +246,7 @@
     <Compile Include="Models\Administrator\DetailsCustomerModel.cs" />
     <Compile Include="Models\Administrator\UpdateOrderModel.cs" />
     <Compile Include="Models\Administrator\UpdateProductModel.cs" />
+    <Compile Include="Models\Administrator\ViewOrderDetailsModel.cs" />
     <Compile Include="Models\Administrator\ViewOrderModel.cs" />
     <Compile Include="Models\Administrator\ViewProductCategoryModel.cs" />
     <Compile Include="Models\Administrator\ViewProductModel.cs" />
@@ -1634,6 +1635,7 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.eot" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
+    <Content Include="Views\Administrator\ViewOrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
