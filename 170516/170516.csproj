@@ -234,6 +234,7 @@
     <Compile Include="Models\Administrator\DetailsCustomerModel.cs" />
     <Compile Include="Models\Administrator\UpdateOrderModel.cs" />
     <Compile Include="Models\Administrator\UpdateProductModel.cs" />
+    <Compile Include="Models\Administrator\ViewOrderDetailsModel.cs" />
     <Compile Include="Models\Administrator\ViewOrderModel.cs" />
     <Compile Include="Models\Administrator\ViewProductCategoryModel.cs" />
     <Compile Include="Models\Administrator\ViewProductModel.cs" />
@@ -1453,6 +1454,7 @@
     <Content Include="Views\Product\_PartialSubCategory.cshtml" />
     <Content Include="Views\Administrator\ViewOrder.cshtml" />
     <Content Include="Views\Administrator\UpdateOrder.cshtml" />
+    <Content Include="Views\Administrator\ViewOrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

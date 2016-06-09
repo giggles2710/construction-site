@@ -1,8 +1,9 @@
-﻿@model _170516.Models.Administrator.ViewOrderModel
+﻿@model _170516.Models.Administrator.ViewOrderDetailsModel
 @{
-    ViewBag.Title = "ViewOrder";
+    ViewBag.Title = "ViewOrderDetails";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 
 
 <div class="row">
@@ -10,20 +11,23 @@
         <div class="content-box-large">
             <div class="panel-heading">
                 <ol class="breadcrumb">
-                    <li class="active">Quản Lý Đơn hàng</li>
+                    <li class="active">
+                        <a href="@Url.Action("ViewOrder", "Administrator")">Quản Lý Đơn hàng</a>
+                    </li>
                 </ol>
-                <div class="panel-title title-3">Danh Sách Đơn hàng</div>               
+                <div class="panel-title title-3">Danh Sách chi tiết Đơn hàng</div>
             </div>
             <div class="panel-body">
-                @if (Model.Orders.Any())
+                @if (Model.OrderDetails.Any())
             {
                     <div class="row">
                         <div class="col-sm-6">
                             <input type="hidden" id="dataTables_sort_field_hidden" value="@Model.SortField" />
                             <input type="hidden" id="dataTables_sort_direction_hidden" value="@Model.IsAsc" />
+                            @Html.HiddenFor(model => model.OrderID)
                             <div class="dataTables_show_item_div form-inline">
                                 <label><span>Hiển thị</span></label>
-                                <select id="dataTables_showNumberSelectOrder" aria-controls="dataTables-example" class="form-control input-sm">
+                                <select id="dataTables_showNumberSelectOrderDetails" aria-controls="dataTables-example" class="form-control input-sm">
                                     @if (Model.ItemOnPage == 10)
                                     {
                                         <option value="10" selected>10</option>
@@ -69,124 +73,139 @@
                                 {
                                     <input type="search" class="form-control input-sm" value="@Model.SearchText">
                                 }
-                                <button type="button" id="dataTables_searchOrder" class="btn btn-default btn-sm"><i class="fa fa-search"></i></button>
+                                <button type="button" id="dataTables_searchOrderDetails" class="btn btn-default btn-sm"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-sm-12 dataTable_grid">
-                            <table class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" id="dataTable_order" role="grid" aria-describedby="dataTables-example_info" style="width: 100%;">
+                            <table class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" id="dataTable_orderDetails" role="grid" aria-describedby="dataTables-example_info" style="width: 100%;">
                                 <thead>
                                     <tr role="row">
                                         <th class="center" tabindex="0" rowspan="1" colspan="1">#</th>
-                                        @if (Model.SortField.Equals("Customer"))
+                                        @if (Model.SortField.Equals("OrderID"))
                                         {
                                             if (Model.IsAsc)
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="Customer" data-direction="desc" colspan="1">Tên khách hàng<i class="fa fa-fw fa-sort-asc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="OrderID" data-direction="desc" colspan="1">Order ID<i class="fa fa-fw fa-sort-asc"></i></th>
                                             }
                                             else
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="Customer" data-direction="asc" colspan="1">Tên khách hàng <i class="fa fa-fw fa-sort-desc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="OrderID" data-direction="asc" colspan="1">Order ID <i class="fa fa-fw fa-sort-desc"></i></th>
                                             }
                                         }
                                         else
                                         {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="Customer" data-direction="asc" colspan="1">Tên khách hàng <i class="fa fa-fw fa-sort-asc"></i></th>
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="OrderID" data-direction="asc" colspan="1">Order ID <i class="fa fa-fw fa-sort-asc"></i></th>
                                         }
-                                        @if (Model.SortField.Equals("Shipper"))
+                                        @if (Model.SortField.Equals("ProductName"))
                                         {
                                             if (Model.IsAsc)
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="Shipper" data-direction="desc" colspan="1">Shipper <i class="fa fa-fw fa-sort-asc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="ProductName" data-direction="desc" colspan="1">Tên sản phẩm <i class="fa fa-fw fa-sort-asc"></i></th>
                                             }
                                             else
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="Shipper" data-direction="asc" colspan="1">Shipper <i class="fa fa-fw fa-sort-desc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="ProductName" data-direction="asc" colspan="1">Tên sản phẩm <i class="fa fa-fw fa-sort-desc"></i></th>
                                             }
                                         }
                                         else
                                         {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="Shipper" data-direction="asc" colspan="1">Shipper<i class="fa fa-fw fa-sort-asc"></i></th>
-                                        }
-                                        
-                                        @if (Model.SortField.Equals("Freight"))
-                                        {
-                                            if (Model.IsAsc)
-                                            {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="Freight" data-direction="desc" colspan="1">Cước <i class="fa fa-fw fa-sort-asc"></i></th>
-                                            }
-                                            else
-                                            {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="Freight" data-direction="asc" colspan="1">Cước<i class="fa fa-fw fa-sort-desc"></i></th>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="Freight" data-direction="asc" colspan="1">Cước<i class="fa fa-fw fa-sort-asc"></i></th>
-                                        }
-                                        @if (Model.SortField.Equals("SalesTax"))
-                                        {
-                                            if (Model.IsAsc)
-                                            {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="SalesTax" data-direction="desc" colspan="1">Thuế <i class="fa fa-fw fa-sort-asc"></i></th>
-                                            }
-                                            else
-                                            {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="SalesTax" data-direction="asc" colspan="1">Thuế<i class="fa fa-fw fa-sort-desc"></i></th>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="SalesTax" data-direction="asc" colspan="1">Thuế<i class="fa fa-fw fa-sort-asc"></i></th>
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="ProductName" data-direction="asc" colspan="1">Tên sản phẩm<i class="fa fa-fw fa-sort-asc"></i></th>
                                         }
 
-                                        @if (Model.SortField.Equals("Paid"))
+                                        @if (Model.SortField.Equals("Price"))
                                         {
                                             if (Model.IsAsc)
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="Paid" data-direction="desc" colspan="1">Đã trả <i class="fa fa-fw fa-sort-asc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="Price" data-direction="desc" colspan="1">Giá <i class="fa fa-fw fa-sort-asc"></i></th>
                                             }
                                             else
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="Paid" data-direction="asc" colspan="1">Đã trả <i class="fa fa-fw fa-sort-desc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="Price" data-direction="asc" colspan="1">Giá<i class="fa fa-fw fa-sort-desc"></i></th>
                                             }
                                         }
                                         else
                                         {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="Paid" data-direction="asc" colspan="1">Đã trả <i class="fa fa-fw fa-sort-asc"></i></th>
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="Price" data-direction="asc" colspan="1">Giá<i class="fa fa-fw fa-sort-asc"></i></th>
+                                        }
+                                        @if (Model.SortField.Equals("Quantity"))
+                                        {
+                                            if (Model.IsAsc)
+                                            {
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="Quantity" data-direction="desc" colspan="1">Số lượng <i class="fa fa-fw fa-sort-asc"></i></th>
+                                            }
+                                            else
+                                            {
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="Quantity" data-direction="asc" colspan="1">Số lượng<i class="fa fa-fw fa-sort-desc"></i></th>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="Quantity" data-direction="asc" colspan="1">Số lượng<i class="fa fa-fw fa-sort-asc"></i></th>
                                         }
 
+                                        @if (Model.SortField.Equals("Discount"))
+                                        {
+                                            if (Model.IsAsc)
+                                            {
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="Discount" data-direction="desc" colspan="1">Giảm giá <i class="fa fa-fw fa-sort-asc"></i></th>
+                                            }
+                                            else
+                                            {
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="Discount" data-direction="asc" colspan="1">Giảm giá <i class="fa fa-fw fa-sort-desc"></i></th>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="Discount" data-direction="asc" colspan="1">Giảm giá <i class="fa fa-fw fa-sort-asc"></i></th>
+                                        }
+
+                                        @if (Model.SortField.Equals("Size"))
+                                        {
+                                            if (Model.IsAsc)
+                                            {
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="Size" data-direction="desc" colspan="1">Size <i class="fa fa-fw fa-sort-asc"></i></th>
+                                            }
+                                            else
+                                            {
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="Size" data-direction="asc" colspan="1">Size<i class="fa fa-fw fa-sort-desc"></i></th>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="Size" data-direction="asc" colspan="1">Size<i class="fa fa-fw fa-sort-asc"></i></th>
+                                        }
                                         @if (Model.SortField.Equals("Total"))
                                         {
                                             if (Model.IsAsc)
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="Total" data-direction="desc" colspan="1">Tổng đơn hàng <i class="fa fa-fw fa-sort-asc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="Total" data-direction="desc" colspan="1">Tổng <i class="fa fa-fw fa-sort-asc"></i></th>
                                             }
                                             else
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="Total" data-direction="asc" colspan="1">Tổng đơn hàng<i class="fa fa-fw fa-sort-desc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="Total" data-direction="asc" colspan="1">Tổng<i class="fa fa-fw fa-sort-desc"></i></th>
                                             }
                                         }
                                         else
                                         {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="Total" data-direction="asc" colspan="1">Tổng đơn hàng<i class="fa fa-fw fa-sort-asc"></i></th>
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="Total" data-direction="asc" colspan="1">Tổng<i class="fa fa-fw fa-sort-asc"></i></th>
                                         }
-                                        @if (Model.SortField.Equals("ShipDate"))
+                                        @if (Model.SortField.Equals("IsFulfilled"))
                                         {
                                             if (Model.IsAsc)
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="ShipDate" data-direction="desc" colspan="1">Ngày ship <i class="fa fa-fw fa-sort-asc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="IsFulfilled" data-direction="desc" colspan="1">Trạng thái <i class="fa fa-fw fa-sort-asc"></i></th>
                                             }
                                             else
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="ShipDate" data-direction="asc" colspan="1">Ngày ship<i class="fa fa-fw fa-sort-desc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="IsFulfilled" data-direction="asc" colspan="1">Trạng thái<i class="fa fa-fw fa-sort-desc"></i></th>
                                             }
                                         }
                                         else
                                         {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="ShipDate" data-direction="asc" colspan="1">Ngày ship<i class="fa fa-fw fa-sort-asc"></i></th>
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="IsFulfilled" data-direction="asc" colspan="1">Trạng thái<i class="fa fa-fw fa-sort-asc"></i></th>
                                         }
                                         @if (Model.SortField.Equals("PaymentDate"))
                                         {
@@ -202,66 +221,61 @@
                                         else
                                         {
                                             <th class="center" tabindex="0" rowspan="1" data-sort="PaymentDate" data-direction="asc" colspan="1">Ngày trả tiền<i class="fa fa-fw fa-sort-asc"></i></th>
-                                        }
-                                        @if (Model.SortField.Equals("OrderDate"))
+                                        }                           
+                                        @if (Model.SortField.Equals("ShipDate"))
                                         {
                                             if (Model.IsAsc)
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="OrderDate" data-direction="desc" colspan="1">Ngày đặt hàng <i class="fa fa-fw fa-sort-asc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="ShipDate" data-direction="desc" colspan="1">Ngày ship <i class="fa fa-fw fa-sort-asc"></i></th>
                                             }
                                             else
                                             {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="OrderDate" data-direction="asc" colspan="1">Ngày đặt hàng<i class="fa fa-fw fa-sort-desc"></i></th>
+                                                <th class="center" tabindex="0" rowspan="1" data-sort="ShipDate" data-direction="asc" colspan="1">Ngày ship<i class="fa fa-fw fa-sort-desc"></i></th>
                                             }
                                         }
                                         else
                                         {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="OrderDate" data-direction="asc" colspan="1">Ngày đặt hàng<i class="fa fa-fw fa-sort-asc"></i></th>
-                                        }
-                                        @if (Model.SortField.Equals("OrderStatus"))
-                                        {
-                                            if (Model.IsAsc)
-                                            {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="OrderStatus" data-direction="desc" colspan="1">Trạng thái <i class="fa fa-fw fa-sort-asc"></i></th>
-                                            }
-                                            else
-                                            {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="OrderStatus" data-direction="asc" colspan="1">Trạng thái<i class="fa fa-fw fa-sort-desc"></i></th>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="OrderStatus" data-direction="asc" colspan="1">Trạng thái<i class="fa fa-fw fa-sort-asc"></i></th>
-                                        }
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="ShipDate" data-direction="asc" colspan="1">Ngày ship<i class="fa fa-fw fa-sort-asc"></i></th>
+                                        }                                        
                                         <th class="center" tabindex="0" rowspan="1" colspan="1"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @for (var i = 1; i <= Model.Orders.Count; i++)
+                                    @for (var i = 1; i <= Model.OrderDetails.Count; i++)
                                     {
                                         <tr class="gradeA odd" role="row">
                                             <td>@i</td>
-                                            <td>@Model.Orders[i - 1].CustomerName</td>
-                                            <td>@Model.Orders[i - 1].ShipperCompanyName</td>
-                                            <td>@Model.Orders[i - 1].Freight</td>
-                                            <td>@Model.Orders[i - 1].SalesTax</td>
-                                            <td>@Model.Orders[i - 1].Paid</td>
-                                            <td>@Model.Orders[i - 1].TotalIncome</td>
-                                            <td>@Model.Orders[i - 1].ShipDate.ToString("dd/MM/yyyy")</td>
+                                            <td>@Model.OrderDetails[i - 1].OrderID</td>
+                                            <td>@Model.OrderDetails[i - 1].ProductName</td>
+                                            <td>@Model.OrderDetails[i - 1].Price</td>
+                                            <td>@Model.OrderDetails[i - 1].Quantity</td>
+                                            <td>@Model.OrderDetails[i - 1].Discount</td>
+                                            <td>@Model.OrderDetails[i - 1].Size</td>
+                                            <td>@Model.OrderDetails[i - 1].Total</td>
                                             <td>
-                                                @if (Model.Orders[i - 1].PaymentDate != null)
+                                                @if (Model.OrderDetails[i - 1].IsFulfilled)
                                                 {
-                                                    Model.Orders[i - 1].PaymentDate.ToString();
-                                                }                                            
+                                                    <span>Đã xong</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Chưa giao</span>
+                                                }
                                             </td>
-                                            <td>@Model.Orders[i - 1].OrderDate.ToString("dd/MM/yyyy")</td>                                            
-                                            <td> 
-                                                @Model.Orders[i - 1].OrderStatusToUser
-                                            </td>   
                                             <td>
-                                                <a class="action-link detail-link" title="Chi tiết đơn hàng" href="@Url.Action("ViewOrderDetails", "Administrator", new { id = Model.Orders[i - 1].OrderID })"><i class="fa fa-info-circle"></i></a>
-                                                <a class="action-link update-link" title="Cập nhật" href="@Url.Action("UpdateOrder", "Administrator", new { id = Model.Orders[i - 1].OrderID })"><i class="fa fa-pencil"></i></a>
-                                                <a class="action-link remove-link order" title="Hủy đơn hàng" href="#" data-url="@Url.Action("CancelOrder", "Administrator", new { id = Model.Orders[i - 1].OrderID })"><i class="fa fa-remove"></i></a>
+                                            @if (Model.OrderDetails[i - 1].PaidDate != null)
+                                            { 
+                                                <span>@Model.OrderDetails[i - 1].PaidDate.Value.ToString("dd/MM/yyyy")</span>
+                                            }
+                                            </td>
+                                            <td>
+                                            @if (Model.OrderDetails[i - 1].ShipDate != null)
+                                            {
+                                                <span>@Model.OrderDetails[i - 1].ShipDate.Value.ToString("dd/MM/yyyy")</span>
+                                            }                                                
+                                            </td>
+                                            <td>
+                                                <a class="action-link remove-link orderDetails" title="Hủy sản phẩm" href="#" data-url="@Url.Action("CancelOrderProduct", "Administrator", new { id = Model.OrderDetails[i - 1].OrderDetailID })"><i class="fa fa-remove"></i></a>
                                             </td>
                                         </tr>
                                     }
@@ -271,7 +285,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="dataTables_info" role="status" aria-live="polite">Hiển thị từ @Model.StartIndex tới @Model.EndIndex trong @Model.TotalNumber đơn hàng</div>
+                            <div class="dataTables_info" role="status" aria-live="polite">Hiển thị từ @Model.StartIndex tới @Model.EndIndex trong @Model.TotalNumber sản phẩm</div>
                         </div>
                         <div class="col-sm-6">
                             <div class="dataTables_paginate">
@@ -285,7 +299,7 @@
                                     else
                                     {
                                         <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-                                            <a href="@Url.Action("ViewOrder", "Administrator", new {page = Model.CurrentPage - 1, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc})">Trước</a>
+                                            <a href="@Url.Action("ViewOrderDetails", "Administrator", new {id = Model.OrderID, page = Model.CurrentPage - 1, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc})">Trước</a>
                                         </li>
                                     }
 
@@ -296,13 +310,13 @@
                                             if (i == 0)
                                             {
                                                 <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
-                                                    <a href="@Url.Action("ViewOrder", "Administrator", new {page = Model.CurrentPage + i, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc})">@((Model.CurrentPage + i).ToString())</a>
+                                                    <a href="@Url.Action("ViewOrderDetails", "Administrator", new {id = Model.OrderID, page = Model.CurrentPage + i, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc})">@((Model.CurrentPage + i).ToString())</a>
                                                 </li>
                                             }
                                             else
                                             {
                                                 <li class="paginate_button" aria-controls="dataTables-example" tabindex="0">
-                                                    <a href="@Url.Action("ViewOrder", "Administrator", new { page = Model.CurrentPage + i, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc })">@((Model.CurrentPage + i).ToString())</a>
+                                                    <a href="@Url.Action("ViewOrderDetails", "Administrator", new {id = Model.OrderID,  page = Model.CurrentPage + i, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc })">@((Model.CurrentPage + i).ToString())</a>
                                                 </li>
                                             }
                                         }
@@ -317,7 +331,7 @@
                                     else
                                     {
                                         <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                                            <a href="@Url.Action("ViewOrder", "Administrator", new {page = Model.CurrentPage + 1, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc})">Sau</a>
+                                            <a href="@Url.Action("ViewOrderDetails", "Administrator", new {id = Model.OrderID, page = Model.CurrentPage + 1, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc})">Sau</a>
                                         </li>
                                     }
                                 </ul>
@@ -327,7 +341,7 @@
                 }
                 else
                 {
-                    <h5>Không có đơn hàng nào được lưu trong cơ sở dữ liệu.</h5>
+                    <h5>Không có sản phẩm nào trong đơn hàng này</h5>
                 }
             </div>
         </div>

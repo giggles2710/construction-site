@@ -105,6 +105,76 @@
         orderSupportModel.ViewOrder();
     });
 
+
+    // before delete, show confirmation dialog
+    $('.action-link.remove-link.orderDetails').on('click', function () {
+        var removeUrl = $(this).data('url');
+        var currentViewUrl = orderSupportModel.GetCurrentViewOrderDetailsUrl();
+
+        bootbox.dialog({
+            message: "Bạn có chắc là muốn xóa sản phẩm trong đơn hàng này không?",
+            title: "Xóa",
+            buttons: {
+                okAction: {
+                    label: "Có",
+                    className: "btn btn-primary btn-sm",
+                    callback: function () {
+                        // ajax - remove
+                        $.ajax({
+                            url: removeUrl,
+                            method: "POST",
+                            success: function (data) {
+                                if (data != null) {
+                                    if (data.isResult == true) {
+                                        window.sessionStorage.DeletedStatus = true;
+                                        window.sessionStorage.DeletedMessage = 'Xóa sản phẩm thành công.';
+                                    } else {
+                                        window.sessionStorage.DeletedStatus = false;
+                                        window.sessionStorage.DeletedMessage = data.result;
+                                    }
+
+                                    window.location.href = currentViewUrl;
+                                }
+
+                            }, error: function (data) {
+                                toastr.error(data.result);
+
+                                window.sessionStorage.IsDeletedStatus = null;
+                            }
+                        });
+                    }
+                },
+                noAction: {
+                    label: "Không",
+                    className: "btn btn-default btn-sm",
+                    callback: function () {
+
+                    }
+                }
+            }
+        });
+    });
+
+    //search section
+    $("#dataTable_orderDetails th").on('click', function () {
+        var sortStr = $(this).data('sort');
+        var direction = $(this).data('direction');
+
+        if (!Util.IsNullOrWhiteSpace(sortStr) && !Util.IsNullOrWhiteSpace(direction)) {
+            // do sort
+            orderSupportModel.SortOrderDetails(sortStr, direction == "asc");
+        }
+    });
+
+    // btn search
+    $('#dataTables_searchOrderDetails').on('click', function () {
+        orderSupportModel.ViewOrderDetails();
+    });
+
+    // when change value of number of item shown in the grid
+    $('#dataTables_showNumberSelectOrderDetails').on('change', function () {
+        orderSupportModel.ViewOrderDetails();
+    });
 });
 
 var orderSupportModel = {
@@ -119,8 +189,22 @@ var orderSupportModel = {
         window.location.href = staticUrl.viewOrder + "?page=" + page + "&itemsPerPage="
             + itemsOnPage + "&searchText=" + searchText + "&sortField=" + sortField + "&isAsc=" + isAsc;
     },
+    SortOrderDetails: function (sortField, isAsc) {
+        var $activatePage = $('.pageinate_button.active');
+        var id = $('#OrderID').val();
+        var page = 1; // page
+        if ($activatePage.length > 0)
+            page = $activatePage[0].text;
+        var itemsOnPage = $('#dataTables_showNumberSelectOrderDetails').val(); // items on page
+        var searchText = $('#dataTables_show_item_search input[type="search"]').val(); // search text
+        window.location.href = staticUrl.viewOrderDetails + "?id=" + id + "&page=" + page + "&itemsPerPage="
+            + itemsOnPage + "&searchText=" + searchText + "&sortField=" + sortField + "&isAsc=" + isAsc;
+    },
     ViewOrder: function () {
         window.location.href = orderSupportModel.GetCurrentViewOrderUrl();
+    },
+    ViewOrderDetails: function () {
+        window.location.href = orderSupportModel.GetCurrentViewOrderDetailsUrl();
     },
     GetCurrentViewOrderUrl: function () {
         var $activatePage = $('.pageinate_button.active');
@@ -135,5 +219,21 @@ var orderSupportModel = {
 
         return staticUrl.viewOrder + "?page=" + page + "&itemsPerPage="
             + itemsOnPage + "&searchText=" + searchText + "&sortField=" + sortField + "&isAsc=" + directionField;
+    },
+    GetCurrentViewOrderDetailsUrl: function () {
+        var $activatePage = $('.pageinate_button.active');
+        var id = $('#OrderID').val();
+        var page = 1; // page
+        if ($activatePage.length > 0)
+            page = $activatePage[0].text;
+
+        var itemsOnPage = $('#dataTables_showNumberSelectOrderDetails').val(); // items on page
+        var searchText = $('#dataTables_show_item_search input[type="search"]').val(); // search text
+        var sortField = $('#dataTables_sort_field_hidden').val(); // sort field
+        var directionField = $('#dataTables_sort_direction_hidden').val(); // direction field
+
+        return staticUrl.viewOrderDetails + "?id=" + id + "&page=" + page + "&itemsPerPage="
+            + itemsOnPage + "&searchText=" + searchText + "&sortField=" + sortField + "&isAsc=" + directionField;
     }
+
 };
