@@ -10,8 +10,8 @@
 
     $('#SubmitUpdateOrder').on('click', function () {
         var form = $("#updateOrderForm");
-        form.validate();
-        if (form.valid()) {
+        //form.validate();
+        if (orderSupportModel.ValidateUpdateProduct()) {
             $.ajax({
                 url: staticUrl.updateOrder,
                 data: $('#updateOrderForm').serialize(),
@@ -82,6 +82,151 @@
                 }
             }
         });
+    });
+
+    $('.action-link.update-link.orderDetails').on('click', function () {
+        var dad = $(this).parent().parent();
+        //show button
+        dad.find('.action-link.conduct-link.orderDetails').show();
+        dad.find('.action-link.back-link.orderDetails').show();
+        $(this).hide();
+
+        $price = dad.find('#Price');
+        $price.hide();
+        $price.next().val($price.text()).show();
+
+        $quantity = dad.find('#Quantity');
+        $quantity.hide();
+        $quantity.next().val($quantity.text()).show();
+
+        $discount = dad.find('#Discount');
+        $discount.hide();
+        $discount.next().val($discount.text()).show();
+
+        $size = dad.find('#Size');
+        $size.hide();
+        $size.next().val($size.text()).show();
+
+        $fulfilled = dad.find('#IsFulfilled');
+        if ($fulfilled.text() == 'Đã xong')
+        {
+            $fulfilled.next().val('true');
+        }
+        else
+        {
+            $fulfilled.next().val('false');
+        }
+        $fulfilled.hide();
+        $fulfilled.next().show();
+    });
+
+    $('.action-link.back-link.orderDetails').on('click', function () {        
+        var dad = $(this).parent().parent();
+        $(this).hide();
+        dad.find('.action-link.conduct-link.orderDetails').hide();
+        dad.find('.action-link.update-link.orderDetails').show();
+
+        $price = dad.find('#Price');
+        $price.show();
+        $price.next().hide();
+
+        $quantity = dad.find('#Quantity');
+        $quantity.show();
+        $quantity.next().hide();
+
+        $discount = dad.find('#Discount');
+        $discount.show();
+        $discount.next().hide();
+
+        $size = dad.find('#Size');
+        $size.show();
+        $size.next().hide();
+
+        $fulfilled = dad.find('#IsFulfilled');        
+        $fulfilled.show();
+        $fulfilled.next().hide();
+    });
+
+    $('.action-link.conduct-link.orderDetails').on('click', function () {        
+        var id = $(this).data('url');
+
+        var dad = $(this).parent().parent();
+
+        $price = dad.find('#Price');
+        var iprice = $price.next().val();
+
+        $quantity = dad.find('#Quantity');
+        var iquantity = $quantity.next().val();
+
+        $discount = dad.find('#Discount');
+        var idiscount = $discount.next().val();
+
+        $size = dad.find('#Size');
+        var isize = $size.next().val();
+
+        var isOrderFullfilled = dad.find('#IsFulfilled').next().val();
+        
+        if (iprice * iquantity < idiscount)
+        {
+            toastr.error('Giảm giá không thể lớn hơn giá trị của giao dịch trên sản phẩm');
+        }
+        else
+        {
+            $.ajax({
+                url: '/Administrator/UpdateOrderDetails',
+                data: {
+                    orderDetaisId: id,
+                    price: iprice,
+                    quantity: iquantity,
+                    discount: idiscount,
+                    size: isize,
+                    isFulfilled: isOrderFullfilled
+                },
+                traditional: true,
+                async: true,
+                method: "POST",
+                cache: false,
+                success: function (data) {
+                    if (data != null) {
+                        if (data.isResult == false) {
+                            toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
+                        } else {
+                            // Display an info toast with no title
+                            $total = dad.find('#Total');
+                            $total.text(data.result);
+                            $price.show();
+                            $price.next().hide();
+                            $quantity.show();
+                            $quantity.next().hide();
+                            $discount.show();
+                            $discount.next().hide();
+                            $size.show();
+                            $size.next().hide();
+
+                            if (isOrderFullfilled == 'true' || isOrderFullfilled == 'True') {
+                                $fulfilled.text('Đã xong');
+                            }
+                            else {
+                                $fulfilled.text('Chưa giao');
+                            }
+                            $fulfilled.show();
+                            $fulfilled.next().hide();
+
+
+                            dad.find('.action-link.conduct-link.orderDetails').hide();
+                            dad.find('.action-link.back-link.orderDetails').hide();
+                            dad.find('.action-link.update-link.orderDetails').show();
+                        }
+                    }
+                }, error: function (e) {
+                    toastr.error('Có lỗi xảy ra trong quá trình chỉnh sữa. Vui lòng thử lại.');
+                }
+            });
+        }
+    });
+
+    $('input[type=text]').focusout(function () {
+        $(this).prev().text($(this).val());
     });
 
     //search section
@@ -234,6 +379,102 @@ var orderSupportModel = {
 
         return staticUrl.viewOrderDetails + "?id=" + id + "&page=" + page + "&itemsPerPage="
             + itemsOnPage + "&searchText=" + searchText + "&sortField=" + sortField + "&isAsc=" + directionField;
+    },
+    ValidateUpdateProduct: function () {        
+        var $freight = $('#Freight');
+        var $saleTax = $('#SalesTax');
+        var $paid = $('#Paid');
+        var $shipDate = $('#ShipDate');
+        var $paymentDate = $('#PaymentDate');
+        var isValid = true;
+
+        //feight
+        if ($freight.val() == null || $freight.val() == '' || $freight.val() == undefined) {
+            $freight.parent().addClass('has-error');
+            $freight.nextAll('span.input-error-box').text("Làm ơn nhập số tiền cước.");
+            isValid = false;
+        } else {
+            // test regex
+            if (sampleRegex.floatRegex.test($freight.val())) {
+                $freight.parent().addClass('has-error');
+                $freight.nextAll('span.input-error-box').text("Làm ơn chỉ nhập chữ số và dấu phẩy (,).");
+                isValid = false;
+            } else {
+                $freight.parent().removeClass('has-error');
+                $freight.nextAll('span.input-error-box').text("");
+            }
+        }
+
+        //saleTax
+        if ($saleTax.val() == null || $saleTax.val() == '' || $saleTax.val() == undefined) {
+            $saleTax.parent().addClass('has-error');
+            $saleTax.nextAll('span.input-error-box').text("Làm ơn nhập số tiền thuế.");
+            isValid = false;
+        } else {
+            // test regex
+            if (sampleRegex.floatRegex.test($saleTax.val())) {
+                $saleTax.parent().addClass('has-error');
+                $saleTax.nextAll('span.input-error-box').text("Làm ơn chỉ nhập chữ số và dấu phẩy (,).");
+                isValid = false;
+            } else {
+                $saleTax.parent().removeClass('has-error');
+                $saleTax.nextAll('span.input-error-box').text("");
+            }
+        }
+
+        //paid
+        if ($paid.val() == null || $paid.val() == '' || $paid.val() == undefined) {
+            $paid.parent().addClass('has-error');
+            $paid.nextAll('span.input-error-box').text("Làm ơn nhập số tiền đã trả.");
+            isValid = false;
+        } else {
+            // test regex
+            if (sampleRegex.floatRegex.test($paid.val())) {
+                $paid.parent().addClass('has-error');
+                $paid.nextAll('span.input-error-box').text("Làm ơn chỉ nhập chữ số và dấu phẩy (,).");
+                isValid = false;
+            } else {
+                $paid.parent().removeClass('has-error');
+                $paid.nextAll('span.input-error-box').text("");
+            }
+        }
+
+        //shipDate
+        if ($shipDate.val() == null || $shipDate.val() == '' || $shipDate.val() == undefined) {
+            $shipDate.parent().addClass('has-error');
+            $shipDate.nextAll('span.input-error-box').text("Làm ơn chọn ngày ship.");
+            isValid = false;
+        } else {
+            // test regex
+            if (sampleRegex.dateVNRegex.test($shipDate.val())) {
+                $shipDate.parent().addClass('has-error');
+                $shipDate.nextAll('span.input-error-box').text("Làm ơn nhập ngày đúng định dạng (ngày/tháng/năm)");
+                isValid = false;
+            } else {
+                $shipDate.parent().removeClass('has-error');
+                $shipDate.nextAll('span.input-error-box').text("");
+            }
+        }
+
+
+        //paymentDate
+        if ($paymentDate.val() == null || $paymentDate.val() == '' || $paymentDate.val() == undefined) {
+            $paymentDate.parent().addClass('has-error');
+            $paymentDate.nextAll('span.input-error-box').text("Làm ơn chọn ngày trả tiền.");
+            isValid = false;
+        } else {
+            // test regex
+            if (sampleRegex.dateVNRegex.test($paymentDate.val())) {
+                $paymentDate.parent().addClass('has-error');
+                $paymentDate.nextAll('span.input-error-box').text("Làm ơn nhập ngày đúng định dạng (ngày/tháng/năm)");
+                isValid = false;
+            } else {
+                $paymentDate.parent().removeClass('has-error');
+                $paymentDate.nextAll('span.input-error-box').text("");
+            }
+        }
+
+        return isValid;
     }
 
 };

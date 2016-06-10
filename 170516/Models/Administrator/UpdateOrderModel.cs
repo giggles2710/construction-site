@@ -25,7 +25,9 @@ namespace _170516.Models.Administrator
         public string CustomerName { get; set; }
         public string OrderNumber { get; set; }
         public System.DateTime OrderDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public System.DateTime ShipDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public System.DateTime RequiredDate { get; set; }
         public int ShipperID { get; set; }
         public string ShipperCompanyName { get; set; }
@@ -37,7 +39,9 @@ namespace _170516.Models.Administrator
         public bool IsFulfilled { get; set; }
         public bool IsCanceled { get; set; }
         public Nullable<decimal> Paid { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public Nullable<System.DateTime> PaymentDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public System.DateTime ModifiedDate { get; set; }
         public string ModifiedUserID { get; set; }
         public string ModifiedUserName { get; set; }

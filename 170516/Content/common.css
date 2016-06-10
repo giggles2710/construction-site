@@ -438,3 +438,17 @@ body, html {
     font-weight: bold;
     font-size: 13px;
 }
+
+.no-underline {
+    text-decoration:none !important;
+}
+
+.edit-input {
+    display:none;
+    width: 80px;
+    text-align: right;
+}
+
+.edit-button{
+    display:none;
+}

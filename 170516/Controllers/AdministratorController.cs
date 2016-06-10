@@ -1350,7 +1350,10 @@ namespace _170516.Controllers
                 OrderDate = o.OrderDate,
                 ShipDate = o.ShipDate,
                 PaymentDate = o.PaymentDate,
-                TotalIncome = o.OrderDetails.Sum(d => d.Total)
+                TotalIncome = o.OrderDetails.Sum(d => d.Total),
+                Freight = o.Freight,
+                SalesTax = o.SalesTax,
+                Paid = o.Paid
             });
 
             IEnumerable<ViewOrderItem> result;
@@ -1670,6 +1673,28 @@ namespace _170516.Controllers
             result = result.Select(s => s).Skip(pageSize * (pageNo - 1)).Take(pageSize);
 
             var model = new ViewOrderDetailsModel();
+
+            model.Order = new ViewOrderItem
+            {
+                OrderID = order.OrderID,
+                OrderNumber = order.OrderNumber,
+                OrderStatus = order.OrderStatus,
+                OrderStatusToUser = GetOrderStatusToUser(order.OrderStatus),
+                IsFulfilled = order.IsFulfilled,
+                IsCanceled = order.IsCanceled,
+                CustomerID = order.CustomerID,
+                CustomerName = string.Format("{0} {1}", order.Customer.FirstName, order.Customer.LastName),
+                ShipperID = order.ShipperID,
+                ShipperCompanyName = order.Shipper.CompanyName,
+                OrderDate = order.OrderDate,
+                ShipDate = order.ShipDate,
+                PaymentDate = order.PaymentDate,
+                TotalIncome = order.OrderDetails.Sum(d => d.Total),
+                Freight = order.Freight,
+                SalesTax = order.SalesTax,
+                Paid = order.Paid
+            };
+
             model.OrderID = id;
             model.CurrentPage = pageNo;
             model.SearchText = searchText;
@@ -1709,6 +1734,37 @@ namespace _170516.Controllers
             }
 
             return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateOrderDetails(int orderDetaisId, decimal price, int quantity, double discount, int size, bool isFulfilled)
+        {
+            var orderDetails = dbContext.OrderDetails.FirstOrDefault(o => o.OrderDetailID == orderDetaisId);
+
+            try
+            {
+                if (orderDetails != null)
+                {
+                    // remove it
+                    orderDetails.Price = price;
+                    orderDetails.Quantity = quantity;
+                    orderDetails.Discount = discount;
+                    orderDetails.Size = size;
+                    orderDetails.IsFulfilled = isFulfilled;
+                    orderDetails.Total = price * quantity - (decimal)discount;
+                    dbContext.SaveChanges();
+                }
+                else
+                {
+                    return Json(new { isResult = false, result = Constant.OrderDetailsNotFound }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true, result = orderDetails.Total.ToString() }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

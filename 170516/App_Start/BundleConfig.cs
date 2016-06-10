@@ -9,7 +9,9 @@ namespace _170516
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui.js"));
+            
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -61,6 +63,7 @@ namespace _170516
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/common.css",
                       "~/Content/Admin/css/styles.css",
+                      "~/Content/jquery-ui.css",
                        "~/Content/toastr.css"));
         }
     }

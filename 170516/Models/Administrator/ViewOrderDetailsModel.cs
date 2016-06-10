@@ -18,6 +18,9 @@ namespace _170516.Models.Administrator
         public string SearchText { get; set; }
         public string SortField { get; set; }
         public bool IsAsc { get; set; }
+
+        //order 
+        public ViewOrderItem Order { get; set; }
     }
 
     public class ViewOrderDetailsItem

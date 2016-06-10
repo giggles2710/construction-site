@@ -30,7 +30,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="CompanyName">Tên khách hàng <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        @Html.LabelFor(model => model.CustomerName, new { @class = "form-control" }) 
+                                        <span class="form-control">@Model.CustomerName</span>                                        
                                     </div>
                                 </div>
 
@@ -58,7 +58,7 @@
                                     <label class="col-sm-3 control-label" for="Address2">Cước <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
                                         @Html.TextBoxFor(model => model.Freight, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
-                                        @Html.ValidationMessageFor(model => model.Freight, null, new { @class = "input-error-box text-danger" })
+                                        <span class="input-error-box text-danger"></span>
                                     </div>
                                 </div>
 
@@ -66,14 +66,14 @@
                                     <label class="col-sm-3 control-label" for="City">Thuế <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
                                         @Html.TextBoxFor(model => model.SalesTax, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
-                                        @Html.ValidationMessageFor(model => model.SalesTax, null, new { @class = "input-error-box text-danger" })
+                                        <span class="input-error-box text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="Phone">Đã trả <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
                                         @Html.TextBoxFor(model => model.Paid, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
-                                        @Html.ValidationMessageFor(model => model.Paid, null, new { @class = "input-error-box text-danger" })
+                                        <span class="input-error-box text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -91,15 +91,15 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="Phone">Ngày ship <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        @Html.TextBox("ShipDate", Model.ShipDate.ToShortDateString(), new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
-                                        @Html.ValidationMessageFor(model => model.ShipDate, null, new { @class = "input-error-box text-danger" })
+                                        @Html.TextBox("ShipDate", Model.ShipDate != null? Model.ShipDate.ToShortDateString() : string.Empty, new { @class = "form-control datepicker" }) <span class="input-error-box text-danger"></span>
+                                        <span class="input-error-box text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="Phone">Ngày trả tiền <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        @Html.TextBox("PaymentDate", Model.PaymentDate.Value.ToShortDateString(), new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
-                                        @Html.ValidationMessageFor(model => model.PaymentDate, null, new { @class = "input-error-box text-danger" })
+                                        @Html.TextBox("PaymentDate", Model.PaymentDate != null ? Model.PaymentDate.Value.ToShortDateString(): string.Empty, new { @class = "form-control datepicker" }) <span class="input-error-box text-danger"></span>
+                                        <span class="input-error-box text-danger"></span>
                                     </div>
                                 </div>
 
@@ -131,7 +131,13 @@
 @section Scripts
 {
     <script src="@Url.Content("~/Scripts/Admin/order.js")"></script>
+    <script>
+      $(function() {
+          $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+      });
+    </script>    
 }
+
 
 
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -25,8 +26,11 @@ namespace _170516.Models.Administrator
         public int CustomerID { get; set; }
         public string CustomerName { get; set; }
         public string OrderNumber { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public System.DateTime OrderDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public System.DateTime ShipDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public System.DateTime RequiredDate { get; set; }
         public int ShipperID { get; set; }
         public string ShipperCompanyName { get; set; }
@@ -37,6 +41,7 @@ namespace _170516.Models.Administrator
         public bool IsFulfilled { get; set; }
         public bool IsCanceled { get; set; }
         public Nullable<decimal> Paid { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public Nullable<System.DateTime> PaymentDate { get; set; }
         public System.DateTime ModifiedDate { get; set; }
         public string ModifiedUserID { get; set; }

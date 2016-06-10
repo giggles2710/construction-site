@@ -251,7 +251,7 @@
                                             <td>
                                                 @if (Model.Orders[i - 1].PaymentDate != null)
                                                 {
-                                                    Model.Orders[i - 1].PaymentDate.ToString();
+                                                    <span>@Model.Orders[i - 1].PaymentDate.Value.ToShortDateString()</span>
                                                 }                                            
                                             </td>
                                             <td>@Model.Orders[i - 1].OrderDate.ToString("dd/MM/yyyy")</td>                                            
