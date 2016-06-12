@@ -1491,8 +1491,26 @@ namespace _170516.Controllers
                 IsFulfilled = order.IsFulfilled,
                 IsCanceled = order.IsCanceled,
                 OrderStatus = order.OrderStatus,
-                RequiredDate = order.RequiredDate
+                RequiredDate = order.RequiredDate,                
             };
+
+            updateOrderModel.OrderDetails = order.OrderDetails.Select(o => new ViewOrderDetailsItem {
+                OrderDetailID = o.OrderDetailID,
+                ProductID = o.ProductID,
+                ProductName = o.Product.Name,
+                OrderID = o.OrderID,
+                OrderNumber = o.OrderNumber,
+                Price = o.Price,
+                Quantity = o.Quantity,
+                Discount = o.Discount,
+                Total = o.Total,
+                Size = o.Size,
+                IsFulfilled = o.IsFulfilled,
+                FullFillStr = o.IsFulfilled.ToString(),
+                ShipDate = o.ShipDate,
+                PaidDate = o.PaidDate
+            }).ToList();
+
 
             updateOrderModel.Shippers = dbContext.Shippers.Select(s => new ViewShipperItem
             {
@@ -1520,6 +1538,18 @@ namespace _170516.Controllers
             order.IsCanceled = order.OrderStatus == Constant.OrderCanceledStatus;
             order.IsFulfilled = order.OrderStatus == Constant.OrderFulfilledStatus;
             order.ModifiedDate = DateTime.Now;
+
+            for (int i=0; i<order.OrderDetails.Count; i++)
+            {
+                order.OrderDetails.ElementAt(i).Price = model.OrderDetails[i].Price;
+                order.OrderDetails.ElementAt(i).Quantity = model.OrderDetails[i].Quantity;
+                order.OrderDetails.ElementAt(i).Size = model.OrderDetails[i].Size;
+                order.OrderDetails.ElementAt(i).Discount = model.OrderDetails[i].Discount;
+
+                order.OrderDetails.ElementAt(i).Total = (model.OrderDetails[i].Price * model.OrderDetails[i].Quantity) - (decimal)model.OrderDetails[i].Discount;
+
+                order.OrderDetails.ElementAt(i).IsFulfilled = model.OrderDetails[i].IsFulfilled;
+            }
 
             try
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -30,12 +31,15 @@ namespace _170516.Models.Administrator
         public string ProductName { get; set; }
         public int OrderID { get; set; }
         public string OrderNumber { get; set; }
+        [DisplayFormat(DataFormatString = "{0:#.####}")]
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public Nullable<double> Discount { get; set; }
         public decimal Total { get; set; }
         public int Size { get; set; }
         public bool IsFulfilled { get; set; }
+        public string FullFillStr { get; set; }
+
         public Nullable<System.DateTime> ShipDate { get; set; }
         public Nullable<System.DateTime> PaidDate { get; set; }
     }

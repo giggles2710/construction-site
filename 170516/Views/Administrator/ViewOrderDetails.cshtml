@@ -261,8 +261,7 @@
                                             {
                                                 <th class="center" tabindex="0" rowspan="1" data-sort="IsFulfilled" data-direction="asc" colspan="1">Trạng thái<i class="fa fa-fw fa-sort-asc"></i></th>
                                             }
-                                            
-                                            <th class="center" tabindex="0" rowspan="1" colspan="1"></th>
+                                                                                        
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -273,42 +272,28 @@
                                                 <td>@Model.OrderDetails[i - 1].OrderID</td>
                                                 <td>@Model.OrderDetails[i - 1].ProductName</td>
                                                 <td><label id="Price">@Model.OrderDetails[i - 1].Price</label>   
-                                                    <input type="text" class="edit-input"/>                                            
                                                </td>
                                                 <td>
                                                     <label id="Quantity">@Model.OrderDetails[i - 1].Quantity</label>
-                                                    <input type="text" class="edit-input" /> 
                                                 </td>
                                                 <td>
                                                     <label id="Discount">@Model.OrderDetails[i - 1].Discount</label>
-                                                    <input type="text" class="edit-input" /> 
                                                 </td>
                                                 <td>
                                                     <label id="Size">@Model.OrderDetails[i - 1].Size</label>
-                                                    <input type="text" class="edit-input" /> </td>
                                                 <td>
                                                     <label id="Total">@Model.OrderDetails[i - 1].Total</label>
                                                 </td>
                                                 <td>
                                                     @if (Model.OrderDetails[i - 1].IsFulfilled)
                                                     {
-                                                        <span id="IsFulfilled">Đã xong</span>
+                                                        <span id="IsFulfilled" class="text-info">Đã xong</span>
                                                     }
                                                     else
                                                     {
-                                                        <span id="IsFulfilled">Chưa giao</span>
-                                                    }
-                                                    <select class="edit-input">
-                                                        <option value="true">Đã xong</option>
-                                                        <option value="false">Chưa giao</option>
-                                                    </select>
-                                                </td>                                                
-                                                <td>
-                                                    <a class="action-link remove-link orderDetails" title="Hủy sản phẩm" href="#" data-url="@Url.Action("CancelOrderProduct", "Administrator", new { id = Model.OrderDetails[i - 1].OrderDetailID })"><i class="fa fa-remove"></i></a>
-                                                    <a class="action-link update-link orderDetails" title="Chỉnh sửa"  data-url="@Url.Action("CancelOrderProduct", "Administrator", new { id = Model.OrderDetails[i - 1].OrderDetailID })"><i class="fa fa-pencil"></i></a>
-                                                    <a class="action-link conduct-link orderDetails edit-button" title="Xong" data-url="@Model.OrderDetails[i - 1].OrderDetailID"><i class="fa fa-check" ></i></a>
-                                                    <a class="action-link back-link orderDetails edit-button" title="Hủy" data-url="@Url.Action("CancelOrderProduct", "Administrator", new { id = Model.OrderDetails[i - 1].OrderDetailID })"><i class="fa fa-refresh"></i></a>
-                                                </td>
+                                                        <span id="IsFulfilled" class="text-danger">Chưa giao</span>
+                                                    }                                                   
+                                                </td>                                                                                               
                                             </tr>
                                         }
                                     </tbody>

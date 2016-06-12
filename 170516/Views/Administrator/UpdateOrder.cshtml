@@ -112,6 +112,70 @@
                             </div>
 
                         </div>
+
+                        @if (Model.OrderDetails.Any())
+                        {                           
+                            <div class="row">
+                                <div class="col-sm-12 dataTable_grid">
+                                    <table class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" role="grid" aria-describedby="dataTables-example_info" style="width: 100%;">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="center" tabindex="0" rowspan="1" colspan="1">#</th>
+                                               
+                                                <th class="center" tabindex="0" rowspan="1" colspan="1">Order ID </th>
+                                                
+                                                <th class="center" tabindex="0" rowspan="1" colspan="1">Tên sản phẩm</th>
+                                                
+                                                <th class="center input-grid-money" tabindex="0" rowspan="1" colspan="1">Giá</th>
+                                               
+                                                <th class="center input-grid-number" tabindex="0" rowspan="1" colspan="1">Số lượng</th>
+                                                
+                                                <th class="center input-grid-money" tabindex="0" rowspan="1" colspan="1">Giảm giá </th>
+
+                                                <th class="center input-grid-number" tabindex="0" rowspan="1" colspan="1">Size</th>
+                                                
+                                                <th class="center" tabindex="0" rowspan="1" colspan="1">Tổng</th>
+                                                
+                                                <th class="center" tabindex="0" rowspan="1" colspan="1">Trạng thái</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (var i = 1; i <= Model.OrderDetails.Count; i++)
+                                            {
+                                                <tr class="gradeA odd" role="row" data-url="@Model.OrderDetails[i - 1].OrderDetailID">
+                                                    <td>@i</td>
+                                                    <td>@Model.OrderDetails[i - 1].OrderID</td>
+                                                    <td>@Model.OrderDetails[i - 1].ProductName</td>
+                                                    <td>
+                                                        @Html.TextBoxFor(model => model.OrderDetails[i-1].Price, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>                                                        
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBoxFor(model => model.OrderDetails[i - 1].Quantity, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>                                                        
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBoxFor(model => model.OrderDetails[i - 1].Discount, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>                                                        
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBoxFor(model => model.OrderDetails[i - 1].Size, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>                                                        
+                                                    <td>
+                                                        <label id="Total">@Model.OrderDetails[i - 1].Total</label>
+                                                    </td>
+                                                    <td>                                                       
+                                                        @Html.DropDownListFor(model => model.OrderDetails[i - 1].IsFulfilled, new SelectList(Model.Fulfills, "Value","Text", Model.OrderDetails[i - 1].IsFulfilled ? "True" : "False"))
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>                            
+                        }
+                        else
+                        {
+                            <h5>Không có sản phẩm nào trong đơn hàng này</h5>
+                        }
+
                         <div class="row">
                             <div class="col-md-12 col-lg-12">
                                 <div class="form-group">

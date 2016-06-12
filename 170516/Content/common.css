@@ -452,3 +452,11 @@ body, html {
 .edit-button{
     display:none;
 }
+
+.input-grid-number {
+    width:100px !important;
+}
+
+.input-grid-money {
+    width:180px !important;
+}

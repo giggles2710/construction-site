@@ -256,12 +256,25 @@
                                             </td>
                                             <td>@Model.Orders[i - 1].OrderDate.ToString("dd/MM/yyyy")</td>                                            
                                             <td> 
-                                                @Model.Orders[i - 1].OrderStatusToUser
+                                                @if (@Model.Orders[i - 1].OrderStatusToUser == "Đơn hàng đã hủy")
+                                                {
+                                                    <span class="text-danger">
+                                                        @Model.Orders[i - 1].OrderStatusToUser
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-info">@Model.Orders[i - 1].OrderStatusToUser</span>                                                    
+                                                }
+                                                
                                             </td>   
                                             <td>
                                                 <a class="action-link detail-link" title="Chi tiết đơn hàng" href="@Url.Action("ViewOrderDetails", "Administrator", new { id = Model.Orders[i - 1].OrderID })"><i class="fa fa-info-circle"></i></a>
                                                 <a class="action-link update-link" title="Cập nhật" href="@Url.Action("UpdateOrder", "Administrator", new { id = Model.Orders[i - 1].OrderID })"><i class="fa fa-pencil"></i></a>
-                                                <a class="action-link remove-link order" title="Hủy đơn hàng" href="#" data-url="@Url.Action("CancelOrder", "Administrator", new { id = Model.Orders[i - 1].OrderID })"><i class="fa fa-remove"></i></a>
+                                                @if (@Model.Orders[i - 1].OrderStatusToUser != "Đơn hàng đã hủy")
+                                                {
+                                                    <a class="action-link remove-link order" title="Hủy đơn hàng" href="#" data-url="@Url.Action("CancelOrder", "Administrator", new { id = Model.Orders[i - 1].OrderID })"><i class="fa fa-remove"></i></a>
+                                                }
                                             </td>
                                         </tr>
                                     }

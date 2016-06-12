@@ -13,11 +13,17 @@ namespace _170516.Models.Administrator
         {
             Shippers = new List<ViewShipperItem>();
 
+            OrderDetails = new List<ViewOrderDetailsItem>();
+
             Statuses = new List<SelectListItem>();
             Statuses.Add(new SelectListItem {Text = "Đang được xử lý", Value = Constant.OrderIsProcessingtatus });
             Statuses.Add(new SelectListItem { Text = "Đã được chuyển đến", Value = Constant.OrderDeliveredStatus });
             Statuses.Add(new SelectListItem { Text = "Đơn hàng đã hủy", Value = Constant.OrderCanceledStatus });
             Statuses.Add(new SelectListItem { Text = "Đơn hàng đã xong", Value = Constant.OrderFulfilledStatus });
+
+            Fulfills = new List<SelectListItem>();            
+            Fulfills.Add(new SelectListItem { Text = "Đã xong", Value = true.ToString() });
+            Fulfills.Add(new SelectListItem { Text = "Chưa giao", Value = false.ToString()});
         }
 
         public int OrderID { get; set; }
@@ -46,8 +52,12 @@ namespace _170516.Models.Administrator
         public string ModifiedUserID { get; set; }
         public string ModifiedUserName { get; set; }
 
+        public List<ViewOrderDetailsItem> OrderDetails { get; set; }
+
         public  List<ViewShipperItem> Shippers { get; set; }
 
         public List<SelectListItem> Statuses { get; set; }
+
+        public List<SelectListItem> Fulfills { get; set; }
     }
 }

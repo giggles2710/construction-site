@@ -6,7 +6,11 @@
     } else if (window.sessionStorage.DeletedStatus == "false") {
         toastr.error(window.sessionStorage.DeletedMessage)
         window.sessionStorage.DeletedStatus = null;
+    } else if (window.sessionStorage.UpdateStatus == "true") {
+        toastr.success(window.sessionStorage.UpdatedMessage);
+        window.sessionStorage.UpdateStatus = null;
     }
+
 
     $('#SubmitUpdateOrder').on('click', function () {
         var form = $("#updateOrderForm");
@@ -24,8 +28,10 @@
                         if (data.isResult == false) {
                             toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
                         } else {
-                            // Display an info toast with no title
-                            toastr.success('Đơn hàng đã được chỉnh sữa thành công.');
+                            // Display an info toast with no title                            
+                            window.sessionStorage.UpdateStatus = true;
+                            window.sessionStorage.UpdatedMessage = 'Đơn hàng đã được chỉnh sữa thành công.';
+                            window.location.href = staticUrl.viewOrderDetails + "/" + $('#OrderID').val();
                         }
                     }
                 }, error: function (e) {
