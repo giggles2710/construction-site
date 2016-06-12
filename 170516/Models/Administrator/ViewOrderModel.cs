@@ -34,19 +34,22 @@ namespace _170516.Models.Administrator
         public System.DateTime RequiredDate { get; set; }
         public int ShipperID { get; set; }
         public string ShipperCompanyName { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
         public double Freight { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
         public decimal SalesTax { get; set; }
         public string OrderStatus { get; set; }
         public string OrderStatusToUser { get; set; }
         public bool IsFulfilled { get; set; }
         public bool IsCanceled { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
         public Nullable<decimal> Paid { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public Nullable<System.DateTime> PaymentDate { get; set; }
         public System.DateTime ModifiedDate { get; set; }
         public string ModifiedUserID { get; set; }
         public string ModifiedUserName { get; set; }
-
+        [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
         public decimal TotalIncome { get; set; }
     }
 }

@@ -31,10 +31,12 @@ namespace _170516.Models.Administrator
         public string ProductName { get; set; }
         public int OrderID { get; set; }
         public string OrderNumber { get; set; }
-        [DisplayFormat(DataFormatString = "{0:#.####}")]
+        [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
         public Nullable<double> Discount { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
         public decimal Total { get; set; }
         public int Size { get; set; }
         public bool IsFulfilled { get; set; }

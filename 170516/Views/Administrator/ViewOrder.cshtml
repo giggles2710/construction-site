@@ -243,10 +243,17 @@
                                             <td>@i</td>
                                             <td>@Model.Orders[i - 1].CustomerName</td>
                                             <td>@Model.Orders[i - 1].ShipperCompanyName</td>
-                                            <td>@Model.Orders[i - 1].Freight</td>
-                                            <td>@Model.Orders[i - 1].SalesTax</td>
-                                            <td>@Model.Orders[i - 1].Paid</td>
-                                            <td>@Model.Orders[i - 1].TotalIncome</td>
+                                            <td>
+                                                @Html.DisplayFor(model => model.Orders[i - 1].Freight)
+                                            </td>
+                                            <td>
+                                            @Html.DisplayFor(model => model.Orders[i - 1].SalesTax)
+                                            </td>
+                                            <td>
+                                            @Html.DisplayFor(model => model.Orders[i - 1].Paid)
+                                            </td>
+                                            <td>
+                                            @Html.DisplayFor(model => model.Orders[i - 1].TotalIncome)                                            
                                             <td>@Model.Orders[i - 1].ShipDate.ToString("dd/MM/yyyy")</td>
                                             <td>
                                                 @if (Model.Orders[i - 1].PaymentDate != null)
@@ -258,13 +265,27 @@
                                             <td> 
                                                 @if (@Model.Orders[i - 1].OrderStatusToUser == "Đơn hàng đã hủy")
                                                 {
-                                                    <span class="text-danger">
+                                                    <span class="btn-danger">
                                                         @Model.Orders[i - 1].OrderStatusToUser
                                                     </span>
                                                 }
                                                 else
+                                                if (@Model.Orders[i - 1].OrderStatusToUser == "Đã được chuyển đến")
                                                 {
-                                                    <span class="text-info">@Model.Orders[i - 1].OrderStatusToUser</span>                                                    
+                                                    <span class="btn-success">
+                                                        @Model.Orders[i - 1].OrderStatusToUser
+                                                    </span>
+                                                }
+                                                else 
+                                                if (@Model.Orders[i - 1].OrderStatusToUser == "Đang được xử lý")
+                                                {
+                                                <span class="btn-primary">
+                                                    @Model.Orders[i - 1].OrderStatusToUser
+                                                </span>
+                                                }                                                
+                                                else
+                                                {
+                                                    <span class="btn-info">@Model.Orders[i - 1].OrderStatusToUser</span>                                                    
                                                 }
                                                 
                                             </td>   

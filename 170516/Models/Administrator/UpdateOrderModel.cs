@@ -38,12 +38,15 @@ namespace _170516.Models.Administrator
         public int ShipperID { get; set; }
         public string ShipperCompanyName { get; set; }
         [Required(ErrorMessage ="Vui lòng điền số tiền cước")]
+        [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = false)]
         public double Freight { get; set; }
         [Required(ErrorMessage = "Vui lòng điền số tiền thuế")]
+        [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = false)]
         public decimal SalesTax { get; set; }
         public string OrderStatus { get; set; }
         public bool IsFulfilled { get; set; }
         public bool IsCanceled { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
         public Nullable<decimal> Paid { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public Nullable<System.DateTime> PaymentDate { get; set; }

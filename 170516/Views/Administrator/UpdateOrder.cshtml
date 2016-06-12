@@ -65,14 +65,14 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="City">Thuế <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        @Html.TextBoxFor(model => model.SalesTax, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.TextBoxFor(model => model.SalesTax, new { @class = "form-control", Value = String.Format("{0:0}", Model.SalesTax) }) <span class="input-error-box text-danger"></span>
                                         <span class="input-error-box text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="Phone">Đã trả <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        @Html.TextBoxFor(model => model.Paid, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.TextBoxFor(model => model.Paid, new { @class = "form-control", Value = String.Format("{0:0}", Model.Paid) })<span class="input-error-box text-danger"></span>
                                         <span class="input-error-box text-danger"></span>
                                     </div>
                                 </div>
@@ -148,7 +148,7 @@
                                                     <td>@Model.OrderDetails[i - 1].OrderID</td>
                                                     <td>@Model.OrderDetails[i - 1].ProductName</td>
                                                     <td>
-                                                        @Html.TextBoxFor(model => model.OrderDetails[i-1].Price, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>                                                        
+                                                        @Html.TextBoxFor(model => model.OrderDetails[i-1].Price, new { @class = "form-control", Value = String.Format("{0:0}", Model.OrderDetails[i - 1].Price) }) <span class="input-error-box text-danger"></span>                                                        
                                                     </td>
                                                     <td>
                                                         @Html.TextBoxFor(model => model.OrderDetails[i - 1].Quantity, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>                                                        
@@ -158,8 +158,8 @@
                                                     </td>
                                                     <td>
                                                         @Html.TextBoxFor(model => model.OrderDetails[i - 1].Size, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>                                                        
-                                                    <td>
-                                                        <label id="Total">@Model.OrderDetails[i - 1].Total</label>
+                                                    <td>                                                        
+                                                        @Html.DisplayFor(model => model.OrderDetails[i - 1].Total)
                                                     </td>
                                                     <td>                                                       
                                                         @Html.DropDownListFor(model => model.OrderDetails[i - 1].IsFulfilled, new SelectList(Model.Fulfills, "Value","Text", Model.OrderDetails[i - 1].IsFulfilled ? "True" : "False"))
@@ -177,6 +177,10 @@
                         }
 
                         <div class="row">
+                            <p class="bg-info">Cước, Thuế, Đã trả, Giá, Giảm giá, Tổng có Đơn vị tính là <span class="text-success">đồng</span> </p>
+                         </div>
+
+                        <div class="row">
                             <div class="col-md-12 col-lg-12">
                                 <div class="form-group">
                                     <div class="col-md-12 form-button">
@@ -186,7 +190,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        </div>
                 }
             </div>
         </div>

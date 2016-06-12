@@ -1545,9 +1545,7 @@ namespace _170516.Controllers
                 order.OrderDetails.ElementAt(i).Quantity = model.OrderDetails[i].Quantity;
                 order.OrderDetails.ElementAt(i).Size = model.OrderDetails[i].Size;
                 order.OrderDetails.ElementAt(i).Discount = model.OrderDetails[i].Discount;
-
                 order.OrderDetails.ElementAt(i).Total = (model.OrderDetails[i].Price * model.OrderDetails[i].Quantity) - (decimal)model.OrderDetails[i].Discount;
-
                 order.OrderDetails.ElementAt(i).IsFulfilled = model.OrderDetails[i].IsFulfilled;
             }
 
@@ -1611,12 +1609,10 @@ namespace _170516.Controllers
             if (pageNo == 0) pageNo = 1;
             if (pageSize == 0) pageSize = 10;
             if (isAsc == null) isAsc = true;
-            if (string.IsNullOrEmpty(searchText)) searchText = null;
+            searchText = null;
             if (string.IsNullOrEmpty(sortField)) sortField = "OrderID";
 
-            var orderDetails = order.OrderDetails.Where(p => string.IsNullOrEmpty(searchText) || p.Product.Name.Contains(searchText));
-
-            var orderDetailsModel = orderDetails.ToList().Select(o => new ViewOrderDetailsItem {
+            var orderDetailsModel = order.OrderDetails.ToList().Select(o => new ViewOrderDetailsItem {
                 OrderDetailID = o.OrderDetailID,
                 ProductID = o.ProductID,
                 ProductName = o.Product.Name,
@@ -1699,6 +1695,7 @@ namespace _170516.Controllers
             }
 
             int totalRecord = result.Count();
+            pageSize = totalRecord;
 
             result = result.Select(s => s).Skip(pageSize * (pageNo - 1)).Take(pageSize);
 
