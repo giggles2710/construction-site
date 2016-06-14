@@ -6,6 +6,9 @@
     } else if (window.sessionStorage.DeletedStatus == "false") {
         toastr.error(window.sessionStorage.DeletedMessage)
         window.sessionStorage.DeletedStatus = null;
+    } else if (window.sessionStorage.UpdatedStatus == "true") {
+        toastr.success(window.sessionStorage.UpdatedMesssage)
+        window.sessionStorage.UpdatedStatus = null;
     }
 
     $('#btnUpdateCategoryLink').on('click', function () {
@@ -59,7 +62,10 @@
                             toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
                         } else {                            
                             // Display an info toast with no title
-                            toastr.success('Danh mục đã chỉnh sữa thành công.');                            
+                            var redirectUrl = staticUrl.viewProductCategoryDetail + '/' + $('#CategoryID').val();
+                            window.sessionStorage.UpdatedStatus = true;
+                            window.sessionStorage.UpdatedMesssage = 'Danh mục đã chỉnh sữa thành công.';
+                            window.location.href = redirectUrl;                                                     
                         }
                     }
                 }, error: function (e) {

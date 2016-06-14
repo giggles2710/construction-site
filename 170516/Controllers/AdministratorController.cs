@@ -49,51 +49,51 @@ namespace _170516.Controllers
                 case "CategoryName":
                     if (isAsc.GetValueOrDefault())
                         categories = dbContext.Categories
-                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .Where(p => p.IsActive && (string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name)) )
                             .OrderBy(p => p.Name);
                     else
                         categories = dbContext.Categories
-                          .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                          .Where(p => p.IsActive && (string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name)))
                             .OrderByDescending(p => p.Name);
                     break;
                 case "CategoryDescription":
                     if (isAsc.GetValueOrDefault())
                         categories = dbContext.Categories
-                          .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                          .Where(p => p.IsActive && (string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name)))
                             .OrderBy(p => p.Description);
                     else
                         categories = dbContext.Categories
-                          .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                          .Where(p => p.IsActive && (string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name)))
                             .OrderByDescending(p => p.Description);
                     break;
                 case "DateModified":
                     if (isAsc.GetValueOrDefault())
                         categories = dbContext.Categories
-                          .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                          .Where(p => p.IsActive && (string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name)))
                             .OrderBy(p => p.DateModified);
                     else
                         categories = dbContext.Categories
-                          .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                          .Where(p => p.IsActive && (string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name)))
                             .OrderByDescending(p => p.DateModified);
                     break;
                 case "CreatedUser":
                     if (isAsc.GetValueOrDefault())
                         categories = dbContext.Categories
-                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .Where(p => p.IsActive && (string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name)))
                             .OrderBy(p => p.CreatedUserID);
                     else
                         categories = dbContext.Categories
-                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                           .Where(p => p.IsActive && (string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name)))
                             .OrderByDescending(p => p.CreatedUserID);
                     break;
                 default:
                     if (isAsc.GetValueOrDefault())
                         categories = dbContext.Categories
-                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                           .Where(p => p.IsActive && (string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name)))
                             .OrderBy(p => p.Name);
                     else
                         categories = dbContext.Categories
-                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .Where(p => p.IsActive && (string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name)))
                             .OrderByDescending(p => p.Name);
                     break;
             }

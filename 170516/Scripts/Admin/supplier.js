@@ -39,6 +39,10 @@
             });
         }
     });
+    
+    $('#CancelUpdateSupplier').on('click', function () {
+        window.location.href = staticUrl.viewSupplier;
+    });
 
     $('#SubmitUpdateSupplier').on('click', function () {
         var form = $("#updateSupplierForm");

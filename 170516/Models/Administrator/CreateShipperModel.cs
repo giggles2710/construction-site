@@ -13,7 +13,7 @@ namespace _170516.Models.Administrator
         public string CompanyName { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập số điện thoại")]
         public string Phone { get; set; }
-        [EmailAddress]
+        [EmailAddress(ErrorMessage ="Địa chỉ email không hợp lệ")]
         [Required(ErrorMessage = "Vui lòng nhập địa chỉ email")]
         public string EmailAddress { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập địa chỉ công ty")]

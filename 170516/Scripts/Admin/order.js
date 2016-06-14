@@ -41,6 +41,10 @@
         }
     });
 
+    $('#CancelUpdateOrder').click(function () {
+        window.location.href = staticUrl.viewOrder;
+    });
+
     // before delete, show confirmation dialog
     $('.action-link.remove-link.order').on('click', function () {
         var removeUrl = $(this).data('url');
@@ -401,9 +405,9 @@ var orderSupportModel = {
             isValid = false;
         } else {
             // test regex
-            if (sampleRegex.floatRegex.test($freight.val())) {
+            if (!sampleRegex.integerRegex.test($freight.val())) {
                 $freight.parent().addClass('has-error');
-                $freight.nextAll('span.input-error-box').text("Làm ơn chỉ nhập chữ số và dấu phẩy (,).");
+                $freight.nextAll('span.input-error-box').text("Làm ơn chỉ nhập chữ số.");
                 isValid = false;
             } else {
                 $freight.parent().removeClass('has-error');
@@ -418,9 +422,9 @@ var orderSupportModel = {
             isValid = false;
         } else {
             // test regex
-            if (sampleRegex.floatRegex.test($saleTax.val())) {
+            if (!sampleRegex.integerRegex.test($saleTax.val())) {
                 $saleTax.parent().addClass('has-error');
-                $saleTax.nextAll('span.input-error-box').text("Làm ơn chỉ nhập chữ số và dấu phẩy (,).");
+                $saleTax.nextAll('span.input-error-box').text("Làm ơn chỉ nhập chữ số.");
                 isValid = false;
             } else {
                 $saleTax.parent().removeClass('has-error');
@@ -435,9 +439,9 @@ var orderSupportModel = {
             isValid = false;
         } else {
             // test regex
-            if (sampleRegex.floatRegex.test($paid.val())) {
+            if (!sampleRegex.integerRegex.test($paid.val())) {
                 $paid.parent().addClass('has-error');
-                $paid.nextAll('span.input-error-box').text("Làm ơn chỉ nhập chữ số và dấu phẩy (,).");
+                $paid.nextAll('span.input-error-box').text("Làm ơn chỉ nhập chữ số.");
                 isValid = false;
             } else {
                 $paid.parent().removeClass('has-error');
@@ -479,6 +483,29 @@ var orderSupportModel = {
                 $paymentDate.nextAll('span.input-error-box').text("");
             }
         }
+
+        //validate order details values
+        var num = $('#OrderDetaisCount').val();
+
+        var value = 0;
+        $('#detailsOrdersTable').find('input[type=text]').each(function () {
+            value = $(this).val();
+            if (value == null || value == '' || value == undefined) {
+                $(this).parent().addClass('has-error');
+                $(this).nextAll('span.input-error-box').text("Không được bỏ trống");
+                isValid = false;
+            } else {
+                // test regex
+                if (!sampleRegex.integerRegex.test(value)) {
+                    $(this).parent().addClass('has-error');
+                    $(this).nextAll('span.input-error-box').text("Không hợp lệ. Làm ơn chỉ nhập số");
+                    isValid = false;
+                } else {
+                    $(this).parent().removeClass('has-error');
+                    $(this).nextAll('span.input-error-box').text("");
+                }
+            }
+        });
 
         return isValid;
     }
