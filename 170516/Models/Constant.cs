@@ -27,5 +27,7 @@ namespace _170516.Models
             new Tuple<int, string>(1, "Kích cỡ"),
             new Tuple<int, string>(2, "Chi tiết")
         };
+
+        public const string SessionSpecification = "AddProduct_Specification";
     }
 }

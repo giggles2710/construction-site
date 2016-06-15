@@ -1,0 +1,23 @@
+﻿@model List<_170516.Models.Administrator.SpecificationsTableModel>
+
+<table class="table table-striped col-sm-12 table-specification">
+    <thead>
+        <tr>
+            <th style="width: 5%;">#</th>
+            <th style="width: 10%;">Loại Đặc Điểm</th>
+            <th style="width: 40%;">Tên</th>
+            <th>Giá Trị</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var specification in Model)
+        {
+            <tr>
+                <td>@specification.Id</td>
+                <td>@specification.Type</td>
+                <td>@specification.Name</td>
+                <td>@specification.Value</td>
+            </tr>
+        }
+    </tbody>
+</table>

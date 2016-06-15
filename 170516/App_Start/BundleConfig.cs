@@ -40,8 +40,7 @@ namespace _170516
 
             bundles.Add(new ScriptBundle("~/bundles/admin_script").Include(
                         "~/Scripts/bootstrap.js",
-                        "~/Scripts/respond.js",
-                        "~/Scripts/Admin/js/custom.js"));
+                        "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/main_script").Include(
                         "~/Scripts/Common/main.js",

@@ -112,67 +112,55 @@
 
                         <fieldset class="fieldset">
                             <legend class="fieldset-legend">Đặc điểm</legend>
+
                             <div class="row">
-                                <!-- SPECIFICATION FORM -->
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="SpecificationName">Tên đặc điểm <span class="text-danger">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="SpecificationName" name="SpecificationName" />
-                                        <span class="input-error-box text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="SpecificationValue">Giá trị <span class="text-danger">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="SpecificationValue" name="SpecificationValue" />
-                                        <span class="input-error-box text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="SpecificationValue">Loại đặc điểm <span class="text-danger">*</span></label>
-                                    <div class="col-sm-10">
-                                        @if (Model.SpecificationType.Any())
-                                        {
-                                            <select id="SpecificationTypeID" name="SpecificationTypeID" class="form-control">
-                                                @foreach (var specificationType in Model.SpecificationType)
-                                                {
-                                                    <option value="@specificationType.Item1">@specificationType.Item2</option>
-                                                }
-                                            </select>
-                                        }
-                                        else
-                                        {
-                                            <h6>Chưa có dữ liệu</h6>
-                                        }
-                                    </div>
+                                <div id="AddProductSpecificationTable">
+                                    <!-- SPECIFICATION TABLE -->
+                                    
                                 </div>
                             </div>
                             <div class="row">
-                                <!-- SPECIFICATION TABLE -->
-                                <table class="table col-sm-12">
-                                    <tbody>
-                                        <tr>
-                                            <td class="specification-header">Tui ten la</td>
-                                            <td>kich co cua tui</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="specification-header">Tui ten la 1111</td>
-                                            <td>kich co cua tui</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="specification-header">Tui ten la 2222</td>
-                                            <td>kich co cua tui</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="specification-header">Tui ten la 3333</td>
-                                            <td>kich co cua tui</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="specification-header">Tui ten la 444</td>
-                                            <td>kich co cua tui</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="col-md-5 col-md-offset-3">
+                                    <!-- SPECIFICATION FORM -->
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="SpecificationName">Tên đặc điểm <span class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" id="SpecificationName" name="SpecificationName" />
+                                            <span class="input-error-box text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="SpecificationValue">Giá trị <span class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" id="SpecificationValue" name="SpecificationValue" />
+                                            <span class="input-error-box text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="SpecificationTypeID">Loại đặc điểm <span class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            @if (Model.SpecificationType.Any())
+                                            {
+                                                <select id="SpecificationTypeID" name="SpecificationTypeID" class="form-control">
+                                                    @foreach (var specificationType in Model.SpecificationType)
+                                                    {
+                                                        <option value="@specificationType.Item1">@specificationType.Item2</option>
+                                                    }
+                                                </select>
+                                                <span class="input-error-box text-danger"></span>
+                                            }
+                                            else
+                                            {
+                                                <h6>Chưa có dữ liệu</h6>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button id="AddSpecificationBtn" type="button" class="btn btn-default"><i class="fa fa-plus"></i> Thêm</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </fieldset>
 
@@ -180,12 +168,8 @@
                             <legend class="fieldset-legend">Thông tin chung</legend>
                             <div class="row">
                                 <!-- DESCRIPTION -->
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="ProductDescription">Mô Tả</label>
-                                    <div class="col-sm-10">
-                                        <textarea class="form-control tiny_mce_input" id="ProductDescription" name="ProductDescription" style="height: 115px;"></textarea>
-                                        <span class="input-error-box text-danger"></span>
-                                    </div>
+                                <div class="form-group col-sm-12 add-product-description" style="margin-left:2px;">
+                                    <textarea class="tiny_mce_input" type="file" id="ProductDescription" name="ProductDescription"></textarea>
                                 </div>
                             </div>
                         </fieldset>

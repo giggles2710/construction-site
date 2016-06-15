@@ -440,23 +440,37 @@ body, html {
 }
 
 .no-underline {
-    text-decoration:none !important;
+    text-decoration: none !important;
 }
 
 .edit-input {
-    display:none;
+    display: none;
     width: 80px;
     text-align: right;
 }
 
-.edit-button{
-    display:none;
+.edit-button {
+    display: none;
 }
 
 .input-grid-number {
-    width:100px !important;
+    width: 100px !important;
 }
 
 .input-grid-money {
-    width:180px !important;
+    width: 180px !important;
 }
+
+.table-specification {
+    margin-left: 15px;
+    width: 98%;
+}
+
+.add-product-description {
+    margin-left: 2px;
+}
+
+    .add-product-description > textarea {
+        height: 300px;
+        max-height: 500px;
+    }

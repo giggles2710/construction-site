@@ -592,65 +592,81 @@ namespace _170516.Controllers
                 SupplierName = s.CompanyName
             }).ToList();
 
+            // reset specification type session
+            Session[Constant.SessionSpecification] = null;
+
             return View("AddProduct", "_AdminLayout", model);
         }
 
-        //[HttpPost]
-        //public JsonResult AddProduct(CreateProductModel model)
-        //{
-        //    var product = new Product
-        //    {
-        //        DateModified = DateTime.Now,
-        //        Description = model.ProductDescription,
-        //        Discount = model.ProductDiscount,
-        //        IsAvailable = true,
-        //        IsDiscountAvailable = model.ProductDiscount > 0,
-        //        Name = model.ProductName,
-        //        Rating = 0,
-        //        Size = model.ProductSize,
-        //        UnitPrice = (decimal)model.ProductPrice,
-        //        UnitsInStock = model.ProductQuantity,
-        //        UnitWeight = model.ProductWeight,
-        //        UnitName = model.ProductUnit
-        //    };
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult AddProduct(CreateProductModel model)
+        {
+            var product = new Product
+            {
+                DateModified = DateTime.Now,
+                Description = model.ProductDescription,
+                Discount = model.ProductDiscount,
+                IsAvailable = true,
+                IsDiscountAvailable = model.ProductDiscount > 0,
+                Name = model.ProductName,
+                UnitPrice = (decimal)model.ProductPrice,
+                UnitsInStock = model.ProductQuantity
+            };
 
-        //    // product supplier id
-        //    if (model.ProductSupplierID == 0)
-        //        product.SupplierID = null;
-        //    else
-        //        product.SupplierID = model.ProductSupplierID;
+            // product supplier id
+            if (model.ProductSupplierID == 0)
+                product.SupplierID = null;
+            else
+                product.SupplierID = model.ProductSupplierID;
 
-        //    // product category id
-        //    if (model.ProductCategoryID == 0)
-        //        product.CategoryID = null;
-        //    else
-        //        product.CategoryID = model.ProductCategoryID;
+            // product category id
+            if (model.ProductCategoryID == 0)
+                product.CategoryID = null;
+            else
+                product.CategoryID = model.ProductCategoryID;
 
-        //    // product image
-        //    if (!string.IsNullOrWhiteSpace(model.ProductImage))
-        //    {
-        //        var imageInfos = model.ProductImage.Split(':');
+            // product image
+            if (!string.IsNullOrWhiteSpace(model.ProductImage))
+            {
+                var imageInfos = model.ProductImage.Split(':');
 
-        //        if (imageInfos.Length > 0)
-        //        {
-        //            product.ImageType = imageInfos[0]; // file type
-        //            product.Image = Convert.FromBase64String(imageInfos[1]); // base 64 string
-        //        }
-        //    }
+                if (imageInfos.Length > 0)
+                {
+                    product.ImageType = imageInfos[0]; // file type
+                    product.Image = Convert.FromBase64String(imageInfos[1]); // base 64 string
+                }
+            }
 
-        //    dbContext.Products.Add(product);
+            // product specification
+            if(model.SpecificationList != null && model.SpecificationList.Any())
+            {
+                foreach(var specification in model.SpecificationList)
+                {
+                    var productDetail = new ProductDetail
+                    {
+                        Name = specification.Name,
+                        Type = specification.GetTypeCode(),
+                        Value = specification.Value
+                    };
 
-        //    try
-        //    {
-        //        dbContext.SaveChanges();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Json(new { isResult = false, result = ex.Message }, JsonRequestBehavior.AllowGet);
-        //    }
+                    product.ProductDetails.Add(productDetail);
+                }
+            }
 
-        //    return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
-        //}
+            dbContext.Products.Add(product);
+
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpGet]
         public ActionResult AddColor()
@@ -824,6 +840,37 @@ namespace _170516.Controllers
 
                 return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpPost]
+        public ActionResult AddSpecification(SpecificationsTableModel model)
+        {
+            if (Session[Constant.SessionSpecification] == null)
+                Session[Constant.SessionSpecification] = new List<SpecificationsTableModel>();
+
+            var specificationTableModel = Session[Constant.SessionSpecification] as List<SpecificationsTableModel>;
+
+            // convert from specification type code into the specification type description
+            foreach(var specificationType in Constant.SpecificationType)
+            {
+                if(specificationType.Item1 == int.Parse(model.Type))
+                {
+                    model.Type = specificationType.Item2;
+                    break;
+                }
+            }
+
+            // refactor index
+            model.Id = specificationTableModel.Count + 1;
+
+            if(specificationTableModel != null)
+            {
+                specificationTableModel.Add(model);
+            }
+
+            Session[Constant.SessionSpecification] = specificationTableModel;
+
+            return PartialView("_PartialSpecificationTable", specificationTableModel);
         }
 
         #region Supplier

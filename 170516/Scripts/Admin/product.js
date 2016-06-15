@@ -16,6 +16,71 @@
         a_configuration_option: 400
     });
 
+    // add product specification
+    $('#AddSpecificationBtn').on('click', function () {
+        var isValid = true;
+        var $name = $('#SpecificationName'),
+            $value = $('#SpecificationValue'),
+            $type = $('#SpecificationTypeID');
+
+        // validate
+        if ($name.val() == null || $name.val() == undefined || $name.val().trim() == "") {
+            isValid = false;
+            // show message
+            $name.next().text('Tên đặc điểm không được bỏ trống.').show();
+        }
+
+        if ($value.val() == null || $value.val() == undefined || $value.val().trim() == "") {
+            isValid = false;
+            // show message
+            $value.next().text('Giá trị của đặc điểm không được bỏ trống.').show();
+        }
+
+        if ($type.val() == null || $type.val() == undefined || $type.val().trim() == "") {
+            isValid = false;
+            // show message
+            $type.next().text('Loại đặc điểm không được bỏ trống.').show();
+        }
+
+        if (isValid) {
+            // hide all error message of this form
+            $name.next().text('').attr('style', 'display:none;');
+            $value.next().text('').attr('style', 'display:none;');
+            $type.next().text('').attr('style', 'display:none;');
+
+            // prepare model
+            var specificationModel = {
+                Name: $name.val(),
+                Type: $type.val(),
+                Value: $value.val()
+            };
+
+            // call ajax
+            $.ajax({
+                url: staticUrl.addSpecification,
+                method: "POST",
+                data: specificationModel,
+                beforeSend: function () {
+                    // add loading
+                },
+                success: function (data) {
+                    // add it to div
+                    $('#AddProductSpecificationTable').html(data);
+
+                    // reset forms
+                    $name.val('');
+                    $type.val(1);
+                    $value.val('');
+
+                    toastr.success('Thêm đặc điểm cho sản phẩm thành công.');
+                },
+                error: function (e) {
+                    toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
+                }
+            })
+        }
+    })
+
     // sorting header
     $(".dataTable th").on('click', function () {
         var sortStr = $(this).data('sort');
@@ -117,9 +182,34 @@
     $('#SubmitAddProduct').on('click', function () {
         // validate before submit form
         if (addProductModel.ValidateAddProduct()) {
+            var addProductFormModel = $('#AddProductForm').serialize();
+
+            // prepare specification list
+            var specificationTrs = $('#AddProductSpecificationTable table tbody tr');
+            if (specificationTrs.length > 0) {
+                var specificationList = [];
+
+                for (var i = 0; i < specificationTrs.length; i++) {
+                    var specificationTds = $(specificationTrs[i]).find('td');
+
+                    var specification = {
+                        Id: $(specificationTds[0]).text(),
+                        Type: $(specificationTds[1]).text(),
+                        Name: $(specificationTds[2]).text(),
+                        Value: $(specificationTds[3]).text()
+                    };
+
+                    if (specification != null)
+                        specificationList.push(specification);
+                }
+
+                // add the specification list into main model
+                addProductFormModel.specificationList = specificationList;
+            }
+
             $.ajax({
                 url: staticUrl.addProduct,
-                data: $('#AddProductForm').serialize(),
+                data: addProductFormModel,
                 async: true,
                 method: "POST",
                 dataType: "json",
@@ -207,10 +297,7 @@ var addProductModel = {
         // validate add color screen
         var $productName = $('#ProductName');
         var $productQuantity = $('#ProductQuantity');
-        var $productWeight = $('#ProductWeight');
-        var $productSize = $('#ProductSize');
         var $productPrice = $('#ProductPrice');
-        var $productUnit = $('#ProductUnit');
         var isValid = true;
 
         // product name
@@ -233,33 +320,6 @@ var addProductModel = {
             $productQuantity.nextAll('span.input-error-box').text("");
         }
 
-        // product weight
-        if ($productWeight.val() == null || $productWeight.val() == '' || $productWeight.val() == undefined) {
-            $productWeight.parent().addClass('has-error');
-            $productWeight.nextAll('span.input-error-box').text("Làm ơn nhập khối lượng sản phẩm.");
-            isValid = false;
-        } else {
-            // test regex
-            if (sampleRegex.floatRegex.test($productWeight.val())) {
-                $productWeight.parent().addClass('has-error');
-                $productWeight.nextAll('span.input-error-box').text("Làm ơn chỉ nhập chữ số và dấu phẩy (,).");
-                isValid = false;
-            } else {
-                $productWeight.parent().removeClass('has-error');
-                $productWeight.nextAll('span.input-error-box').text("");
-            }
-        }
-
-        // product size
-        if ($productSize.val() == null || $productSize.val() == '' || $productSize.val() == undefined) {
-            $productSize.parent().addClass('has-error');
-            $productSize.nextAll('span.input-error-box').text("Làm ơn nhập kích cỡ sản phẩm.");
-            isValid = false;
-        } else {
-            $productSize.parent().removeClass('has-error');
-            $productSize.nextAll('span.input-error-box').text("");
-        }
-
         // product price
         if ($productPrice.val() == null || $productPrice.val() == '' || $productPrice.val() == undefined) {
             $productPrice.parent().addClass('has-error');
@@ -275,16 +335,6 @@ var addProductModel = {
                 $productPrice.parent().removeClass('has-error');
                 $productPrice.nextAll('span.input-error-box').text("");
             }
-        }
-
-        // product unit
-        if ($productUnit.val() == null || $productUnit.val() == '' || $productUnit.val() == undefined) {
-            $productUnit.parent().addClass('has-error');
-            $productUnit.nextAll('span.input-error-box').text("Làm ơn nhập đơn vị của sản phẩm.");
-            isValid = false;
-        } else {
-            $productUnit.parent().removeClass('has-error');
-            $productUnit.nextAll('span.input-error-box').text("");
         }
 
         return isValid;
