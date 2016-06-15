@@ -26,4 +26,11 @@
         }
     });
 
+    $('#btnGoBack').click(function () {
+        window.location.href = staticUrl.viewOrder;
+    });
+
+    $('#btnDeleteCustomer').click(function () {
+        window.location.href = staticUrl.viewOrder;
+    });
 });

@@ -10,36 +10,36 @@ namespace _170516.Models.Administrator
     {
         public int SupplierID { get; set; }
 
-        [Required (ErrorMessage ="Company name is required")]
+        [Required (ErrorMessage ="Vui lòng nhập tên công ty")]
         public string CompanyName { get; set; }
 
-        [Required(ErrorMessage = "Contact First Name is required")]
+        [Required(ErrorMessage = "Vui lòng nhập họ người đại diện")]
         public string ContactFName { get; set; }
 
-        [Required(ErrorMessage = "Contact Last Name is required")]
+        [Required(ErrorMessage = "Vui lòng nhập tên người đại diện")]
         public string ContactLName { get; set; }
 
-        [Required(ErrorMessage = "Address 1 is required")]
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ")]
         public string Address1 { get; set; }
 
         public string Address2 { get; set; }
 
-        [Required(ErrorMessage = "City is required")]
+        [Required(ErrorMessage = "Vui lòng nhập thành phố/tỉnh")]
         public string City { get; set; }
 
-        [Required(ErrorMessage = "Phone is required")]
+        [Required(ErrorMessage = "Vui lòng nhập số điện thoại")]
         [Phone]
         public string Phone { get; set; }
         
         public string Fax { get; set; }
 
-        [Required(ErrorMessage = "Email Address is required")]
-        [EmailAddress]
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ email")]
+        [EmailAddress(ErrorMessage ="Địa chỉ email không hợp lệ")]
         public string EmailAddress { get; set; }
-        [Required]
-        [Range(typeof(decimal), "0", "100")]
+        [Required(ErrorMessage = "Vui lòng nhập số giảm giá. 0 nếu không có giảm giá")]
+        [Range(typeof(decimal), "0", "100", ErrorMessage = "Giảm giá phải từ 0 đến 100")]
         public double Discount { get; set; }
-        [Required(ErrorMessage = "Product type is required")]
+        [Required(ErrorMessage = "Vui lòng nhập loại sản phẩm")]
         public string ProductType { get; set; }
         public string Logo { get; set; }
         public string ImageType { get; set; }

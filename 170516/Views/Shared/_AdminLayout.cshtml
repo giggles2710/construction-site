@@ -102,6 +102,8 @@
             addProductCategory: "@Url.Action("AddProductCategory", "Administrator")",
             updateProductCategory: "@Url.Action("UpdateProductCategory", "Administrator")",
             deleteProductCategory: "@Url.Action("DeleteProductCategory", "Administrator")",
+            viewProductCategoryDetail: "@Url.Action("ViewProductCategoryDetail", "Administrator")",
+
             updateCustomer: "@Url.Action("UpdateCustomer","Administrator")",
             addProduct: "@Url.Action("AddProduct","Administrator")",
             viewProduct: "@Url.Action("ViewProduct","Administrator")",
@@ -118,17 +120,18 @@
             updateShipper: "@Url.Action("UpdateShipper", "Administrator")",
             deleteShipper: "@Url.Action("RemoveShipper", "Administrator")",
 
-            viewOrder: "@Url.Action("ViewOrder", "Administrator")",           
+            viewOrder: "@Url.Action("ViewOrder", "Administrator")",
             updateOrder: "@Url.Action("UpdateOrder", "Administrator")",
             cancelOrder: "@Url.Action("CancelOrder", "Administrator")",
 
-            viewOrderDetails: "@Url.Action("ViewOrderDetails", "Administrator")",                      
+            viewOrderDetails: "@Url.Action("ViewOrderDetails", "Administrator")",
             cancelOrderProduct: "@Url.Action("CancelOrderProduct", "Administrator")",
         };
 
         var sampleRegex = {
             floatRegex: new RegExp("^\d{0,2}(\.\d{0,2}){0,1}$"),
-            dateVNRegex: new RegExp("(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)")
+            dateVNRegex: new RegExp("(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)"),
+            integerRegex: new RegExp("^[1-9]([0-9]*)$")
         };
 
         // environment
