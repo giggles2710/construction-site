@@ -47,6 +47,7 @@ namespace _170516
                         "~/Scripts/dlMenu/custom.dlmenu.js",
                         "~/Scripts/dlMenu/modernizr.custom.js",
                         "~/Scripts/tinymce/tinymce.min.js",
+                        "~/Scripts/slippry.min.js",
                         "~/Scripts/bootbox.min.js",
                         "~/Scripts/toastr.min.js"));
 
@@ -55,6 +56,7 @@ namespace _170516
                       "~/Content/flatly.min.css",
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/common.css",
+                      "~/Content/slippry.css", 
                       "~/Content/toastr.css"));
 
             bundles.Add(new StyleBundle("~/Content/admin_css").Include(

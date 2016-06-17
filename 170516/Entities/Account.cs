@@ -20,6 +20,7 @@ namespace _170516.Entities
             this.Account1 = new HashSet<Account>();
             this.Orders = new HashSet<Order>();
             this.Products = new HashSet<Product>();
+            this.Requests = new HashSet<Request>();
             this.Roles = new HashSet<Role>();
         }
     
@@ -48,6 +49,8 @@ namespace _170516.Entities
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Request> Requests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Role> Roles { get; set; }
     }

@@ -1,4 +1,5 @@
-﻿using _170516.Models;
+﻿using _170516.Entities;
+using _170516.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,7 +28,7 @@ namespace _170516.Controllers
                 ImageByte = ca.Image,
                 ImageType = ca.ImageType
             }).ToList();
-            
+
             // fill up missing information
             foreach (var item in indexModel.Menu)
             {
@@ -64,6 +65,29 @@ namespace _170516.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult SendRequestContact(RequestContactModel model)
+        {
+            var requestContact = new Request();
+            requestContact.EmailAddress = model.EmailAddress;
+            requestContact.FullName = model.FullName;
+            requestContact.RequestContent = model.Content;
+            requestContact.IsNew = true;
+            requestContact.DateCreated = DateTime.Now;
+
+            dbContext.Requests.Add(requestContact);
+
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isValid = false }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isValid = true }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

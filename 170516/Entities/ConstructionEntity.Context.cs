@@ -34,9 +34,11 @@ namespace _170516.Entities
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductDetail> ProductDetails { get; set; }
+        public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<Shipper> Shippers { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<SystemVariable> SystemVariables { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
     
         public virtual ObjectResult<string> CheckUniqueEmailAddress(string emailAddress)

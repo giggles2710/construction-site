@@ -49,7 +49,7 @@ namespace _170516.Controllers
                 case "CategoryName":
                     if (isAsc.GetValueOrDefault())
                         categories = dbContext.Categories
-                            .Where(p => p.IsActive && (string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name)) )
+                            .Where(p => p.IsActive && (string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name)))
                             .OrderBy(p => p.Name);
                     else
                         categories = dbContext.Categories
@@ -339,7 +339,7 @@ namespace _170516.Controllers
                 if (product.ProductDetails.Any())
                 {
                     var i = 0;
-                    foreach(var productDetail in product.ProductDetails)
+                    foreach (var productDetail in product.ProductDetails)
                     {
                         var specification = new SpecificationsTableModel();
                         specification.Id = ++i;
@@ -668,9 +668,9 @@ namespace _170516.Controllers
             }
 
             // product specification
-            if(model.SpecificationList != null && model.SpecificationList.Any())
+            if (model.SpecificationList != null && model.SpecificationList.Any())
             {
-                foreach(var specification in model.SpecificationList)
+                foreach (var specification in model.SpecificationList)
                 {
                     var productDetail = new ProductDetail
                     {
@@ -880,9 +880,9 @@ namespace _170516.Controllers
             var specificationTableModel = Session[Constant.SessionSpecification] as List<SpecificationsTableModel>;
 
             // convert from specification type code into the specification type description
-            foreach(var specificationType in Constant.SpecificationType)
+            foreach (var specificationType in Constant.SpecificationType)
             {
-                if(specificationType.Item1 == int.Parse(model.Type))
+                if (specificationType.Item1 == int.Parse(model.Type))
                 {
                     model.Type = specificationType.Item2;
                     break;
@@ -892,7 +892,7 @@ namespace _170516.Controllers
             // refactor index
             model.Id = specificationTableModel.Count + 1;
 
-            if(specificationTableModel != null)
+            if (specificationTableModel != null)
             {
                 specificationTableModel.Add(model);
             }
@@ -1567,10 +1567,11 @@ namespace _170516.Controllers
                 IsFulfilled = order.IsFulfilled,
                 IsCanceled = order.IsCanceled,
                 OrderStatus = order.OrderStatus,
-                RequiredDate = order.RequiredDate,                
+                RequiredDate = order.RequiredDate,
             };
 
-            updateOrderModel.OrderDetails = order.OrderDetails.Select(o => new ViewOrderDetailsItem {
+            updateOrderModel.OrderDetails = order.OrderDetails.Select(o => new ViewOrderDetailsItem
+            {
                 OrderDetailID = o.OrderDetailID,
                 ProductID = o.ProductID,
                 ProductName = o.Product.Name,
@@ -1615,7 +1616,7 @@ namespace _170516.Controllers
             order.IsFulfilled = order.OrderStatus == Constant.OrderFulfilledStatus;
             order.ModifiedDate = DateTime.Now;
 
-            for (int i=0; i<order.OrderDetails.Count; i++)
+            for (int i = 0; i < order.OrderDetails.Count; i++)
             {
                 order.OrderDetails.ElementAt(i).Price = model.OrderDetails[i].Price;
                 order.OrderDetails.ElementAt(i).Quantity = model.OrderDetails[i].Quantity;
@@ -1688,7 +1689,8 @@ namespace _170516.Controllers
             searchText = null;
             if (string.IsNullOrEmpty(sortField)) sortField = "OrderID";
 
-            var orderDetailsModel = order.OrderDetails.ToList().Select(o => new ViewOrderDetailsItem {
+            var orderDetailsModel = order.OrderDetails.ToList().Select(o => new ViewOrderDetailsItem
+            {
                 OrderDetailID = o.OrderDetailID,
                 ProductID = o.ProductID,
                 ProductName = o.Product.Name,
@@ -1699,7 +1701,7 @@ namespace _170516.Controllers
                 Discount = o.Discount,
                 Total = o.Total,
                 Size = o.Size,
-                IsFulfilled = o.IsFulfilled, 
+                IsFulfilled = o.IsFulfilled,
                 ShipDate = o.ShipDate,
                 PaidDate = o.PaidDate
             });
@@ -1871,5 +1873,149 @@ namespace _170516.Controllers
         }
 
         #endregion
+
+        [HttpGet]
+        public ActionResult ViewRequest(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
+        {
+            var pageNo = page.GetValueOrDefault();
+            var pageSize = itemsPerPage.GetValueOrDefault();
+
+            if (pageNo == 0) pageNo = 1;
+            if (pageSize == 0) pageSize = 10;
+            if (isAsc == null) isAsc = false;
+            if (string.IsNullOrEmpty(searchText)) searchText = null;
+            if (string.IsNullOrEmpty(sortField)) sortField = "DateCreated";
+
+            IQueryable<Request> requests;
+
+            switch (sortField)
+            {
+                case "FullName":
+                    if (isAsc.GetValueOrDefault())
+                        requests = dbContext.Requests
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Contains(p.FullName) || searchText.Contains(p.RequestContent) || searchText.Contains(p.ReplyUser))
+                            .OrderBy(p => p.FullName);
+                    else
+                        requests = dbContext.Requests
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Contains(p.FullName) || searchText.Contains(p.RequestContent) || searchText.Contains(p.ReplyUser))
+                            .OrderByDescending(p => p.FullName);
+                    break;
+                case "RequestContent":
+                    if (isAsc.GetValueOrDefault())
+                        requests = dbContext.Requests
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Contains(p.FullName) || searchText.Contains(p.RequestContent) || searchText.Contains(p.ReplyUser))
+                            .OrderBy(p => p.RequestContent);
+                    else
+                        requests = dbContext.Requests
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Contains(p.FullName) || searchText.Contains(p.RequestContent) || searchText.Contains(p.ReplyUser))
+                            .OrderByDescending(p => p.RequestContent);
+                    break;
+                case "IsNew":
+                    if (isAsc.GetValueOrDefault())
+                        requests = dbContext.Requests
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Contains(p.FullName) || searchText.Contains(p.RequestContent) || searchText.Contains(p.ReplyUser))
+                            .OrderBy(p => p.IsNew);
+                    else
+                        requests = dbContext.Requests
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Contains(p.FullName) || searchText.Contains(p.RequestContent) || searchText.Contains(p.ReplyUser))
+                            .OrderByDescending(p => p.IsNew);
+                    break;
+                case "ReplyUser":
+                    if (isAsc.GetValueOrDefault())
+                        requests = dbContext.Requests
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Contains(p.FullName) || searchText.Contains(p.RequestContent) || searchText.Contains(p.ReplyUser))
+                            .OrderBy(p => p.Account.Username);
+                    else
+                        requests = dbContext.Requests
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Contains(p.FullName) || searchText.Contains(p.RequestContent) || searchText.Contains(p.ReplyUser))
+                            .OrderByDescending(p => p.Account.Username);
+                    break;
+                default:
+                    if (isAsc.GetValueOrDefault())
+                        requests = dbContext.Requests
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Contains(p.FullName) || searchText.Contains(p.EmailAddress) || searchText.Contains(p.RequestContent) || searchText.Contains(p.ReplyUser))
+                            .OrderBy(p => p.DateCreated);
+                    else
+                        requests = dbContext.Requests
+                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Contains(p.FullName) || searchText.Contains(p.EmailAddress) || searchText.Contains(p.RequestContent) || searchText.Contains(p.ReplyUser))
+                            .OrderByDescending(p => p.DateCreated);
+                    break;
+            }
+
+            // do the query
+            var requestModel = requests
+                .Select(p => new ViewRequestItem
+                {
+                    Content = p.RequestContent,
+                    FullName = p.FullName,
+                    DateCreated = p.DateCreated,
+                    ReplyUser = p.Account != null ? p.Account.Username : string.Empty,
+                    IsNew = p.IsNew,
+                    RequestId = p.RequestID
+                })
+                .Skip(pageSize * (pageNo - 1))
+                .Take(pageSize).ToList();
+
+            var model = new ViewRequestModel();
+            model.CurrentPage = pageNo;
+            model.SearchText = searchText;
+            model.ItemOnPage = pageSize;
+            model.StartIndex = pageSize * pageNo - pageSize + 1;
+            model.EndIndex = model.StartIndex + pageSize - 1;
+            model.TotalNumber = requests.Count();
+            model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
+            model.Requests = requestModel;
+            model.SortField = sortField;
+            model.IsAsc = isAsc.GetValueOrDefault();
+
+            return View("ViewRequest", "_AdminLayout", model);
+        }
+
+        [HttpGet]
+        public ActionResult ViewRequestDetail(int id)
+        {
+            var request = dbContext.Requests.FirstOrDefault(p => p.RequestID == id);
+
+            if (request != null)
+            {
+                var model = new DetailRequestModel
+                {
+                    Content = request.RequestContent,
+                    DateCreated = request.DateCreated.ToString("dd/MM/yyyy hh:mm:ss"),
+                    RequestID = request.RequestID,
+                    ReplyUser = request.Account != null ? request.Account.Username : string.Empty,
+                    Reply = request.Reply,
+                    EmailAddress = request.EmailAddress,
+                    FullName = request.FullName
+                };                
+
+                return View("ViewRequestDetail", "_AdminLayout", model);
+            }
+
+            // should be throw error
+            return View("ViewRequestDetail", "_AdminLayout", new DetailRequestModel());
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult AnswerRequest(AnswerRequestModel model)
+        {
+            if(model.RequestID > 0)
+            {
+                var request = dbContext.Requests.FirstOrDefault(r => r.RequestID == model.RequestID);
+
+                if(request != null)
+                {
+                    request.Reply = model.ReplyContent;
+                    request.ReplyUser = GetCurrentUserId();
+                    request.DateCreated = DateTime.Now;
+
+                    dbContext.Entry(request).State = EntityState.Modified;
+                    dbContext.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("ViewRequestDetail", new { id = model.RequestID });
+        }
     }
 }

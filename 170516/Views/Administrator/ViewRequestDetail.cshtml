@@ -1,0 +1,130 @@
+﻿@model _170516.Models.Administrator.DetailRequestModel
+@{
+    ViewBag.Title = "Chi tiết yêu cầu";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box-large">
+            <div class="panel-heading">
+                <ol class="breadcrumb">
+                    <li><a href="@Url.Action("ViewProduct","Administrator")">Quản Lý Yêu Cầu</a></li>
+                    <li class="active">Chi tiết yêu cầu</li>
+                </ol>
+                <div class="panel-title title-3">Chi tiết yêu cầu khách hàng @Model.FullName</div>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-horizontal">
+                    <input type="hidden" id="RequestIdInput" value="@Model.RequestID" />
+                    <fieldset>
+                        <legend>Thông tin chung</legend>
+
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6">
+                                <!-- FULL NAME -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="FullName">Họ và Tên</label>
+                                    <div class="col-sm-7">
+                                        <h6 class="info-box">@Model.FullName</h6>
+                                    </div>
+                                </div>
+                                <!-- EMAIL ADDRESS -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="EmailAddress">Email</label>
+                                    <div class="col-sm-7">
+                                        <h6 class="info-box">@Model.EmailAddress</h6>
+                                    </div>
+                                </div>
+
+                                <!-- DATE CREATED -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductPrice">Ngày Tạo</label>
+                                    <div class="col-sm-7">
+                                        <h6 class="info-box">@Model.DateCreated</h6>
+                                    </div>
+                                </div>
+                                <!-- CONTENT -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="Content">Nội Dung</label>
+                                    <div class="col-sm-7">
+                                        <p class="info-box">@Model.Content</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6">
+                                <!-- REPLY USER -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ReplyUser">Người trả lời</label>
+                                    <div class="col-sm-7">
+                                        @if (string.IsNullOrWhiteSpace(Model.ReplyUser))
+                                        {
+                                            <h6>Chưa có</h6>
+                                        }
+                                        else
+                                        {
+                                            <h6 class="info-box">@Model.ReplyUser</h6>
+                                        }
+                                    </div>
+                                </div>
+
+                                <!-- DATE REPLIED -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductPrice">Ngày Tạo</label>
+                                    <div class="col-sm-7">
+                                        @if (string.IsNullOrWhiteSpace(Model.DateCreated))
+                                        {
+                                            <h6>Chưa có</h6>
+                                        }
+                                        else
+                                        {
+                                            <h6 class="info-box">@Model.DateCreated</h6>
+                                        }
+                                    </div>
+                                </div>
+
+                                <!-- REPLY -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="Reply">Nội dung trả lời</label>
+                                    <div class="col-sm-7">
+                                        @if (string.IsNullOrWhiteSpace(Model.Reply))
+                                        {
+                                            <h6>Chưa có</h6>
+                                        }
+                                        else
+                                        {
+                                            <p class="info-box">@Model.Reply</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Trả lời</legend>
+
+                        <div class="row">
+                            <!-- DESCRIPTION -->
+                            <div class="form-group col-sm-12 add-product-description" style="margin-left:2px;">
+                                <textarea class="tiny_mce_input" type="file" id="ReplyContent" name="ReplyContent" style="    width: 100%;"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <div class="col-md-12 form-button">
+                                        <button class="btn btn-primary" type="button" id="AnswerButton"><i class="fa fa-reply"></i> Trả lời</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/Admin/request.js")"></script>
+}
