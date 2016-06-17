@@ -15,7 +15,7 @@
 @-webkit-keyframes left-right {
   0% {
     -moz-transform: translateY(-20%) translateX(-10%);
-    -ms-transform: translateY(-20%) translateX(-10%);
+    -ms-transform: translateY(-20%) translateX(-10%);   
     -webkit-transform: translateY(-20%) translateX(-10%);
     transform: translateY(-20%) translateX(-10%); }
   100% {

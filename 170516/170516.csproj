@@ -1657,6 +1657,7 @@
     <Content Include="Views\Product\_PartialViewCategory.cshtml" />
     <Content Include="Views\Administrator\ViewRequest.cshtml" />
     <Content Include="Views\Administrator\ViewRequestDetail.cshtml" />
+    <Content Include="Views\Administrator\ViewUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
