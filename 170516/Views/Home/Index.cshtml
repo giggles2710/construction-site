@@ -3,195 +3,68 @@
     ViewBag.Title = "Trang Chủ";
 }
 
-<div class="col-lg-3 col-md-3 col-sm-4">
-    <!-- menu -->
-    <div class="main clearfix">
-        <div id="dl-menu" class="dl-menuwrapper">
-            <ul class="dl-menu">
-                @foreach (var item in Model.Menu)
-                {
-                    <li>
-                        <a href="#" data-id="@item.CategoryId">@item.CategoryName</a>
-                        @if (item.SubCategoryList != null && item.SubCategoryList.Any())
-                        {
-                            <ul class="dl-submenu">
-                                <li><a href="#"></a></li>
-                            </ul>
-                        }
-                    </li>
-                }
-            </ul>
+@*<a href="http://www.aaronvanderzwan.com/blog/2011/11/maximage-2-0-beta1-release/" id="logo"><img src="../lib/images/demo/logo.png" alt="MaxImage: Uses jQuery Cycle Plugin to create background slideshows" /></a>*@
+<a href="" id="arrow_left"><img src="~/Content/Image/slider/arrow_left.png" alt="Slide Left" /></a>
+<a href="" id="arrow_right"><img src="~/Content/Image/slider/arrow_right.png" alt="Slide Right" /></a>
+
+<img id="cycle-loader" src="~/Content/Image/slider/ajax-loader.gif" />
+<div id="maximage">
+    <div>
+        <img src="~/Content/Image/slider/wood_3.jpg" alt="" />
+        <img id="gradient" src="~/Content/Image/slider/gradient.png" alt="" />
+        <div class="in-slide-content" style="display:none;">
+            <p>Vật liệu xây dựng tốt nhất</p>
         </div>
     </div>
+    <img src="~/Content/Image/slider/steel_1.jpg" alt="" />
+    <img src="~/Content/Image/slider/wood_1.jpg" alt="" />
+    <img src="~/Content/Image/slider/wood_2.jpg" alt="" />
+
 </div>
-<div class="col-lg-9 col-md-9 col-sm-8 content-box">
-    <div class="hero_wrapper">
-        <img src="http://www.reuven-gth.com/wp-content/uploads/2013/11/constructionBanner.jpg">
-        <div class="hero-unit hero_info">
-            <h1>VẬT LIỆU XÂY DỰNG</h1>
-            <p class="lead">Tiết kiệm thời gian, mua vật liệu xây dựng tương lai và nhận hàng ngay tại nhà.</p>
-        </div>
-    </div>
-    <div class="hero_heading">
-        <h2>Danh mục sản phẩm</h2>
-    </div>
-    <div class="row">
-        @for (var i = 0; i < Model.MenuOnMainPage.Count; i++)
-        {
-            <div class="row list-group">
-                @*first item in row*@
-                @if (i < Model.MenuOnMainPage.Count)
-                {
-                    <div class="item  col-xs-3 col-lg-3">
-                        <div class="thumbnail">
-                            @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i].ImageSrc))
-                            {
-                                <img class="group list-group-image" src="@Model.MenuOnMainPage[i].ImageSrc" alt alt="" />
-                            }
-                            else
-                            {
-                                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-                            }
-                            <div class="caption">
-                                <h4 class="group inner list-group-item-heading">
-                                    @Model.MenuOnMainPage[i].CategoryName
-                                </h4>
-                                @*<p class="group inner list-group-item-text">
 
-                                    </p>*@
-                                <div class="row">
-                                    @if (Model.MenuOnMainPage[i].SubCategoryList.Count > 0)
-                                    {
-                                        <ul>
-                                            @foreach (var subCategory in Model.MenuOnMainPage[i].SubCategoryList)
-                                            {
-                                                <li><a href="@Url.Action("ShowProduct", "Product", new { id = subCategory.CategoryId })">@subCategory.CategoryName</a></li>
-                                            }
-                                        </ul>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-                @*second item in row*@
-                @if (i + 1 < Model.MenuOnMainPage.Count)
-                {
-                    <div class="item  col-xs-3 col-lg-3">
-                        <div class="thumbnail">
-                            @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i + 1].ImageSrc))
-                            {
-                                <img class="group list-group-image" src="@Model.MenuOnMainPage[i + 1].ImageSrc" alt="" />
-                            }
-                            else
-                            {
-                                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-                            }
-                            <div class="caption">
-                                <h4 class="group inner list-group-item-heading">
-                                    @Model.MenuOnMainPage[i + 1].CategoryName
-                                </h4>
-                                @*<p class="group inner list-group-item-text">
-
-                                    </p>*@
-                                <div class="row">
-                                    @if (Model.MenuOnMainPage[i + 1].SubCategoryList.Count > 0)
-                                    {
-                                        <ul>
-                                            @foreach (var subCategory in Model.MenuOnMainPage[i + 1].SubCategoryList)
-                                            {
-                                                <li><a href="@Url.Action("ShowProduct", "Product", new { id = subCategory.CategoryId })">@subCategory.CategoryName</a></li>
-                                            }
-                                        </ul>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-                @*third item in row*@
-                @if (i + 2 < Model.MenuOnMainPage.Count)
-                {
-                    <div class="item  col-xs-3 col-lg-3">
-                        <div class="thumbnail">
-                            @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i + 2].ImageSrc))
-                            {
-                                <img class="group list-group-image" src="@Model.MenuOnMainPage[i + 2].ImageSrc" alt="" />
-                            }
-                            else
-                            {
-                                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-                            }
-                            <div class="caption">
-                                <h4 class="group inner list-group-item-heading">
-                                    @Model.MenuOnMainPage[i + 2].CategoryName
-                                </h4>
-                                @*<p class="group inner list-group-item-text">
-
-                                    </p>*@
-                                <div class="row">
-                                    @if (Model.MenuOnMainPage[i + 2].SubCategoryList.Count > 0)
-                                    {
-                                        <ul>
-                                            @foreach (var subCategory in Model.MenuOnMainPage[i + 2].SubCategoryList)
-                                            {
-                                                <li><a href="@Url.Action("ShowProduct", "Product", new { id = subCategory.CategoryId })">@subCategory.CategoryName</a></li>
-                                            }
-                                        </ul>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-                @*fourth item in row*@
-                @if (i + 3 < Model.MenuOnMainPage.Count)
-                {
-                    <div class="item  col-xs-3 col-lg-3">
-                        <div class="thumbnail">
-                            @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i + 3].ImageSrc))
-                            {
-                                <img class="group list-group-image" src="@Model.MenuOnMainPage[i + 3].ImageSrc" alt="" />
-                            }
-                            else
-                            {
-                                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-                            }
-                            <div class="caption">
-                                <h4 class="group inner list-group-item-heading">
-                                    @Model.MenuOnMainPage[i + 3].CategoryName
-                                </h4>
-                                @*<p class="group inner list-group-item-text">
-
-                                    </p>*@
-                                <div class="row">
-                                    @if (Model.MenuOnMainPage[i + 3].SubCategoryList.Count > 0)
-                                    {
-                                        <ul>
-                                            @foreach (var subCategory in Model.MenuOnMainPage[i + 3].SubCategoryList)
-                                            {
-                                                <li><a href="@Url.Action("ShowProduct", "Product", new { id = subCategory.CategoryId })">@subCategory.CategoryName</a></li>
-                                            }
-                                        </ul>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-                @{i = i + 3;}
-            </div>
-        }        
-    </div>
-</div>
 
 @section Scripts
 {
     <script src="@Url.Content("~/Scripts/Home/index.js")"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(function () {
+            $('#maximage').maximage({
+                cycleOptions: {
+                    fx: 'fade',
+                    speed: 1000, // Has to match the speed for CSS transitions in jQuery.maximage.css (lines 30 - 33)
+                    timeout: 0,
+                    prev: '#arrow_left',
+                    next: '#arrow_right',
+                    pause: 1
+                },
+                onFirstImageLoaded: function () {
+                    jQuery('#cycle-loader').hide();
+                    jQuery('#maximage').fadeIn('fast');
+                }
+            });
+
+            // Helper function to Fill and Center the HTML5 Video
+            jQuery('video,object').maximage('maxcover');
+
+            // To show it is dynamic html text
+            jQuery('.in-slide-content').delay(1200).fadeIn();
+        });
+    </script>
+
+    <!-- DON'T USE THIS: Insert Google Analytics code here -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-733524-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
 }
 
 

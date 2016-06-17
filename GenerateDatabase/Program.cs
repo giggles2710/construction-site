@@ -250,20 +250,18 @@ namespace GenerateDatabase
                 if (product == null)
                     product = new Product();
 
-                product.CategoryID = random.Next(1, 300);
+                var category = dbContext.Categories.ToArray()[random.Next(1, dbContext.Categories.Count())];
+
+                product.CategoryID = category.CategoryID;
                 product.CreatedUserID = string.Empty;
                 product.DateModified = DateTime.Now;
                 product.Description = random.Next() % 2 != 0 ? UtilityHelper.RandomString(50) : string.Empty;
                 product.Discount = random.Next() % 2 != 0 ? random.NextDouble() : 0;
                 product.IsAvailable = random.Next() % 2 != 0;
-                product.Name = UtilityHelper.RandomString(20);
-                product.Rating = 0;
-                product.Size = string.Format("{0} X {1}", random.Next(1, 100), random.Next(1, 100));
+                product.Name = string.Format("{0}_{1}", category.Name, i);
                 product.SupplierID = random.Next(1, 300);
-                product.UnitName = "vien";
                 product.UnitPrice = (decimal)random.NextDouble();
                 product.UnitsInStock = random.Next(1, 100);
-                product.UnitWeight = random.NextDouble();
                 product.IsDiscountAvailable = product.Discount.GetValueOrDefault() > 0;
 
                 if (product == null)

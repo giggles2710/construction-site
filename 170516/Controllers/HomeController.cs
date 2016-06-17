@@ -12,44 +12,7 @@ namespace _170516.Controllers
     {
         public ActionResult Index()
         {
-            var indexModel = new ProductIndexModel();
-
-            // prepare menu
-            indexModel.Menu = new List<MenuCategoryItem>();
-            indexModel.MenuOnMainPage = new List<MenuCategoryItem>();
-
-            // get all categories
-            indexModel.Menu = dbContext.Categories.Where(c => c.ParentID == null && c.IsActive).Select(ca => new MenuCategoryItem
-            {
-                CategoryId = ca.CategoryID,
-                CategoryName = ca.Name,
-                Description = ca.Description,
-                ImageByte = ca.Image,
-                ImageType = ca.ImageType
-            }).ToList();
-            
-            // fill up missing information
-            foreach (var item in indexModel.Menu)
-            {
-                item.SubCategoryList = dbContext.Categories.Where(c => c.ParentID == item.CategoryId && c.IsActive).Select(ca => new MinimalCategoryItem
-                {
-                    CategoryId = ca.CategoryID,
-                    CategoryName = ca.Name
-                }).ToList();
-
-                // image
-                if (item.ImageByte != null)
-                {
-                    item.ImageSrc = string.Format(Constant.ImageSourceFormat, item.ImageType, Convert.ToBase64String(item.ImageByte));
-                }
-
-                if (item.SubCategoryList.Any())
-                {
-                    indexModel.MenuOnMainPage.Add(item);
-                }
-            }
-
-            return View(indexModel);
+            return View();
         }
 
         public ActionResult About()

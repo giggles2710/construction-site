@@ -321,9 +321,9 @@ th.center {
     position: absolute;
 }
 
-body, html {
+/*body, html {
     background-color: #ffffff;
-}
+}*/
 
 .hero_wrapper {
     margin-top: 5px;
@@ -369,9 +369,9 @@ body, html {
 .thumbnail {
     margin-bottom: 20px;
     padding: 0px;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .list-group {
@@ -431,6 +431,25 @@ body, html {
     margin: 0 0 11px;
 }
 
+.caption-header {
+    text-align: center;
+    font-size: 15px;
+}
+
+.thumbnail-ul {
+    list-style: none;
+    padding: 10px 14px 0px 20px;    
+}
+
+    .thumbnail-ul li{
+        color: #fff;
+    }
+
+    .thumbnail-ul li a:hover {
+        color: rgb(104, 145, 162);
+        text-decoration: none;
+    }
+
 /* end list group*/
 
 .specification-header {
@@ -474,3 +493,92 @@ body, html {
         height: 300px;
         max-height: 500px;
     }
+
+
+/* I wanted to center my loader */
+#cycle-loader {
+    height: 32px;
+    left: 50%;
+    margin: -8px 0 0 -8px;
+    position: absolute;
+    top: 50%;
+    width: 32px;
+    z-index: 999;
+}
+
+/*I want to avoid jumpiness as the JS loads, so I initially hide my cycle*/
+#maximage {
+    display: none; /* Only use this if you fade it in again after the images load */
+    position: fixed !important;
+}
+
+/*Set my gradient above all images*/
+#gradient {
+    left: 0;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+/*Set my logo in bottom left*/
+#logo {
+    bottom: 30px;
+    height: auto;
+    left: 30px;
+    position: absolute;
+    width: 34%;
+    z-index: 1000;
+}
+
+    #logo img {
+        width: 100%;
+    }
+
+#arrow_left, #arrow_right {
+    bottom: 30px;
+    height: 67px;
+    position: absolute;
+    right: 30px;
+    width: 36px;
+    z-index: 1000;
+}
+
+#arrow_left {
+    right: 86px;
+}
+
+    #arrow_left:hover, #arrow_right:hover {
+        bottom: 29px;
+    }
+
+    #arrow_left:active, #arrow_right:active {
+        bottom: 28px;
+    }
+
+.in-slide-content {
+    color: #ecf0f1;
+    float: right;
+    font-family: 'Helvetica Neue', helvetica;
+    font-size: 40px;
+    font-weight: bold;
+    right: 0;
+    margin: 40px;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    width: 700px;
+    z-index: 9999; /* Show above .gradient */
+    text-shadow: 0 1px 0 #fff;
+    -webkit-font-smoothing: antialiased;
+}
+
+.light-text {
+    color: #ddd;
+    text-shadow: 0 1px 0 #666;
+}
+
+.smaller-text {
+    font-size: 30px;
+}
