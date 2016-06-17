@@ -43,7 +43,7 @@
                                 <li><a href="@Url.Action("ViewShipper","Administrator")">Shipper</a></li>
                             </ul>
                         </li>
-                        <li><a href="stats.html"><i class="fa fa-users" aria-expanded="false"></i> Tài Khoản</a></li>
+                        <li><a href="@Url.Action("ViewUser","Administrator")"><i class="fa fa-users" aria-expanded="false"></i> Tài Khoản</a></li>
                         <li><a href="@Url.Action("ViewOrder","Administrator")"><i class="fa fa-list" aria-expanded="false"></i> Đơn Hàng</a></li>
                         <li><a href="buttons.html"><i class="fa fa-bar-chart" aria-expanded="false"></i> Thống Kê</a></li>
                     </ul>
@@ -126,6 +126,11 @@
 
             viewOrderDetails: "@Url.Action("ViewOrderDetails", "Administrator")",
             cancelOrderProduct: "@Url.Action("CancelOrderProduct", "Administrator")",
+
+            viewUser: "@Url.Action("ViewUser", "Administrator")",
+            addUser: "@Url.Action("AddUser", "Administrator")",
+            updateUser: "@Url.Action("UpdateUser", "Administrator")",
+            changeUserStatus: "@Url.Action("ChangeUserStatus", "Administrator")",
         };
 
         var sampleRegex = {

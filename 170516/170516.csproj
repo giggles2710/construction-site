@@ -253,6 +253,7 @@
     <Compile Include="Models\Administrator\ViewProductModel.cs" />
     <Compile Include="Models\Administrator\ViewShipperModel.cs" />
     <Compile Include="Models\Administrator\ViewSupplierModel.cs" />
+    <Compile Include="Models\Administrator\ViewUserModel.cs" />
     <Compile Include="Models\CategoryIndexModel.cs" />
     <Compile Include="Models\Constant.cs" />
     <Compile Include="Models\ProductIndexModel.cs" />
@@ -302,6 +303,7 @@
     <Content Include="Scripts\Admin\order.js" />
     <Content Include="Scripts\Admin\shipper.js" />
     <Content Include="Scripts\Admin\supplier.js" />
+    <Content Include="Scripts\Admin\user.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\Common\account.js" />
     <Content Include="Scripts\Common\main.js" />
@@ -1640,6 +1642,7 @@
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Views\Administrator\ViewOrderDetails.cshtml" />
     <Content Include="Views\Administrator\_PartialSpecificationTable.cshtml" />
+    <Content Include="Views\Administrator\ViewUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
