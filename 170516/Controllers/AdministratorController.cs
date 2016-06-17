@@ -1874,6 +1874,136 @@ namespace _170516.Controllers
 
         #endregion
 
+        #region users
+        public ActionResult ViewUser(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
+        {
+            var pageNo = page.GetValueOrDefault();
+            var pageSize = itemsPerPage.GetValueOrDefault();
+
+            if (pageNo == 0) pageNo = 1;
+            if (pageSize == 0) pageSize = 10;
+            if (isAsc == null) isAsc = true;
+            if (string.IsNullOrEmpty(searchText)) searchText = null;
+            if (string.IsNullOrEmpty(sortField)) sortField = "Username";
+
+            IQueryable<Account> users;
+
+            switch (sortField)
+            {
+                case "Username":
+                    if (isAsc.GetValueOrDefault())
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderBy(p => p.Username);
+                    else
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderByDescending(p => p.Username);
+                    break;
+                case "FirstName":
+                    if (isAsc.GetValueOrDefault())
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderBy(p => p.FirstName);
+                    else
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderByDescending(p => p.Username);
+                    break;
+                case "LastName":
+                    if (isAsc.GetValueOrDefault())
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderBy(p => p.LastName);
+                    else
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderByDescending(p => p.LastName);
+                    break;
+
+                case "EmailAddress":
+                    if (isAsc.GetValueOrDefault())
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderBy(p => p.EmailAddress);
+                    else
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderByDescending(p => p.EmailAddress);
+                    break;
+                case "IsActive":
+                    if (isAsc.GetValueOrDefault())
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderBy(p => p.IsActive);
+                    else
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderByDescending(p => p.IsActive);
+                    break;
+                default:
+                    if (isAsc.GetValueOrDefault())
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderBy(p => p.Username);
+                    else
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderByDescending(p => p.Username);
+                    break;
+            }
+
+            //do the query
+            var usersModel = users.Select(u => new ViewUserItem
+            {
+                AccountID = u.AccountID,
+                Username = u.Username,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                EmailAddress = u.EmailAddress,
+                IsActive = u.IsActive
+            }).Skip(pageSize * (pageNo - 1))
+            .Take(pageSize).ToList();
+
+            var model = new ViewUserModel();
+            model.CurrentPage = pageNo;
+            model.SearchText = searchText;
+            model.ItemOnPage = pageSize;
+            model.StartIndex = pageSize * pageNo - pageSize + 1;
+            model.EndIndex = model.StartIndex + pageSize - 1;
+            model.TotalNumber = users.Count();
+            model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
+            model.Users = usersModel;
+            model.SortField = sortField;
+            model.IsAsc = isAsc.GetValueOrDefault();
+
+            return View(model);
+        }
+
+        public JsonResult ChangeUserStatus(string guid)
+        {
+            var user = dbContext.Accounts.FirstOrDefault(u => u.AccountID == guid);
+
+            if (user == null)
+            {
+                return Json(new { isResult = false, result = Constant.UserNotFound }, JsonRequestBehavior.AllowGet);
+            }
+
+            user.IsActive = !user.IsActive;
+
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
         [HttpGet]
         public ActionResult ViewRequest(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
         {
