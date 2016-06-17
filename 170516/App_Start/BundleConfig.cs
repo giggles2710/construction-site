@@ -10,7 +10,9 @@ namespace _170516
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery-ui.js"));
+                        "~/Scripts/jquery-ui.js",
+                        "~/Scripts/maxImage/jquery.cycle.all.js",
+                        "~/Scripts/maxImage/jquery.maximage.js"));
             
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -53,14 +55,18 @@ namespace _170516
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/Content/dlMenu/css/component.css",
-                      "~/Content/flatly.min.css",
+                      "~/Content/bootstrap.css",
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/common.css",
+                      "~/Content/maxImage/screen.css",
+                      "~/Content/maxImage/jquery.maximage.css",
+                      "~/Content/fullwidth-list/default.css",
+                      "~/Content/fullwidth-list/component.css",
                       "~/Content/slippry.css", 
                       "~/Content/toastr.css"));
 
             bundles.Add(new StyleBundle("~/Content/admin_css").Include(
-                      "~/Content/flatly.min.css",
+                      "~/Content/bootstrap.css",
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/common.css",
                       "~/Content/Admin/css/styles.css",

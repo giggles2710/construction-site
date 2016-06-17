@@ -55,74 +55,86 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\Account.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Category.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\ConstructionSite.Context.cs">
+    <Compile Include="Entity\ConstructionEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ConstructionSite.Context.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\ConstructionSite.cs">
+    <Compile Include="Entity\ConstructionEntity.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\ConstructionSite.Designer.cs">
+    <Compile Include="Entity\ConstructionEntity.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ConstructionSite.edmx</DependentUpon>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
     </Compile>
     <Compile Include="Entity\Customer.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\GetHashTokenByEmailAddress_Result.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\LoginByEmailAdress_Result.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Order.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\OrderDetail.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Product.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ProductDetail.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Role.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Shipper.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sp_helpdiagrams_Result.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Supplier.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sysdiagram.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="Entity\ConstructionSite.edmx">
+    <EntityDeploy Include="Entity\ConstructionEntity.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ConstructionSite.Designer.cs</LastGenOutput>
+      <LastGenOutput>ConstructionEntity.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Entity\ConstructionSite.Context.tt">
+    <None Include="Entity\ConstructionEntity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionSite.edmx</DependentUpon>
-      <LastGenOutput>ConstructionSite.Context.cs</LastGenOutput>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <LastGenOutput>ConstructionEntity.Context.cs</LastGenOutput>
     </None>
-    <None Include="Entity\ConstructionSite.edmx.diagram">
-      <DependentUpon>ConstructionSite.edmx</DependentUpon>
+    <None Include="Entity\ConstructionEntity.edmx.diagram">
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
     </None>
-    <None Include="Entity\ConstructionSite.tt">
+    <None Include="Entity\ConstructionEntity.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionSite.edmx</DependentUpon>
-      <LastGenOutput>ConstructionSite.cs</LastGenOutput>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="scripts\tinymce\langs\readme.md" />
@@ -305,6 +317,7 @@
     <Content Include="scripts\tinymce\tinymce.js" />
     <Content Include="scripts\tinymce\tinymce.min.js" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -289,21 +289,29 @@
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="Content\full-slider.css" />
+    <Content Include="Content\fullwidth-list\component.css" />
+    <Content Include="Content\fullwidth-list\default.css" />
+    <Content Include="Content\Image\cat.jpg" />
+    <Content Include="Content\Image\slider\ajax-loader.gif" />
+    <Content Include="Content\Image\slider\arrow_left.png" />
+    <Content Include="Content\Image\slider\arrow_right.png" />
+    <Content Include="Content\Image\slider\gradient.png" />
+    <Content Include="Content\Image\slider\steel_1.jpg" />
+    <Content Include="Content\Image\slider\wood_1.jpg" />
     <Content Include="Content\Image\image_placeholder.jpg" />
+    <Content Include="Content\Image\slider\wood_2.JPG" />
+    <Content Include="Content\Image\slider\wood_3.jpg" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\slippry.css" />
+    <Content Include="Content\maxImage\bootstrap.min.css" />
+    <Content Include="Content\maxImage\ie.css" />
+    <Content Include="Content\maxImage\jquery.maximage.css" />
+    <Content Include="Content\maxImage\jquery.maximage.min.css" />
+    <Content Include="Content\maxImage\print.css" />
+    <Content Include="Content\maxImage\screen.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
-    <Content Include="Entities\ConstructionEntity.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-      <LastGenOutput>ConstructionEntity.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entities\ConstructionEntity.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-      <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\Admin\customer.js" />
     <Content Include="Scripts\Admin\js\calendar.js" />
     <Content Include="Scripts\Admin\js\custom.js" />
@@ -1251,7 +1259,6 @@
     <Content Include="Scripts\Admin\vendors\wysiwyg\wysihtml5-0.3.0.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\flatly.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1392,8 +1399,18 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ConstructionEntity.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Entities\ConstructionEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <LastGenOutput>ConstructionEntity.Context.cs</LastGenOutput>
+    </Content>
     <Content Include="Entities\ConstructionEntity.edmx.diagram">
       <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+    </Content>
+    <Content Include="Entities\ConstructionEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\dlMenu\custom.dlmenu.js" />
@@ -1423,6 +1440,10 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\maxImage\jquery.cycle.all.js" />
+    <Content Include="Scripts\maxImage\jquery.cycle.all.min.js" />
+    <Content Include="Scripts\maxImage\jquery.maximage.js" />
+    <Content Include="Scripts\maxImage\jquery.maximage.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -1657,6 +1678,7 @@
     <Content Include="Views\Product\_PartialViewCategory.cshtml" />
     <Content Include="Views\Administrator\ViewRequest.cshtml" />
     <Content Include="Views\Administrator\ViewRequestDetail.cshtml" />
+    <Content Include="Views\Product\Showcase.cshtml" />
     <Content Include="Views\Administrator\ViewUser.cshtml" />
   </ItemGroup>
   <ItemGroup>

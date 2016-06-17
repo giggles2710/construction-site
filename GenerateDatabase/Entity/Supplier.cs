@@ -14,6 +14,7 @@ namespace GenerateDatabase.Entity
     
     public partial class Supplier
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Supplier()
         {
             this.Products = new HashSet<Product>();
@@ -35,6 +36,7 @@ namespace GenerateDatabase.Entity
         public string ImageType { get; set; }
         public Nullable<bool> IsDiscountAvailable { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
     }
 }
