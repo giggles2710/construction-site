@@ -1,7 +1,116 @@
 ﻿@{
-    ViewBag.Title = "About";
+    ViewBag.Title = "Giới thiệu";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+<div class="row">
+    <section class="demo_wrapper">
+        <article class="demo_block">
+            <ul id="imageSlider">
+                <li><a href="#slide1"><img src="http://sacheminc.com/wp-content/uploads/we_think_banner.jpg" alt="Ảnh 1"></a></li>
+                <li><a href="#slide2"><img src="http://image.shutterstock.com/z/stock-vector-thin-line-flat-design-banner-of-company-vision-statement-modern-vector-illustration-concept-of-366791327.jpg" alt="Ảnh 2"></a></li>
+                <li><a href="#slide3"><img src="http://www.pedalo.co.uk/wp-content/uploads/2015/07/mobile-web-design.jpg" alt="Ảnh 3"></a></li>
+            </ul>
+        </article>
+    </section>
+</div>
+
+<div class="row about-div">
+    <div class="col-lg-12">
+        <fieldset>
+            <legend>Lịch sử công ty</legend>
+
+            <div class="col-lg-12">
+                <p>
+                    Fusce varius euismod lorem, nec semper ante ullamcorper condimentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu tortor eget nunc blandit rutrum. Praesent hendrerit ante sed nulla molestie gravida. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam eu ipsum nec felis facilisis molestie tristique id elit. Vivamus ipsum mi, luctus eu ullamcorper ut, dapibus et elit. Phasellus et mauris eu mi accumsan scelerisque id non lectus. Mauris vel neque non lectus tristique hendrerit sit amet nec nisl. Fusce in velit erat, sed egestas est.
+                </p>
+                <blockquote>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis.</p>
+                    <small>Someone famous</small>
+                </blockquote>
+                <div class="row">
+                    <div class="col-md-8 col-lg-8">
+                        Etiam pellentesque, magna eget lobortis placerat, leo leo consequat ante, non iaculis turpis augue ac ligula. Nunc blandit tincidunt consequat.
+                        <ul>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                            <li>Phasellus adipiscing ante ac mi laoreet commodo.</li>
+                            <li>Fusce iaculis lectus quis enim dictum ultrices.</li>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                            <li>Phasellus adipiscing ante ac mi laoreet commodo.</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <img src="http://www.i3s.co.za/images/website%20pictures/CompanyIntro/Integrated_working_systems.jpg" style="width:200px;"><br><br>
+                        <p> Etiam pellentesque, magna eget lobortis placerat, leo leo consequat ante</p>
+                    </div>
+                </div>
+                <hr>
+                <p>
+                    Aenean sed mauris id diam fermentum pretium. Cras consectetur diam nec nulla iaculis mattis. Phasellus iaculis sollicitudin sagittis. Proin semper feugiat ornare. Vivamus viverra suscipit bibendum. Fusce eu sem mauris, non pharetra ligula. Praesent facilisis eros quis dolor ullamcorper varius. Duis neque eros, lacinia adipiscing egestas quis, consequat a ipsum. Aenean lobortis ipsum id enim egestas iaculis. Vivamus eleifend dictum sagittis. Nam interdum tincidunt placerat. Nunc nisl leo, laoreet quis semper id, vestibulum vel ipsum.
+                </p>
+
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Mục tiêu</legend>
+
+            <div class="col-lg-12 col-md-12">
+                <img src="http://smarttalksuccess.com/wp-content/uploads/2012/11/say-hello-group.jpg" style="width:200px;">
+                <div class="intro">
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/Scripts/slippry.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                var imageSlider = $("#imageSlider").slippry({
+                    transition: 'fade',
+                    useCSS: true,
+                    speed: 1000,
+                    pause: 3000,
+                    auto: false,
+                    preload: 'visible',
+                    loadingClass: 'sy-loading',
+                    autoHover: false
+                });
+
+                $('.stop').click(function () {
+                    imageSlider.stopAuto();
+                });
+
+                $('.start').click(function () {
+                    imageSlider.startAuto();
+                });
+
+                $('.prev').click(function () {
+                    imageSlider.goToPrevSlide();
+                    return false;
+                });
+                $('.next').click(function () {
+                    imageSlider.goToNextSlide();
+                    return false;
+                });
+                $('.reset').click(function () {
+                    imageSlider.destroySlider();
+                    return false;
+                });
+                $('.reload').click(function () {
+                    imageSlider.reloadSlider();
+                    return false;
+                });
+                $('.init').click(function () {
+                    imageSlider = $("#imageSlider").slippry();
+                    return false;
+                });
+            });
+        });
+    </script>
+}

@@ -93,7 +93,7 @@
                                         else
                                         {
                                             <th class="center" tabindex="0" rowspan="1" data-sort="ProductName" data-direction="asc" colspan="1">Tên <i class="fa fa-fw fa-sort-asc"></i></th>
-                                        }                                        
+                                        }
                                         @if (Model.SortField.Equals("CategoryName"))
                                         {
                                             if (Model.IsAsc)
@@ -167,10 +167,10 @@
                                             <td>@Model.Products[i - 1].QuantityInStock</td>
                                             <td>@Model.Products[i - 1].DateModified.ToString("dd/MM/yyyy hh:mm")</td>
                                             <td>@Model.Products[i - 1].ModifiedUser</td>
-                                            <td>
-                                                <a class="action-link detail-link" title="Chi tiết" href="@Url.Action("ViewProductDetail", "Administrator", new { id = Model.Products[i - 1].ProductID })"><i class="fa fa-info-circle"></i></a>
-                                                <a class="action-link update-link" title="Cập nhật" href="@Url.Action("UpdateProduct", "Administrator", new { id = Model.Products[i - 1].ProductID })"><i class="fa fa-pencil"></i></a>
-                                                <a class="action-link remove-link product" title="Xóa" href="#" data-url="@Url.Action("RemoveProduct", "Administrator", new { id = Model.Products[i - 1].ProductID })"><i class="fa fa-remove"></i></a>
+                                            <td style="text-align:center;">
+                                                <a class="action-link detail-link" title="Chi tiết" href="@Url.Action("ViewProductDetail", "Administrator", new { id = Model.Products[i - 1].ProductID })"><i class="fa fa-info-circle fa-lg"></i></a>
+                                                <a class="action-link update-link" title="Cập nhật" href="@Url.Action("UpdateProduct", "Administrator", new { id = Model.Products[i - 1].ProductID })"><i class="fa fa-pencil fa-lg"></i></a>
+                                                <a class="action-link remove-link product" title="Xóa" href="#" data-url="@Url.Action("RemoveProduct", "Administrator", new { id = Model.Products[i - 1].ProductID })"><i class="fa fa-remove fa-lg"></i></a>
                                             </td>
                                         </tr>
                                     }
@@ -178,7 +178,6 @@
                             </table>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="dataTables_info" role="status" aria-live="polite">Hiển thị từ @Model.StartIndex tới @Model.EndIndex trong @Model.TotalNumber sản phẩm</div>

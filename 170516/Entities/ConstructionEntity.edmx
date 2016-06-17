@@ -103,7 +103,6 @@
           </Key>
           <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Introduction" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Image" Type="varbinary(max)" />
           <Property Name="ImageType" Type="nvarchar" MaxLength="5" />
@@ -127,6 +126,19 @@
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="Type" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="RequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RequestContent" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsNew" Type="bit" Nullable="false" />
+          <Property Name="ReplyUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="Reply" Type="nvarchar(max)" />
+          <Property Name="DateCreated" Type="date" Nullable="false" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Role">
@@ -141,7 +153,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Key>
             <PropertyRef Name="ShipperID" />
           </Key>
-          <Property Name="ShipperID" Type="int" Nullable="false" />
+          <Property Name="ShipperID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CompanyName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" />
@@ -178,6 +190,15 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="SystemVariable">
+          <Key>
+            <PropertyRef Name="VariableId" />
+          </Key>
+          <Property Name="VariableId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_Account_Account">
           <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
@@ -311,6 +332,18 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Request_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="ReplyUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Role_Account">
           <End Role="Account" Type="Self.Account" Multiplicity="1" />
           <End Role="Role" Type="Self.Role" Multiplicity="*" />
@@ -372,9 +405,11 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductDetail" EntityType="Self.ProductDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shipper" EntityType="Self.Shipper" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SystemVariable" EntityType="Self.SystemVariable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Role].[RoleID] AS [RoleID], 
@@ -425,6 +460,10 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             <End Role="Product" EntitySet="Product" />
             <End Role="ProductDetail" EntitySet="ProductDetail" />
           </AssociationSet>
+          <AssociationSet Name="FK_Request_Account" Association="Self.FK_Request_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
           <AssociationSet Name="FK_Role_Account" Association="Self.FK_Role_Account">
             <End Role="Account" EntitySet="Account" />
             <End Role="Role" EntitySet="Role" />
@@ -460,6 +499,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <NavigationProperty Name="Account2" Relationship="Self.FK_Account_Account" FromRole="Account1" ToRole="Account" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Account" FromRole="Account" ToRole="Order" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Account" FromRole="Account" ToRole="Product" />
+          <NavigationProperty Name="Requests" Relationship="Self.FK_Request_Account" FromRole="Account" ToRole="Request" />
           <NavigationProperty Name="Roles" Relationship="Self.FK_Role_Account" FromRole="Account" ToRole="Role" />
         </EntityType>
         <EntityType Name="Category">
@@ -548,7 +588,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           </Key>
           <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Introduction" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ImageType" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
@@ -578,11 +617,25 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="Type" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductDetail_Product" FromRole="ProductDetail" ToRole="Product" />
         </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="RequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RequestContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsNew" Type="Boolean" Nullable="false" />
+          <Property Name="ReplyUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Reply" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Request_Account" FromRole="Request" ToRole="Account" />
+        </EntityType>
         <EntityType Name="Shipper">
           <Key>
             <PropertyRef Name="ShipperID" />
           </Key>
-          <Property Name="ShipperID" Type="Int32" Nullable="false" />
+          <Property Name="ShipperID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -621,6 +674,15 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="SystemVariable">
+          <Key>
+            <PropertyRef Name="VariableId" />
+          </Key>
+          <Property Name="VariableId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -664,6 +726,18 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </Principal>
             <Dependent Role="Product">
               <PropertyRef Name="CreatedUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="ReplyUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -783,9 +857,11 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ProductDetails" EntityType="Self.ProductDetail" />
+          <EntitySet Name="Requests" EntityType="Self.Request" />
           <EntitySet Name="Shippers" EntityType="Self.Shipper" />
           <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="SystemVariables" EntityType="Self.SystemVariable" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <AssociationSet Name="FK_Account_Account" Association="Self.FK_Account_Account">
             <End Role="Account" EntitySet="Accounts" />
@@ -798,6 +874,10 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <AssociationSet Name="FK_Product_Account" Association="Self.FK_Product_Account">
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Account" Association="Self.FK_Request_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Request" EntitySet="Requests" />
           </AssociationSet>
           <AssociationSet Name="FK_Role_Account" Association="Self.FK_Role_Account">
             <End Role="Account" EntitySet="Accounts" />
@@ -1003,7 +1083,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Introduction" ColumnName="Introduction" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="ImageType" ColumnName="ImageType" />
@@ -1027,6 +1106,20 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requests">
+            <EntityTypeMapping TypeName="ConstructionSiteModel.Request">
+              <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="RequestContent" ColumnName="RequestContent" />
+                <ScalarProperty Name="IsNew" ColumnName="IsNew" />
+                <ScalarProperty Name="ReplyUser" ColumnName="ReplyUser" />
+                <ScalarProperty Name="Reply" ColumnName="Reply" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1072,6 +1165,16 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SystemVariables">
+            <EntityTypeMapping TypeName="ConstructionSiteModel.SystemVariable">
+              <MappingFragment StoreEntitySet="SystemVariable">
+                <ScalarProperty Name="VariableId" ColumnName="VariableId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

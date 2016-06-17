@@ -582,3 +582,50 @@ th.center {
 .smaller-text {
     font-size: 30px;
 }
+
+#ShowCaseDiv {
+    min-height: 800px;
+}
+
+.caption {
+    text-align: center;
+}
+
+
+/*Contact section*/
+.jx-rebuild-contact-info .icon {
+    float: left;
+    display: inline;
+    height: 100px;
+    margin-right: 10px;
+}
+
+.jx-rebuild-contact-info .item-position {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.jx-rebuild-contact-info .title {
+    color: #000000;
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 35px;
+    padding-bottom: 3px;
+}
+
+.jx-rebuild-contact-info .phone, .jx-rebuild-contact-info .fax, .jx-rebuild-contact-info .date-time {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.about-div {
+}
+
+    .about-div fieldset {
+        margin-bottom: 20px;
+    }
+
+        .about-div fieldset legend {
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 45px;
+        }

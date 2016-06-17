@@ -49,6 +49,7 @@ namespace _170516
                         "~/Scripts/dlMenu/custom.dlmenu.js",
                         "~/Scripts/dlMenu/modernizr.custom.js",
                         "~/Scripts/tinymce/tinymce.min.js",
+                        "~/Scripts/slippry.min.js",
                         "~/Scripts/bootbox.min.js",
                         "~/Scripts/toastr.min.js"));
 
@@ -61,6 +62,7 @@ namespace _170516
                       "~/Content/maxImage/jquery.maximage.css",
                       "~/Content/fullwidth-list/default.css",
                       "~/Content/fullwidth-list/component.css",
+                      "~/Content/slippry.css", 
                       "~/Content/toastr.css"));
 
             bundles.Add(new StyleBundle("~/Content/admin_css").Include(

@@ -31,21 +31,22 @@
                 <!-- menu -->
                 <div class="sidebar content-box" style="display:block">
                     <ul class="nav nav-pills nav-stacked">
-                        <li class="active"><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Tổng Kết</a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                                Nội Dung <span class="caret"></span>
+                                <i class="fa fa-list"></i> Nội Dung <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="@Url.Action("ViewProductCategory","Administrator")">Danh Mục</a></li>
                                 <li><a href="@Url.Action("ViewProduct","Administrator")">Sản Phẩm</a></li>
                                 <li><a href="@Url.Action("ViewSupplier","Administrator")">Nhà cung cấp</a></li>
                                 <li><a href="@Url.Action("ViewShipper","Administrator")">Shipper</a></li>
+                                <li><a href="@Url.Action("ViewSystemVariable","Administrator")">Thông Tin Công Ty</a></li>
                             </ul>
                         </li>
+                        <li><a href="@Url.Action("ViewRequest","Administrator")"><i class="fa fa-inbox" aria-hidden="true"></i> Yêu Cầu Khách Hàng</a></li>                        
                         <li><a href="stats.html"><i class="fa fa-users" aria-expanded="false"></i> Tài Khoản</a></li>
-                        <li><a href="@Url.Action("ViewOrder","Administrator")"><i class="fa fa-list" aria-expanded="false"></i> Đơn Hàng</a></li>
-                        <li><a href="buttons.html"><i class="fa fa-bar-chart" aria-expanded="false"></i> Thống Kê</a></li>
+                        <li><a href="@Url.Action("ViewOrder","Administrator")"><i class="fa fa-shopping-cart" aria-expanded="false"></i> Đơn Hàng</a></li>
+                        
                     </ul>
                     @*<ul class="nav">
                         <!-- Main menu -->
@@ -126,6 +127,12 @@
 
             viewOrderDetails: "@Url.Action("ViewOrderDetails", "Administrator")",
             cancelOrderProduct: "@Url.Action("CancelOrderProduct", "Administrator")",
+
+            viewUser: "@Url.Action("ViewUser", "Administrator")",
+            addUser: "@Url.Action("AddUser", "Administrator")",
+            updateUser: "@Url.Action("UpdateUser", "Administrator")",
+            changeUserStatus: "@Url.Action("ChangeUserStatus", "Administrator")",
+            answerRequest: "@Url.Action("AnswerRequest","Administrator")"
         };
 
         var sampleRegex = {

@@ -214,6 +214,9 @@
     <Compile Include="Entities\ProductDetail.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Request.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Role.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
@@ -230,6 +233,9 @@
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\sysdiagram.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SystemVariable.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -251,11 +257,14 @@
     <Compile Include="Models\Administrator\ViewOrderModel.cs" />
     <Compile Include="Models\Administrator\ViewProductCategoryModel.cs" />
     <Compile Include="Models\Administrator\ViewProductModel.cs" />
+    <Compile Include="Models\Administrator\ViewRequestItem.cs" />
     <Compile Include="Models\Administrator\ViewShipperModel.cs" />
     <Compile Include="Models\Administrator\ViewSupplierModel.cs" />
+    <Compile Include="Models\Administrator\ViewUserModel.cs" />
     <Compile Include="Models\CategoryIndexModel.cs" />
     <Compile Include="Models\Constant.cs" />
     <Compile Include="Models\ProductIndexModel.cs" />
+    <Compile Include="Models\RequestContactModel.cs" />
     <Compile Include="Models\SubCategoryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -273,6 +282,7 @@
     <Content Include="Content\Admin\css\stats.css" />
     <Content Include="Content\Admin\css\styles.css" />
     <Content Include="Content\Admin\images\facebook.png" />
+    <Content Include="Content\Construction-Company.jpg" />
     <Content Include="Content\dlMenu\css\component.css" />
     <Content Include="Content\dlMenu\fonts\license.txt" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
@@ -293,6 +303,7 @@
     <Content Include="Content\Image\slider\wood_2.JPG" />
     <Content Include="Content\Image\slider\wood_3.jpg" />
     <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\slippry.css" />
     <Content Include="Content\maxImage\bootstrap.min.css" />
     <Content Include="Content\maxImage\ie.css" />
     <Content Include="Content\maxImage\jquery.maximage.css" />
@@ -308,8 +319,10 @@
     <Content Include="Scripts\Admin\js\forms.js" />
     <Content Include="Scripts\Admin\category.js" />
     <Content Include="Scripts\Admin\order.js" />
+    <Content Include="Scripts\Admin\request.js" />
     <Content Include="Scripts\Admin\shipper.js" />
     <Content Include="Scripts\Admin\supplier.js" />
+    <Content Include="Scripts\Admin\user.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\Common\account.js" />
     <Content Include="Scripts\Common\main.js" />
@@ -1434,6 +1447,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\slippry.min.js" />
     <Content Include="Scripts\tinymce\jquery.tinymce.min.js" />
     <Content Include="Scripts\tinymce\license.txt" />
     <Content Include="Scripts\tinymce\plugins\advlist\plugin.js" />
@@ -1661,11 +1675,15 @@
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Views\Administrator\ViewOrderDetails.cshtml" />
     <Content Include="Views\Administrator\_PartialSpecificationTable.cshtml" />
+    <Content Include="Views\Product\_PartialViewCategory.cshtml" />
+    <Content Include="Views\Administrator\ViewRequest.cshtml" />
+    <Content Include="Views\Administrator\ViewRequestDetail.cshtml" />
     <Content Include="Views\Product\Showcase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Contact\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

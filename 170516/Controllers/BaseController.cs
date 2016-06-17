@@ -10,5 +10,17 @@ namespace _170516.Controllers
     public class BaseController : Controller
     {
         protected ConstructionSiteEntities dbContext = new ConstructionSiteEntities();
-	}
+
+        protected string GetCurrentUserId()
+        {
+            var user = dbContext.Accounts.FirstOrDefault(a => a.Username.Equals(User.Identity.Name));
+
+            if(user != null)
+            {
+                return user.AccountID;
+            }
+
+            return string.Empty;
+        }
+    }
 }
