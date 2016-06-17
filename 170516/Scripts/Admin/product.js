@@ -64,15 +64,18 @@
                     // add loading
                 },
                 success: function (data) {
-                    // add it to div
-                    $('#AddProductSpecificationTable').html(data);
+                    if (data != null && data != undefined) {
+                        // add it to div
+                        $('#AddProductSpecificationTable').html(data);
 
-                    // reset forms
-                    $name.val('');
-                    $type.val(1);
-                    $value.val('');
+                        // reset forms
+                        $name.val('');
+                        $value.val('');
 
-                    toastr.success('Thêm đặc điểm cho sản phẩm thành công.');
+                        toastr.success('Thêm đặc điểm cho sản phẩm thành công.');
+                    } else {
+                        toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
+                    }                    
                 },
                 error: function (e) {
                     toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
@@ -155,6 +158,34 @@
     $('#SubmitUpdateProduct').on('click', function () {
         // validate before submit form
         if (addProductModel.ValidateAddProduct()) {
+            var updateProductFormModel = $('#UpdateProductForm').serializeObject();
+
+            // prepare description
+            updateProductFormModel.ProductDescription = tinyMCE.activeEditor.getContent();
+
+            // prepare specification list
+            var specificationTrs = $('#UpdateProductSpecificationTable table tbody tr');
+            if (specificationTrs.length > 0) {
+                var specificationList = [];
+
+                for (var i = 0; i < specificationTrs.length; i++) {
+                    var specificationTds = $(specificationTrs[i]).find('td');
+
+                    var specification = {
+                        Id: $(specificationTds[0]).text(),
+                        Type: $(specificationTds[1]).text(),
+                        Name: $(specificationTds[2]).text(),
+                        Value: $(specificationTds[3]).text()
+                    };
+
+                    if (specification != null)
+                        specificationList.push(specification);
+                }
+
+                // add the specification list into main model
+                updateProductFormModel.specificationList = specificationList;
+            }
+
             $.ajax({
                 url: staticUrl.updateProduct,
                 data: $('#UpdateProductForm').serialize(),
@@ -167,9 +198,12 @@
                         if (data.isResult == false) {
                             toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
                         } else {
+                            $('#AddProductForm')[0].reset();
                             // Display an info toast with no title
-                            toastr.success('Cập nhật sản phẩm thành công.')
+                            toastr.success('Sản phẩm mới lưu thành công.')
                         }
+                    } else {
+                        toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
                     }
                 }, error: function (e) {
                     toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
@@ -182,7 +216,10 @@
     $('#SubmitAddProduct').on('click', function () {
         // validate before submit form
         if (addProductModel.ValidateAddProduct()) {
-            var addProductFormModel = $('#AddProductForm').serialize();
+            var addProductFormModel = $('#AddProductForm').serializeObject();
+
+            // prepare description
+            addProductFormModel.ProductDescription = tinyMCE.activeEditor.getContent();
 
             // prepare specification list
             var specificationTrs = $('#AddProductSpecificationTable table tbody tr');
@@ -223,6 +260,8 @@
                             // Display an info toast with no title
                             toastr.success('Sản phẩm mới lưu thành công.')
                         }
+                    } else {
+                        toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
                     }
                 }, error: function (e) {
                     toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');

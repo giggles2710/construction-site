@@ -33,5 +33,14 @@ namespace _170516.Models.Administrator
         // another information
         public List<CreateProductCategoryListItem> CategoryList { get; set; }
         public List<CreateProductSupplierListItem> SupplierList { get; set; }
+        public List<SpecificationsTableModel> SpecificationList { get; set; }
+
+        public List<Tuple<int, string>> SpecificationType
+        {
+            get
+            {
+                return Constant.SpecificationType.ToList();
+            }
+        }
     }
 }

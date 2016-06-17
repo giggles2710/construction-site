@@ -265,6 +265,10 @@
             success: function (data) {
                 if (data != null) {
                     // render it into main view
+                    $('#ShowCaseDiv').html(data);
+
+                    // toast it
+                    toastr.success("Done!!!!");
                 }
             },
             error: function (error) {

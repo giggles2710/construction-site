@@ -1642,7 +1642,7 @@
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Views\Administrator\ViewOrderDetails.cshtml" />
     <Content Include="Views\Administrator\_PartialSpecificationTable.cshtml" />
-    <Content Include="Views\Administrator\ViewUser.cshtml" />
+    <Content Include="Views\Product\_PartialViewCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

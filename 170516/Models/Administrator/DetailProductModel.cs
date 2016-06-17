@@ -22,5 +22,7 @@ namespace _170516.Models.Administrator
         public string Description { get; set; }
         public DateTime DateModified { get; set; }
         public string UserModified { get; set; }
+
+        public List<SpecificationsTableModel> SpecificationList { get; set; }
     }
 }
