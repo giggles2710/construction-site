@@ -202,7 +202,14 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="dataTables_info" role="status" aria-live="polite">Hiển thị từ @Model.StartIndex tới @Model.EndIndex trong @Model.TotalNumber shipper</div>
+                            @if (Model.EndIndex > Model.TotalNumber)
+                            {
+                                <div class="dataTables_info" role="status" aria-live="polite">Hiển thị từ @Model.StartIndex tới @Model.TotalNumber trong @Model.TotalNumber shipper</div>
+                            }
+                            else
+                            {
+                                <div class="dataTables_info" role="status" aria-live="polite">Hiển thị từ @Model.StartIndex tới @Model.EndIndex trong @Model.TotalNumber shipper</div>
+                            }                                 
                         </div>
                         <div class="col-sm-6">
                             <div class="dataTables_paginate">

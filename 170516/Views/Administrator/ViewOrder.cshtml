@@ -304,8 +304,15 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
-                            <div class="dataTables_info" role="status" aria-live="polite">Hiển thị từ @Model.StartIndex tới @Model.EndIndex trong @Model.TotalNumber đơn hàng</div>
+                        <div class="col-sm-6">                            
+                            @if (Model.EndIndex > Model.TotalNumber)
+                            {
+                                <div class="dataTables_info" role="status" aria-live="polite">Hiển thị từ @Model.StartIndex tới @Model.TotalNumber trong @Model.TotalNumber đơn hàng</div>
+                            }
+                            else
+                            {
+                                <div class="dataTables_info" role="status" aria-live="polite">Hiển thị từ @Model.StartIndex tới @Model.EndIndex trong @Model.TotalNumber đơn hàng</div>
+                            }     
                         </div>
                         <div class="col-sm-6">
                             <div class="dataTables_paginate">

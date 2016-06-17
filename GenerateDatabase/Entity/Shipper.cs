@@ -14,7 +14,6 @@ namespace GenerateDatabase.Entity
     
     public partial class Shipper
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Shipper()
         {
             this.Orders = new HashSet<Order>();
@@ -28,7 +27,6 @@ namespace GenerateDatabase.Entity
         public string City { get; set; }
         public string District { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
     }
 }
