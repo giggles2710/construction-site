@@ -12,6 +12,19 @@ namespace _170516.Models.Administrator
         public string Type { get; set; }
         public string Value { get; set; }
 
+        public static string GetTypeNameStatic(int typeCode)
+        {
+            foreach (var specification in Constant.SpecificationType)
+            {
+                if (specification.Item1 == typeCode)
+                {
+                    return specification.Item2;
+                }
+            }
+
+            return string.Empty;
+        }
+
         public int GetTypeCode()
         {
             foreach (var specification in Constant.SpecificationType)

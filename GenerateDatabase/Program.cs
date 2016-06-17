@@ -237,7 +237,7 @@ namespace GenerateDatabase
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.InnerException.Message);
             }
         }
 
@@ -251,19 +251,14 @@ namespace GenerateDatabase
                     product = new Product();
 
                 product.CategoryID = random.Next(1, 300);
-                product.CreatedUserID = string.Empty;
                 product.DateModified = DateTime.Now;
-                product.Description = random.Next() % 2 != 0 ? UtilityHelper.RandomString(50) : string.Empty;
+                product.Introduction = random.Next() % 2 != 0 ? UtilityHelper.RandomString(50) : string.Empty;
                 product.Discount = random.Next() % 2 != 0 ? random.NextDouble() : 0;
                 product.IsAvailable = random.Next() % 2 != 0;
                 product.Name = UtilityHelper.RandomString(20);
-                product.Rating = 0;
-                product.Size = string.Format("{0} X {1}", random.Next(1, 100), random.Next(1, 100));
                 product.SupplierID = random.Next(1, 300);
-                product.UnitName = "vien";
                 product.UnitPrice = (decimal)random.NextDouble();
                 product.UnitsInStock = random.Next(1, 100);
-                product.UnitWeight = random.NextDouble();
                 product.IsDiscountAvailable = product.Discount.GetValueOrDefault() > 0;
 
                 if (product == null)

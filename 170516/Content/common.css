@@ -474,3 +474,11 @@ body, html {
         height: 300px;
         max-height: 500px;
     }
+
+#ShowCaseDiv {
+    min-height: 800px;
+}
+
+.caption {
+    text-align: center;
+}

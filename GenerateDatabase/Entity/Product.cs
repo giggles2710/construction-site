@@ -14,24 +14,22 @@ namespace GenerateDatabase.Entity
     
     public partial class Product
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
             this.OrderDetails = new HashSet<OrderDetail>();
+            this.ProductDetails = new HashSet<ProductDetail>();
         }
     
         public int ProductID { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string Introduction { get; set; }
         public byte[] Image { get; set; }
         public string ImageType { get; set; }
         public Nullable<int> CategoryID { get; set; }
         public int UnitsInStock { get; set; }
-        public Nullable<double> UnitWeight { get; set; }
         public Nullable<double> Discount { get; set; }
-        public string Size { get; set; }
         public decimal UnitPrice { get; set; }
-        public string UnitName { get; set; }
-        public double Rating { get; set; }
         public bool IsDiscountAvailable { get; set; }
         public bool IsAvailable { get; set; }
         public Nullable<int> SupplierID { get; set; }
@@ -40,7 +38,10 @@ namespace GenerateDatabase.Entity
     
         public virtual Account Account { get; set; }
         public virtual Category Category { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual Supplier Supplier { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductDetail> ProductDetails { get; set; }
     }
 }

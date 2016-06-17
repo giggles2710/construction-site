@@ -14,9 +14,11 @@
             </div>
             <div class="panel-body">
                 <div class="form-horizontal">
-                    <div class="row">
-                        <div class="col-md-8 col-lg-8">
-                            <fieldset class="form-group">
+                    <fieldset class="fieldset">
+                        <legend class="fieldset-legend">Thông tin cơ bản</legend>
+
+                        <div class="row">
+                            <div class="col-md-8 col-lg-8">
                                 <!-- PRODUCT NAME -->
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ProductName">Tên Sản Phẩm</label>
@@ -38,35 +40,6 @@
                                         <h6 class="info-box">@Model.QuantityUnit</h6>
                                     </div>
                                 </div>
-                                <!-- WEIGHT -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductWeight">Cân Nặng</label>
-                                    <div class="col-sm-7">
-                                        <h6 class="info-box">@Model.Weight kilogram</h6>
-                                    </div>
-                                </div>
-                                <!-- DISCOUNT -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductDiscount">Khuyến Mãi</label>
-                                    <div class="col-sm-7">
-                                        @if (Model.Discount == 0)
-                                    {
-                                            <h6 class="info-box">Không áp dụng khuyến mãi</h6>
-                                    }
-                                    else
-                                    {
-                                            <h6 class="info-box">@Model.Discount %</h6>
-                                    }
-
-                                    </div>
-                                </div>
-                                <!-- SIZE -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductSize">Kích Cỡ</label>
-                                    <div class="col-sm-7">
-                                        <h6 class="info-box">@Model.Size</h6>
-                                    </div>
-                                </div>
                                 <!-- SUPPLIER -->
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ProductSupplierID">Nhà Phân Phối</label>
@@ -74,53 +47,90 @@
                                         <h6 class="info-box">@Model.SupplierName</h6>
                                     </div>
                                 </div>
+
+                                <!-- DISCOUNT -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductDiscount">Khuyến Mãi</label>
+                                    <div class="col-sm-7">
+                                        @if (Model.Discount == 0)
+                                        {
+                                            <h6 class="info-box">Không áp dụng khuyến mãi</h6>
+                                        }
+                                        else
+                                        {
+                                            <h6 class="info-box">@Model.Discount %</h6>
+                                        }
+                                    </div>
+                                </div>
                                 <!-- PRICE -->
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ProductPrice">Giá</label>
                                     <div class="col-sm-7">
-                                        <h6 class="info-box">@Model.Price VND / @Model.ProductUnit</h6>
+                                        <h6 class="info-box">@Model.Price đ</h6>
                                     </div>
                                 </div>
-                                <!-- DESCRIPTION -->
+                            </div>
+                            <div class="col-md-4 col-lg-4">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductDescription">Mô Tả</label>
-                                    <div class="col-sm-7">
-                                        <p class="h6-style info-box">@Model.Description</p>
+                                    <!-- IMAGE -->
+                                    <label class="control-label" for="ProductDescription">Ảnh Sản Phẩm</label>
+                                    <div class="image-box">
+                                        @if (!string.IsNullOrWhiteSpace(Model.ImageSrc))
+                                        {
+                                            <img id="ImageBox" src="@Model.ImageSrc" class="image-box" />
+                                        }
+                                        else
+                                        {
+                                            <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
+                                        }
                                     </div>
                                 </div>
-                            </fieldset>
-                        </div>
-                        <div class="col-md-4 col-lg-4">
-                            <div class="form-group">
-                                <!-- IMAGE -->
-                                <label class="control-label" for="ProductDescription">Ảnh Sản Phẩm</label>
-                                <div class="image-box">
-                                    @if (!string.IsNullOrWhiteSpace(Model.ImageSrc))
-                                    {
-                                        <img id="ImageBox" src="@Model.ImageSrc" class="image-box" />
-                                    }
-                                    else
-                                    {
-                                        <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
-                                    }
-                                </div>
                             </div>
-                            @*<div class="form-group">
-                                <!-- USER MODIFIED -->
-                                <label class="control-label" for="ProductDescription">Người cập nhật</label>
-                                <div class="col-sm-7">
-                                    <p class="h6-style info-box">@Model.UserModified</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <!-- DATE MODIFIED -->
-                                <label class="control-label" for="ProductDescription">Ngày cập nhật</label>
-                                <div class="col-sm-7">
-                                    <p class="h6-style info-box">@Model.DateModified.ToString("dd/MM/yyyy hh:mm:ss")</p>
-                                </div>
-                            </div>*@
                         </div>
-                    </div>
+                    </fieldset>
+                    <fieldset class="fieldset">
+                        <legend class="fieldset-legend">Đặc điểm</legend>
+
+                        <div class="row">
+                            <div id="UpdateProductSpecificationTable">
+                                <!-- SPECIFICATION TABLE -->
+                                @if (Model.SpecificationList.Any())
+                                {
+                                    <table class="table table-striped col-sm-12 table-specification">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 5%;">#</th>
+                                                <th style="width: 10%;">Loại Đặc Điểm</th>
+                                                <th style="width: 40%;">Tên</th>
+                                                <th>Giá Trị</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var specification in Model.SpecificationList)
+                                            {
+                                                <tr>
+                                                    <td>@specification.Id</td>
+                                                    <td>@specification.Type</td>
+                                                    <td>@specification.Name</td>
+                                                    <td>@specification.Value</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="fieldset">
+                        <legend class="fieldset-legend">Thông tin chung</legend>
+                        <div class="row">
+                            <!-- DESCRIPTION -->
+                            <div class="form-group col-sm-12 add-product-description" style="margin-left:2px;">
+                               <p>@Html.Raw(Model.Description)</p>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
             </div>
         </div>
