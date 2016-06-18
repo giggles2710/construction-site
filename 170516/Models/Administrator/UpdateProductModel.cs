@@ -25,7 +25,8 @@ namespace _170516.Models.Administrator
         public double ProductPrice { get; set; }
         public string ProductUnit { get; set; }
         public string ProductImage { get; set; }
-        
+        public string ProductSummary { get; set; }
+
         // for update
         public int SelectedCategoryID { get; set; }
         public int SelectedSupplierID { get; set; }

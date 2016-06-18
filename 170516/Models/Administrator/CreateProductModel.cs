@@ -14,6 +14,7 @@ namespace _170516.Models.Administrator
             this.CategoryList = new List<CreateProductCategoryListItem>();
         }
 
+        public string ProductSummary { get; set; }
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
         public int ProductCategoryID { get; set; }

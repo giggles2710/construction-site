@@ -28,10 +28,10 @@ namespace _170516.Controllers
             model.SubCategoryMenu = dbContext.Categories
                 .Where(c => c.ParentID == id && c.IsActive)
                 .Select(ca => new MenuCategoryItem
-            {
-                CategoryId = ca.CategoryID,
-                CategoryName = ca.Name
-            })
+                {
+                    CategoryId = ca.CategoryID,
+                    CategoryName = ca.Name
+                })
                 .ToList();
 
             foreach (var subCategory in model.SubCategoryMenu)
@@ -97,52 +97,150 @@ namespace _170516.Controllers
         //    var pageNo = page.GetValueOrDefault();
         //    var pageSize = itemsPerPage.GetValueOrDefault();
         [HttpGet]
-        public ActionResult ViewCategory(int id, int? page, int? itemsPerPage)
+        public ActionResult ViewCategory(int id, int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
         {
-            var pageNo = page.GetValueOrDefault();
-            var pageSize = itemsPerPage.GetValueOrDefault();
+            var category = dbContext.Categories.FirstOrDefault(c => c.CategoryID == id);
+            var model = new ViewCategoryModel();
 
-            if (pageNo == 0) pageNo = 1;
-            if (pageSize == 0) pageSize = 10;
-
-            IQueryable<Product> products;
-
-            // do the query
-            var productsModel = dbContext.Products
-                .Where(p => p.CategoryID == id)
-                .Select(p => new ShowcaseProductItem
-                {
-                    ProductID = p.ProductID,
-                    ProductName = p.Name,
-                    Discount = (double)p.Discount,
-                    IsAvailable = p.IsAvailable,
-                    IsDiscount = p.IsDiscountAvailable,
-                    Price = (double)p.UnitPrice,
-                    UnitInStock = p.UnitsInStock,
-                    ImageByte = p.Image,
-                    ImageType = p.ImageType
-                })
-                .OrderBy(p => p.Price)
-                .Skip(pageSize * (pageNo - 1))
-                .Take(pageSize).ToList();
-
-            // prepare image
-            for (var i = 0; i < productsModel.Count; i++)
+            if (category != null)
             {
-                if (productsModel[i].ImageByte != null && productsModel[i].ImageByte.Count() > 0)
-                    productsModel[i].ImageSrc = string.Format(Constant.ImageSourceFormat, productsModel[i].ImageType, Convert.ToBase64String(productsModel[i].ImageByte));
+                var pageNo = page.GetValueOrDefault();
+                var pageSize = itemsPerPage.GetValueOrDefault();
+
+                if (pageNo == 0) pageNo = 1;
+                if (pageSize == 0) pageSize = 10;
+                if (isAsc == null) isAsc = true;
+                if (string.IsNullOrEmpty(searchText)) searchText = null;
+                if (string.IsNullOrEmpty(sortField)) sortField = "Latest";
+
+                IQueryable<Product> products;
+
+                switch (sortField)
+                {
+                    case "ProductName":
+                        if (isAsc.GetValueOrDefault())
+                            products = dbContext.Products
+                                .Where(p => p.CategoryID == id && p.IsAvailable)
+                                .OrderBy(p => p.Name);
+                        else
+                            products = dbContext.Products
+                                .Where(p => p.CategoryID == id && p.IsAvailable)
+                                .OrderBy(p => p.Name);
+                        break;
+                    case "Price":
+                        if (isAsc.GetValueOrDefault())
+                            products = dbContext.Products
+                                .Where(p => p.CategoryID == id && p.IsAvailable)
+                                .OrderBy(p => p.UnitPrice);
+                        else
+                            products = dbContext.Products
+                                .Where(p => p.CategoryID == id && p.IsAvailable)
+                                .OrderBy(p => p.UnitPrice);
+                        break;
+                    default:
+                        if (isAsc.GetValueOrDefault())
+                            products = dbContext.Products
+                                .Where(p => p.CategoryID == id && p.IsAvailable)
+                                .OrderBy(p => p.DateModified);
+                        else
+                            products = dbContext.Products
+                                .Where(p => p.CategoryID == id && p.IsAvailable)
+                                .OrderBy(p => p.DateModified);
+                        break;
+                }
+
+                // do the query
+                var productsModel = dbContext.Products
+                    .Where(p => p.CategoryID == id)
+                    .Select(p => new ShowcaseProductItem
+                    {
+                        ProductID = p.ProductID,
+                        ProductName = p.Name,
+                        Discount = (double)p.Discount,
+                        IsAvailable = p.IsAvailable,
+                        IsDiscount = p.IsDiscountAvailable,
+                        Price = (double)p.UnitPrice,
+                        UnitInStock = p.UnitsInStock,
+                        ImageByte = p.Image,
+                        ImageType = p.ImageType,
+                        Summary = "Every piece meets the highest grading standards, Can be primed then painted or sealed then stained and For basic interior or exterior structural applications"
+                    })
+                    .OrderBy(p => p.Price)
+                    .Skip(pageSize * (pageNo - 1))
+                    .Take(pageSize).ToList();
+
+                // prepare image
+                for (var i = 0; i < productsModel.Count; i++)
+                {
+                    if (productsModel[i].ImageByte != null && productsModel[i].ImageByte.Count() > 0)
+                        productsModel[i].ImageSrc = string.Format(Constant.ImageSourceFormat, productsModel[i].ImageType, Convert.ToBase64String(productsModel[i].ImageByte));
+                }
+
+                // prepare menu
+                model.Menu = dbContext.Categories.Where(c => c.ParentID == category.ParentID && c.IsActive).Select(a => new MenuCategoryItem
+                {
+                    CategoryId = a.CategoryID,
+                    CategoryName = a.Name
+                }).ToList();
+
+                // prepare model                
+                model.CurrentPage = pageNo;
+                model.ItemOnPage = pageSize;
+                model.TotalNumber = products.Count();
+                model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
+                model.MenuOnMainPage = productsModel;
+                model.SortField = sortField;
+                model.IsAsc = isAsc.GetValueOrDefault();
+                model.CategoryName = category.Name;
             }
 
-            // prepare model
-            var model = new ShowcaseProductModel();
-            model.CurrentPage = pageNo;
-            model.TotalNumber = productsModel.Count();
-            model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
-            model.Products = productsModel;
+            return View(model);
+        }
 
-            //ViewBag.Title = ;
+        [HttpGet]
+        public ActionResult ViewProductDetail(int id)
+        {
+            var product = dbContext.Products.FirstOrDefault(p => p.ProductID == id);
 
-            return PartialView("_PartialViewCategory", model);
+            if (product != null)
+            {
+                var model = new ShowcaseProductDetail();
+                model.ProductID = product.ProductID;
+                model.ProductName = product.Name;
+                model.ProductDescription = product.Description;
+                model.ProductSummary = product.Summary;
+                model.Price = (double)product.UnitPrice;
+                model.Discount = (double)product.Discount;
+
+                // image
+                if (product.Image != null)
+                {
+                    model.ImageSrc =
+                        string.Format(Constant.ImageSourceFormat, product.ImageType, Convert.ToBase64String(product.Image));
+                }
+
+                // specification
+                if (product.ProductDetails.Any())
+                {
+                    var i = 0;
+                    model.SpecificationList = new List<ShowcaseProductSpecification>();
+
+                    foreach (var detail in product.ProductDetails)
+                    {
+                        var specification = new ShowcaseProductSpecification();
+                        specification.Index = ++i;
+                        specification.Name = detail.Name;
+                        specification.Value = detail.Value;
+                        specification.IsSize = Constant.SpecDimensionCode == detail.Type;
+
+                        model.SpecificationList.Add(specification);
+                    }
+                }
+
+                return View(model);
+            }
+
+            return View();
         }
     }
 }

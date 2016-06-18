@@ -1,0 +1,154 @@
+﻿@model _170516.Models.ShowcaseProductDetail
+
+<div class="container-fluid main-content-wrapper">
+    <div class="primary-block clearfix">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="product-cover product detail-product-cover">
+                    @if (string.IsNullOrWhiteSpace(Model.ImageSrc))
+                    {
+                        <img src="~/Content/Image/image_placeholder.jpg" class="img-responsive" alt="" />
+                    }
+                    else
+                    {
+                        <img src="@Model.ImageSrc" class="img-responsive" alt="" />
+                    }
+                    <div class="fade"></div>
+                </div><!-- /.product-cover -->
+            </div><!-- /.col -->
+            <div class="col-sm-8">
+                <div class="product-detail-header">
+                    <h2 class="product-title">@Model.ProductName</h2>
+                </div><!-- /.product-detail-header -->
+                <hr />
+                <div class="product-detail-body">
+                    <div class="detail-cart-button row clearfix">
+                        <div class="col-md-6 col-sm-5 col-xs-12">
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <span class="price-field">Giá thị trường : </span>
+                                </div>
+                                <div class="col-sm-7">
+                                    <span class="price-original">@string.Format("{0:n}", Model.Price) đ</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <span class="price-field">Giá : </span>
+                                </div>
+                                <div class="col-sm-7">
+                                    <span class="price-real-price">@string.Format("{0:n}", Model.DiscountedPrice) đ</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <span class="price-field">Tiết kiệm : </span>
+                                </div>
+                                <div class="col-sm-7">
+                                    <span class="price-discount">@string.Format("{0:n}", Model.Price - Model.DiscountedPrice) đ (@string.Format("{0:n}", Model.Discount) %)</span>
+                                </div>
+                            </div>
+
+
+                            @*<div class="detail-product-price">
+                                    <span class="price">@string.Format("{0:n}", Model.DiscountedPrice) đ</span>
+                                </div>*@<!-- /.detail-product-price -->
+                        </div><!-- /.pull-left -->
+                        <div class="col-md-6 col-sm-7 col-xs-12">
+                            <div class="row product-actions">
+                                <a href="checkout.html" class="col-sm-6 btn btn-primary btn-addToCart">
+                                    <i class="icon-plus fa fa-plus-circle"></i>Thêm vào giỏ
+                                </a>
+                                <div class="quantity product-detail-quantity col-xs-4 col-lg-3">
+                                    <div class="quantity-block">
+                                        <div class="quant-input">
+                                            <div class="arrows">
+                                                <div class="arrow plus gradient"><span class="ir"><i class="fa fa-plus"></i></span></div>
+                                                <div class="arrow minus gradient"><span class="ir"><i class="fa fa-minus"></i></span></div>
+                                            </div><!-- /.arrows -->
+                                            <input class="txt-quantity" type="text" value="1">
+                                        </div><!-- /.quant-input -->
+                                    </div><!-- /.quantity-block -->
+                                </div><!-- /.col -->
+                            </div><!-- /.row -->
+                        </div><!-- /.pull-right -->
+                    </div><!-- /.detail-cart-button -->
+                    <div class="clearfix"></div>
+                    <div class="product-description">
+                        <h3>Giới thiệu</h3>
+                        <p>@Model.ProductSummary</p>
+                    </div><!-- /.product-description -->
+                </div><!-- /.product-detail-body -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+        <div class="tab-holder clearfix">
+            <div class="product-additional-details">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs product-detail-tab">
+                    <li class="active" role="presentation">
+                        <a href="#more" data-toggle="tab">Thông Tin Chi Tiết</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#product-details" data-toggle="tab">Đặc Điểm</a>
+                    </li>
+                </ul><!-- /.nav -->
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="more" role="tabpanel">
+                        <div class="container-fluid">
+                            <h3>Consectetur adipisicing elit, sed do eiusmod</h3>
+                            <div class="content-text">
+                                @Html.Raw(Model.ProductDescription)
+                            </div>
+                        </div>
+                    </div><!-- /.tab-pane -->
+                    <div class="tab-pane" id="product-details" role="tabpanel">
+                        <div class="container-fluid">
+                            <!-- specification -->
+                            @if (Model.SpecificationList != null && Model.SpecificationList.Any())
+                            {
+                                if (Model.SpecificationList.Where(s => s.IsSize).Any())
+                                {
+                                    <fieldset>
+                                        <legend>Kích Thước</legend>
+
+                                        <table class="table table-bordered col-sm-12 table-specification">
+                                            <tbody>
+                                                @foreach (var specification in Model.SpecificationList.Where(s => s.IsSize))
+                                                {
+                                                    <tr>
+                                                        <td class="specification-header"><span>@specification.Name</span></td>
+                                                        <td><span>@specification.Value</span></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </fieldset>
+                                }
+
+                                if (Model.SpecificationList.Where(s => !s.IsSize).Any())
+                                {
+                                    <fieldset>
+                                        <legend>Thông Tin Kỹ Thuật</legend>
+
+                                        <table class="table table-bordered col-sm-12 table-specification">
+                                            <tbody>
+                                                @foreach (var specification in Model.SpecificationList.Where(s => !s.IsSize))
+                                                {
+                                                    <tr>
+                                                        <td class="specification-header"><span>@specification.Name</span></td>
+                                                        <td><span>@specification.Value</span></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </fieldset>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div><!-- /.tab-content -->
+            </div><!-- /.product-additional-details -->
+        </div><!-- /.col -->
+    </div>
+</div>

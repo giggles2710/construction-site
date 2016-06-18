@@ -28,6 +28,8 @@
     <script src="@Url.Content("~/Scripts/Home/index.js")"></script>
     <script type="text/javascript" charset="utf-8">
         $(function () {
+            $("footer").remove();
+
             $('#maximage').maximage({
                 cycleOptions: {
                     fx: 'fade',
@@ -47,23 +49,8 @@
             jQuery('video,object').maximage('maxcover');
 
             // To show it is dynamic html text
-            jQuery('.in-slide-content').delay(1200).fadeIn();
+            jQuery('.in-slide-content').delay(1200).fadeIn();            
         });
-    </script>
-
-    <!-- DON'T USE THIS: Insert Google Analytics code here -->
-    <script type="text/javascript">
-
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-733524-1']);
-        _gaq.push(['_trackPageview']);
-
-        (function () {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-
     </script>
 }
 

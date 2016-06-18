@@ -4,89 +4,69 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic&subset=vietnamese,latin' rel='stylesheet' type='text/css'>
     @Styles.Render("~/Content/admin_css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <!-- header -->
-    <div class="header">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
-            <div class="row">
-                <div class="col-md-5">
-                    <!-- Logo -->
-                    <div class="logo">
-                        <h1>@Html.ActionLink("170516", "Index", "Home", null, null)</h1>
-                    </div>
-                </div>
-                <div class="col-md-7">
-                    <!-- account -->
-                    @{Html.RenderAction("AccountMenu", "Administrator");}
-                </div>
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Url.Action("Index","Administrator")">Construction Admin</a>
             </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        @{Html.RenderAction("AccountMenu", "Administrator");}
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-    </div>
-    <div class="page-content">
+        <!-- /.container -->
+    </nav>
+    <div class="container-fluid main-content">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <!-- menu -->
-                <div class="sidebar content-box" style="display:block">
-                    <ul class="nav nav-pills nav-stacked">
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                                <i class="fa fa-list"></i> Nội Dung <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="@Url.Action("ViewProductCategory","Administrator")">Danh Mục</a></li>
-                                <li><a href="@Url.Action("ViewProduct","Administrator")">Sản Phẩm</a></li>
-                                <li><a href="@Url.Action("ViewSupplier","Administrator")">Nhà cung cấp</a></li>
-                                <li><a href="@Url.Action("ViewShipper","Administrator")">Shipper</a></li>
-                                <li><a href="@Url.Action("ViewSystemVariable","Administrator")">Thông Tin Công Ty</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="@Url.Action("ViewRequest","Administrator")"><i class="fa fa-inbox" aria-hidden="true"></i> Yêu Cầu Khách Hàng</a></li>                        
-                        <li><a href="stats.html"><i class="fa fa-users" aria-expanded="false"></i> Tài Khoản</a></li>
-                        <li><a href="@Url.Action("ViewOrder","Administrator")"><i class="fa fa-shopping-cart" aria-expanded="false"></i> Đơn Hàng</a></li>
-                        
-                    </ul>
-                    @*<ul class="nav">
-                        <!-- Main menu -->
-                        <li class="current"><a href="index.html"><i class="glyphicon glyphicon-home"></i> Tổng Kết</a></li>
-                        <li class="submenu">
-                            <a href="#">
-                                <i class="glyphicon glyphicon-book"></i> Nội Dung
-                                <span class="caret pull-right"></span>
-                            </a>
-                            <!-- Sub menu -->
-                            <ul>
-                                <li><a href="@Url.Action("ViewProductCategory","Administrator")">Danh Mục</a></li>
-                                <li><a href="@Url.Action("ViewProduct","Administrator")">Sản Phẩm</a></li>
-                                <li><a href="@Url.Action("ViewSupplier","Administrator")">Nhà cung cấp</a></li>
-                                <li><a href="@Url.Action("ViewShipper","Administrator")">Shipper</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="stats.html"><i class="glyphicon glyphicon-user"></i> Tài Khoản</a></li>
-                        <li><a href="@Url.Action("ViewOrder","Administrator")"><i class="glyphicon glyphicon-list"></i> Đơn Hàng</a></li>
-                        <li><a href="buttons.html"><i class="glyphicon glyphicon-stats"></i> Thống Kê</a></li>
-                    </ul>*@
+                <div class="list-group table-of-contents">
+                    <a class="list-group-item" href="#"><i class="fa fa-list"></i> Nội Dung</a>
+                    <a class="list-group-item list-group-item-child" href="@Url.Action("ViewProductCategory","Administrator")">Danh Mục</a>
+                    <a class="list-group-item list-group-item-child" href="@Url.Action("ViewProduct","Administrator")">Sản Phẩm</a>
+                    <a class="list-group-item list-group-item-child" href="@Url.Action("ViewSupplier","Administrator")">Nhà cung cấp</a>
+                    <a class="list-group-item list-group-item-child" href="@Url.Action("ViewShipper","Administrator")">Shipper</a>
+                    <a class="list-group-item list-group-item-child" href="@Url.Action("ViewSystemVariable","Administrator")">Thông Tin Công Ty</a>
+                    <a class="list-group-item" href="@Url.Action("ViewRequest","Administrator")"><i class="fa fa-inbox" aria-hidden="true"></i> Yêu Cầu Khách Hàng</a>
+                    <a class="list-group-item" href="stats.html"><i class="fa fa-users" aria-expanded="false"></i> Tài Khoản</a>
+                    <a class="list-group-item" href="@Url.Action("ViewOrder","Administrator")"><i class="fa fa-shopping-cart" aria-expanded="false"></i> Đơn Hàng</a>
                 </div>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-9">
                 <!-- body content -->
                 @RenderBody()
                 <!-- end body-->
             </div>
         </div>
-        <hr />
-        <footer>
-            <div class="container">
 
-                <div class="copy text-center">
-                    Copyright &copy; @DateTime.Now.Year <a href='#'>Website</a>
-                </div>
-
-            </div>
-        </footer>
     </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container-fluid">
+            <div class="copy text-center" style="height :52px; margin-top: 20px; ">
+                Copyright © 2016 <a href="#">OUR DEVELOPER</a>
+            </div>
+
+        </div>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")

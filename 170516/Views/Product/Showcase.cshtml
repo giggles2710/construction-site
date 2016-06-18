@@ -5,7 +5,7 @@
 
 <div class="col-lg-3 col-md-3 col-sm-4">
     <!-- menu -->
-    <div class="main clearfix">
+    <div class="clearfix">
         <div id="dl-menu" class="dl-menuwrapper">
             <ul class="dl-menu">
                 @foreach (var item in Model.Menu)
@@ -25,171 +25,53 @@
     </div>
 </div>
 <div class="col-lg-9 col-md-9 col-sm-8 content-box">
-    <div class="container-fluid" style="
-    background: #fff;
-         padding-top: 15px;
-         padding-bottom: 15px;
-         -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;">
-        @for (var i = 0; i < Model.MenuOnMainPage.Count; i++)
-        {
-            <div class="row list-group">
-                @*first item in row*@
-                @if (i < Model.MenuOnMainPage.Count)
-                {
-                    <div class="item  col-xs-3 col-lg-3">
-                        <div class="thumbnail">
-                            @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i].ImageSrc))
-                            {
-                                <img class="group list-group-image" src="@Model.MenuOnMainPage[i].ImageSrc" alt="" />
-                            }
-                            else
-                            {
-                                <img class="group list-group-image" src="~/Content/Image/image_placeholder.jpg" alt="" />
-                            }
-                            <div class="caption">
-                                <div class="caption-header">
-                                    <span class="group inner list-group-item-heading">
-                                        @Model.MenuOnMainPage[i].CategoryName
-                                    </span>
-                                </div>
-                                @*<p class="group inner list-group-item-text">
+    <div class="container-fluid main-content-wrapper">
+        <div class="banner">
+            <img src="http://mlmonline.in/wp-content/uploads/2016/03/web-banner.jpg" />
+        </div>
+        <h3 style="color:#2b3e50;">Danh Mục Sản Phẩm</h3>
+        <div id="ShowCaseDiv">
+            <ul class="products">
+                @for (var i = 0; i < Model.MenuOnMainPage.Count; i++)
+            {
+                    <li class="list-group">
+                        <div class="item">
+                            <div class="thumbnail list-group-item''">
+                                @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i].ImageSrc))
+                                {
+                                    <img class="group list-group-image" src="@Model.MenuOnMainPage[i].ImageSrc" alt="" />
+                                }
+                                else
+                                {
+                                    <img class="group list-group-image" src="~/Content/Image/image_placeholder.jpg" alt="" />
+                                }
+                                <div class="caption">
+                                    <div class="caption-header">
+                                        <span class="group inner list-group-item-heading">
+                                            @Model.MenuOnMainPage[i].CategoryName
+                                        </span>
+                                    </div>
+                                    @*<p class="group inner list-group-item-text">
 
-                                    </p>*@
-                                <div class="row">
-                                    @if (Model.MenuOnMainPage[i].SubCategoryList.Count > 0)
-                                    {
-                                        <ul class="thumbnail-ul">
-                                            @foreach (var subCategory in Model.MenuOnMainPage[i].SubCategoryList)
-                                            {
-                                                <li><a href="@Url.Action("ShowProduct", "Product", new { id = subCategory.CategoryId })">@subCategory.CategoryName</a></li>
-                                            }
-                                        </ul>
-                                    }
+                                        </p>*@
+                                    <div class="row">
+                                        @if (Model.MenuOnMainPage[i].SubCategoryList.Count > 0)
+                                        {
+                                            <ul class="thumbnail-ul">
+                                                @foreach (var subCategory in Model.MenuOnMainPage[i].SubCategoryList)
+                                                {
+                                                    <li><a href="@Url.Action("ViewCategory", "Product", new { id = subCategory.CategoryId })">@subCategory.CategoryName</a></li>
+                                                }
+                                            </ul>
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </li>
                 }
-
-                @*second item in row*@
-                @if (i + 1 < Model.MenuOnMainPage.Count)
-                {
-                    <div class="item  col-xs-3 col-lg-3">
-                        <div class="thumbnail">
-                            @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i + 1].ImageSrc))
-                            {
-                                <img class="group list-group-image" src="@Model.MenuOnMainPage[i + 1].ImageSrc" alt="" />
-                            }
-                            else
-                            {
-                                <img class="group list-group-image" src="~/Content/Image/image_placeholder.jpg" alt="" />
-                            }
-                            <div class="caption">
-                                <div class="caption-header">
-                                    <span class="group inner list-group-item-heading">
-                                        @Model.MenuOnMainPage[i].CategoryName
-                                    </span>
-                                </div>
-                                @*<p class="group inner list-group-item-text">
-
-                                    </p>*@
-                                <div class="row">
-                                    @if (Model.MenuOnMainPage[i + 1].SubCategoryList.Count > 0)
-                                    {
-                                        <ul class="thumbnail-ul">
-                                            @foreach (var subCategory in Model.MenuOnMainPage[i].SubCategoryList)
-                                            {
-                                                <li><a href="@Url.Action("ShowProduct", "Product", new { id = subCategory.CategoryId })">@subCategory.CategoryName</a></li>
-                                            }
-                                        </ul>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-                @*third item in row*@
-                @if (i + 2 < Model.MenuOnMainPage.Count)
-                {
-                    <div class="item  col-xs-3 col-lg-3">
-                        <div class="thumbnail">
-                            @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i + 2].ImageSrc))
-                            {
-                                <img class="group list-group-image" src="@Model.MenuOnMainPage[i + 2].ImageSrc" alt="" />
-                            }
-                            else
-                            {
-                                <img class="group list-group-image" src="~/Content/Image/image_placeholder.jpg" alt="" />
-                            }
-                            <div class="caption">
-                                <div class="caption-header">
-                                    <span class="group inner list-group-item-heading">
-                                        @Model.MenuOnMainPage[i].CategoryName
-                                    </span>
-                                </div>
-                                @*<p class="group inner list-group-item-text">
-
-                                    </p>*@
-                                <div class="row">
-                                    @if (Model.MenuOnMainPage[i + 2].SubCategoryList.Count > 0)
-                                    {
-                                        <ul class="thumbnail-ul">
-                                            @foreach (var subCategory in Model.MenuOnMainPage[i].SubCategoryList)
-                                            {
-                                                <li><a href="@Url.Action("ShowProduct", "Product", new { id = subCategory.CategoryId })">@subCategory.CategoryName</a></li>
-                                            }
-                                        </ul>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-                @*fourth item in row*@
-                @if (i + 3 < Model.MenuOnMainPage.Count)
-                {
-                    <div class="item  col-xs-3 col-lg-3">
-                        <div class="thumbnail">
-                            @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i + 3].ImageSrc))
-                            {
-                                <img class="group list-group-image" src="@Model.MenuOnMainPage[i + 3].ImageSrc" alt="" />
-                            }
-                            else
-                            {
-                                <img class="group list-group-image" src="~/Content/Image/image_placeholder.jpg" alt="" />
-                            }
-                            <div class="caption">
-                                <div class="caption-header">
-                                    <span class="group inner list-group-item-heading">
-                                        @Model.MenuOnMainPage[i].CategoryName
-                                    </span>
-                                </div>
-                                @*<p class="group inner list-group-item-text">
-
-                                    </p>*@
-                                <div class="row">
-                                    @if (Model.MenuOnMainPage[i + 3].SubCategoryList.Count > 0)
-                                    {
-                                        <ul class="thumbnail-ul">
-                                            @foreach (var subCategory in Model.MenuOnMainPage[i].SubCategoryList)
-                                            {
-                                                <li><a href="@Url.Action("ShowProduct", "Product", new { id = subCategory.CategoryId })">@subCategory.CategoryName</a></li>
-                                            }
-                                        </ul>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-                @{i = i + 3;}
-            </div>
-        }
+            </ul>
+        </div>
     </div>
 </div>
 

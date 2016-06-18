@@ -265,16 +265,16 @@
     <Compile Include="Models\Constant.cs" />
     <Compile Include="Models\ProductIndexModel.cs" />
     <Compile Include="Models\RequestContactModel.cs" />
+    <Compile Include="Models\ShowcaseProductDetail.cs" />
     <Compile Include="Models\SubCategoryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utility\EncryptionHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Admin\bootstrap\css\bootstrap-theme.css" />
-    <Content Include="Content\Admin\bootstrap\css\bootstrap-theme.min.css" />
-    <Content Include="Content\Admin\bootstrap\css\bootstrap.css" />
-    <Content Include="Content\Admin\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\admin.common.css" />
+    <Content Include="Content\Admin\bootstrap\css\united.bootstrap.css" />
+    <Content Include="Content\Admin\bootstrap\css\united.bootstrap.min.css" />
     <Content Include="Content\Admin\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Admin\css\buttons.css" />
     <Content Include="Content\Admin\css\calendar.css" />
@@ -282,6 +282,8 @@
     <Content Include="Content\Admin\css\stats.css" />
     <Content Include="Content\Admin\css\styles.css" />
     <Content Include="Content\Admin\images\facebook.png" />
+    <Content Include="Content\bootstrap-select\bootstrap-select.css" />
+    <Content Include="Content\bootstrap-select\bootstrap-select.min.css" />
     <Content Include="Content\Construction-Company.jpg" />
     <Content Include="Content\dlMenu\css\component.css" />
     <Content Include="Content\dlMenu\fonts\license.txt" />
@@ -312,6 +314,16 @@
     <Content Include="Content\maxImage\screen.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
+    <Content Include="Entities\ConstructionEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <LastGenOutput>ConstructionEntity.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entities\ConstructionEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\Admin\customer.js" />
     <Content Include="Scripts\Admin\js\calendar.js" />
     <Content Include="Scripts\Admin\js\custom.js" />
@@ -324,6 +336,7 @@
     <Content Include="Scripts\Admin\supplier.js" />
     <Content Include="Scripts\Admin\user.js" />
     <Content Include="Scripts\bootbox.min.js" />
+    <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\Common\account.js" />
     <Content Include="Scripts\Common\main.js" />
     <Content Include="Scripts\Admin\product.js" />
@@ -1395,22 +1408,13 @@
     <Content Include="Content\dlMenu\fonts\icomoon.ttf" />
     <Content Include="Content\dlMenu\fonts\icomoon.woff" />
     <Content Include="Content\Image\loading.svg" />
+    <Content Include="Content\bootstrap-select\bootstrap-select.css.map" />
     <EntityDeploy Include="Entities\ConstructionEntity.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ConstructionEntity.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Entities\ConstructionEntity.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-      <LastGenOutput>ConstructionEntity.Context.cs</LastGenOutput>
-    </Content>
     <Content Include="Entities\ConstructionEntity.edmx.diagram">
       <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-    </Content>
-    <Content Include="Entities\ConstructionEntity.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-      <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\dlMenu\custom.dlmenu.js" />
@@ -1680,6 +1684,8 @@
     <Content Include="Views\Administrator\ViewRequestDetail.cshtml" />
     <Content Include="Views\Product\Showcase.cshtml" />
     <Content Include="Views\Administrator\ViewUser.cshtml" />
+    <Content Include="Views\Product\ViewCategory.cshtml" />
+    <Content Include="Views\Product\ViewProductDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

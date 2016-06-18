@@ -296,7 +296,8 @@ namespace _170516.Controllers
                 var model = new UpdateProductModel
                 {
                     ProductID = product.ProductID,
-                    ProductDescription = product.Introduction,
+                    ProductDescription = product.Description,
+                    ProductSummary = product.Summary,
                     ProductDiscount = product.Discount.GetValueOrDefault(),
                     ProductPrice = (double)product.UnitPrice,
                     ProductName = product.Name,
@@ -362,6 +363,7 @@ namespace _170516.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult UpdateProduct(UpdateProductModel model)
         {
             try
@@ -371,7 +373,8 @@ namespace _170516.Controllers
                 if (product != null)
                 {
                     product.DateModified = DateTime.Now;
-                    product.Introduction = model.ProductDescription;
+                    product.Description = model.ProductDescription;
+                    product.Summary = model.ProductSummary;
                     product.Discount = model.ProductDiscount;
                     product.IsAvailable = true;
                     product.IsDiscountAvailable = model.ProductDiscount > 0;
@@ -431,7 +434,7 @@ namespace _170516.Controllers
                 return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
+            return Json(new { isResult = true, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -443,7 +446,8 @@ namespace _170516.Controllers
             {
                 var model = new DetailProductModel
                 {
-                    Description = product.Introduction,
+                    Description = product.Description,
+                    Summary = product.Summary,
                     Discount = product.Discount.GetValueOrDefault(),
                     Price = (double)product.UnitPrice,
                     ProductName = product.Name,
@@ -634,7 +638,8 @@ namespace _170516.Controllers
             var product = new Product
             {
                 DateModified = DateTime.Now,
-                Introduction = model.ProductDescription,
+                Description = model.ProductDescription,
+                Summary = model.ProductSummary,
                 Discount = model.ProductDiscount,
                 IsAvailable = true,
                 IsDiscountAvailable = model.ProductDiscount > 0,

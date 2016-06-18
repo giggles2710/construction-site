@@ -24,6 +24,9 @@ namespace _170516.Models
         public const string OrderFulfilledStatus = "Fulfilled";
         public const string OrderIsProcessingtatus = "Processing";
 
+        public const int SpecDimensionCode = 1;
+        public const int SpecDetailCode = 2;
+
         public static readonly Tuple<int, string>[] SpecificationType = new Tuple<int, string>[] {
             new Tuple<int, string>(1, "Kích cỡ"),
             new Tuple<int, string>(2, "Chi tiết")

@@ -10,6 +10,7 @@
 
     <title>@ViewBag.Title</title>
 
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic&subset=vietnamese,latin' rel='stylesheet' type='text/css'>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -54,15 +55,19 @@
         </div>
 
         @*<hr>*@
-        <!-- Footer -->
-        @*<footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
-                </div>
-            </div>
-        </footer>*@
+
     </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container-fluid">
+            <div class="copy text-center" style="height :52px; margin-top: 20px; ">
+                Copyright © 2016 <a href="#">OUR DEVELOPER</a>
+            </div>
+
+        </div>
+    </footer>
+
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -73,7 +78,7 @@
         var staticUrl = {
             ViewCategory: "@Url.Action("ViewCategory","Product")",
             GetSubCategory: "@Url.Action("GetSubCategory","Product")",
-            SendRequestContact: "@Url.Action("SendRequestContact", "Home")"            
+            SendRequestContact: "@Url.Action("SendRequestContact", "Home")"
         };
 
         // environment

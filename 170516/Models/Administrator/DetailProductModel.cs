@@ -7,6 +7,7 @@ namespace _170516.Models.Administrator
 {
     public class DetailProductModel
     {
+        public string Summary { get; set; }
         public string ImageSrc { get; set; }
         public string ProductName { get; set; }
         public int CategoryID { get; set; }

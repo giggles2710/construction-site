@@ -51,6 +51,6 @@ namespace _170516.Models.Administrator
         public string ImageSrc { get; set; }
         public string ImageType { get; set; }
         public byte[] ImageByte { get; set; }
-
+        public string Summary { get; set; }
     }
 }

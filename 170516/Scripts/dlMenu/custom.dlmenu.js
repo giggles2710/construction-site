@@ -253,28 +253,7 @@
     var getCategoryPage = function ($item, categoryId, self) {
         var viewCategoryLink = staticUrl.ViewCategory + "?id=" + categoryId;
 
-        // call ajax to get the view
-        $.ajax({
-            url: viewCategoryLink,
-            method: "GET",
-            async: true,
-            cache: false,
-            beforeSend: function () {
-                // show spinner
-            },
-            success: function (data) {
-                if (data != null) {
-                    // render it into main view
-                    $('#ShowCaseDiv').html(data);
-
-                    // toast it
-                    toastr.success("Done!!!!");
-                }
-            },
-            error: function (error) {
-                toastr.error("Error " + error.status + " : " + error.statusText);
-            }
-        });
+        window.location.href = viewCategoryLink;
     }
 
     var getSubMenu = function ($item, categoryId, self) {

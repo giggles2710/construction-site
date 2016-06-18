@@ -9,10 +9,10 @@
 /* Common styles of menus */
 
 .dl-menuwrapper {
-    width: 100%;
+    width: 90%;
     max-width: 300px;
     float: left;
-    position: relative;
+    position: absolute;
     -webkit-perspective: 1000px;
     perspective: 1000px;
     -webkit-perspective-origin: 50% 200%;
@@ -38,7 +38,7 @@
         .dl-menuwrapper button:hover,
         .dl-menuwrapper button.dl-active,
         .dl-menuwrapper ul {
-            background: #aaa;
+            background: #df691a;
         }
 
         .dl-menuwrapper button:after {
@@ -66,6 +66,7 @@
 
     .dl-menuwrapper li {
         position: relative;
+        padding-top: 4px;
     }
 
         .dl-menuwrapper li a {
@@ -81,13 +82,14 @@
         }
 
 .no-touch .dl-menuwrapper li a:hover {
-    background: rgba(255,248,213,0.1);
-    color: #999999;
+    background: #df691a;
+    color: #fff;
+    border-radius: 3px;
 }
 
 .dl-menuwrapper li.dl-back > a {
     padding-left: 30px;
-    background: rgba(0,0,0,0.1);
+    background: #f8f8f8;
     color: #999999;
 }
 
@@ -117,7 +119,6 @@
 }
 
 .dl-menuwrapper .dl-menu {
-    margin: 5px 0 0 0;
     position: absolute;
     width: 100%;
     opacity: 0;
@@ -169,7 +170,7 @@ All this is done for any sub-level being entered.
 .dl-menuwrapper > .dl-submenu {
     position: absolute;
     width: 100%;
-    top: 4.5px;
+    /*top: 4.5px;*/
     left: 0;
     margin: 0;
 }

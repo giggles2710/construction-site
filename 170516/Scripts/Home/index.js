@@ -12,4 +12,9 @@
         $('#products .item').removeClass('list-group-item');
         $('#products .item').addClass('grid-group-item');
     });
+
+    // initialize select
+    $('.selectpicker').selectpicker({
+        maxOptions: 1
+    });
 });

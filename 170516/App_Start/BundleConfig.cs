@@ -25,6 +25,7 @@ namespace _170516
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap-select.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery_upload").Include(
@@ -42,6 +43,7 @@ namespace _170516
 
             bundles.Add(new ScriptBundle("~/bundles/admin_script").Include(
                         "~/Scripts/bootstrap.js",
+                        "~/Scripts/bootstrap-select.js",
                         "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/main_script").Include(
@@ -56,6 +58,7 @@ namespace _170516
             bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/Content/dlMenu/css/component.css",
                       "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-select/bootstrap-select.css",
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/common.css",
                       "~/Content/maxImage/screen.css",
@@ -66,10 +69,10 @@ namespace _170516
                       "~/Content/toastr.css"));
 
             bundles.Add(new StyleBundle("~/Content/admin_css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/Admin/bootstrap/css/united.bootstrap.css",
+                      "~/Content/bootstrap-select/bootstrap-select.css",
                       "~/Content/font-awesome/css/font-awesome.css",
-                      "~/Content/common.css",
-                      "~/Content/Admin/css/styles.css",
+                      "~/Content/admin.common.css",
                       "~/Content/jquery-ui.css",
                        "~/Content/toastr.css"));
         }
