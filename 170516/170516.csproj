@@ -248,6 +248,7 @@
     <Compile Include="Models\Administrator\CreateProductModel.cs" />
     <Compile Include="Models\Administrator\CreateShipperModel.cs" />
     <Compile Include="Models\Administrator\CreateSupplierModel.cs" />
+    <Compile Include="Models\Administrator\UpdateUserModel.cs" />
     <Compile Include="Models\Administrator\DetailProductModel.cs" />
     <Compile Include="Models\Administrator\DetailsCustomerModel.cs" />
     <Compile Include="Models\Administrator\SpecificationsTableModel.cs" />
@@ -1684,6 +1685,8 @@
     <Content Include="Views\Administrator\ViewRequestDetail.cshtml" />
     <Content Include="Views\Product\Showcase.cshtml" />
     <Content Include="Views\Administrator\ViewUser.cshtml" />
+    <Content Include="Views\Administrator\UpdateUser.cshtml" />
+    <Content Include="Views\Administrator\AddUser.cshtml" />
     <Content Include="Views\Product\ViewCategory.cshtml" />
     <Content Include="Views\Product\ViewProductDetail.cshtml" />
   </ItemGroup>

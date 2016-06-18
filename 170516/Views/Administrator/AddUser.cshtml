@@ -1,0 +1,110 @@
+﻿@model _170516.Models.Administrator.UpdateUserModel
+
+@{
+    ViewBag.Title = "AddUser";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box-large">
+            <div class="panel-heading">
+                @*nav bar*@
+                <ol class="breadcrumb">
+                    <li><a href="@Url.Action("ViewUser","Administrator")">Quản Lý Người dùng</a></li>
+                    <li class="active">Thêm Người dùng</li>
+                </ol>
+                <div class="panel-title title-3">Thêm Người dùng</div>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "addUserForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <div class="row">
+                            @Html.ValidationSummary(true)
+                            <div class="col-md-8 col-lg-8">
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductName">Tên đăng nhập <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        @Html.TextBoxFor(model => model.Username, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.Username, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductName">Họ <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductName">Tên<span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductName">Mật khẩu<span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        @Html.PasswordFor(model => model.Password, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.Password, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductName">Email <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        @Html.TextBoxFor(model => model.EmailAddress, new { @class = "form-control" })<span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.EmailAddress, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductName">Số điện thoại <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })<span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.PhoneNumber, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="control-label">Ảnh Người dùng</label>
+                                    <!-- IMAGE -->
+                                    <div class="image-box">                                       
+                                        <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
+
+                                        <div id="ImagePreviewBox" class="preview-box" style="max-width:80%;"></div>
+                                        <input id="ImageUpload" type="file" class="image-file-input" name="ImageUpload" />
+                                        <input id="ProductImage" type="hidden" name="UserImage" />
+                                        <h5 id="ImageName" class="image-name"></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <div class="col-md-12 form-button">
+                                        <button class="btn btn-primary" type="button" id="SubmitAddUser"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                                        <button class="btn btn-danger" type="reset"><i class="glyphicon glyphicon-remove"></i>Làm mới</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/Admin/user.js")"></script>
+}
+

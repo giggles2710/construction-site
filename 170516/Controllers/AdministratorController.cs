@@ -1,6 +1,7 @@
 ﻿using _170516.Entities;
 using _170516.Models;
 using _170516.Models.Administrator;
+using _170516.Utility;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -1877,6 +1878,290 @@ namespace _170516.Controllers
             return Json(new { isResult = true, result = orderDetails.Total.ToString() }, JsonRequestBehavior.AllowGet);
         }
 
+        #endregion
+
+        #region users
+        public ActionResult ViewUser(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
+        {
+            var pageNo = page.GetValueOrDefault();
+            var pageSize = itemsPerPage.GetValueOrDefault();
+
+            if (pageNo == 0) pageNo = 1;
+            if (pageSize == 0) pageSize = 10;
+            if (isAsc == null) isAsc = true;
+            if (string.IsNullOrEmpty(searchText)) searchText = null;
+            if (string.IsNullOrEmpty(sortField)) sortField = "Username";
+
+            IQueryable<Account> users;
+
+            switch (sortField)
+            {
+                case "Username":
+                    if (isAsc.GetValueOrDefault())
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderBy(p => p.Username);
+                    else
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderByDescending(p => p.Username);
+                    break;
+                case "FirstName":
+                    if (isAsc.GetValueOrDefault())
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderBy(p => p.FirstName);
+                    else
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderByDescending(p => p.Username);
+                    break;
+                case "LastName":
+                    if (isAsc.GetValueOrDefault())
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderBy(p => p.LastName);
+                    else
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderByDescending(p => p.LastName);
+                    break;
+
+                case "EmailAddress":
+                    if (isAsc.GetValueOrDefault())
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderBy(p => p.EmailAddress);
+                    else
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderByDescending(p => p.EmailAddress);
+                    break;
+                case "IsActive":
+                    if (isAsc.GetValueOrDefault())
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderBy(p => p.IsActive);
+                    else
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderByDescending(p => p.IsActive);
+                    break;
+                default:
+                    if (isAsc.GetValueOrDefault())
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderBy(p => p.Username);
+                    else
+                        users = dbContext.Accounts
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Username.Contains(searchText))
+                            .OrderByDescending(p => p.Username);
+                    break;
+            }
+
+            //do the query
+            var usersModel = users.Select(u => new ViewUserItem
+            {
+                AccountID = u.AccountID,
+                Username = u.Username,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                EmailAddress = u.EmailAddress,
+                IsActive = u.IsActive
+            }).Skip(pageSize * (pageNo - 1))
+            .Take(pageSize).ToList();
+
+            var model = new ViewUserModel();
+            model.CurrentPage = pageNo;
+            model.SearchText = searchText;
+            model.ItemOnPage = pageSize;
+            model.StartIndex = pageSize * pageNo - pageSize + 1;
+            model.EndIndex = model.StartIndex + pageSize - 1;
+            model.TotalNumber = users.Count();
+            model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
+            model.Users = usersModel;
+            model.SortField = sortField;
+            model.IsAsc = isAsc.GetValueOrDefault();
+
+            return View(model);
+        }
+
+        public JsonResult ChangeUserStatus(string guid)
+        {
+            var user = dbContext.Accounts.FirstOrDefault(u => u.AccountID == guid);
+
+            if (user == null)
+            {
+                return Json(new { isResult = false, result = Constant.UserNotFound }, JsonRequestBehavior.AllowGet);
+            }
+
+            user.IsActive = !user.IsActive;
+
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult AddUser()
+        {
+            return View();
+        }
+
+        [HttpPost]        
+        public JsonResult AddUser(UpdateUserModel model)
+        {            
+            bool isExist = dbContext.Accounts.Any(u => u.AccountID != model.AccountID && u.Username == model.Username);
+
+            if (isExist)
+            {
+                return Json(new { isResult = false, result = Constant.UsernameExists }, JsonRequestBehavior.AllowGet);
+            }
+
+            isExist = dbContext.Accounts.Any(u => u.AccountID != model.AccountID && u.EmailAddress == model.EmailAddress);
+
+            if (isExist)
+            {
+                return Json(new { isResult = false, result = Constant.EmailExists }, JsonRequestBehavior.AllowGet);
+            }
+
+            var user = new Account();
+            user.AccountID = Guid.NewGuid().ToString();
+            user.IsActive = true;
+            user.HashToken = UtilityHelper.RandomString(10);
+            user.ModifiedDate = DateTime.Now;
+
+            user.Username = model.Username;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.PhoneNumber = model.PhoneNumber;
+            user.EmailAddress = model.EmailAddress;
+            user.Password = EncryptionHelper.HashPassword(model.Password, user.HashToken);
+
+            //image
+            if (!string.IsNullOrWhiteSpace(model.UserImage))
+            {
+                var imageInfos = model.UserImage.Split(':');
+
+                if (imageInfos.Length > 0)
+                {
+                    user.ImageType = imageInfos[0]; // file type
+                    user.Image = Convert.FromBase64String(imageInfos[1]); // base 64 string
+                }
+            }
+
+            try
+            {
+                dbContext.Accounts.Add(user);
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult UpdateUser(string userid)
+        {
+            var user = dbContext.Accounts.FirstOrDefault(u => u.AccountID == userid);
+
+            if (user == null)
+            {
+                return RedirectToAction("ViewUser");
+            }
+
+            var updateUserModel = new UpdateUserModel
+            {
+                AccountID = user.AccountID,
+                Username = user.Username,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                EmailAddress = user.EmailAddress,                
+                PhoneNumber = user.PhoneNumber
+            };
+
+           
+            // image
+            if (user.Image != null && !string.IsNullOrEmpty(user.ImageType))
+            {
+                updateUserModel.UserImage = string.Format(Constant.ImageSourceFormat, user.ImageType, Convert.ToBase64String(user.Image));
+            }
+
+            return View(updateUserModel);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateUser(UpdateUserModel model)
+        {
+            var user = dbContext.Accounts.FirstOrDefault(u => u.AccountID == model.AccountID);
+
+            if (user == null)
+            {
+                return Json(new { isResult = false, result = Constant.UserNotFound }, JsonRequestBehavior.AllowGet);
+            }
+
+            bool isExist = dbContext.Accounts.Any(u => u.AccountID != model.AccountID && u.Username == model.Username);
+
+            if (isExist)
+            {
+                return Json(new { isResult = false, result = Constant.UsernameExists }, JsonRequestBehavior.AllowGet);
+            }
+
+            isExist = dbContext.Accounts.Any(u => u.AccountID != model.AccountID && u.EmailAddress == model.EmailAddress);
+
+            if (isExist)
+            {
+                return Json(new { isResult = false, result = Constant.UsernameExists }, JsonRequestBehavior.AllowGet);
+            }
+
+            user.Username = model.Username;
+            user.Username = model.Username;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.PhoneNumber = model.PhoneNumber;
+            user.EmailAddress = model.EmailAddress;
+            user.ModifiedDate = DateTime.Now;
+
+            //password
+            if (!string.IsNullOrEmpty(model.PasswordInUpdate))
+            {
+                user.HashToken = UtilityHelper.RandomString(10);
+                user.Password = EncryptionHelper.HashPassword(model.PasswordInUpdate, user.HashToken);
+            }
+           
+            //image
+            if (!string.IsNullOrWhiteSpace(model.UserImage))
+            {
+                var imageInfos = model.UserImage.Split(':');
+
+                if (imageInfos.Length > 0)
+                {
+                    user.ImageType = imageInfos[0]; // file type
+                    user.Image = Convert.FromBase64String(imageInfos[1]); // base 64 string
+                }
+            }
+            
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         [HttpGet]

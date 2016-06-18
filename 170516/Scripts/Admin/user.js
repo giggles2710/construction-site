@@ -10,6 +10,9 @@
         toastr.success(window.sessionStorage.EnableMessage)
         window.sessionStorage.EnableStatus = null;
     }
+    
+    $('#enableUpdatePassword').prop('checked', false);
+    $('#passwordSection').hide();
 
     //search section
     $("#dataTable_user th").on('click', function () {
@@ -93,6 +96,130 @@
                 }
             }
         });
+    });
+
+    //update user
+    $('#SubmitUpdateUser').on('click', function () {
+        var form = $("#updateUserForm");
+        form.validate();
+
+        isValid = true;
+
+        if ($('#enableUpdatePassword').prop('checked'))
+        {
+            if ($('#PasswordInUpdate').val() == null || $('#PasswordInUpdate').val() == undefined || $('#PasswordInUpdate').val().trim() == "")
+            {
+                $('#PasswordInUpdate').next().text('Vui lòng nhập password').show();
+                isValid = false;
+            }
+            else
+                if ($('#PasswordInUpdate').val().length < 8)
+                {
+                    $('#PasswordInUpdate').next().text('Mật khẩu phải ít nhất 8 ký tự').show();
+                    isValid = false;
+                }
+                else
+                    if ($('#PasswordInUpdate').val().length > 16) {
+                        $('#PasswordInUpdate').next().text('Mật khẩu tối đa 16 ký tự').show();
+                        isValid = false;
+                    }
+                    else {
+                        isValid = true;
+                        $('#PasswordInUpdate').next().text('');
+                    }                        
+        }
+
+        if (form.valid() && (isValid)) {
+            $.ajax({
+                url: staticUrl.updateUser,
+                data: $('#updateUserForm').serialize(),
+                async: true,
+                method: "POST",
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    if (data != null) {
+                        if (data.isResult == false) {
+                            toastr.error(data.result);
+                        } else {
+                            toastr.success('Chỉnh sửa người dùng thành công');
+                        }
+                    }
+                }, error: function (e) {
+                    toastr.error('Có lỗi xảy ra trong quá trình chỉnh sữa. Vui lòng thử lại.');
+                }
+            });
+        }
+    });
+
+    //add user
+    $('#SubmitAddUser').on('click', function () {
+        var form = $("#addUserForm");
+        form.validate();
+        if (form.valid()) {
+            $.ajax({
+                url: staticUrl.addUser,
+                data: $('#addUserForm').serialize(),
+                async: true,
+                method: "POST",
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    if (data != null) {
+                        if (data.isResult == false) {
+                            toastr.error(data.result);
+                        } else {
+                            toastr.success('Thêm người dùng thành công');
+                        }
+                    }
+                }, error: function (e) {
+                    toastr.error('Có lỗi xảy ra trong quá trình thêm người dùng. Vui lòng thử lại.');
+                }
+            });
+        }
+    });
+
+    $('#enableUpdatePassword').change(function () {
+        if (this.checked) {
+            $('#passwordSection').show();
+        }
+        else
+        {
+            $('#passwordSection').hide();
+            $('#PasswordInUpdate').val('');
+        }
+    });
+
+    $('#ImageBox').on('click', function (e) {
+        $('#ImageUpload').trigger('click');
+    });
+
+    // initialize file upload plugin
+    $('#ImageUpload').fileupload({
+        url: staticUrl.uploadFile,
+        dataType: 'json',
+        autoUpload: true,
+        acceptFileTypes: /(\.|\/)(jpe?g|png)$/i,
+        maxFileSize: 999000,
+        disableImageResize: /Android(?!.*Chrome)|Opera/
+            .test(window.navigator.userAgent)
+    }).on('fileuploadadd', function (e, data) {
+        // replace it with a canvas
+        $('#ImageName').text(data.files[0].name)
+
+        // put data to upload button
+        $('#ImageSubmitBtn').data(data);
+
+    }).on('fileuploaddone', function (e, data) {
+        // upload success
+        if (data.result.base64Thumbnail != null && data.result.fileType != null) {
+            var fileSrc = "data:image/" + data.result.fileType + ";base64, " + data.result.base64Thumbnail;
+            $('#ImageBox').attr('src', fileSrc);
+            $('#ProductImage').val(data.result.fileType + ":" + data.result.base64Thumbnail);
+        }
+    }).on('fileuploadfail', function (e, data) {
+        // upload fail
+        toastr.error('Tải ảnh không thành công. Vui lòng thử lại.');
     });
 });
 

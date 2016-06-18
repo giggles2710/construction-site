@@ -16,4 +16,15 @@ namespace _170516.Utility
             return Convert.ToBase64String(saltedHash);
         }
     }
+
+    public static class UtilityHelper
+    {
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+    }
 }

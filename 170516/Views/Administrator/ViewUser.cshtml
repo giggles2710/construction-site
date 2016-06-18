@@ -13,7 +13,7 @@
                 </ol>
                 <div class="panel-title title-3">Danh Sách Người dùng</div>
                 <div class="panel-options">
-                    <a id="addBtn" href="#" class="btn btn-success btn-xs" style="margin-top:0px;"><i class="fa fa-plus"></i> Thêm người dùng</a>
+                    <a id="addBtn" href="@Url.Action("AddUser", "Administrator")" class="btn btn-success btn-xs" style="margin-top:0px;"><i class="fa fa-plus"></i> Thêm người dùng</a>
                 </div>
             </div>
             <div class="panel-body">
@@ -178,8 +178,8 @@
                                             }
                                            
                                             <td>
-                                                <a class="action-link detail-link" title="Chi tiết" href="#"><i class="fa fa-info-circle"></i></a>
-                                                <a class="action-link update-link" title="Cập nhật" href="#"><i class="fa fa-pencil"></i></a>
+                                                @*<a class="action-link detail-link" title="Chi tiết" href="#"><i class="fa fa-info-circle"></i></a>*@
+                                                <a class="action-link update-link" title="Cập nhật" href="@Url.Action("UpdateUser", "Administrator", new { userid = Model.Users[i - 1].AccountID })"><i class="fa fa-pencil"></i></a>
                                                 @if (@Model.Users[i - 1].IsActive)
                                                 {
                                                     <a class="action-link remove-link user" title="DeActive" href="#" data-url="@Url.Action("ChangeUserStatus", "Administrator", new { guid = Model.Users[i - 1].AccountID })"><i class="fa fa-close"></i></a>
