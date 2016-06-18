@@ -16,6 +16,8 @@ namespace _170516.Models
         public const string OrderNotFound = "Đơn hàng này không còn tồn tại trong hệ thống.";
         public const string OrderDetailsNotFound = "Sản phẩm này không còn tồn tại trong đơn hàng.";
         public const string UserNotFound = "Người dùng này không còn tồn tại trong hệ thống.";
+        public const string UsernameExists = "Tên người dùng đã tồn tại.";
+        public const string EmailExists = "Email đã được dùng.";
         public const string ErrorOccur = "Có lỗi xảy ra trong quá trình cập nhật dữ liệu.";
         public const string InvalidLogin = "Địa chỉ email hoặc mật khẩu không đúng.";
 

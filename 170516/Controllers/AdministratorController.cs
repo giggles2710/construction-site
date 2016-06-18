@@ -2002,6 +2002,91 @@ namespace _170516.Controllers
 
             return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public ActionResult UpdateUser(string userid)
+        {
+            var user = dbContext.Accounts.FirstOrDefault(u => u.AccountID == userid);
+
+            if (user == null)
+            {
+                return RedirectToAction("ViewUser");
+            }
+
+            var updateUserModel = new UpdateUserModel
+            {
+                AccountID = user.AccountID,
+                Username = user.Username,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                EmailAddress = user.EmailAddress,                
+                PhoneNumber = user.PhoneNumber
+            };
+
+            // image
+            if (user.Image != null && !string.IsNullOrEmpty(user.ImageType))
+            {
+                updateUserModel.UserImage = string.Format(Constant.ImageSourceFormat, user.ImageType, Convert.ToBase64String(user.Image));
+            }
+
+            return View(updateUserModel);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateUser(UpdateUserModel model)
+        {
+            var user = dbContext.Accounts.FirstOrDefault(u => u.AccountID == model.AccountID);
+
+            if (user == null)
+            {
+                return Json(new { isResult = false, result = Constant.UserNotFound }, JsonRequestBehavior.AllowGet);
+            }
+
+            bool isExist = dbContext.Accounts.Any(u => u.AccountID != model.AccountID && u.Username == model.Username);
+
+            if (isExist)
+            {
+                return Json(new { isResult = false, result = Constant.UsernameExists }, JsonRequestBehavior.AllowGet);
+            }
+
+            isExist = dbContext.Accounts.Any(u => u.AccountID != model.AccountID && u.EmailAddress == model.EmailAddress);
+
+            if (isExist)
+            {
+                return Json(new { isResult = false, result = Constant.UsernameExists }, JsonRequestBehavior.AllowGet);
+            }
+
+            user.Username = model.Username;
+            user.Username = model.Username;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.PhoneNumber = model.PhoneNumber;
+            user.EmailAddress = model.EmailAddress;
+            user.ModifiedDate = DateTime.Now;
+
+            //image
+            if (!string.IsNullOrWhiteSpace(model.Username))
+            {
+                var imageInfos = model.Username.Split(':');
+
+                if (imageInfos.Length > 0)
+                {
+                    user.ImageType = imageInfos[0]; // file type
+                    user.Image = Convert.FromBase64String(imageInfos[1]); // base 64 string
+                }
+            }
+            
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         [HttpGet]

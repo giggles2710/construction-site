@@ -94,6 +94,33 @@
             }
         });
     });
+
+    //update user
+    $('#SubmitUpdateUser').on('click', function () {
+        var form = $("#updateUserForm");
+        form.validate();
+        if (form.valid()) {
+            $.ajax({
+                url: staticUrl.updateProductCategory,
+                data: $('#updateUserForm').serialize(),
+                async: true,
+                method: "POST",
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    if (data != null) {
+                        if (data.isResult == false) {
+                            toastr.error(data.result);
+                        } else {
+                            toastr.success('Chỉnh sửa người dùng thành công');
+                        }
+                    }
+                }, error: function (e) {
+                    toastr.error('Có lỗi xảy ra trong quá trình chỉnh sữa. Vui lòng thử lại.');
+                }
+            });
+        }
+    });
 });
 
 var userSupportModel = {
