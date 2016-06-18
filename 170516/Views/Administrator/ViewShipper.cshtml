@@ -1,25 +1,26 @@
 ﻿@model _170516.Models.Administrator.ViewShipperModel
 @{
-    ViewBag.Title = "ViewShipper";
+    ViewBag.Title = "Quản lý đơn vị vận chuyển";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-
 <div class="row">
     <div class="col-md-12">
-        <div class="content-box-large">
+        <div class="main-content-wrapper">
             <div class="panel-heading">
                 <ol class="breadcrumb">
-                    <li class="active">Quản Lý Shipper</li>
+                    <li class="active">Quản lý đơn vị vận chuyển</li>
                 </ol>
-                <div class="panel-title title-3">Danh Sách Shipper</div>
-                <div class="panel-options">
-                    <a id="addBtn" href="@Url.Action("AddShipper", "Administrator")" class="btn btn-primary btn-xs" style="margin-top:0px;"><i class="glyphicon glyphicon-plus"></i> Thêm</a>
+                <div class="container-fluid admin-header">
+                    <div class="title col-md-6 col-xs-6"><h3>Danh Sách Đơn Vị Vận Chuyển</h3></div>
+                    <div class="col-md-6 col-xs-6">
+                        <a id="addBtn" href="@Url.Action("AddShipper", "Administrator")" class="btn btn-primary btn-sm add-button"><i class="glyphicon glyphicon-plus"></i> Đăng ký đơn vị vận chuyển</a>
+                    </div>
                 </div>
             </div>
-            <div class="panel-body">
+            <div class="container-fluid">
                 @if (Model.Shippers.Any())
-            {
+                {
                     <div class="row">
                         <div class="col-sm-6">
                             <input type="hidden" id="dataTables_sort_field_hidden" value="@Model.SortField" />
@@ -188,7 +189,7 @@
                                             <td>@Model.Shippers[i - 1].EmailAddress</td>
                                             <td>@Model.Shippers[i - 1].Address</td>
                                             <td>@Model.Shippers[i - 1].City</td>
-                                            <td>@Model.Shippers[i - 1].District</td>                                            
+                                            <td>@Model.Shippers[i - 1].District</td>
                                             <td>
                                                 <a class="action-link detail-link" title="Chi tiết" href="@Url.Action("ViewShipperDetails", "Administrator", new { id = Model.Shippers[i - 1].ShipperID })"><i class="fa fa-info-circle"></i></a>
                                                 <a class="action-link update-link" title="Cập nhật" href="@Url.Action("UpdateShipper", "Administrator", new { id = Model.Shippers[i - 1].ShipperID })"><i class="fa fa-pencil"></i></a>
@@ -209,7 +210,7 @@
                             else
                             {
                                 <div class="dataTables_info" role="status" aria-live="polite">Hiển thị từ @Model.StartIndex tới @Model.EndIndex trong @Model.TotalNumber shipper</div>
-                            }                                 
+                            }
                         </div>
                         <div class="col-sm-6">
                             <div class="dataTables_paginate">
@@ -265,7 +266,7 @@
                 }
                 else
                 {
-                    <h5>Không có shipper nào được lưu trong cơ sở dữ liệu. Vui lòng tạo shipper tại <a href="@Url.Action("AddShipper", "Administrator")">đây</a></h5>
+                    <h5>Chưa có đơn vị vận chuyển nào được lưu trong cơ sở dữ liệu. Vui lòng đăng ký tại <a href="@Url.Action("AddShipper", "Administrator")">đây</a></h5>
                 }
             </div>
         </div>

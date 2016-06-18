@@ -1,53 +1,53 @@
 ﻿@model _170516.Models.Administrator.ViewProductCategoryItem
 @{
-    ViewBag.Title = "ViewProductCategoryDetail";
+    ViewBag.Title = "Chi tiết danh mục sản phẩm";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 
 <div class="row">
     <div class="col-md-12">
-        <div class="content-box-large">
+        <div class="main-content-wrapper">
             <div class="panel-heading">
                 @*nav bar*@
                 <ol class="breadcrumb">
-                    <li><a href="@Url.Action("ViewProductCategory","Administrator")">Quản Lý Danh mục</a></li>
-                    <li class="active">Chi tiết Danh mục</li>
+                    <li><a href="@Url.Action("ViewProductCategory","Administrator")">Quản lý danh mục</a></li>
+                    <li class="active">Chi tiết danh mục</li>
                 </ol>
-                <div class="panel-title title-3">@Model.Name</div>
+                <div class="container-fluid admin-header">
+                    <div class="title col-md-6 col-xs-6"><h3>@Model.Name</h3></div>
+                </div>
             </div>
-            <div class="panel-body">                
+            <div class="container-fluid">                
                     <div class="form-horizontal">
                         <div class="row">                            
-                            <div class="col-md-8 col-lg-8">
+                            <div class="col-md-offset-2 col-md-8 col-lg-8 detail-view">
                                 <!-- PRODUCT CATEGORY NAME -->
                                 @Html.HiddenFor(model => model.CategoryID)
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductName">Tên Danh mục <span class="text-danger">*</span></label>
+                                    <label class="col-sm-3 control-label" for="ProductName">Tên danh mục</label>
                                     <div class="col-sm-7">
-                                        <span class="info-box">@Model.Name</span>
+                                        <p class="info-box">@Model.Name</p>
                                      </div>
                                 </div>
                                 <!-- PRODUCT CATEGORY DESCRIPTION -->
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductName">Mô tả <span class="text-danger">*</span></label>
+                                    <label class="col-sm-3 control-label" for="ProductName">Mô tả </label>
                                     <div class="col-sm-7">
-                                        <span class="info-box">@Model.Description</span>
+                                        <p class="info-box">@Model.Description</p>
                                     </div>
                                 </div>
                                 <!-- PRODUCT CATEGORY PARENT -->
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ParentID">Danh Mục cha</label>
+                                    <label class="col-sm-3 control-label" for="ParentID">Danh mục cha</label>
                                     <div class="col-sm-7">
-                                        <span class="info-box">@Model.ParentCategoryName</span>
+                                        <p class="info-box">@Model.ParentCategoryName</p>
                                      </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4 col-lg-4">
                                 <div class="form-group">
-                                    <label class="control-label">Ảnh Danh mục</label>
+                                    <label class="col-sm-3 control-label">Ảnh</label>
                                     <!-- IMAGE -->
-                                    <div class="image-box">
+                                    <div class="col-sm-7 image-box">
                                         @if (string.IsNullOrEmpty(Model.CategoryImage))
                                         {
                                             <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
@@ -60,18 +60,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                        
-
-                        <div class="row">
-                            <div class="col-md-12 col-lg-12">
-                                <div class="form-group">
-                                    <div class="col-md-12 form-button">
-                                        <button class="btn btn-primary" type="button" id="btnUpdateCategoryLink"><i class="glyphicon glyphicon-floppy-disk"></i> Chỉnh sửa</button>
-                                        <button class="btn btn-danger" type="button" id="btnDeleteProductCategory"><i class="glyphicon glyphicon-remove"></i> Xóa</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </div>  
                     </div>                
             </div>
         </div>

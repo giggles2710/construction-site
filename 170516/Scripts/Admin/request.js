@@ -1,7 +1,16 @@
 ﻿$(document).ready(function () {
+    // enable tiny mce
+    tinymce.init({
+        selector: '.tiny_mce_input',  // change this value according to your HTML
+        plugin: 'a_tinymce_plugin',
+        a_plugin_option: true,
+        a_configuration_option: 400,
+        height: "480"
+    });
+
     $('#AnswerButton').on('click', function () {
         var isValid = true;
-        var $content = $('#ReplyContent');;
+        var $content = $('#ReplyContent');
 
         // validate
         if ($content.val() == null || $content.val() == undefined || $content.val().trim() == "") {

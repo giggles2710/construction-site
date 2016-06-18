@@ -1,24 +1,26 @@
 ﻿@model _170516.Models.Administrator.ViewSupplierModel
 @{
-    ViewBag.Title = "ViewSupplier";
+    ViewBag.Title = "Quản lý nhà cung cấp";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="row">
     <div class="col-md-12">
-        <div class="content-box-large">
+        <div class="main-content-wrapper">
             <div class="panel-heading">
                 <ol class="breadcrumb">
-                    <li class="active">Quản Lý Nhà cung cấp</li>
+                    <li class="active">Quản lý nhà cung cấp</li>
                 </ol>
-                <div class="panel-title title-3">Danh Sách Nhà cung cấp</div>
-                <div class="panel-options">
-                    <a id="addBtn" href="@Url.Action("AddSupplier", "Administrator")" class="btn btn-primary btn-xs" style="margin-top:0px;"><i class="glyphicon glyphicon-plus"></i> Thêm</a>
+                <div class="container-fluid admin-header">
+                    <div class="title col-md-6 col-xs-6"><h3>Danh Sách Sản Phẩm</h3></div>
+                    <div class="col-md-6 col-xs-6">
+                        <a id="addBtn" href="@Url.Action("AddSupplier", "Administrator")" class="btn btn-primary btn-sm add-button"><i class="glyphicon glyphicon-plus"></i> Thêm</a>
+                    </div>
                 </div>
             </div>
-            <div class="panel-body">
+            <div class="container-fluid">
                 @if (Model.Suppliers.Any())
-            {
+                {
                     <div class="row">
                         <div class="col-sm-6">
                             <input type="hidden" id="dataTables_sort_field_hidden" value="@Model.SortField" />
@@ -71,7 +73,7 @@
                                 {
                                     <input type="search" class="form-control input-sm" value="@Model.SearchText">
                                 }
-                                <button type="button" id="dataTables_searchSupplier" class="btn btn-default btn-sm"><i class="fa fa-search"></i></button>
+                                <button type="button" id="dataTables_searchSupplier" class="btn btn-info btn-sm"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
                     </div>
@@ -184,7 +186,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">                            
+                        <div class="col-sm-6">
                             @if (Model.EndIndex > Model.TotalNumber)
                             {
                                 <div class="dataTables_info" role="status" aria-live="polite">Hiển thị từ @Model.StartIndex tới @Model.TotalNumber trong @Model.TotalNumber nhà cung cấp</div>
@@ -192,8 +194,8 @@
                             else
                             {
                                 <div class="dataTables_info" role="status" aria-live="polite">Hiển thị từ @Model.StartIndex tới @Model.EndIndex trong @Model.TotalNumber nhà cung cấp</div>
-                            }     
-                         </div>
+                            }
+                        </div>
                         <div class="col-sm-6">
                             <div class="dataTables_paginate">
                                 <ul class="pagination">

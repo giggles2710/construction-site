@@ -4,17 +4,19 @@
 }
 <div class="row">
     <div class="col-md-12">
-        <div class="content-box-large">
+        <div class="main-content-wrapper">
             <div class="panel-heading">
                 <ol class="breadcrumb">
-                    <li class="active">Quản Lý Sản Phẩm</li>
+                    <li class="active">Quản lý sản phẩm</li>
                 </ol>
-                <div class="panel-title title-3">Danh Sách Sản Phẩm</div>
-                <div class="panel-options">
-                    <a id="addBtn" href="@Url.Action("AddProduct", "Administrator")" class="btn btn-success btn-xs" style="margin-top:0px;"><i class="fa fa-plus"></i> Tạo sản phẩm</a>
+                <div class="container-fluid admin-header">
+                    <div class="title col-md-6 col-xs-6"><h3>Danh Sách Sản Phẩm</h3></div>
+                    <div class="col-md-6 col-xs-6">
+                        <a id="addBtn" href="@Url.Action("AddProduct", "Administrator")" class="btn btn-primary btn-sm add-button"><i class="glyphicon glyphicon-plus"></i> Tạo Sản phẩm</a>
+                    </div>
                 </div>
             </div>
-            <div class="panel-body">
+            <div class="container-fluid">
                 @if (Model.Products.Any())
                 {
                     <div class="row">
@@ -69,7 +71,7 @@
                                 {
                                     <input type="search" class="form-control input-sm" value="@Model.SearchText">
                                 }
-                                <button type="button" id="dataTables_search" class="btn btn-default btn-sm"><i class="fa fa-search"></i></button>
+                                <button type="button" id="dataTables_search" class="btn btn-info btn-sm"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
                     </div>

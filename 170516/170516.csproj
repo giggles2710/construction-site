@@ -274,8 +274,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\admin.common.css" />
-    <Content Include="Content\Admin\bootstrap\css\united.bootstrap.css" />
-    <Content Include="Content\Admin\bootstrap\css\united.bootstrap.min.css" />
+    <Content Include="Content\Admin\bootstrap\css\slate.bootstrap.css" />
+    <Content Include="Content\Admin\bootstrap\css\slate.bootstrap.min.css" />
     <Content Include="Content\Admin\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Admin\css\buttons.css" />
     <Content Include="Content\Admin\css\calendar.css" />

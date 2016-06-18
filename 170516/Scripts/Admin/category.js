@@ -78,7 +78,7 @@
     $('#btnDeleteProductCategory').on('click', function () {        
 
         bootbox.dialog({
-            message: "Bạn có chắc là muốn xóa danh mục này không?",
+            message: "Bạn có chắc là muốn xóa danh mục sản phẩm này không?",
             title: "Xóa danh mục",
             buttons: {
                 okAction: {

@@ -15,11 +15,13 @@ namespace _170516.Controllers
     public class AdministratorController : BaseController
     {
         // GET: /Administrator/
+        [Authorize]
         public ActionResult Index()
         {
             return View("Index", "_AdminLayout");
         }
 
+        [Authorize]
         public ActionResult AccountMenu()
         {
             var accountModel = new AccountModel()
@@ -32,6 +34,7 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult ViewProductCategory(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
         {
             var pageNo = page.GetValueOrDefault();
@@ -128,6 +131,7 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult AddProductCategory()
         {
             var model = new CreateProductCategoryModel();
@@ -145,6 +149,7 @@ namespace _170516.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult AddProductCategory(CreateProductCategoryModel model)
         {
             var category = new Category
@@ -183,6 +188,7 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult UpdateProductCategory(int id)
         {
             var model = new CreateProductCategoryModel();
@@ -218,6 +224,7 @@ namespace _170516.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult UpdateProductCategory(CreateProductCategoryModel model)
         {
             var category = dbContext.Categories.FirstOrDefault(c => c.CategoryID == model.CategoryID);
@@ -249,6 +256,7 @@ namespace _170516.Controllers
             return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize]
         public ActionResult ViewProductCategoryDetail(int id)
         {
             var category = dbContext.Categories.FirstOrDefault(c => c.CategoryID == id);
@@ -288,6 +296,7 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult UpdateProduct(int id)
         {
             var product = dbContext.Products.FirstOrDefault(p => p.ProductID == id);
@@ -364,6 +373,7 @@ namespace _170516.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [ValidateInput(false)]
         public ActionResult UpdateProduct(UpdateProductModel model)
         {
@@ -439,6 +449,7 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult ViewProductDetail(int id)
         {
             var product = dbContext.Products.FirstOrDefault(p => p.ProductID == id);
@@ -508,6 +519,7 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult ViewProduct(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
         {
             var pageNo = page.GetValueOrDefault();
@@ -605,6 +617,7 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult AddProduct()
         {
             var model = new CreateProductModel();
@@ -633,6 +646,7 @@ namespace _170516.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [ValidateInput(false)]
         public JsonResult AddProduct(CreateProductModel model)
         {
@@ -704,6 +718,7 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult AddColor()
         {
             return PartialView("_AddColorPartial");
@@ -740,6 +755,7 @@ namespace _170516.Controllers
         //}
 
         [HttpGet]
+        [Authorize]
         public ActionResult ViewCustomerDetails(int id)
         {
             var customer = dbContext.Customers.FirstOrDefault(c => c.CustomerID == id);
@@ -770,6 +786,7 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult UpdateCustomer(int id)
         {
             var model = new DetailsCustomerModel();
@@ -798,6 +815,7 @@ namespace _170516.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult UpdateCustomer(DetailsCustomerModel model)
         {
             var customer = dbContext.Customers.FirstOrDefault(c => c.CustomerID == model.CustomerID);
@@ -827,6 +845,7 @@ namespace _170516.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult RemoveProduct(int id)
         {
             try
@@ -853,6 +872,7 @@ namespace _170516.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult RemoveProductCategory(int id)
         {
             var category = dbContext.Categories.FirstOrDefault(c => c.CategoryID == id);
@@ -878,6 +898,7 @@ namespace _170516.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult AddSpecification(SpecificationsTableModel model)
         {
             if (Session[Constant.SessionSpecification] == null)
@@ -909,6 +930,7 @@ namespace _170516.Controllers
         }
 
         #region Supplier
+        [Authorize]
         public ActionResult ViewSupplier(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
         {
             var pageNo = page.GetValueOrDefault();
@@ -989,6 +1011,7 @@ namespace _170516.Controllers
             return View(model);
         }
 
+        [Authorize]
         public ActionResult ViewSupplierDetails(int id)
         {
             var supplier = dbContext.Suppliers.FirstOrDefault(s => s.SupplierID == id);
@@ -1024,12 +1047,14 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult AddSupplier()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult AddSupplier(CreateSupplierModel model)
         {
             var supplier = new Supplier
@@ -1074,7 +1099,9 @@ namespace _170516.Controllers
 
             return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
         }
+
         [HttpGet]
+        [Authorize]
         public ActionResult UpdateSupplier(int id)
         {
             var supplier = dbContext.Suppliers.FirstOrDefault(s => s.SupplierID == id);
@@ -1109,7 +1136,9 @@ namespace _170516.Controllers
 
             return View(supplierUpdateModel);
         }
+
         [HttpPost]
+        [Authorize]
         public JsonResult UpdateSupplier(CreateSupplierModel model)
         {
             var supplier = dbContext.Suppliers.FirstOrDefault(s => s.SupplierID == model.SupplierID);
@@ -1153,6 +1182,7 @@ namespace _170516.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public JsonResult RemoveSupplier(int id)
         {
             try
@@ -1181,6 +1211,8 @@ namespace _170516.Controllers
         #endregion
 
         # region Shipper
+
+        [Authorize]
         public ActionResult ViewShipper(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
         {
             var pageNo = page.GetValueOrDefault();
@@ -1265,6 +1297,7 @@ namespace _170516.Controllers
             return View(model);
         }
 
+        [Authorize]
         public ActionResult ViewShipperDetails(int id)
         {
             var shipper = dbContext.Shippers.FirstOrDefault(s => s.ShipperID == id);
@@ -1289,12 +1322,14 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult AddShipper()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult AddShipper(CreateShipperModel model)
         {
             var shipper = new Shipper
@@ -1321,7 +1356,9 @@ namespace _170516.Controllers
 
             return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
         }
+
         [HttpGet]
+        [Authorize]
         public ActionResult UpdateShipper(int id)
         {
             var shipper = dbContext.Shippers.FirstOrDefault(s => s.ShipperID == id);
@@ -1345,7 +1382,9 @@ namespace _170516.Controllers
 
             return View(ShipperUpdateModel);
         }
+
         [HttpPost]
+        [Authorize]
         public JsonResult UpdateShipper(CreateShipperModel model)
         {
             var shipper = dbContext.Shippers.FirstOrDefault(s => s.ShipperID == model.ShipperID);
@@ -1372,6 +1411,7 @@ namespace _170516.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public JsonResult RemoveShipper(int id)
         {
             try
@@ -1400,6 +1440,8 @@ namespace _170516.Controllers
         #endregion
 
         #region Orders
+
+        [Authorize]
         public ActionResult ViewOrder(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
         {
             var pageNo = page.GetValueOrDefault();
@@ -1523,6 +1565,7 @@ namespace _170516.Controllers
             return View(model);
         }
 
+        [Authorize]
         private string GetOrderStatusToUser(string orderStatus)
         {
             string result = string.Empty;
@@ -1548,6 +1591,7 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult UpdateOrder(int id)
         {
             var order = dbContext.Orders.FirstOrDefault(o => o.OrderID == id);
@@ -1605,6 +1649,7 @@ namespace _170516.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult UpdateOrder(UpdateOrderModel model)
         {
             var order = dbContext.Orders.FirstOrDefault(o => o.OrderID == model.OrderID);
@@ -1645,6 +1690,7 @@ namespace _170516.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult CancelOrder(int id)
         {
             var order = dbContext.Orders.FirstOrDefault(o => o.OrderID == id);
@@ -1672,6 +1718,7 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult ViewOrderDetails(int id, int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
         {
             if (id == 0)
@@ -1822,6 +1869,7 @@ namespace _170516.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult CancelOrderProduct(int id)
         {
             var orderDetails = dbContext.OrderDetails.FirstOrDefault(o => o.OrderDetailID == id);
@@ -1848,6 +1896,7 @@ namespace _170516.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult UpdateOrderDetails(int orderDetaisId, decimal price, int quantity, double discount, int size, bool isFulfilled)
         {
             var orderDetails = dbContext.OrderDetails.FirstOrDefault(o => o.OrderDetailID == orderDetaisId);
@@ -1881,6 +1930,8 @@ namespace _170516.Controllers
         #endregion
 
         #region users
+
+        [Authorize]
         public ActionResult ViewUser(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
         {
             var pageNo = page.GetValueOrDefault();
@@ -1986,6 +2037,7 @@ namespace _170516.Controllers
             return View(model);
         }
 
+        [Authorize]
         public JsonResult ChangeUserStatus(string guid)
         {
             var user = dbContext.Accounts.FirstOrDefault(u => u.AccountID == guid);
@@ -2010,12 +2062,14 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult AddUser()
         {
             return View();
         }
 
-        [HttpPost]        
+        [HttpPost]
+        [Authorize]
         public JsonResult AddUser(UpdateUserModel model)
         {            
             bool isExist = dbContext.Accounts.Any(u => u.AccountID != model.AccountID && u.Username == model.Username);
@@ -2071,6 +2125,7 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult UpdateUser(string userid)
         {
             var user = dbContext.Accounts.FirstOrDefault(u => u.AccountID == userid);
@@ -2101,6 +2156,7 @@ namespace _170516.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult UpdateUser(UpdateUserModel model)
         {
             var user = dbContext.Accounts.FirstOrDefault(u => u.AccountID == model.AccountID);
@@ -2165,6 +2221,7 @@ namespace _170516.Controllers
         #endregion
 
         [HttpGet]
+        [Authorize]
         public ActionResult ViewRequest(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
         {
             var pageNo = page.GetValueOrDefault();
@@ -2262,6 +2319,7 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult ViewRequestDetail(int id)
         {
             var request = dbContext.Requests.FirstOrDefault(p => p.RequestID == id);
@@ -2288,6 +2346,7 @@ namespace _170516.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
+        [Authorize]
         public ActionResult AnswerRequest(AnswerRequestModel model)
         {
             if(model.RequestID > 0)

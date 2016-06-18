@@ -69,7 +69,7 @@ namespace _170516
                       "~/Content/toastr.css"));
 
             bundles.Add(new StyleBundle("~/Content/admin_css").Include(
-                      "~/Content/Admin/bootstrap/css/united.bootstrap.css",
+                      "~/Content/Admin/bootstrap/css/slate.bootstrap.css",
                       "~/Content/bootstrap-select/bootstrap-select.css",
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/admin.common.css",

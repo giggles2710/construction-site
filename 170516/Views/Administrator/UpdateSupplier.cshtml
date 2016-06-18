@@ -2,25 +2,27 @@
 @model _170516.Models.Administrator.CreateSupplierModel
 
 @{
-    ViewBag.Title = "UpdateSupplier";
+    ViewBag.Title = "Cập nhật nhà cung cấp";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 
 <div class="row">
     <div class="col-md-12">
-        <div class="content-box-large">
+        <div class="main-content-wrapper">
             <div class="panel-heading">
                 @*nav bar*@
                 <ol class="breadcrumb">
-                    <li><a href="@Url.Action("ViewSupplier","Administrator")">Quản Lý nhà cung cấp</a></li>
-                    <li class="active">Chỉnh sửa nhà cung cấp</li>
+                    <li><a href="@Url.Action("ViewSupplier","Administrator")">Quản lý nhà cung cấp</a></li>
+                    <li class="active">Cập nhật nhà cung cấp</li>
                 </ol>
-                <div class="panel-title title-3">Chỉnh sữa nhà cung cấp</div>
+                <div class="container-fluid admin-header">
+                    <div class="title col-md-6 col-xs-6"><h3>Cập Nhật Nhà Cung Cấp</h3></div>
+                </div>
             </div>
-            <div class="panel-body">
+            <div class="container-fluid">
                 @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "updateSupplierForm" }))
-            {
+                {
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
                         <div class="row">
@@ -34,8 +36,17 @@
                                         @Html.ValidationMessageFor(model => model.CompanyName, null, new { @class = "input-error-box text-danger" })
                                     </div>
                                 </div>
+
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ContactFName">Họ <span class="text-danger">*</span></label>
+                                    <label class="col-sm-3 control-label" for="ContactLName">Họ người liên lạc <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        @Html.TextBoxFor(model => model.ContactLName, new { @class = "form-control" })<span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.ContactLName, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ContactFName">Tên người liên lạc <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
                                         @Html.TextBoxFor(model => model.ContactFName, new { @class = "form-control" })<span class="input-error-box text-danger"></span>
                                         @Html.ValidationMessageFor(model => model.ContactFName, null, new { @class = "input-error-box text-danger" })
@@ -51,7 +62,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="Address1">Địa chỉ 1: <span class="text-danger">*</span></label>
+                                    <label class="col-sm-3 control-label" for="Address1">Địa chỉ 1 <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
                                         @Html.TextBoxFor(model => model.Address1, new { @class = "form-control" })<span class="input-error-box text-danger"></span>
                                         @Html.ValidationMessageFor(model => model.Address1, null, new { @class = "input-error-box text-danger" })
@@ -59,7 +70,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="Address2">Địa chỉ 2: </label>
+                                    <label class="col-sm-3 control-label" for="Address2">Địa chỉ 2 </label>
                                     <div class="col-sm-7">
                                         @Html.TextBoxFor(model => model.Address2, new { @class = "form-control" })<span class="input-error-box text-danger"></span>
                                         @Html.ValidationMessageFor(model => model.Address2, null, new { @class = "input-error-box text-danger" })
@@ -67,42 +78,42 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="City">Tỉnh/Thành phố: <span class="text-danger">*</span></label>
+                                    <label class="col-sm-3 control-label" for="City">Tỉnh/Thành phố <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
                                         @Html.TextBoxFor(model => model.City, new { @class = "form-control" })<span class="input-error-box text-danger"></span>
                                         @Html.ValidationMessageFor(model => model.City, null, new { @class = "input-error-box text-danger" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="Phone">Số điện thoại: <span class="text-danger">*</span></label>
+                                    <label class="col-sm-3 control-label" for="Phone">Số điện thoại <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
                                         @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })<span class="input-error-box text-danger"></span>
                                         @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "input-error-box text-danger" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="Fax">Fax: </label>
+                                    <label class="col-sm-3 control-label" for="Fax">Fax </label>
                                     <div class="col-sm-7">
                                         @Html.TextBoxFor(model => model.Fax, new { @class = "form-control" })<span class="input-error-box text-danger"></span>
                                         @Html.ValidationMessageFor(model => model.Fax, null, new { @class = "input-error-box text-danger" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="EmailAddress">Email address: <span class="text-danger">*</span></label>
+                                    <label class="col-sm-3 control-label" for="EmailAddress">Địa chỉ Email <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
                                         @Html.TextBoxFor(model => model.EmailAddress, new { @class = "form-control" })<span class="input-error-box text-danger"></span>
                                         @Html.ValidationMessageFor(model => model.EmailAddress, null, new { @class = "input-error-box text-danger" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="Discount">Discount: <span class="text-danger">*</span></label>
+                                    <label class="col-sm-3 control-label" for="Discount">Giảm giá <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
                                         @Html.TextBoxFor(model => model.Discount, new { @class = "form-control" })<span class="input-error-box text-danger"></span>
                                         @Html.ValidationMessageFor(model => model.Discount, null, new { @class = "input-error-box text-danger" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductType">Product Type: <span class="text-danger">*</span></label>
+                                    <label class="col-sm-3 control-label" for="ProductType">Loại sản phẩm <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
                                         @Html.TextBoxFor(model => model.ProductType, new { @class = "form-control" })<span class="input-error-box text-danger"></span>
                                         @Html.ValidationMessageFor(model => model.ProductType, null, new { @class = "input-error-box text-danger" })
@@ -112,7 +123,7 @@
 
                             <div class="col-md-4 col-lg-4">
                                 <div class="form-group">
-                                    <label class="control-label">Logo</label>
+                                    <label class="control-label">Logo nhà cung cấp</label>
                                     <!-- IMAGE -->
                                     <div class="image-box">
                                         @if (string.IsNullOrEmpty(Model.Logo))
@@ -123,7 +134,7 @@
                                         {
                                             <img id="ImageBox" src="@Model.Logo" class="image-box" />
                                         }
-                                        
+
                                         <div id="ImagePreviewBox" class="preview-box" style="max-width:80%;"></div>
                                         <input id="ImageUpload" type="file" class="image-file-input" name="ImageUpload" />
                                         <input id="SupplierImage" type="hidden" name="Logo" />
@@ -137,7 +148,7 @@
                                 <div class="form-group">
                                     <div class="col-md-12 form-button">
                                         <button class="btn btn-primary" type="button" id="SubmitUpdateSupplier"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
-                                        <button class="btn btn-danger" type="button"  id="CancelUpdateSupplier"><i class="glyphicon glyphicon-remove"></i>Hủy</button>
+                                        <button class="btn btn-danger" type="button" id="CancelUpdateSupplier"><i class="glyphicon glyphicon-remove"></i>Hủy</button>
                                     </div>
                                 </div>
                             </div>

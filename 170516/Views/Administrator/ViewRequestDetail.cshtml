@@ -4,35 +4,36 @@
 }
 <div class="row">
     <div class="col-md-12">
-        <div class="content-box-large">
+        <div class="main-content-wrapper">
             <div class="panel-heading">
                 <ol class="breadcrumb">
                     <li><a href="@Url.Action("ViewProduct","Administrator")">Quản Lý Yêu Cầu</a></li>
                     <li class="active">Chi tiết yêu cầu</li>
                 </ol>
-                <div class="panel-title title-3">Chi tiết yêu cầu khách hàng @Model.FullName</div>
+                <div class="container-fluid admin-header">
+                    <div class="title col-md-6 col-xs-6"><h3>Chi tiết yêu cầu khách hàng @Model.FullName</h3></div>
+                </div>
             </div>
-            <div class="panel-body">
-
+            <div class="container-fluid">
                 <div class="form-horizontal">
                     <input type="hidden" id="RequestIdInput" value="@Model.RequestID" />
                     <fieldset>
                         <legend>Thông tin chung</legend>
 
                         <div class="row">
-                            <div class="col-md-6 col-lg-6">
+                            <div class="col-md-6 col-lg-6 detail-view">
                                 <!-- FULL NAME -->
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="FullName">Họ và Tên</label>
                                     <div class="col-sm-7">
-                                        <h6 class="info-box">@Model.FullName</h6>
+                                        <p class="info-box">@Model.FullName</p>
                                     </div>
                                 </div>
                                 <!-- EMAIL ADDRESS -->
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="EmailAddress">Email</label>
                                     <div class="col-sm-7">
-                                        <h6 class="info-box">@Model.EmailAddress</h6>
+                                        <p class="info-box">@Model.EmailAddress</p>
                                     </div>
                                 </div>
 
@@ -40,7 +41,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ProductPrice">Ngày Tạo</label>
                                     <div class="col-sm-7">
-                                        <h6 class="info-box">@Model.DateCreated</h6>
+                                        <p class="info-box">@Model.DateCreated</p>
                                     </div>
                                 </div>
                                 <!-- CONTENT -->
@@ -51,18 +52,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-lg-6">
+                            <div class="col-md-6 col-lg-6 detail-view">
                                 <!-- REPLY USER -->
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ReplyUser">Người trả lời</label>
                                     <div class="col-sm-7">
                                         @if (string.IsNullOrWhiteSpace(Model.ReplyUser))
                                         {
-                                            <h6>Chưa có</h6>
+                                            <p class="info-box">Chưa có</p>
                                         }
                                         else
                                         {
-                                            <h6 class="info-box">@Model.ReplyUser</h6>
+                                            <p class="info-box">@Model.ReplyUser</p>
                                         }
                                     </div>
                                 </div>
@@ -73,11 +74,11 @@
                                     <div class="col-sm-7">
                                         @if (string.IsNullOrWhiteSpace(Model.DateCreated))
                                         {
-                                            <h6>Chưa có</h6>
+                                            <p class="info-box">Chưa có</p>
                                         }
                                         else
                                         {
-                                            <h6 class="info-box">@Model.DateCreated</h6>
+                                            <p class="info-box">@Model.DateCreated</p>
                                         }
                                     </div>
                                 </div>
@@ -88,7 +89,7 @@
                                     <div class="col-sm-7">
                                         @if (string.IsNullOrWhiteSpace(Model.Reply))
                                         {
-                                            <h6>Chưa có</h6>
+                                            <p class="info-box">Chưa có</p>
                                         }
                                         else
                                         {
@@ -106,7 +107,7 @@
                         <div class="row">
                             <!-- DESCRIPTION -->
                             <div class="form-group col-sm-12 add-product-description" style="margin-left:2px;">
-                                <textarea class="tiny_mce_input" type="file" id="ReplyContent" name="ReplyContent" style="    width: 100%;"></textarea>
+                                <textarea class="tiny_mce_input" type="file" id="ReplyContent" name="ReplyContent" style=" width 100%;"></textarea>
                             </div>
                         </div>
                         <div class="row">

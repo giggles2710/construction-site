@@ -1,22 +1,24 @@
 ﻿@model _170516.Models.Administrator.ViewOrderModel
 @{
-    ViewBag.Title = "ViewOrder";
+    ViewBag.Title = "Quản lý đơn hàng";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 
 <div class="row">
     <div class="col-md-12">
-        <div class="content-box-large">
+        <div class="main-content-wrapper">
             <div class="panel-heading">
                 <ol class="breadcrumb">
-                    <li><a href="@Url.Action("ViewOrder","Administrator")">Quản Lý Đơn hàng</a></li>                    
+                    <li><a href="@Url.Action("ViewOrder","Administrator")">Quản lý đơn hàng</a></li>
                 </ol>
-                <div class="panel-title title-3">Danh Sách Đơn hàng</div>               
+                <div class="container-fluid admin-header">
+                    <div class="title col-md-6 col-xs-6"><h3>Danh Sách Đơn Hàng</h3></div>
+                </div>
             </div>
-            <div class="panel-body">
+            <div class="container-fluid">
                 @if (Model.Orders.Any())
-            {
+                {
                     <div class="row">
                         <div class="col-sm-6">
                             <input type="hidden" id="dataTables_sort_field_hidden" value="@Model.SortField" />
@@ -110,7 +112,7 @@
                                         {
                                             <th class="center" tabindex="0" rowspan="1" data-sort="Shipper" data-direction="asc" colspan="1">Shipper<i class="fa fa-fw fa-sort-asc"></i></th>
                                         }
-                                        
+
                                         @if (Model.SortField.Equals("Freight"))
                                         {
                                             if (Model.IsAsc)
@@ -247,22 +249,22 @@
                                                 @Html.DisplayFor(model => model.Orders[i - 1].Freight)
                                             </td>
                                             <td>
-                                            @Html.DisplayFor(model => model.Orders[i - 1].SalesTax)
+                                                @Html.DisplayFor(model => model.Orders[i - 1].SalesTax)
                                             </td>
                                             <td>
-                                            @Html.DisplayFor(model => model.Orders[i - 1].Paid)
+                                                @Html.DisplayFor(model => model.Orders[i - 1].Paid)
                                             </td>
                                             <td>
-                                            @Html.DisplayFor(model => model.Orders[i - 1].TotalIncome)                                            
+                                                @Html.DisplayFor(model => model.Orders[i - 1].TotalIncome)
                                             <td>@Model.Orders[i - 1].ShipDate.ToString("dd/MM/yyyy")</td>
                                             <td>
                                                 @if (Model.Orders[i - 1].PaymentDate != null)
                                                 {
                                                     <span>@Model.Orders[i - 1].PaymentDate.Value.ToShortDateString()</span>
-                                                }                                            
+                                                }
                                             </td>
-                                            <td>@Model.Orders[i - 1].OrderDate.ToString("dd/MM/yyyy")</td>                                            
-                                            <td> 
+                                            <td>@Model.Orders[i - 1].OrderDate.ToString("dd/MM/yyyy")</td>
+                                            <td>
                                                 @if (@Model.Orders[i - 1].OrderStatusToUser == "Đơn hàng đã hủy")
                                                 {
                                                     <span class="btn-danger">
@@ -276,19 +278,19 @@
                                                         @Model.Orders[i - 1].OrderStatusToUser
                                                     </span>
                                                 }
-                                                else 
+                                                else
                                                 if (@Model.Orders[i - 1].OrderStatusToUser == "Đang được xử lý")
                                                 {
-                                                <span class="btn-primary">
-                                                    @Model.Orders[i - 1].OrderStatusToUser
-                                                </span>
-                                                }                                                
+                                                    <span class="btn-primary">
+                                                        @Model.Orders[i - 1].OrderStatusToUser
+                                                    </span>
+                                                }
                                                 else
                                                 {
-                                                    <span class="btn-info">@Model.Orders[i - 1].OrderStatusToUser</span>                                                    
+                                                    <span class="btn-info">@Model.Orders[i - 1].OrderStatusToUser</span>
                                                 }
-                                                
-                                            </td>   
+
+                                            </td>
                                             <td>
                                                 <a class="action-link detail-link" title="Chi tiết đơn hàng" href="@Url.Action("ViewOrderDetails", "Administrator", new { id = Model.Orders[i - 1].OrderID })"><i class="fa fa-info-circle"></i></a>
                                                 <a class="action-link update-link" title="Cập nhật" href="@Url.Action("UpdateOrder", "Administrator", new { id = Model.Orders[i - 1].OrderID })"><i class="fa fa-pencil"></i></a>
@@ -304,7 +306,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">                            
+                        <div class="col-sm-6">
                             @if (Model.EndIndex > Model.TotalNumber)
                             {
                                 <div class="dataTables_info" role="status" aria-live="polite">Hiển thị từ @Model.StartIndex tới @Model.TotalNumber trong @Model.TotalNumber đơn hàng</div>
@@ -312,7 +314,7 @@
                             else
                             {
                                 <div class="dataTables_info" role="status" aria-live="polite">Hiển thị từ @Model.StartIndex tới @Model.EndIndex trong @Model.TotalNumber đơn hàng</div>
-                            }     
+                            }
                         </div>
                         <div class="col-sm-6">
                             <div class="dataTables_paginate">

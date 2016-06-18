@@ -4,47 +4,60 @@
 }
 <div class="row">
     <div class="col-md-12">
-        <div class="content-box-large">
+        <div class="main-content-wrapper">
             <div class="panel-heading">
                 <ol class="breadcrumb">
-                    <li><a href="@Url.Action("ViewProduct","Administrator")">Quản Lý Sản Phẩm</a></li>
+                    <li><a href="@Url.Action("ViewProduct","Administrator")">Quản lý sản phẩm</a></li>
                     <li class="active">Chi tiết sản phẩm</li>
                 </ol>
-                <div class="panel-title title-3">@Model.ProductName</div>
             </div>
-            <div class="panel-body">
+            <div class="container-fluid">
                 <div class="form-horizontal">
                     <fieldset class="fieldset">
                         <legend class="fieldset-legend">Thông tin cơ bản</legend>
 
                         <div class="row">
-                            <div class="col-md-8 col-lg-8">
+                            <div class="col-md-8 col-lg-8 detail-view">
                                 <!-- PRODUCT NAME -->
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ProductName">Tên Sản Phẩm</label>
                                     <div class="col-sm-7">
-                                        <h6 class="info-box">@Model.ProductName</h6>
+                                        <p class="info-box">@Model.ProductName</p>
                                     </div>
                                 </div>
                                 <!-- PRODUCT CATEGORY -->
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ProductCategoryID">Danh Mục</label>
                                     <div class="col-sm-7">
-                                        <h6 class="info-box">@Model.CategoryName</h6>
+                                        @if (string.IsNullOrWhiteSpace(Model.CategoryName))
+                                        {
+                                            <p class="info-box">Chưa có danh mục sản phẩm</p>
+                                        }
+                                        else
+                                        {
+                                            <p class="info-box">@Model.CategoryName</p>
+                                        }
                                     </div>
                                 </div>
                                 <!-- QUANTITY UNIT IN STOCK -->
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ProductQuantity">Số Lượng</label>
                                     <div class="col-sm-7">
-                                        <h6 class="info-box">@Model.QuantityUnit</h6>
+                                        <p class="info-box">@Model.QuantityUnit</p>
                                     </div>
                                 </div>
                                 <!-- SUPPLIER -->
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ProductSupplierID">Nhà Phân Phối</label>
                                     <div class="col-sm-7">
-                                        <h6 class="info-box">@Model.SupplierName</h6>
+                                        @if (string.IsNullOrWhiteSpace(Model.SupplierName))
+                                        {
+                                            <p class="info-box">Chưa có nhà cung cấp</p>
+                                        }
+                                        else
+                                        {
+                                            <p class="info-box">@Model.SupplierName</p>
+                                        }
                                     </div>
                                 </div>
 
@@ -54,11 +67,11 @@
                                     <div class="col-sm-7">
                                         @if (Model.Discount == 0)
                                         {
-                                            <h6 class="info-box">Không áp dụng khuyến mãi</h6>
+                                            <p class="info-box">Không áp dụng khuyến mãi</p>
                                         }
                                         else
                                         {
-                                            <h6 class="info-box">@Model.Discount %</h6>
+                                            <p class="info-box">@Model.Discount %</p>
                                         }
                                     </div>
                                 </div>
@@ -66,18 +79,18 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ProductPrice">Giá</label>
                                     <div class="col-sm-7">
-                                        <h6 class="info-box">@Model.Price đ</h6>
+                                        <p class="info-box">@Model.Price đ</p>
                                     </div>
                                 </div>
                                 <!-- SUMMARY -->
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ProductSummary">Giới Thiệu <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        <textarea class="form-control double-input large-input" id="ProductSummary" name="ProductSummary" value="@Model.Summary"></textarea>
+                                        <p class="info-box" id="ProductSummary" name="ProductSummary">@Model.Summary</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-lg-4">
+                            <div class="col-md-4 col-lg-4 detail-view">
                                 <div class="form-group">
                                     <!-- IMAGE -->
                                     <label class="control-label" for="ProductDescription">Ảnh Sản Phẩm</label>
@@ -134,7 +147,7 @@
                         <div class="row">
                             <!-- DESCRIPTION -->
                             <div class="form-group col-sm-12 add-product-description" style="margin-left:2px;">
-                               <p>@Html.Raw(Model.Description)</p>
+                                <p>@Html.Raw(Model.Description)</p>
                             </div>
                         </div>
                     </fieldset>

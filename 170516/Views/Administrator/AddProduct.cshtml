@@ -4,16 +4,15 @@
 }
 <div class="row">
     <div class="col-md-12">
-        <div class="content-box-large">
+        <div class="main-content-wrapper">
             <div class="panel-heading">
                 @*nav bar*@
                 <ol class="breadcrumb">
-                    <li><a href="@Url.Action("ViewProduct","Administrator")">Quản Lý Sản Phẩm</a></li>
-                    <li class="active">Tạo Sản Phẩm</li>
+                    <li><a href="@Url.Action("ViewProduct","Administrator")">Quản lý sản phẩm</a></li>
+                    <li class="active">Tạo sản phẩm</li>
                 </ol>
-                <div class="panel-title title-3">Tạo Sản Phẩm Mới</div>
             </div>
-            <div class="panel-body">
+            <div class="container-fluid">
                 <form id="AddProductForm">
                     <div class="form-horizontal">
                         <fieldset class="fieldset">
@@ -95,7 +94,7 @@
                                     </div>
                                     <!-- SUMMARY -->
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="ProductSummary">Giá <span class="text-danger">*</span></label>
+                                        <label class="col-sm-3 control-label" for="ProductSummary">Mô tả </label>
                                         <div class="col-sm-7">
                                             <textarea class="form-control double-input large-input" id="ProductSummary" name="ProductSummary" value="@Model.ProductSummary"></textarea>
                                         </div>

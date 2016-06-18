@@ -38,45 +38,6 @@
         <div class="row">
             <div class="col-md-3">
                 <!-- menu -->
-                <div class="sidebar content-box" style="display:block">
-                    <ul class="nav nav-pills nav-stacked">
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                                <i class="fa fa-list"></i> Nội Dung <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="@Url.Action("ViewProductCategory","Administrator")">Danh Mục</a></li>
-                                <li><a href="@Url.Action("ViewProduct","Administrator")">Sản Phẩm</a></li>
-                                <li><a href="@Url.Action("ViewSupplier","Administrator")">Nhà cung cấp</a></li>
-                                <li><a href="@Url.Action("ViewShipper","Administrator")">Shipper</a></li>
-                                <li><a href="@Url.Action("ViewSystemVariable","Administrator")">Thông Tin Công Ty</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="@Url.Action("ViewRequest","Administrator")"><i class="fa fa-inbox" aria-hidden="true"></i> Yêu Cầu Khách Hàng</a></li>                        
-                        <li><a href="@Url.Action("ViewUser","Administrator")"><i class="fa fa-users" aria-expanded="false"></i> Tài Khoản</a></li>
-                        <li><a href="@Url.Action("ViewOrder","Administrator")"><i class="fa fa-shopping-cart" aria-expanded="false"></i> Đơn Hàng</a></li>
-                        
-                    </ul>
-                    @*<ul class="nav">
-                        <!-- Main menu -->
-                        <li class="current"><a href="index.html"><i class="glyphicon glyphicon-home"></i> Tổng Kết</a></li>
-                        <li class="submenu">
-                            <a href="#">
-                                <i class="glyphicon glyphicon-book"></i> Nội Dung
-                                <span class="caret pull-right"></span>
-                            </a>
-                            <!-- Sub menu -->
-                            <ul>
-                                <li><a href="@Url.Action("ViewProductCategory","Administrator")">Danh Mục</a></li>
-                                <li><a href="@Url.Action("ViewProduct","Administrator")">Sản Phẩm</a></li>
-                                <li><a href="@Url.Action("ViewSupplier","Administrator")">Nhà cung cấp</a></li>
-                                <li><a href="@Url.Action("ViewShipper","Administrator")">Shipper</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="stats.html"><i class="glyphicon glyphicon-user"></i> Tài Khoản</a></li>
-                        <li><a href="@Url.Action("ViewOrder","Administrator")"><i class="glyphicon glyphicon-list"></i> Đơn Hàng</a></li>
-                        <li><a href="buttons.html"><i class="glyphicon glyphicon-stats"></i> Thống Kê</a></li>
-                    </ul>*@
                 <div class="list-group table-of-contents">
                     <a class="list-group-item" href="#"><i class="fa fa-list"></i> Nội Dung</a>
                     <a class="list-group-item list-group-item-child" href="@Url.Action("ViewProductCategory","Administrator")">Danh Mục</a>
@@ -85,7 +46,7 @@
                     <a class="list-group-item list-group-item-child" href="@Url.Action("ViewShipper","Administrator")">Shipper</a>
                     <a class="list-group-item list-group-item-child" href="@Url.Action("ViewSystemVariable","Administrator")">Thông Tin Công Ty</a>
                     <a class="list-group-item" href="@Url.Action("ViewRequest","Administrator")"><i class="fa fa-inbox" aria-hidden="true"></i> Yêu Cầu Khách Hàng</a>
-                    <a class="list-group-item" href="stats.html"><i class="fa fa-users" aria-expanded="false"></i> Tài Khoản</a>
+                    <a class="list-group-item" href="@Url.Action("ViewUser","Administrator")"><i class="fa fa-users" aria-expanded="false"></i> Tài Khoản</a>
                     <a class="list-group-item" href="@Url.Action("ViewOrder","Administrator")"><i class="fa fa-shopping-cart" aria-expanded="false"></i> Đơn Hàng</a>
                 </div>
             </div>
@@ -95,7 +56,6 @@
                 <!-- end body-->
             </div>
         </div>
-
     </div>
     <!-- Footer -->
     <footer>
