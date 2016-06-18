@@ -54,45 +54,43 @@
                 </div>
                 <div class="product-grid">
 
-                    @for (var j = 0; j < 10; j++)
+                    for (var i = 0; i < Model.MenuOnMainPage.Count; i++)
                     {
-                        for (var i = 0; i < Model.MenuOnMainPage.Count; i++)
-                        {
-                            <div class="product-wrapper">
-                                <div class="product-row clearfix">
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-5">
-                                            <div class="product">
-                                                <div class="product-cover">
-                                                    @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i].ImageSrc))
-                                                    {
-                                                        <img class="group list-group-image" src="@Model.MenuOnMainPage[i].ImageSrc" alt="" />
-                                                    }
-                                                    else
-                                                    {
-                                                        <img class="group list-group-image" src="~/Content/Image/image_placeholder.jpg" alt="" />
-                                                    }
-                                                </div><!-- /.product-cover -->
-                                            </div><!-- /.product -->
-                                        </div><!-- /.col -->
-                                        <div class="col-md-8 col-sm-7 product-feature-wrapper">
-                                            <div class="product-details product-details-list-view">
-                                                <h3 class="product-name">
-                                                    <a href="@Url.Action("ViewProductDetail","Product", new { id = Model.MenuOnMainPage[i].ProductID})">@Model.MenuOnMainPage[i].ProductName</a>
-                                                </h3>
-                                                <p class="product-price">@Model.MenuOnMainPage[i].Price đ</p>
-                                            </div>
-                                            <div class="featured-product-content">
-                                                <p class="hidden-sm hidden-md">@Model.MenuOnMainPage[i].Summary</p>
-                                            </div>
-                                            <div class="actions">
-                                                <button class="btn btn-primary add-to-cart"><i class="fa fa-plus-circle"></i> Thêm vào giỏ hàng</button>
-                                            </div>
-                                        </div>
+                    <div class="product-wrapper">
+                        <div class="product-row clearfix">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-5">
+                                    <div class="product">
+                                        <div class="product-cover">
+                                            @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i].ImageSrc))
+                                            {
+                                                <img class="group list-group-image" src="@Model.MenuOnMainPage[i].ImageSrc" alt="" />
+                                            }
+                                            else
+                                            {
+                                                <img class="group list-group-image" src="~/Content/Image/image_placeholder.jpg" alt="" />
+                                            }
+                                        </div><!-- /.product-cover -->
+                                    </div><!-- /.product -->
+                                </div><!-- /.col -->
+                                <div class="col-md-8 col-sm-7 product-feature-wrapper">
+                                    <div class="product-details product-details-list-view">
+                                        <h3 class="product-name">
+                                            <a href="@Url.Action("ViewProductDetail","Product", new { id = Model.MenuOnMainPage[i].ProductID})">@Model.MenuOnMainPage[i].ProductName</a>
+                                        </h3>
+                                        <p class="product-price">@Model.MenuOnMainPage[i].Price đ</p>
+                                    </div>
+                                    <div class="featured-product-content">
+                                        <p class="hidden-sm hidden-md">@Model.MenuOnMainPage[i].Summary</p>
+                                    </div>
+                                    <div class="actions">
+                                        <button class="btn btn-primary add-to-cart"><i class="fa fa-plus-circle"></i> Thêm vào giỏ hàng</button>
                                     </div>
                                 </div>
                             </div>
-                        }
+                        </div>
+                    </div>
+
                     }
                 </div>
                 <div class="product-pagination">
