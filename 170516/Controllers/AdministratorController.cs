@@ -1,6 +1,7 @@
 ﻿using _170516.Entities;
 using _170516.Models;
 using _170516.Models.Administrator;
+using _170516.Utility;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -2004,6 +2005,67 @@ namespace _170516.Controllers
         }
 
         [HttpGet]
+        public ActionResult AddUser()
+        {
+            return View();
+        }
+
+        [HttpPost]        
+        public JsonResult AddUser(UpdateUserModel model)
+        {            
+            bool isExist = dbContext.Accounts.Any(u => u.AccountID != model.AccountID && u.Username == model.Username);
+
+            if (isExist)
+            {
+                return Json(new { isResult = false, result = Constant.UsernameExists }, JsonRequestBehavior.AllowGet);
+            }
+
+            isExist = dbContext.Accounts.Any(u => u.AccountID != model.AccountID && u.EmailAddress == model.EmailAddress);
+
+            if (isExist)
+            {
+                return Json(new { isResult = false, result = Constant.EmailExists }, JsonRequestBehavior.AllowGet);
+            }
+
+            var user = new Account();
+            user.AccountID = Guid.NewGuid().ToString();
+            user.IsActive = true;
+            user.HashToken = UtilityHelper.RandomString(10);
+            user.ModifiedDate = DateTime.Now;
+
+            user.Username = model.Username;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.PhoneNumber = model.PhoneNumber;
+            user.EmailAddress = model.EmailAddress;
+            user.Password = EncryptionHelper.HashPassword(model.Password, user.HashToken);
+
+            //image
+            if (!string.IsNullOrWhiteSpace(model.UserImage))
+            {
+                var imageInfos = model.UserImage.Split(':');
+
+                if (imageInfos.Length > 0)
+                {
+                    user.ImageType = imageInfos[0]; // file type
+                    user.Image = Convert.FromBase64String(imageInfos[1]); // base 64 string
+                }
+            }
+
+            try
+            {
+                dbContext.Accounts.Add(user);
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
         public ActionResult UpdateUser(string userid)
         {
             var user = dbContext.Accounts.FirstOrDefault(u => u.AccountID == userid);
@@ -2023,6 +2085,7 @@ namespace _170516.Controllers
                 PhoneNumber = user.PhoneNumber
             };
 
+           
             // image
             if (user.Image != null && !string.IsNullOrEmpty(user.ImageType))
             {
@@ -2064,10 +2127,17 @@ namespace _170516.Controllers
             user.EmailAddress = model.EmailAddress;
             user.ModifiedDate = DateTime.Now;
 
-            //image
-            if (!string.IsNullOrWhiteSpace(model.Username))
+            //password
+            if (!string.IsNullOrEmpty(model.PasswordInUpdate))
             {
-                var imageInfos = model.Username.Split(':');
+                user.HashToken = UtilityHelper.RandomString(10);
+                user.Password = EncryptionHelper.HashPassword(model.PasswordInUpdate, user.HashToken);
+            }
+           
+            //image
+            if (!string.IsNullOrWhiteSpace(model.UserImage))
+            {
+                var imageInfos = model.UserImage.Split(':');
 
                 if (imageInfos.Length > 0)
                 {

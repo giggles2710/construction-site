@@ -1682,6 +1682,7 @@
     <Content Include="Views\Product\Showcase.cshtml" />
     <Content Include="Views\Administrator\ViewUser.cshtml" />
     <Content Include="Views\Administrator\UpdateUser.cshtml" />
+    <Content Include="Views\Administrator\AddUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

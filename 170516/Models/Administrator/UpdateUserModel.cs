@@ -11,7 +11,14 @@ namespace _170516.Models.Administrator
         public string AccountID { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập tên đăng nhập")]
         public string Username { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập mật khẩu")]
+        [MinLength(8, ErrorMessage ="Mật khẩu phải ít nhất 8 ký tự")]
+        [MaxLength(16, ErrorMessage = "Mật khẩu phải nhiều nhất chỉ 16 ký tự")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        public string PasswordInUpdate { get; set; }
+
         [Required(ErrorMessage = "Vui lòng nhập họ")]
         public string FirstName { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập tên")]
