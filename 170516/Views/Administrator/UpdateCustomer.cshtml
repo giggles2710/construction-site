@@ -19,7 +19,6 @@
             <div class="panel-body">
                 @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "updateCustomerForm" }))
                 {
-                    @Html.AntiForgeryToken()
                     <div class="form-horizontal">
                         <div class="row">
                             @Html.ValidationSummary(true)

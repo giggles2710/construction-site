@@ -20,7 +20,7 @@
             <div class="container-fluid">
                 @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "updateUserForm" }))
                 {
-                    @Html.AntiForgeryToken()
+                   
                     <div class="form-horizontal">
                         <div class="row">
                             @Html.ValidationSummary(true)

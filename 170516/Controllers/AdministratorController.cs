@@ -2177,7 +2177,7 @@ namespace _170516.Controllers
 
             if (isExist)
             {
-                return Json(new { isResult = false, result = Constant.UsernameExists }, JsonRequestBehavior.AllowGet);
+                return Json(new { isResult = false, result = Constant.EmailExists }, JsonRequestBehavior.AllowGet);
             }
 
             user.Username = model.Username;
