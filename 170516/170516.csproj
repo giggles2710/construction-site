@@ -264,12 +264,14 @@
     <Compile Include="Models\Administrator\ViewUserModel.cs" />
     <Compile Include="Models\CategoryIndexModel.cs" />
     <Compile Include="Models\Constant.cs" />
+    <Compile Include="Models\EmailDeliveryModel.cs" />
     <Compile Include="Models\ProductIndexModel.cs" />
     <Compile Include="Models\RequestContactModel.cs" />
     <Compile Include="Models\ShowcaseProductDetail.cs" />
     <Compile Include="Models\SubCategoryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utility\EmailServiceHelper.cs" />
     <Compile Include="Utility\EncryptionHelper.cs" />
   </ItemGroup>
   <ItemGroup>

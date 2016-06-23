@@ -8,25 +8,23 @@
         height: "480"
     });
 
-    $('#AnswerButton').on('click', function () {
+    $('#AnswerButton').on('click', function() {
         var isValid = true;
-        var $content = $('#ReplyContent');
+        var content = tinyMCE.get('ReplyContent').getContent();
 
         // validate
-        if ($content.val() == null || $content.val() == undefined || $content.val().trim() == "") {
+        if (content == null || content.trim() == "") {
             isValid = false;
             // show message
-            $content.next().text('Nội dung trả lời không được bỏ trống.').show();
+            alert('khong duoc bo trong noi dung');
         }
 
         if (isValid) {
-            // hide all error message of this form
-            $content.next().text('').attr('style', 'display:none;');
 
             // prepare model
             var answerModel = {
                 RequestId: $('#RequestIdInput').val(),
-                ReplyContent: $content.val()
+                ReplyContent: content
             };
 
             // call ajax
@@ -34,10 +32,17 @@
                 url: staticUrl.answerRequest,
                 method: "POST",
                 data: answerModel,
-                error: function (e) {
+                success: function(data) {
+                    if (data.isResult) {
+                        alert(data.result);
+                    } else {
+                        alert(data.result);
+                    }
+                },
+                error: function(e) {
                     toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
                 }
             });
         }
-    })
+    });
 });
