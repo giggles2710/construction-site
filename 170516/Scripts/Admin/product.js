@@ -1,4 +1,10 @@
-﻿$(document).ready(function () {
+﻿$.extend(true, $.fn.dataTable.defaults, {
+    "searching": false,
+    "ordering": false
+});
+
+$(document).ready(function () {
+    
     // check to toast when delete success
     if (window.sessionStorage.DeletedStatus == "true") {
         toastr.success(window.sessionStorage.DeletedMessage);
@@ -14,7 +20,7 @@
         plugin: 'a_tinymce_plugin',
         a_plugin_option: true,
         a_configuration_option: 400,
-        height : "480"
+        height: "480"
     });
 
     // add product specification
@@ -76,7 +82,7 @@
                         toastr.success('Thêm đặc điểm cho sản phẩm thành công.');
                     } else {
                         toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
-                    }                    
+                    }
                 },
                 error: function (e) {
                     toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
@@ -86,7 +92,7 @@
     })
 
     // sorting header
-    $(".dataTable th").on('click', function () {
+    $(".data-table-wrapper th").on('click', function () {
         var sortStr = $(this).data('sort');
         var direction = $(this).data('direction');
 
@@ -383,18 +389,18 @@ var addProductModel = {
         window.location.href = addProductModel.GetCurrentViewProductUrl();
     },
     GetCurrentViewProductUrl: function () {
-        var $activatePage = $('.pageinate_button.active');
+        var $activatePage = $('.paginate_button.active a');
         var page = 1; // page
         if ($activatePage.length > 0)
             page = $activatePage[0].text;
 
         var itemsOnPage = $('#dataTables_showNumberSelect').val(); // items on page
-        var searchText = $('#dataTables_show_item_search input[type="search"]').val(); // search text
+        var searchText = $('#dataTables_show_item_search').val(); // search text
         var sortField = $('#dataTables_sort_field_hidden').val(); // sort field
         var directionField = $('#dataTables_sort_direction_hidden').val(); // direction field
 
         return staticUrl.viewProduct + "?page=" + page + "&itemsPerPage="
-            + itemsOnPage + "&searchText=" + searchText + "&sortField=" + sortField + "&isAsc=" + directionField;
+            + itemsOnPage + "&searchText=" + (searchText == undefined ? "" : searchText) + "&sortField=" + (sortField == undefined ? "" : sortField) + "&isAsc=" + (directionField == undefined ? "" : directionField);
     },
     SortProduct: function (sortField, isAsc) {
         var $activatePage = $('.pageinate_button.active');

@@ -2,17 +2,20 @@
 @{
     ViewBag.Title = "Cập nhật sản phẩm";
 }
-<div class="row">
-    <div class="col-md-12">
-        <div class="main-content-wrapper">
-            <div class="panel-heading">
-                @*nav bar*@
-                <ol class="breadcrumb">
-                    <li><a href="@Url.Action("ViewProduct","Administrator")">Quản lý sản phẩm</a></li>
-                    <li class="active">Cập nhật sản phẩm</li>
-                </ol>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="btn-group pull-right m-t-5 m-b-20">
+                @*<button type="button" class="btn btn-custom dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">Thêm sản phẩm <span class="m-l-5"><i class="fa fa-plus"></i></span></button>*@
             </div>
-            <div class="container-fluid">
+            <h4 class="page-title">Cập nhật sản phẩm @Model.ProductName</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-box">
                 <form id="UpdateProductForm">
                     <div class="form-horizontal">
                         <fieldset class="fieldset">
@@ -36,24 +39,24 @@
                                         <div class="col-sm-7">
                                             @if (Model.CategoryList.Any())
                                             {
-                                            <select id="ProductCategoryID" class="form-control" name="ProductCategoryID">
-                                                @foreach (var category in Model.CategoryList)
+                                                <select id="ProductCategoryID" class="form-control" name="ProductCategoryID">
+                                                    @foreach (var category in Model.CategoryList)
                                                     {
                                                         if (category.CategoryID == Model.SelectedCategoryID)
                                                         {
-                                                    <option value="@category.CategoryID" selected>@category.CategoryName</option>
+                                                            <option value="@category.CategoryID" selected>@category.CategoryName</option>
                                                         }
                                                         else
                                                         {
-                                                    <option value="@category.CategoryID">@category.CategoryName</option>
+                                                            <option value="@category.CategoryID">@category.CategoryName</option>
                                                         }
                                                     }
-                                            </select>
-                                            <span class="field-validation-valid" data-valmsg-for="CategoryID" data-valmsg-replace="true"></span>
+                                                </select>
+                                                    <span class="field-validation-valid" data-valmsg-for="CategoryID" data-valmsg-replace="true"></span>
                                             }
                                             else
                                             {
-                                            <h6>Chưa có dữ liệu</h6>
+                                                <h6>Chưa có dữ liệu</h6>
                                             }
                                         </div>
                                     </div>
@@ -71,23 +74,23 @@
                                         <div class="col-sm-7">
                                             @if (Model.SupplierList.Any())
                                             {
-                                            <select id="ProductSupplierID" name="ProductSupplierID" class="form-control">
-                                                @foreach (var supplier in Model.SupplierList)
+                                                <select id="ProductSupplierID" name="ProductSupplierID" class="form-control">
+                                                    @foreach (var supplier in Model.SupplierList)
                                                     {
                                                         if (supplier.SupplierID == Model.SelectedSupplierID)
                                                         {
-                                                    <option value="@supplier.SupplierID" selected>@supplier.SupplierName</option>
+                                                            <option value="@supplier.SupplierID" selected>@supplier.SupplierName</option>
                                                         }
                                                         else
                                                         {
-                                                    <option value="@supplier.SupplierID">@supplier.SupplierName</option>
+                                                            <option value="@supplier.SupplierID">@supplier.SupplierName</option>
                                                         }
                                                     }
-                                            </select>
+                                                </select>
                                             }
                                             else
                                             {
-                                            <h6>Chưa có dữ liệu</h6>
+                                                <h6>Chưa có dữ liệu</h6>
                                             }
                                         </div>
                                     </div>
@@ -95,8 +98,10 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="ProductDiscount">Khuyến Mãi</label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control double-input large-input" id="ProductDiscount" name="ProductDiscount" value="@Model.ProductDiscount">
-                                            <h6>%</h6>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control double-input" id="ProductDiscount" name="ProductDiscount" value="@Model.ProductDiscount">
+                                                <span class="input-group-addon">%</span>
+                                            </div>
                                             <span class="input-error-box text-danger"></span>
                                         </div>
                                     </div>
@@ -104,8 +109,10 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="ProductPrice">Giá <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control double-input large-input" id="ProductPrice" name="ProductPrice" value="@Model.ProductPrice">
-                                            <h6>VNĐ</h6>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control double-input" id="ProductPrice" name="ProductPrice" value="@Model.ProductPrice">
+                                                <span class="input-group-addon">vnđ</span>
+                                            </div>
                                             <span class="input-error-box text-danger"></span>
                                         </div>
                                     </div>
@@ -121,14 +128,14 @@
                                     <div class="form-group">
                                         <!-- IMAGE -->
                                         <label class="control-label">Ảnh Sản Phẩm</label>
-                                        <div class="image-box">
+                                        <div class="image-upload-box">
                                             @if (string.IsNullOrEmpty(Model.ProductImage))
                                             {
-                                            <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
+                                                <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
                                             }
                                             else
                                             {
-                                            <img id="ImageBox" src="@Model.ProductImage" class="image-box" />
+                                                <img id="ImageBox" src="@Model.ProductImage" class="image-box" />
                                             }
 
                                             <div id="ImagePreviewBox" class="preview-box" style="max-width:80%;"></div>
@@ -144,54 +151,56 @@
                             <legend class="fieldset-legend">Đặc điểm</legend>
 
                             <div class="row">
-                                <div id="UpdateProductSpecificationTable">
-                                    <!-- SPECIFICATION TABLE -->
-                                    @if (Model.SpecificationList.Any())
-                                    {
-                                        <table class="table table-striped col-sm-12 table-specification">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 5%;">#</th>
-                                                    <th style="width: 10%;">Loại Đặc Điểm</th>
-                                                    <th style="width: 40%;">Tên</th>
-                                                    <th>Giá Trị</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var specification in Model.SpecificationList)
-                                                {
+                                <div class="container">
+                                    <div id="UpdateProductSpecificationTable table-wrapper">
+                                        <!-- SPECIFICATION TABLE -->
+                                        @if (Model.SpecificationList.Any())
+                                        {
+                                            <table class="table table-striped col-sm-12 table-specification">
+                                                <thead>
                                                     <tr>
-                                                        <td>@specification.Id</td>
-                                                        <td>@specification.Type</td>
-                                                        <td>@specification.Name</td>
-                                                        <td>@specification.Value</td>
+                                                        <th style="width: 5%;">#</th>
+                                                        <th style="width: 10%;">Loại Đặc Điểm</th>
+                                                        <th style="width: 40%;">Tên</th>
+                                                        <th>Giá Trị</th>
                                                     </tr>
-                                                }
-                                            </tbody>
-                                        </table>
-                                    }
-                                </div>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var specification in Model.SpecificationList)
+                                                    {
+                                                        <tr>
+                                                            <td>@specification.Id</td>
+                                                            <td>@specification.Type</td>
+                                                            <td>@specification.Name</td>
+                                                            <td>@specification.Value</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        }
+                                    </div>
+                                </div>                                
                             </div>
                             <div class="row">
                                 <div class="col-md-5 col-md-offset-3">
                                     <!-- SPECIFICATION FORM -->
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="SpecificationName">Tên đặc điểm <span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
+                                        <label class="col-sm-3 control-label" for="SpecificationName">Tên đặc điểm <span class="text-danger">*</span></label>
+                                        <div class="col-sm-9">
                                             <input class="form-control" id="SpecificationName" name="SpecificationName" />
                                             <span class="input-error-box text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="SpecificationValue">Giá trị <span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
+                                        <label class="col-sm-3 control-label" for="SpecificationValue">Giá trị <span class="text-danger">*</span></label>
+                                        <div class="col-sm-9">
                                             <input class="form-control" id="SpecificationValue" name="SpecificationValue" />
                                             <span class="input-error-box text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="SpecificationTypeID">Loại đặc điểm <span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
+                                        <label class="col-sm-3 control-label" for="SpecificationTypeID">Loại đặc điểm <span class="text-danger">*</span></label>
+                                        <div class="col-sm-9">
                                             @if (Model.SpecificationType.Any())
                                             {
                                                 <select id="SpecificationTypeID" name="SpecificationTypeID" class="form-control">
@@ -200,7 +209,7 @@
                                                         <option value="@specificationType.Item1">@specificationType.Item2</option>
                                                     }
                                                 </select>
-                                                <span class="input-error-box text-danger"></span>
+                                                    <span class="input-error-box text-danger"></span>
                                             }
                                             else
                                             {
@@ -209,7 +218,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
+                                        <div class="col-sm-offset-3 col-sm-9">
                                             <button id="AddSpecificationBtn" type="button" class="btn btn-default"><i class="fa fa-plus"></i> Thêm</button>
                                         </div>
                                     </div>
@@ -239,9 +248,12 @@
                     </div>
                 </form>
             </div>
+
         </div>
     </div>
 </div>
+
+
 @section Scripts
 {
     <script src="@Url.Content("~/Scripts/Admin/product.js")"></script>

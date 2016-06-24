@@ -4,31 +4,52 @@
     ViewBag.Title = "Đăng nhập";
 }
 
-
 <div class="container">
-    <div class="card card-container">
-        <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
-        <img id="profile-img" class="profile-img-card" src="http://design.ubuntu.com/wp-content/uploads/ubuntu-logo32.png" />
-        <p id="profile-name" class="profile-name-card"></p>
-        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin", role = "form" }))
-        {
-            @Html.AntiForgeryToken()
-            
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <span id="reauth-email" class="reauth-email"></span>
-            <input type="email" id="Email" name="Email" class="form-control" placeholder="Địa chỉ Email" required autofocus>
-            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-            <input type="password" id="Password" name="Password" class="form-control" placeholder="Mật khẩu" required>
-            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-            <div id="remember" class="checkbox">
-                <label>
-                    <input type="checkbox" id="RememberMe" name="RememberMe" value="remember-me"> Nhớ tài khoản
-                </label>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block btn-signin" id="LoginBtn" type="submit">Đăng Nhập</button>
-        }
-    </div><!-- /card-container -->
-</div><!-- /container -->
+    <div class="object-non-visible text-center animated object-visible fadeInDownSmall" data-animation-effect="fadeInDownSmall" data-effect-delay="100">
+        <!-- logo -->
+        <div id="logo" class="logo">
+            <h3 class="margin-clear"><a href="index.html" class="logo-font link-light">The <span class="text-default">Project</span></a></h3>
+        </div>
+        <!-- name-and-slogan -->
+        <p class="small">Multipurpose HTML5 Template</p>
+        <div class="form-block center-block p-30 light-gray-bg border-clear">
+            <h2 class="title text-left">Login</h2>
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal text-left", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group has-feedback">
+                    <label for="inputUserName" class="col-sm-3 control-label">User Name</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="Email" name="Email" placeholder="Địa Chỉ Email" required="">
+                        <i class="fa fa-user form-control-feedback"></i>
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <label for="inputPassword" class="col-sm-3 control-label">Password</label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" id="Password" name="Password" placeholder="Mật Khẩu" required="">
+                        <i class="fa fa-lock form-control-feedback"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="RememberMe" name="RememberMe" value="remember-me"> Nhớ thông tin đăng nhập
+                            </label>
+                        </div>
+                        <button type="submit" id="LoginBtn" class="btn btn-group btn-default btn-animated">Đăng Nhập <i class="fa fa-user"></i></button>
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- .subfooter start -->
+        <!-- ================ -->
+        <p class="mt-20">Copyright © 2015 The Project by <a target="_blank" href="http://htmlcoder.me">HtmlCoder</a>. All Rights Reserved</p>
+        <!-- .subfooter end -->
+    </div>
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

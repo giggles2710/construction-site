@@ -1,11 +1,14 @@
-﻿@if (User.Identity.IsAuthenticated)
-{
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user" style="margin-right:5px;"> @User.Identity.Name <span class="caret"></span></a>
-    <ul class="dropdown-menu" role="menu">
-        <li><a href="@Url.Action("LogOff","Account")">Đăng Xuất</a></li>
-    </ul>
-}
-else
-{
-    <a href="@Url.Action("Login","Account")"><i class="fa fa-user" style="margin-right:5px;"></i>Đăng Nhập</a>
-}
+﻿@model _170516.Models.AccountModel
+
+<ul class="nav navbar-nav navbar-right pull-right">
+    <li class="dropdown user-box">
+        <a href="" class="dropdown-toggle waves-effect waves-light profile " data-toggle="dropdown" aria-expanded="true">
+            <img src="@Model.Avatar" alt="user-img" class="img-circle user-img">
+            <div class="user-status away"><i class="zmdi zmdi-dot-circle"></i></div>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="javascript:void(0)"><i class="fa fa-user m-r-5"></i> Cá Nhân</a></li>
+            <li><a href="javascript:void(0)"><i class="fa fa-power-off m-r-5"></i> Đăng Xuất</a></li>
+        </ul>
+    </li>
+</ul>

@@ -2,103 +2,95 @@
     ViewBag.Title = "Liên hệ";
 }
 
-<div class="main-content-wrapper container-fluid" >
-
-    <div class="row" style="text-align:center;background-color:#fff;">
-        <img src="~/Content/Construction-Company.jpg" style="max-width:100%;max-height:100%;" />
-    </div>
-
-    <div class="row contact-wrapper">
-        <div class="col-md-4">
-            <div class="wpb_wrapper">
-                <!-- BDF CONTACT LINKS -->
-                <div class="jx-rebuild-contact-info">
-
-                    <div class="icon"><i class="fa fa-globe fa-5x"></i></div>
-
-                    <div class="item-position">
-                        <div class="title">ĐỊA ĐIỂM</div>
-                        <div class="address">Hà Nội: 80 Cầu Giấy, Ba Đình</div>
-                        <div class="address">Hồ Chí Minh: 05 Nguyễn Huệ, Q.1</div>
-                        <div class="address">Đà Nẵng: 01 Trần Phú, Hải Châu</div>
-                    </div>
-
-                </div>
+<div class="index-content-wrapper container-fluid">
+    <div class="banner dark-translucent-bg" style="background-image:url('http://htmlcoder.me/preview/the_project/v.1.2/template/images/page-contact-banner.jpg'); background-position: 50% 30%;">
+        <div class="breadcrumb-container">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home pr-10"></i><a class="link-dark" href="@Url.Action("Index","Home")">Trang Chủ</a></li>
+                    <li class="active">Liên Hệ</li>
+                </ol>
             </div>
         </div>
-
-        <div class="col-md-4">
-            <div class="wpb_wrapper">
-                <!-- BDF CONTACT LINKS -->
-                <div class="jx-rebuild-contact-info">
-
-                    <div class="icon"><i class="fa fa-phone fa-5x"></i></div>
-
-                    <div class="item-position">
-                        <div class="title">ĐIỆN THOẠI</div>
-                        <div class="phone">(997) 54 215412 - (997) 54 132546</div>
-                        <div class="phone">(997) 54 215412 - (997) 54 132546</div>
-                        <div class="phone">(997) 54 215412 - (997) 54 132546</div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="wpb_wrapper">
-                <!-- BDF CONTACT LINKS -->
-                <div class="jx-rebuild-contact-info">
-
-                    <div class="icon"><i class="fa fa-wechat fa-5x"></i></div>
-
-                    <div class="item-position">
-                        <div class="title">LIÊN HỆ KHÁC</div>
-                        <div class="address"><a href="#"><i class="fa fa-facebook"></i> <span>www.facebook.com/construction-site</span></a></div>
-                        <div class="address"><a href="#"><i class="fa fa-skype"></i> <span>skype:construction-site</span></a></div>
-                        <div class="email"><i class="fa fa-inbox"></i> <span>info.constructionsite@gmail.com</span></div>
-                    </div>
-
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 text-center col-md-offset-2 pv-20">
+                    <h2 class="title">Liên Lạc Với Chúng Tôi</h2>
+                    <div class="separator mt-10"></div>
+                    <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi perferendis magnam ea necessitatibus, officiis voluptas odit! Aperiam omnis, cupiditate laudantium velit nostrum, exercitationem accusamus, possimus soluta illo deserunt tempora qui.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <hr />
+    <section class="main-container">
+        <div class="container">
+            <div class="row">
 
-    <!-- FORM -->
-    <div class="form-horizontal" style="margin-top:40px;">
-        <div class="row">
-            <div class="col-md-6 col-lg-6 col-lg-offset-2">
-                <div class="form-group">
-                    <label class="col-sm-4 control-label" for="FullName">Họ và Tên <span class="text-danger">*</span></label>
-                    <div class="col-sm-8">
-                        <input class="form-control" type="text" id="FullName" name="FullName" placeholder="Họ và tên" />
-                        <span class="input-error-box text-danger"></span>
+                <!-- main start -->
+                <!-- ================ -->
+                <div class="col-md-8 space-bottom">
+                    <p class="lead">Rất vui vì bạn đã ghé thăm công ty chúng tôi! Chỉ cần để lại vài dòng và yêu cầu bất kỳ điều gì, tất cả những góp ý của bạn giúp chúng tôi rất nhiều. Chúng tôi hy vọng được gặp bạn lần sau.</p>
+                    <div class="alert alert-success hidden" id="MessageSent">
+                        We have received your message, we will contact you very soon.
+                    </div>
+                    <div class="alert alert-danger hidden" id="MessageNotSent">
+                        Có lỗi trong quá trình yêu cầu. Vui lòng thử lại!
+                    </div>
+                    <div class="contact-form">
+                        <form id="contact-form" class="margin-clear" role="form" novalidate="novalidate">
+                            <div class="form-group has-feedback">
+                                <label for="name">Họ và Tên *</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="">
+                                <i class="fa fa-user form-control-feedback"></i>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label for="email">Địa Chỉ Email *</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="">
+                                <i class="fa fa-envelope form-control-feedback"></i>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label for="subject">Tiêu Đề *</label>
+                                <input type="text" class="form-control" id="subject" name="subject" placeholder="">
+                                <i class="fa fa-navicon form-control-feedback"></i>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label for="message">Nội Dung *</label>
+                                <textarea class="form-control" rows="6" id="message" name="message" placeholder=""></textarea>
+                                <i class="fa fa-pencil form-control-feedback"></i>
+                            </div>
+                            <input type="button" id="SendRequestBtn" value="Gửi Yêu Cầu" class="submit-button btn btn-default">
+                        </form>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label" for="EmailAddress">Địa chỉ email <span class="text-danger">*</span></label>
-                    <div class="col-sm-8">
-                        <input class="form-control" type="email" id="EmailAddress" name="EmailAddress" placeholder="Địa chỉ email" />
-                        <span class="input-error-box text-danger"></span>
+                <!-- main end -->
+                <!-- sidebar start -->
+                <!-- ================ -->
+                <aside class="col-md-3 col-lg-offset-1">
+                    <div class="sidebar">
+                        <div class="side vertical-divider-left">
+                            <h3 class="title logo-font">Công Ty Xây Dựng</h3>
+                            <div class="separator-2 mt-20"></div>
+                            <ul class="list">
+                                <li><i class="fa fa-home pr-10"></i>K10/10 Cầu Giấy<br><span class="pl-20">Hà Nội, Việt Nam</span></li>
+                                <li><i class="fa fa-phone pr-10"></i><abbr title="Điện Thoại">P:</abbr> (84) 456-7890</li>
+                                <li><i class="fa fa-mobile pr-10 pl-5"></i><abbr title="Điện Thoại">M:</abbr> (84) 456-7890</li>
+                                <li><i class="fa fa-envelope pr-10"></i><a href="mailto:han.solo@gmail.com">han.solo@gmail.com</a></li>
+                            </ul>
+                            <ul class="social-links circle small margin-clear clearfix animated-effect-1">
+                                <li class="skype"><a target="_blank" href="http://www.skype.com" style="color:#00aff0;"><i class="fa fa-skype"></i></a></li>
+                                <li class="linkedin"><a target="_blank" href="http://www.linkedin.com" style="color: #0976b4;"><i class="fa fa-linkedin"></i></a></li>
+                                <li class="googleplus"><a target="_blank" href="http://plus.google.com" style="color: #dd4b39;"><i class="fa fa-google-plus"></i></a></li>
+                                <li class="facebook"><a target="_blank" href="http://www.facebook.com" style="color: #3b5998;"><i class="fa fa-facebook"></i></a></li>
+                            </ul>
+                            <div class="separator-2 mt-20 "></div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label" for="Content">Nội dung <span class="text-danger">*</span></label>
-                    <div class="col-sm-8">
-                        <textarea class="form-control" id="Content" name="Content" style="height: 150px;" placeholder="Nội dung yêu cầu"></textarea>
-                        <span class="input-error-box text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-7 col-sm-10">
-                        <button id="SendRequestBtn" type="button" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Gửi yêu cầu</button>
-                    </div>
-                </div>
+                </aside>
+                <!-- sidebar end -->
             </div>
         </div>
-    </div>
+    </section>
 </div>
 
 @section Scripts

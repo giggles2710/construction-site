@@ -7,7 +7,11 @@ namespace _170516.Models.Administrator
 {
     public class ViewProductModel
     {
-        public List<ViewProductItem> Products { get; set; }
+        public List<ViewProductItem> Products
+        {
+            get;
+            set;
+        }
         public int TotalNumber { get; set; }
         public int CurrentPage { get; set; }
         public int TotalPage { get; set; }

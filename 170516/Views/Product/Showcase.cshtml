@@ -3,76 +3,104 @@
     ViewBag.Title = "Sản Phẩm";
 }
 
-<div class="col-lg-3 col-md-3 col-sm-4">
-    <!-- menu -->
-    <div class="clearfix">
-        <div id="dl-menu" class="dl-menuwrapper">
-            <ul class="dl-menu">
-                @foreach (var item in Model.Menu)
-                {
-                    <li>
-                        <a href="#" data-id="@item.CategoryId">@item.CategoryName</a>
-                        @if (item.SubCategoryList != null && item.SubCategoryList.Any())
-                        {
-                            <ul class="dl-submenu">
-                                <li><a href="#"></a></li>
-                            </ul>
-                        }
-                    </li>
-                }
-            </ul>
+<div class="index-content-wrapper container-fluid">
+    <div class="banner dark-translucent-bg" style="background-image:url('http://htmlcoder.me/preview/the_project/v.1.2/template/images/page-services-banner.jpg'); background-position: 50% 32%;">
+        <!-- breadcrumb start -->
+        <!-- ================ -->
+        <div class="breadcrumb-container">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home pr-10"></i><a class="link-dark" href="@Url.Action("Index","Home")">Trang Chủ</a></li>
+                    <li class="active">Sản Phẩm</li>
+                </ol>
+            </div>
+        </div>
+        <!-- breadcrumb end -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 text-center col-md-offset-2 pv-20">
+                    <h2 class="title object-non-visible animated object-visible fadeIn" data-animation-effect="fadeIn" data-effect-delay="100">What We <strong>Provide</strong></h2>
+                    <div class="separator object-non-visible mt-10 animated object-visible fadeIn" data-animation-effect="fadeIn" data-effect-delay="100"></div>
+                    <p class="text-center object-non-visible animated object-visible fadeIn" data-animation-effect="fadeIn" data-effect-delay="100">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi perferendis magnam ea necessitatibus, officiis voluptas odit! Aperiam omnis, cupiditate laudantium velit nostrum, exercitationem accusamus, possimus soluta illo deserunt tempora qui.</p>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<div class="col-lg-9 col-md-9 col-sm-8 content-box">
-    <div class="container-fluid main-content-wrapper">
-        <div class="banner">
-            <img src="http://mlmonline.in/wp-content/uploads/2016/03/web-banner.jpg" />
-        </div>
-        <h3 style="color:#2b3e50;">Danh Mục Sản Phẩm</h3>
-        <div id="ShowCaseDiv">
-            <ul class="products">
-                @for (var i = 0; i < Model.MenuOnMainPage.Count; i++)
-                {
-                    <li class="list-group">
-                        <div class="item">
-                            <div class="thumbnail list-group-item''">
-                                @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i].ImageSrc))
-                                {
-                                    <img class="group list-group-image" src="@Model.MenuOnMainPage[i].ImageSrc" alt="" />
-                                }
-                                else
-                                {
-                                    <img class="group list-group-image" src="~/Content/Image/image_placeholder.jpg" alt="" />
-                                }
-                                <div class="caption">
-                                    <div class="caption-header">
-                                        <span class="group inner list-group-item-heading">
-                                            @Model.MenuOnMainPage[i].CategoryName
-                                        </span>
-                                    </div>
-                                    @*<p class="group inner list-group-item-text">
 
-                                        </p>*@
-                                    <div class="row">
-                                        @if (Model.MenuOnMainPage[i].SubCategoryList.Count > 0)
+    <section class="main-container padding-bottom-clear">
+
+        <div class="container-fluid" style="padding-left: 180px;">
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-3">
+                    <!-- menu -->
+                    <div class="clearfix">
+                        <div id="dl-menu" class="dl-menuwrapper">
+                            <ul class="dl-menu">
+                                @foreach (var item in Model.Menu)
+                                {
+                                    <li>
+                                        <a href="#" data-id="@item.CategoryId">@item.CategoryName</a>
+                                        @if (item.SubCategoryList != null && item.SubCategoryList.Any())
                                         {
-                                            <ul class="thumbnail-ul">
-                                                @foreach (var subCategory in Model.MenuOnMainPage[i].SubCategoryList)
-                                                {
-                                                    <li><a href="@Url.Action("ViewCategory", "Product", new { id = subCategory.CategoryId })">@subCategory.CategoryName</a></li>
-                                                }
+                                            <ul class="dl-submenu">
+                                                <li><a href="#"></a></li>
                                             </ul>
                                         }
-                                    </div>
-                                </div>
-                            </div>
+                                    </li>
+                                }
+                            </ul>
                         </div>
-                    </li>
-                }
-            </ul>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-9 content-box">
+                    <div class="main">
+                        <ul class="products">
+                            @for (var i = 0; i < Model.MenuOnMainPage.Count; i++)
+                            {
+                                <li class="list-group mansory-grid-li products-li">
+                                    <div class="item">
+                                        <div class="ph-20 feature-box text-center object-non-visible animated object-visible fadeInDownSmall" data-animation-effect="fadeInDownSmall" data-effect-delay="100">
+                                            <div class="list-group-rounded-image">
+                                                @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i].ImageSrc))
+                                                {
+                                                    <img class="group" src="@Model.MenuOnMainPage[i].ImageSrc" alt="" />
+                                                }
+                                                else
+                                                {
+                                                    <img class="group" src="~/Content/Image/square-image-placeholder.png" alt="" />
+                                                }
+                                            </div>
+                                            <h3 class="text-wrap">@Model.MenuOnMainPage[i].CategoryName</h3>
+                                            <div class="separator clearfix"></div>
+                                            <!-- sub menu -->
+                                            <div class="responsive-slick">
+                                                @foreach (var subMenu in Model.MenuOnMainPage[i].SubCategoryList)
+                                                {
+                                                    <div>
+                                                        <a href="@Url.Action("ViewCategory", "Product", new { id = subMenu.CategoryId })">
+                                                        @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i].ImageSrc))
+                                                        {
+                                                                <img class="group" src="@Model.MenuOnMainPage[i].ImageSrc" alt="" />
+                                                        }
+                                                        else
+                                                        {
+                                                                <img class="group" src="~/Content/Image/square-image-placeholder.png" alt="" />
+                                                        }
+                                                        <p>@subMenu.CategoryName</p>
+                                                        </a>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 </div>
 
 @section Scripts

@@ -15,21 +15,16 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body style="height: 100%; background-repeat: no-repeat; background-color: #2c3e50; ">
-    <div class="container">
-        <div class="row">
-            @RenderBody()
-        </div>
+    <div class="page-wrapper">
 
-        <hr>
-        <!-- Footer -->
-        <footer>
-            <!-- Footer -->
-            <div class="container-fluid">
-                <div class="copy text-center" style="height :52px; margin-top: 20px; ">
-                    Copyright © 2016 by <a href="#">OUR DEVELOPER</a>
-                </div>
-            </div>
-        </footer>
+        <!-- background image -->
+        <div class="fullscreen-bg"></div>
+
+        <!-- banner start -->
+        <!-- ================ -->
+        <div class="pv-40 dark-translucent-bg">
+            @RenderBody();
+        </div>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

@@ -27,7 +27,7 @@ namespace _170516.Controllers
             var accountModel = new AccountModel()
             {
                 Username = "Thuan Nguyen",
-                UserId = 1
+                UserId = "abcdwef"
             };
 
             return PartialView("_PartialAccount", accountModel);
@@ -528,8 +528,8 @@ namespace _170516.Controllers
             if (pageNo == 0) pageNo = 1;
             if (pageSize == 0) pageSize = 10;
             if (isAsc == null) isAsc = true;
-            if (string.IsNullOrEmpty(searchText)) searchText = null;
-            if (string.IsNullOrEmpty(sortField)) sortField = "ProductName";
+            if (string.IsNullOrWhiteSpace(searchText)) searchText = null;
+            if (string.IsNullOrWhiteSpace(sortField)) sortField = "ProductName";
 
             IQueryable<Product> products;
 
@@ -538,51 +538,51 @@ namespace _170516.Controllers
                 case "QuantityInStock":
                     if (isAsc.GetValueOrDefault())
                         products = dbContext.Products
-                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Name.Contains(searchText))
                             .OrderBy(p => p.UnitsInStock);
                     else
                         products = dbContext.Products
-                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Name.Contains(searchText))
                             .OrderByDescending(p => p.UnitsInStock);
                     break;
                 case "CategoryName":
                     if (isAsc.GetValueOrDefault())
                         products = dbContext.Products
-                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Name.Contains(searchText))
                             .OrderBy(p => p.Category.Name);
                     else
                         products = dbContext.Products
-                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Name.Contains(searchText))
                             .OrderByDescending(p => p.Category.Name);
                     break;
                 case "DateModified":
                     if (isAsc.GetValueOrDefault())
                         products = dbContext.Products
-                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Name.Contains(searchText))
                             .OrderBy(p => p.DateModified);
                     else
                         products = dbContext.Products
-                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Name.Contains(searchText))
                             .OrderByDescending(p => p.DateModified);
                     break;
                 case "ModifiedUser":
                     if (isAsc.GetValueOrDefault())
                         products = dbContext.Products
-                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Name.Contains(searchText))
                             .OrderBy(p => p.CreatedUserID);
                     else
                         products = dbContext.Products
-                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Name.Contains(searchText))
                             .OrderByDescending(p => p.CreatedUserID);
                     break;
                 default:
                     if (isAsc.GetValueOrDefault())
                         products = dbContext.Products
-                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Name.Contains(searchText))
                             .OrderBy(p => p.Name);
                     else
                         products = dbContext.Products
-                            .Where(p => string.IsNullOrEmpty(searchText) || searchText.Equals(p.Name))
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Name.Contains(searchText))
                             .OrderByDescending(p => p.Name);
                     break;
             }

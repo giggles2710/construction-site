@@ -3,55 +3,640 @@
     ViewBag.Title = "Trang Chủ";
 }
 
-@*<a href="http://www.aaronvanderzwan.com/blog/2011/11/maximage-2-0-beta1-release/" id="logo"><img src="../lib/images/demo/logo.png" alt="MaxImage: Uses jQuery Cycle Plugin to create background slideshows" /></a>*@
-<a href="" id="arrow_left"><img src="~/Content/Image/slider/arrow_left.png" alt="Slide Left" /></a>
-<a href="" id="arrow_right"><img src="~/Content/Image/slider/arrow_right.png" alt="Slide Right" /></a>
-
-<img id="cycle-loader" src="~/Content/Image/slider/ajax-loader.gif" />
-<div id="maximage">
-    <div>
-        <img src="~/Content/Image/slider/wood_3.jpg" alt="" />
-        <img id="gradient" src="~/Content/Image/slider/gradient.png" alt="" />
-        <div class="in-slide-content" style="display:none;">
-            <p>Vật liệu xây dựng tốt nhất</p>
+<div class="index-content-wrapper container-fluid">
+    <!-- header-container end -->
+    <div class="banner clearfix">
+        <div id="da-slider" class="da-slider">
+            <div class="da-slide">
+                <h2>Warm welcome</h2>
+                <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane.</p>
+                <a href="#" class="da-link">Read more</a>
+                <div class="da-img"><img src="~/Content/Image/slider/4.png" alt="image01" /></div>
+            </div>
+            <div class="da-slide">
+                <h2>Easy management</h2>
+                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+                <a href="#" class="da-link">Read more</a>
+                <div class="da-img"><img src="~/Content/Image/slider/3.png" alt="image01" /></div>
+            </div>
+            <div class="da-slide">
+                <h2>Revolution</h2>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                <a href="#" class="da-link">Read more</a>
+                <div class="da-img"><img src="~/Content/Image/slider/2.png" alt="image01" /></div>
+            </div>
+            <div class="da-slide">
+                <h2>Quality Control</h2>
+                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+                <a href="#" class="da-link">Read more</a>
+                <div class="da-img"><img src="~/Content/Image/slider/1.png" alt="image01" /></div>
+            </div>
+            <nav class="da-arrows">
+                <span class="da-arrows-prev"></span>
+                <span class="da-arrows-next"></span>
+            </nav>
         </div>
     </div>
-    <img src="~/Content/Image/slider/steel_1.jpg" alt="" />
-    <img src="~/Content/Image/slider/wood_1.jpg" alt="" />
-    <img src="~/Content/Image/slider/wood_2.jpg" alt="" />
 
+    <div id="page-start"></div>
+
+    <section class="pv-30">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 class="text-center">GIỚI THIỆU</h2>
+                    <div class="separator"></div>
+                    <p class="large text-left">Tổng Công ty Cổ phần Đầu tư DHC (DHC) được thành lập vào tháng 9, 2012 tại thành phố Đà Nẵng, xuất phát từ những cổ đông cùng chung ý tưởng xây dựng tại Việt Nam một “Ngôi nhà mơ ước”. </p>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div class="content-slider-with-large-controls" style="opacity: 1; display: block;">
+            <div class="container" style="margin-left: auto;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="http://dhcgroup.vn/Content/UserFiles/Images/ProductMore/nha-don-khach.jpg" alt="">
+                    </div>
+                    <div class="col-md-6">
+                        <p>DHC đã nhanh chóng đầu tư vào các dự án lớn tại khu vực cũng như luôn tìm kiếm những cơ hội đầu tư khác trong và ngoài nước. Với quan niệm kinh doanh lâu dài, bền vững dựa trên nền tảng uy tín rõ ràng, DHC luôn chào đón các đối tác trong và ngoài nước cùng hợp tác phát triển, tham gia dự án, kết nối đầu tư trên cơ sở bình đẳng, thân thiện và hài hòa về lợi ích. Đây cũng chính là động lực thúc đẩy việc đa dạng hóa sản phẩm, đa dạng hóa ngành nghề trên mọi phương diện, mọi lĩnh vực.</p>
+                        <div class="media">
+                            <div class="media-left pr-20">
+                                <a href="#">
+                                    <span class="icon circle small default-bg"><i class="fa fa-chevron-right"></i> </span>
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Cực Kỳ Linh Động</h4>
+                                Cras sit amet nibh libero, in gravida nulla. Sollicitudin.
+                            </div>
+                        </div>
+                        <div class="media">
+                            <div class="media-left pr-20">
+                                <a href="#">
+                                    <span class="icon circle small default-bg"><i class="fa fa-chevron-right"></i> </span>
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Dịch Vụ Phong Phú</h4>
+                                Cras sit amet nibh libero. Nulla vel metus scelerisque.
+                            </div>
+                        </div>
+                        <div class="media">
+                            <div class="media-left pr-20">
+                                <a href="#">
+                                    <span class="icon circle small default-bg"><i class="fa fa-chevron-right"></i> </span>
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Hỗ Trợ 24/7</h4>
+                                Cras sit amet nibh libero. Nulla vel metus scelerisque.
+                            </div>
+                        </div>
+                        <p><a href="page-services.html" class="btn btn-default-transparent btn-animated">Xem Tiếp <i class="fa fa-arrow-right pl-10"></i></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pv-40 section light-gray-bg clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 class="text-center">SẢN PHẨM NỔI BẬT</h2>
+                    <div class="separator"></div>
+                    <p class="large text-center">Cras sit amet nibh libero, in gravida nulla. Sollicitudin.</p>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="nav nav-pills" role="tablist">
+                        <li class="active"><a href="#pill-1" role="tab" data-toggle="tab" title="Sản phẩm mới nhất"><i class="icon-star"></i> Mới Nhất</a></li>
+                        <li><a href="#pill-2" role="tab" data-toggle="tab" title="Sản phẩm nổi bật"><i class="icon-heart"></i> Nổi Bật</a></li>
+                        <li><a href="#pill-3" role="tab" data-toggle="tab" title="Sản phẩm bán chạy"><i class=" icon-up-1"></i> Bán Chạy</a></li>
+                    </ul>
+                    <div class="tab-content clear-style">
+                        <div class="tab-pane active" id="pill-1">
+                            <div class="masonry-grid-fitrows grid-space-10" style="position: relative; height: 1078.02px;">
+                                <ul class="products">
+                                    <li class="list-group mansory-grid-li products-li">
+                                        <div class="item">
+                                            <div class="masonry-grid-item">
+                                                <div class="listing-item white-bg bordered mb-20">
+                                                    <div class="overlay-container">
+                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                        <span class="badge">30% OFF</span>
+                                                        <div class="overlay-to-top links">
+                                                            <span class="small">
+                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
+                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body">
+                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
+                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
+                                                        <div class="elements-list clearfix">
+                                                            <span class="price"><del>$100.00</del> $70.00</span>
+                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group mansory-grid-li products-li">
+                                        <div class="item">
+                                            <div class="masonry-grid-item">
+                                                <div class="listing-item white-bg bordered mb-20">
+                                                    <div class="overlay-container">
+                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                        <span class="badge">30% OFF</span>
+                                                        <div class="overlay-to-top links">
+                                                            <span class="small">
+                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
+                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body">
+                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
+                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
+                                                        <div class="elements-list clearfix">
+                                                            <span class="price"><del>$100.00</del> $70.00</span>
+                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group mansory-grid-li products-li">
+                                        <div class="item">
+                                            <div class="masonry-grid-item">
+                                                <div class="listing-item white-bg bordered mb-20">
+                                                    <div class="overlay-container">
+                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                        <span class="badge">30% OFF</span>
+                                                        <div class="overlay-to-top links">
+                                                            <span class="small">
+                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
+                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body">
+                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
+                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
+                                                        <div class="elements-list clearfix">
+                                                            <span class="price"><del>$100.00</del> $70.00</span>
+                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group mansory-grid-li products-li">
+                                        <div class="item">
+                                            <div class="masonry-grid-item">
+                                                <div class="listing-item white-bg bordered mb-20">
+                                                    <div class="overlay-container">
+                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                        <span class="badge">30% OFF</span>
+                                                        <div class="overlay-to-top links">
+                                                            <span class="small">
+                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
+                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body">
+                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
+                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
+                                                        <div class="elements-list clearfix">
+                                                            <span class="price"><del>$100.00</del> $70.00</span>
+                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group mansory-grid-li products-li">
+                                        <div class="item">
+                                            <div class="masonry-grid-item">
+                                                <div class="listing-item white-bg bordered mb-20">
+                                                    <div class="overlay-container">
+                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                        <span class="badge">30% OFF</span>
+                                                        <div class="overlay-to-top links">
+                                                            <span class="small">
+                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
+                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body">
+                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
+                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
+                                                        <div class="elements-list clearfix">
+                                                            <span class="price"><del>$100.00</del> $70.00</span>
+                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group mansory-grid-li products-li">
+                                        <div class="item">
+                                            <div class="masonry-grid-item">
+                                                <div class="listing-item white-bg bordered mb-20">
+                                                    <div class="overlay-container">
+                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                        <span class="badge">30% OFF</span>
+                                                        <div class="overlay-to-top links">
+                                                            <span class="small">
+                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
+                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body">
+                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
+                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
+                                                        <div class="elements-list clearfix">
+                                                            <span class="price"><del>$100.00</del> $70.00</span>
+                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="pill-2">
+                            <div class="masonry-grid-fitrows grid-space-10" style="position: relative; height: 1078.02px;">
+                                <ul class="products">
+                                    <li class="list-group mansory-grid-li products-li">
+                                        <div class="item">
+                                            <div class="masonry-grid-item">
+                                                <div class="listing-item white-bg bordered mb-20">
+                                                    <div class="overlay-container">
+                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                        <span class="badge">30% OFF</span>
+                                                        <div class="overlay-to-top links">
+                                                            <span class="small">
+                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
+                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body">
+                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
+                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
+                                                        <div class="elements-list clearfix">
+                                                            <span class="price"><del>$100.00</del> $70.00</span>
+                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group mansory-grid-li products-li">
+                                        <div class="item">
+                                            <div class="masonry-grid-item">
+                                                <div class="listing-item white-bg bordered mb-20">
+                                                    <div class="overlay-container">
+                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                        <span class="badge">30% OFF</span>
+                                                        <div class="overlay-to-top links">
+                                                            <span class="small">
+                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
+                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body">
+                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
+                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
+                                                        <div class="elements-list clearfix">
+                                                            <span class="price"><del>$100.00</del> $70.00</span>
+                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group mansory-grid-li products-li">
+                                        <div class="item">
+                                            <div class="masonry-grid-item">
+                                                <div class="listing-item white-bg bordered mb-20">
+                                                    <div class="overlay-container">
+                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                        <span class="badge">30% OFF</span>
+                                                        <div class="overlay-to-top links">
+                                                            <span class="small">
+                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
+                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body">
+                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
+                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
+                                                        <div class="elements-list clearfix">
+                                                            <span class="price"><del>$100.00</del> $70.00</span>
+                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group mansory-grid-li products-li">
+                                        <div class="item">
+                                            <div class="masonry-grid-item">
+                                                <div class="listing-item white-bg bordered mb-20">
+                                                    <div class="overlay-container">
+                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                        <span class="badge">30% OFF</span>
+                                                        <div class="overlay-to-top links">
+                                                            <span class="small">
+                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
+                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body">
+                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
+                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
+                                                        <div class="elements-list clearfix">
+                                                            <span class="price"><del>$100.00</del> $70.00</span>
+                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group mansory-grid-li products-li">
+                                        <div class="item">
+                                            <div class="masonry-grid-item">
+                                                <div class="listing-item white-bg bordered mb-20">
+                                                    <div class="overlay-container">
+                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                        <span class="badge">30% OFF</span>
+                                                        <div class="overlay-to-top links">
+                                                            <span class="small">
+                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
+                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body">
+                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
+                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
+                                                        <div class="elements-list clearfix">
+                                                            <span class="price"><del>$100.00</del> $70.00</span>
+                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group mansory-grid-li products-li">
+                                        <div class="item">
+                                            <div class="masonry-grid-item">
+                                                <div class="listing-item white-bg bordered mb-20">
+                                                    <div class="overlay-container">
+                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                        <span class="badge">30% OFF</span>
+                                                        <div class="overlay-to-top links">
+                                                            <span class="small">
+                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
+                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body">
+                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
+                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
+                                                        <div class="elements-list clearfix">
+                                                            <span class="price"><del>$100.00</del> $70.00</span>
+                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="pill-3">
+                            <div class="masonry-grid-fitrows grid-space-10" style="position: relative; height: 1078.02px;">
+                                <ul class="products">
+                                    <li class="list-group mansory-grid-li products-li">
+                                        <div class="item">
+                                            <div class="masonry-grid-item">
+                                                <div class="listing-item white-bg bordered mb-20">
+                                                    <div class="overlay-container">
+                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                        <span class="badge">30% OFF</span>
+                                                        <div class="overlay-to-top links">
+                                                            <span class="small">
+                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
+                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body">
+                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
+                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
+                                                        <div class="elements-list clearfix">
+                                                            <span class="price"><del>$100.00</del> $70.00</span>
+                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group mansory-grid-li products-li">
+                                        <div class="item">
+                                            <div class="masonry-grid-item">
+                                                <div class="listing-item white-bg bordered mb-20">
+                                                    <div class="overlay-container">
+                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                        <span class="badge">30% OFF</span>
+                                                        <div class="overlay-to-top links">
+                                                            <span class="small">
+                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
+                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body">
+                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
+                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
+                                                        <div class="elements-list clearfix">
+                                                            <span class="price"><del>$100.00</del> $70.00</span>
+                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group mansory-grid-li products-li">
+                                        <div class="item">
+                                            <div class="masonry-grid-item">
+                                                <div class="listing-item white-bg bordered mb-20">
+                                                    <div class="overlay-container">
+                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                        <span class="badge">30% OFF</span>
+                                                        <div class="overlay-to-top links">
+                                                            <span class="small">
+                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
+                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body">
+                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
+                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
+                                                        <div class="elements-list clearfix">
+                                                            <span class="price"><del>$100.00</del> $70.00</span>
+                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group mansory-grid-li products-li">
+                                        <div class="item">
+                                            <div class="masonry-grid-item">
+                                                <div class="listing-item white-bg bordered mb-20">
+                                                    <div class="overlay-container">
+                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                        <span class="badge">30% OFF</span>
+                                                        <div class="overlay-to-top links">
+                                                            <span class="small">
+                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
+                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body">
+                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
+                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
+                                                        <div class="elements-list clearfix">
+                                                            <span class="price"><del>$100.00</del> $70.00</span>
+                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group mansory-grid-li products-li">
+                                        <div class="item">
+                                            <div class="masonry-grid-item">
+                                                <div class="listing-item white-bg bordered mb-20">
+                                                    <div class="overlay-container">
+                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                        <span class="badge">30% OFF</span>
+                                                        <div class="overlay-to-top links">
+                                                            <span class="small">
+                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
+                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body">
+                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
+                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
+                                                        <div class="elements-list clearfix">
+                                                            <span class="price"><del>$100.00</del> $70.00</span>
+                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group mansory-grid-li products-li">
+                                        <div class="item">
+                                            <div class="masonry-grid-item">
+                                                <div class="listing-item white-bg bordered mb-20">
+                                                    <div class="overlay-container">
+                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                        <span class="badge">30% OFF</span>
+                                                        <div class="overlay-to-top links">
+                                                            <span class="small">
+                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
+                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body">
+                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
+                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
+                                                        <div class="elements-list clearfix">
+                                                            <span class="price"><del>$100.00</del> $70.00</span>
+                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="clearfix"></div>
 </div>
-
 
 @section Scripts
 {
     <script src="@Url.Content("~/Scripts/Home/index.js")"></script>
-    <script type="text/javascript" charset="utf-8">
-        $(function () {
-            $("footer").remove();
-
-            $('#maximage').maximage({
-                cycleOptions: {
-                    fx: 'fade',
-                    speed: 1000, // Has to match the speed for CSS transitions in jQuery.maximage.css (lines 30 - 33)
-                    timeout: 0,
-                    prev: '#arrow_left',
-                    next: '#arrow_right',
-                    pause: 1
-                },
-                onFirstImageLoaded: function () {
-                    jQuery('#cycle-loader').hide();
-                    jQuery('#maximage').fadeIn('fast');
-                }
-            });
-
-            // Helper function to Fill and Center the HTML5 Video
-            jQuery('video,object').maximage('maxcover');
-
-            // To show it is dynamic html text
-            jQuery('.in-slide-content').delay(1200).fadeIn();            
-        });
-    </script>
 }
 
 

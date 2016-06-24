@@ -2,16 +2,21 @@
 @{
     ViewBag.Title = "Chi tiết sản phẩm";
 }
-<div class="row">
-    <div class="col-md-12">
-        <div class="main-content-wrapper">
-            <div class="panel-heading">
-                <ol class="breadcrumb">
-                    <li><a href="@Url.Action("ViewProduct","Administrator")">Quản lý sản phẩm</a></li>
-                    <li class="active">Chi tiết sản phẩm</li>
-                </ol>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="btn-group pull-right m-t-5 m-b-20">
+                @*<button type="button" class="btn btn-custom dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">Thêm sản phẩm <span class="m-l-5"><i class="fa fa-plus"></i></span></button>*@
             </div>
-            <div class="container-fluid">
+            <h4 class="page-title">Chi tiết sản phẩm @Model.ProductName</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box">
                 <div class="form-horizontal">
                     <fieldset class="fieldset">
                         <legend class="fieldset-legend">Thông tin cơ bản</legend>
@@ -141,7 +146,6 @@
                             </div>
                         </div>
                     </fieldset>
-
                     <fieldset class="fieldset">
                         <legend class="fieldset-legend">Thông tin chung</legend>
                         <div class="row">
@@ -156,8 +160,7 @@
         </div>
     </div>
 </div>
-<div id='AddColorModal' class='modal fade' data-url='@Url.Action("AddColor", "Administrator")'>
-</div>
+
 @section Scripts
 {
     <script src="@Url.Content("~/Scripts/Admin/product.js")"></script>

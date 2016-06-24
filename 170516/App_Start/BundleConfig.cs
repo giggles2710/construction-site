@@ -11,9 +11,14 @@ namespace _170516
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery-ui.js",
-                        "~/Scripts/maxImage/jquery.cycle.all.js",
-                        "~/Scripts/maxImage/jquery.maximage.js"));
-            
+                        "~/Scripts/jquery.cslider.js",
+                        "~/Scripts/inputmask.js",
+                        "~/Scripts/inputmask.date.extensions.js",
+                        "~/Scripts/inputmask.numeric.extensions.js",
+                        "~/Scripts/inputmask.phone.extensions.js",
+                        "~/Scripts/inputmask.regex.extensions.js",
+                        "~/Scripts/inputmask.extensions.js",
+                        "~/Scripts/jquery.inputmask.js"));            
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -44,6 +49,7 @@ namespace _170516
             bundles.Add(new ScriptBundle("~/bundles/admin_script").Include(
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/bootstrap-select.js",
+                        "~/Scripts/jquery.dataTables.js",
                         "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/main_script").Include(
@@ -51,7 +57,8 @@ namespace _170516
                         "~/Scripts/dlMenu/custom.dlmenu.js",
                         "~/Scripts/dlMenu/modernizr.custom.js",
                         "~/Scripts/tinymce/tinymce.min.js",
-                        "~/Scripts/slippry.min.js",
+                        "~/Scripts/slick.min.js",
+                        "~/Scripts/owl.carousel.js",
                         "~/Scripts/bootbox.min.js",
                         "~/Scripts/toastr.min.js"));
 
@@ -61,11 +68,13 @@ namespace _170516
                       "~/Content/bootstrap-select/bootstrap-select.css",
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/common.css",
-                      "~/Content/maxImage/screen.css",
-                      "~/Content/maxImage/jquery.maximage.css",
                       "~/Content/fullwidth-list/default.css",
                       "~/Content/fullwidth-list/component.css",
-                      "~/Content/slippry.css", 
+                      "~/Content/parallax_slider.css",
+                      "~/Content/slick.css",
+                      "~/Content/slick-theme.css",
+                      "~/Content/owl.carousel/owl.carousel.css",
+                      "~/Content/owl.carousel/owl.theme.css",                      
                       "~/Content/toastr.css"));
 
             bundles.Add(new StyleBundle("~/Content/admin_css").Include(

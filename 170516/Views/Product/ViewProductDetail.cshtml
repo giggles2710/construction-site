@@ -1,154 +1,288 @@
 ﻿@model _170516.Models.ShowcaseProductDetail
+@{
+    ViewBag.Title = Model.ProductName;
+}
 
-<div class="container-fluid main-content-wrapper">
-    <div class="primary-block clearfix">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="product-cover product detail-product-cover">
-                    @if (string.IsNullOrWhiteSpace(Model.ImageSrc))
-                    {
-                        <img src="~/Content/Image/image_placeholder.jpg" class="img-responsive" alt="" />
-                    }
-                    else
-                    {
-                        <img src="@Model.ImageSrc" class="img-responsive" alt="" />
-                    }
-                    <div class="fade"></div>
-                </div><!-- /.product-cover -->
-            </div><!-- /.col -->
-            <div class="col-sm-8">
-                <div class="product-detail-header">
-                    <h2 class="product-title">@Model.ProductName</h2>
-                </div><!-- /.product-detail-header -->
-                <hr />
-                <div class="product-detail-body">
-                    <div class="detail-cart-button row clearfix">
-                        <div class="col-md-6 col-sm-5 col-xs-12">
-                            <div class="form-group">
-                                <div class="col-sm-4">
-                                    <span class="price-field">Giá thị trường : </span>
-                                </div>
-                                <div class="col-sm-7">
-                                    <span class="price-original">@string.Format("{0:n}", Model.Price) đ</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-4">
-                                    <span class="price-field">Giá : </span>
-                                </div>
-                                <div class="col-sm-7">
-                                    <span class="price-real-price">@string.Format("{0:n}", Model.DiscountedPrice) đ</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-4">
-                                    <span class="price-field">Tiết kiệm : </span>
-                                </div>
-                                <div class="col-sm-7">
-                                    <span class="price-discount">@string.Format("{0:n}", Model.Price - Model.DiscountedPrice) đ (@string.Format("{0:n}", Model.Discount) %)</span>
-                                </div>
-                            </div>
+<div class="index-content-wrapper container-fluid">
+    <div class="breadcrumb-container">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><i class="fa fa-home pr-10"></i><a href="@Url.Action("Index","Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Showcase","Product")">Sản Phẩm</a></li>
+                <li class="active">@Model.ProductName</li>
+            </ol>
+        </div>
+    </div>
 
-
-                            @*<div class="detail-product-price">
-                                    <span class="price">@string.Format("{0:n}", Model.DiscountedPrice) đ</span>
-                                </div>*@<!-- /.detail-product-price -->
-                        </div><!-- /.pull-left -->
-                        <div class="col-md-6 col-sm-7 col-xs-12">
-                            <div class="row product-actions">
-                                <a href="checkout.html" class="col-sm-6 btn btn-primary btn-addToCart">
-                                    <i class="icon-plus fa fa-plus-circle"></i>Thêm vào giỏ
-                                </a>
-                                <div class="quantity product-detail-quantity col-xs-4 col-lg-3">
-                                    <div class="quantity-block">
-                                        <div class="quant-input">
-                                            <div class="arrows">
-                                                <div class="arrow plus gradient"><span class="ir"><i class="fa fa-plus"></i></span></div>
-                                                <div class="arrow minus gradient"><span class="ir"><i class="fa fa-minus"></i></span></div>
-                                            </div><!-- /.arrows -->
-                                            <input class="txt-quantity" type="text" value="1">
-                                        </div><!-- /.quant-input -->
-                                    </div><!-- /.quantity-block -->
-                                </div><!-- /.col -->
-                            </div><!-- /.row -->
-                        </div><!-- /.pull-right -->
-                    </div><!-- /.detail-cart-button -->
-                    <div class="clearfix"></div>
-                    <div class="product-description">
-                        <h3>Giới thiệu</h3>
-                        <p>@Model.ProductSummary</p>
-                    </div><!-- /.product-description -->
-                </div><!-- /.product-detail-body -->
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-        <div class="tab-holder clearfix">
-            <div class="product-additional-details">
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs product-detail-tab">
-                    <li class="active" role="presentation">
-                        <a href="#more" data-toggle="tab">Thông Tin Chi Tiết</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#product-details" data-toggle="tab">Đặc Điểm</a>
-                    </li>
-                </ul><!-- /.nav -->
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <div class="tab-pane active" id="more" role="tabpanel">
-                        <div class="container-fluid">
-                            <h3>Consectetur adipisicing elit, sed do eiusmod</h3>
-                            <div class="content-text">
-                                @Html.Raw(Model.ProductDescription)
+    <section class="main-container">
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-12">
+                    <h1 class="page-title">@Model.ProductName</h1>
+                    <div class="separator-2"></div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <ul class="nav nav-pills" role="tablist">
+                                <li class="active"><a href="#pill-1" role="tab" data-toggle="tab" title="images"><i class="fa fa-camera pr-5"></i> Ảnh Sản Phẩm</a></li>
+                            </ul>
+                            <div class="tab-content clear-style">
+                                <div class="tab-pane active" id="pill-1">
+                                    <div class="owl-carousel content-slider-with-large-controls">
+                                        <div class="overlay-container overlay-visible">
+                                            <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                            <a href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" class="popup-img overlay-link" title="image title"><i class="icon-plus-1"></i></a>
+                                        </div><div class="overlay-container overlay-visible">
+                                            <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
+                                            <a href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" class="popup-img overlay-link" title="image title"><i class="icon-plus-1"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div><!-- /.tab-pane -->
-                    <div class="tab-pane" id="product-details" role="tabpanel">
-                        <div class="container-fluid">
-                            <!-- specification -->
-                            @if (Model.SpecificationList != null && Model.SpecificationList.Any())
-                            {
-                                if (Model.SpecificationList.Where(s => s.IsSize).Any())
-                                {
-                                    <fieldset>
-                                        <legend>Kích Thước</legend>
-
-                                        <table class="table table-bordered col-sm-12 table-specification">
-                                            <tbody>
-                                                @foreach (var specification in Model.SpecificationList.Where(s => s.IsSize))
-                                                {
-                                                    <tr>
-                                                        <td class="specification-header"><span>@specification.Name</span></td>
-                                                        <td><span>@specification.Value</span></td>
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </fieldset>
-                                }
-
-                                if (Model.SpecificationList.Where(s => !s.IsSize).Any())
-                                {
-                                    <fieldset>
-                                        <legend>Thông Tin Kỹ Thuật</legend>
-
-                                        <table class="table table-bordered col-sm-12 table-specification">
-                                            <tbody>
-                                                @foreach (var specification in Model.SpecificationList.Where(s => !s.IsSize))
-                                                {
-                                                    <tr>
-                                                        <td class="specification-header"><span>@specification.Name</span></td>
-                                                        <td><span>@specification.Value</span></td>
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </fieldset>
-                                }
-                            }
+                        <div class="col-md-8 pv-30">
+                            <h2>Mô Tả</h2>
+                            <p>@Model.ProductSummary</p>
+                            <hr class="mb-10">
+                            <div class="row grid-space-10">
+                                <form role="form" class="clearfix">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Quantity</label>
+                                            <input type="text" class="form-control" value="1">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="clearfix mb-20">
+                                            <ul class="pl-20 pull-right social-links circle small clearfix margin-clear animated-effect-1" style="padding-top: 30px;">
+                                                <li class="twitter"><a target="_blank" href="http://www.twitter.com" style="color: #55acee;"><i class="fa fa-twitter"></i></a></li>
+                                                <li class="googleplus"><a target="_blank" href="http://plus.google.com" style="color: #dd4b39;"><i class="fa fa-google-plus"></i></a></li>
+                                                <li class="facebook"><a target="_blank" href="http://www.facebook.com" style="color: #3b5998;"><i class="fa fa-facebook"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="light-gray-bg p-20 bordered clearfix">
+                                <span class="product price"><i class="fa fa-tag pr-10"></i>99.00 đ</span>
+                                <span class="product price" style="margin-left: 5px;color: #7f8c8d;font-size: 15px;"><del>50.00 đ</del></span>
+                                <div class="product elements-list pull-right clearfix">
+                                    <input type="submit" value="Add to Cart" class="margin-clear btn btn-default">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div><!-- /.tab-content -->
-            </div><!-- /.product-additional-details -->
-        </div><!-- /.col -->
-    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pv-30 light-gray-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="nav nav-tabs style-4" role="tablist">
+                        <li class="active"><a href="#h2tab1" role="tab" data-toggle="tab"><i class="fa fa-star pr-5"></i>Thông Tin Thêm</a></li>
+                        <li><a href="#h2tab2" role="tab" data-toggle="tab"><i class="fa fa-files-o pr-5"></i>Thông Số</a></li>
+                        <li><a href="#h2tab3" role="tab" data-toggle="tab"><i class="fa fa-files-o pr-5"></i>Bình Luận (4)</a></li>
+                    </ul>
+                    <div class="tab-content padding-top-clear padding-bottom-clear">
+                        <div class="tab-pane fade in active" id="h2tab1">
+                            <!-- Thông tin thêm -->
+                            @Html.Raw(Model.ProductDescription)
+                        </div>
+                        <div class="tab-pane fade" id="h2tab2">
+                            <!-- Đặc điểm -->
+                            <h4 class="space-top">Đặc Điểm</h4>
+                            <hr>
+                            <dl class="dl-horizontal">
+                                @foreach (var specification in Model.SpecificationList.Where(s => !s.IsSize))
+                                {
+                                    <dt>@specification.Name</dt>
+                                    <dd>@specification.Value</dd>
+                                }
+                            </dl>
+
+                            <!-- Kích Thước -->
+                            <h4 class="space-top">Kích Thước</h4>
+                            <hr>
+                            <dl class="dl-horizontal">
+                                @foreach (var specification in Model.SpecificationList.Where(s => s.IsSize))
+                                {
+                                    <dt>@specification.Name</dt>
+                                    <dd>@specification.Value</dd>
+                                }
+                            </dl>
+                        </div>
+                        <div class="tab-pane fade" id="h2tab3">
+                            <!-- comment -->
+                            <div class="comments margin-clear space-top">
+                                <div class="comment clearfix">
+                                    <header>
+                                        <h3>Amazing!</h3>
+                                        <div class="comment-meta">
+                                            <i class="fa fa-star text-default"></i>
+                                            <i class="fa fa-star text-default"></i>
+                                            <i class="fa fa-star text-default"></i>
+                                            <i class="fa fa-star text-default"></i>
+                                            <i class="fa fa-star"></i> by <strong>Thuan</strong> | Today 12:31
+                                        </div>
+                                    </header>
+                                    <div class="comment-content">
+                                        <div class="comment-body clearfix">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
+                                            <a href="blog-post.html" class="btn-sm-link link-dark pull-right"><i class="fa fa-reply"></i> Reply</a>
+                                        </div>
+                                        <div class="comment-reply">
+                                            <header>
+                                                <div class="comment-meta">
+                                                    <strong>Thuan</strong> | Today 12:31
+                                                </div>
+                                            </header>
+                                            <div class="comment-body clearfix">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comments-form">
+                                <h2 class="title">Ý Kiến Của Bạn</h2>
+                                <form role="form" id="comment-form">
+                                    <div class="form-group has-feedback">
+                                        <label for="name4">Họ và Tên</label>
+                                        <input type="text" class="form-control" id="name4" placeholder="" name="name4" required="">
+                                        <i class="fa fa-user form-control-feedback"></i>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <label for="subject4">Tiêu Đề</label>
+                                        <input type="text" class="form-control" id="subject4" placeholder="" name="subject4" required="">
+                                        <i class="fa fa-pencil form-control-feedback"></i>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Đánh Giá</label>
+                                        <select class="form-control" id="review">
+                                            <option value="five">5</option>
+                                            <option value="four">4</option>
+                                            <option value="three">3</option>
+                                            <option value="two">2</option>
+                                            <option value="one">1</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <label for="message4">Nội Dung</label>
+                                        <textarea class="form-control" rows="8" id="message4" placeholder="" name="message4" required=""></textarea>
+                                        <i class="fa fa-envelope-o form-control-feedback"></i>
+                                    </div>
+                                    <input type="submit" value="Submit" class="btn btn-default">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="col-md-4 col-lg-3 col-lg-offset-1">
+                    <div class="sidebar">
+                        <div class="block clearfix">
+                            <h3 class="title">Sản Phẩm Tương Tự</h3>
+                            <div class="separator-2"></div>
+                            <div class="media margin-clear">
+                                <div class="media-left">
+                                    <div class="overlay-container">
+                                        <img class="media-object" src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-5.jpg" alt="blog-thumb">
+                                        <a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <h6 class="media-heading"><a href="shop-product.html">Lorem ipsum dolor sit amet</a></h6>
+                                    <p class="margin-clear">
+                                        <i class="fa fa-star text-default"></i>
+                                        <i class="fa fa-star text-default"></i>
+                                        <i class="fa fa-star text-default"></i>
+                                        <i class="fa fa-star text-default"></i>
+                                        <i class="fa fa-star text-default"></i>
+                                    </p>
+                                    <p class="price">$99.00</p>
+                                </div>
+                                <hr>
+                            </div>
+                            <div class="media margin-clear">
+                                <div class="media-left">
+                                    <div class="overlay-container">
+                                        <img class="media-object" src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-4.jpg" alt="blog-thumb">
+                                        <a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <h6 class="media-heading"><a href="shop-product.html">Eum repudiandae ipsam</a></h6>
+                                    <p class="margin-clear">
+                                        <i class="fa fa-star text-default"></i>
+                                        <i class="fa fa-star text-default"></i>
+                                        <i class="fa fa-star text-default"></i>
+                                        <i class="fa fa-star text-default"></i>
+                                        <i class="fa fa-star"></i>
+                                    </p>
+                                    <p class="price">$299.00</p>
+                                </div>
+                                <hr>
+                            </div>
+                            <div class="media margin-clear">
+                                <div class="media-left">
+                                    <div class="overlay-container">
+                                        <img class="media-object" src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-7.jpg" alt="blog-thumb">
+                                        <a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <h6 class="media-heading"><a href="shop-product.html">Quia aperiam velit fuga</a></h6>
+                                    <p class="margin-clear">
+                                        <i class="fa fa-star text-default"></i>
+                                        <i class="fa fa-star text-default"></i>
+                                        <i class="fa fa-star text-default"></i>
+                                        <i class="fa fa-star text-default"></i>
+                                        <i class="fa fa-star"></i>
+                                    </p>
+                                    <p class="price">$9.99</p>
+                                </div>
+                                <hr>
+                            </div>
+                            <div class="media margin-clear">
+                                <div class="media-left">
+                                    <div class="overlay-container">
+                                        <img class="media-object" src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-8.jpg" alt="blog-thumb">
+                                        <a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <h6 class="media-heading"><a href="shop-product.html">Fugit non natus officiis</a></h6>
+                                    <p class="margin-clear">
+                                        <i class="fa fa-star text-default"></i>
+                                        <i class="fa fa-star text-default"></i>
+                                        <i class="fa fa-star text-default"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </p>
+                                    <p class="price">$399.00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
 </div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".owl-carousel").owlCarousel({
+                navigation: false, // Show next and prev buttons
+                lazyLoad: true,
+                slideSpeed: 300,
+                paginationSpeed: 400,
+                singleItem: true
+            });
+        });
+    </script>
+}

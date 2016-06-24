@@ -2,67 +2,310 @@
     ViewBag.Title = "Giới thiệu";
 }
 
-<div class="row">
-    <section class="demo_wrapper">
-        <article class="demo_block">
-            <ul id="imageSlider">
-                <li><a href="#slide1"><img src="http://sacheminc.com/wp-content/uploads/we_think_banner.jpg" alt="Ảnh 1"></a></li>
-                <li><a href="#slide2"><img src="http://image.shutterstock.com/z/stock-vector-thin-line-flat-design-banner-of-company-vision-statement-modern-vector-illustration-concept-of-366791327.jpg" alt="Ảnh 2"></a></li>
-                <li><a href="#slide3"><img src="http://www.pedalo.co.uk/wp-content/uploads/2015/07/mobile-web-design.jpg" alt="Ảnh 3"></a></li>
-            </ul>
-        </article>
-    </section>
-</div>
-
-<div class="row about-div main-content-wrapper" style="margin-top: 20px;">
-    <div class="col-lg-12">
-        <fieldset>
-            <legend>Lịch sử công ty</legend>
-
-            <div class="col-lg-12">
-                <p>
-                    Fusce varius euismod lorem, nec semper ante ullamcorper condimentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu tortor eget nunc blandit rutrum. Praesent hendrerit ante sed nulla molestie gravida. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam eu ipsum nec felis facilisis molestie tristique id elit. Vivamus ipsum mi, luctus eu ullamcorper ut, dapibus et elit. Phasellus et mauris eu mi accumsan scelerisque id non lectus. Mauris vel neque non lectus tristique hendrerit sit amet nec nisl. Fusce in velit erat, sed egestas est.
-                </p>
-                <blockquote>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis.</p>
-                    <small>Someone famous</small>
-                </blockquote>
-                <div class="row">
-                    <div class="col-md-8 col-lg-8">
-                        Etiam pellentesque, magna eget lobortis placerat, leo leo consequat ante, non iaculis turpis augue ac ligula. Nunc blandit tincidunt consequat.
-                        <ul>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                            <li>Phasellus adipiscing ante ac mi laoreet commodo.</li>
-                            <li>Fusce iaculis lectus quis enim dictum ultrices.</li>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                            <li>Phasellus adipiscing ante ac mi laoreet commodo.</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4 col-lg-4">
-                        <img src="http://www.i3s.co.za/images/website%20pictures/CompanyIntro/Integrated_working_systems.jpg" style="width:200px;"><br><br>
-                        <p> Etiam pellentesque, magna eget lobortis placerat, leo leo consequat ante</p>
-                    </div>
-                </div>
-                <hr>
-                <p>
-                    Aenean sed mauris id diam fermentum pretium. Cras consectetur diam nec nulla iaculis mattis. Phasellus iaculis sollicitudin sagittis. Proin semper feugiat ornare. Vivamus viverra suscipit bibendum. Fusce eu sem mauris, non pharetra ligula. Praesent facilisis eros quis dolor ullamcorper varius. Duis neque eros, lacinia adipiscing egestas quis, consequat a ipsum. Aenean lobortis ipsum id enim egestas iaculis. Vivamus eleifend dictum sagittis. Nam interdum tincidunt placerat. Nunc nisl leo, laoreet quis semper id, vestibulum vel ipsum.
-                </p>
-
+<div class="index-content-wrapper container-fluid">
+    <div class="banner dark-translucent-bg" style="background-image:url('http://htmlcoder.me/preview/the_project/v.1.2/template/images/page-about-banner-1.jpg'); background-position: 50% 32%;">
+        <!-- breadcrumb start -->
+        <!-- ================ -->
+        <div class="breadcrumb-container">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home pr-10"></i><a href="@Url.Action("Index","Home")">Trang Chủ</a></li>
+                    <li><a href="@Url.Action("Showcase","Product")">Sản Phẩm</a></li>
+                    <li class="active">Giới Thiệu</li>
+                </ol>
             </div>
-        </fieldset>
-
-        <fieldset>
-            <legend>Mục tiêu</legend>
-
-            <div class="col-lg-12 col-md-12">
-                <img src="http://smarttalksuccess.com/wp-content/uploads/2012/11/say-hello-group.jpg" style="width:200px;">
-                <div class="intro">
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+        </div>
+        <!-- breadcrumb end -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 text-center col-md-offset-2 pv-20">
+                    <h2 class="title object-non-visible animated object-visible fadeIn" data-animation-effect="fadeIn" data-effect-delay="100">Giới Thiệu Sơ Lược</h2>
+                    <div class="separator object-non-visible mt-10 animated object-visible fadeIn" data-animation-effect="fadeIn" data-effect-delay="100"></div>
+                    <p class="text-center object-non-visible animated object-visible fadeIn" data-animation-effect="fadeIn" data-effect-delay="100">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi perferendis magnam ea necessitatibus, officiis voluptas odit! Aperiam omnis, cupiditate laudantium velit nostrum, exercitationem accusamus, possimus soluta illo deserunt tempora qui.</p>
                 </div>
             </div>
-        </fieldset>
+        </div>
     </div>
+
+    <section class="main-container padding-bottom-clear">
+
+        <div class="container">
+            <div class="row">
+
+                <!-- main start -->
+                <!-- ================ -->
+                <div class="main col-md-12">
+                    <h3 class="title">Chúng Tôi Là <strong>Ai</strong></h3>
+                    <div class="separator-2"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>
+                                Tổng Công ty Cổ phần Đầu tư DHC (DHC) được thành lập vào tháng 9, 2012 tại thành phố Đà Nẵng, xuất phát từ những cổ đông cùng chung ý tưởng xây dựng tại Việt Nam một “Ngôi nhà mơ ước”.
+
+                                DHC đã nhanh chóng đầu tư vào các dự án lớn tại khu vực cũng như luôn tìm kiếm những cơ hội đầu tư khác trong và ngoài nước. Với quan niệm kinh doanh lâu dài, bền vững dựa trên nền tảng uy tín rõ ràng, DHC luôn chào đón các đối tác trong và ngoài nước cùng hợp tác phát triển, tham gia dự án, kết nối đầu tư trên cơ sở bình đẳng, thân thiện và hài hòa về lợi ích. Đây cũng chính là động lực thúc đẩy việc đa dạng hóa sản phẩm, đa dạng hóa ngành nghề trên mọi phương diện, mọi lĩnh vực.
+
+                                Hướng đến mục tiêu trở thành Tập đoàn đa ngành nghề lớn mạnh tại Việt Nam và khu vực, toàn thể nhân sự DHC đang từng bước đẩy nhanh tiến độ công việc, ứng dụng khoa học công nghệ hiện đại, đoàn kết sáng tạo, thường xuyên tìm ra những cách làm mới, hướng đi mới phù hợp với sự phát triển chung.
+
+                                Đối với DHC, quyền lợi và chế độ phúc lợi của cán bộ nhân viên luôn được phát triển song hành hài hòa cùng với sự phát triển của doanh nghiệp. DHC luôn coi nguồn nhân lực là tài sản quý giá nhất của doanh nghiệp. Cán bộ DHC là những con người năng động đầy nhiệt huyết, khao khát làm việc sáng tạo để đưa DHC ngày càng phát triển. Mỗi con người của DHC đều có thể độc lập triển khai công việc nhưng khi cần, họ cũng có thể biến mình thành chất kết dính, cùng nhau tạo nên một khối vững bền và thống nhất.
+
+                                DHC luôn là một tập thể thống nhất, tập trung, dân chủ, hoạt động dựa trên luật pháp nước Việt Nam. DHC luôn đóng góp sức mình cho sự phát triển của xã hội, tạo công ăn việc làm cho nhiều lao động, tham gia tích cực các hoạt động xã hội, đề cao nhiệm vụ phát triển doanh nghiệp bền vững đi đôi với trách nhiệm phát triển xã hội.
+
+                                DHC - Ngôi Nhà Chung - "Ngôi Nhà Mơ Ước".
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="light-gray-bg pv-20 section mt-20">
+            <div class="container">
+                <h4 class="mb-20"><strong>Thành Viên</strong></h4>
+                <div class="row grid-space-10">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="team-member style-2 shadow bordered mb-20 text-center">
+                            <div class="overlay-container overlay-visible">
+                                <img src="http://dhcgroup.vn/Content/UserFiles/Images/About/%E2%80%9CSi%C3%AAu-du-thuy%E1%BB%81n-DHC-Marina%E2%80%9D-1.jpg" alt="">
+                                <div class="overlay-bottom">
+                                    <p class="small margin-clear">Công ty Cổ phần DHC Sông Hàn (DHC Han River Corporation) là công ty chuyên về lĩnh vực xây dựng</p>
+                                </div>
+                            </div>
+                            <div class="body" style="margin-top:10px;margin-bottom:10px;">
+                                <h3 class="margin-clear">Công ty Cổ phần DHC Sông Hàn</h3>
+                                <div class="separator mt-10"></div>
+                                <ul class="social-links circle colored margin-clear">
+                                    <li class="skype"><a target="_blank" href="http://dhcgroup.vn/"><i class="fa fa-globe"></i></a></li>
+                                    <li class="linkedin"><a target="_blank" href="http://www.linkedin.com"><i class="fa fa-linkedin"></i></a></li>
+                                    <li class="xing"><a target="_blank" href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="team-member style-2 shadow bordered mb-20 text-center">
+                            <div class="overlay-container overlay-visible">
+                                <img src="http://dhcgroup.vn/Content/UserFiles/Images/About/%E2%80%9CSi%C3%AAu-du-thuy%E1%BB%81n-DHC-Marina%E2%80%9D-1.jpg" alt="">
+                                <div class="overlay-bottom">
+                                    <p class="small margin-clear">Công ty Cổ phần DHC-Marina (DHC-Marina Corporation) là công ty cổ phần đầu tư và kinh doanh</p>
+                                </div>
+                            </div>
+                            <div class="body" style="margin-top:10px;margin-bottom:10px;">
+                                <h3 class="margin-clear">Công ty Cổ phần DHC-Marina</h3>
+                                <div class="separator mt-10"></div>
+                                <ul class="social-links circle colored margin-clear">
+                                    <li class="skype"><a target="_blank" href="http://dhcgroup.vn/"><i class="fa fa-globe"></i></a></li>
+                                    <li class="linkedin"><a target="_blank" href="http://www.linkedin.com"><i class="fa fa-linkedin"></i></a></li>
+                                    <li class="xing"><a target="_blank" href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="team-member style-2 shadow bordered mb-20 text-center">
+                            <div class="overlay-container overlay-visible">
+                                <img src="http://dhcgroup.vn/Content/UserFiles/Images/About/%E2%80%9CSi%C3%AAu-du-thuy%E1%BB%81n-DHC-Marina%E2%80%9D-1.jpg" alt="">
+                                <div class="overlay-bottom">
+                                    <p class="small margin-clear">Công ty Cổ phần DHC Dream Home (DHC Dream Home Corporation) là công ty cổ phần</p>
+                                </div>
+                            </div>
+                            <div class="body" style="margin-top:10px;margin-bottom:10px;">
+                                <h3 class="margin-clear">Công ty Cổ phần DHC Dream Home</h3>
+                                <div class="separator mt-10"></div>
+                                <ul class="social-links circle colored margin-clear">
+                                    <li class="skype"><a target="_blank" href="http://dhcgroup.vn/"><i class="fa fa-globe"></i></a></li>
+                                    <li class="linkedin"><a target="_blank" href="http://www.linkedin.com"><i class="fa fa-linkedin"></i></a></li>
+                                    <li class="xing"><a target="_blank" href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="team-member style-2 shadow bordered mb-20 text-center">
+                            <div class="overlay-container overlay-visible">
+                                <img src="http://dhcgroup.vn/Content/UserFiles/Images/About/%E2%80%9CSi%C3%AAu-du-thuy%E1%BB%81n-DHC-Marina%E2%80%9D-1.jpg" alt="">
+                                <div class="overlay-bottom">
+                                    <p class="small margin-clear">Là thành viên của Tổng Công ty Cổ phần Đầu tư DHC, Công ty Cổ phần DHC Services (DHC Services Corporation) được thành lập với tiêu chí kết nối truyền thông cộng đồng</p>
+                                </div>
+                            </div>
+                            <div class="body" style="margin-top:10px;margin-bottom:10px;">
+                                <h3 class="margin-clear">Công ty Cổ phần DHC Services</h3>
+                                <div class="separator mt-10"></div>
+                                <ul class="social-links circle colored margin-clear">
+                                    <li class="skype"><a target="_blank" href="http://dhcgroup.vn/"><i class="fa fa-globe"></i></a></li>
+                                    <li class="linkedin"><a target="_blank" href="http://www.linkedin.com"><i class="fa fa-linkedin"></i></a></li>
+                                    <li class="xing"><a target="_blank" href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="team-member style-2 shadow bordered mb-20 text-center">
+                            <div class="overlay-container overlay-visible">
+                                <img src="http://dhcgroup.vn/Content/UserFiles/Images/About/%E2%80%9CSi%C3%AAu-du-thuy%E1%BB%81n-DHC-Marina%E2%80%9D-1.jpg" alt="">
+                                <div class="overlay-bottom">
+                                    <p class="small margin-clear">Công ty Cổ phần DHC Suối Đôi (DHC Suoi Doi Corporation) là công ty cổ phần đầu tư và kinh doanh</p>
+                                </div>
+                            </div>
+                            <div class="body" style="margin-top:10px;margin-bottom:10px;">
+                                <h3 class="margin-clear">Công ty Cổ phần DHC Suối Đôi</h3>
+                                <div class="separator mt-10"></div>
+                                <ul class="social-links circle colored margin-clear">
+                                    <li class="skype"><a target="_blank" href="http://dhcgroup.vn/"><i class="fa fa-globe"></i></a></li>
+                                    <li class="linkedin"><a target="_blank" href="http://www.linkedin.com"><i class="fa fa-linkedin"></i></a></li>
+                                    <li class="xing"><a target="_blank" href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="main-container border-clear light-gray-bg padding-bottom-clear" style="background:#fff;">
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-12">
+                    <h2 class="page-title text-center">Lĩnh Vực Hoạt Động</h2>
+
+                    <div class="image-box space-top style-4">
+                        <div class="row grid-space-0">
+                            <div class="col-md-6">
+                                <div class="overlay-container">
+                                    <img src="http://dhcgroup.vn/Content/UserFiles/Images/Service/dautu.jpg" alt="">
+                                    <div class="overlay-to-top">
+                                        <p class="small margin-clear">
+                                            Với những tiềm năng vốn có từ tài nguyên thiên nhiên cũng như nội lực phát triển của thành phố Đà Nẵng và các địa phương khác trên cả nước, Tổng Công ty Cổ phần Đầu tư DHC đã tìm kiếm những cơ hội phát triển kinh doanh tại đây.
+                                        </p>
+                                        <p class="small margin-clear">
+                                            Các dự án về du lịch, bất động sản, nghỉ dưỡng, giải trí đã lần lượt ra đời hứa hẹn mang đến một diện mạo mới cho thành phố trẻ năng động cũng như mang lại công ăn việc làm cho người dân địa phương.
+                                        </p>
+                                        <p class="small margin-clear">
+                                            Với kinh nghiệm đầu tư tại các quốc gia phát triển Châu Âu, các cổ đông của Tổng Công ty Cổ phần Đầu Tư DHC đã có những chiến lược đầu tư vào nền kinh tế Việt Nam trong giai đoạn mới dựa trên phương châm "Đầu tư - Hợp tác - Cùng phát triển".
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="body">
+                                    <div class="pv-30 visible-lg"></div>
+                                    <h3>Hoạt Động Đầu Tư</h3>
+                                    <div class="separator-2"></div>
+                                    <p class="margin-clear">Với kinh nghiệm đầu tư tại các quốc gia phát triển Châu Âu, các cổ đông của Tổng Công ty Cổ phần Đầu Tư DHC đã có những chiến lược đầu tư vào nền kinh tế Việt Nam trong giai đoạn mới.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image-box style-4">
+                        <div class="row grid-space-0">
+                            <div class="col-md-6">
+                                <div class="body">
+                                    <div class="pv-30 visible-lg"></div>
+                                    <h3>Hoạt Động Dịch Vụ</h3>
+                                    <div class="separator-2"></div>
+                                    <p class="margin-clear">
+                                        Chiến dịch Truyền thông marketing nhằm thúc đẩy, đưa nhãn hiệu sản phẩm và thương hiệu của doanh nghiệp đến với cộng đồng người tiêu dùng trên toàn quốc một cách nhanh nhất.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="overlay-container">
+                                    <img src="http://dhcgroup.vn/Content/UserFiles/Images/Service/dichvu.jpg" alt="">
+                                    <div class="overlay-to-top">
+                                        <p class="small margin-clear">
+                                            Truyền thông marketing bao gồm các hoạt động như quảng cáo, xúc tiến bán hàng, marketing trực tiếp, quan hệ công chúng, tổ chức sự kiện đặc biệt, triển lãm thương mại, và nhiều hoạt động khác. Thông điệp gắn với những hoạt động này và phương tiện được sử dụng đều tìm cách đưa thông tin vào tâm trí của khách hàng hiện tại hoặc khách hàng triển vọng vì nó sẽ ảnh hưởng đến các quyết định sử dụng hàng hóa, dịch vụ trong tương lai.
+                                        </p>
+                                        <p class="small margin-clear">
+                                            Những chiến dịch marketing đã xác định mục tiêu là một phần quan trọng trong nhiều chiến lược truyền thông tổng thể. Mục đích của những chiến dịch này là để truyền tải thông điệp của doanh nghiệp và thu hút có hệ thống, dễ nhận biết, và đầy thuyết phục chú ý của mọi người.
+                                        </p>
+                                        <p class="small margin-clear">
+                                            Với đội ngũ chuyên gia có kinh nghiệm và kiến thức chuyên môn cao, am hiểu sâu sắc về kỹ thuật xây dựng hệ thống truyền thông mạng xã hội, Công ty DHC Services chúng tôi cam kết luôn đem lại hiệu quả lớn nhất trên chi phí đầu tư của bạn.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image-box space-top style-4">
+                        <div class="row grid-space-0">
+                            <div class="col-md-6">
+                                <div class="overlay-container">
+                                    <img src="http://dhcgroup.vn/Content/UserFiles/Images/Service/thumnails%20web%20kinh%20doanh.jpg" alt="">
+                                    <div class="overlay-to-top">
+                                        <p class="small margin-clear">
+                                            Tổng Công ty Cổ phần Đầu tư DHC đang mở rộng kinh doanh với 2 dự án quy mô lớn là “Bến du thuyền và Câu lạc bộ thể thao dưới nước” (DHC-Marina) và Công viên Suối khoáng nóng Núi Thần Tài (DHC Suối Đôi).
+                                        </p>
+                                        <p class="small margin-clear">
+                                            Với “Bến du thuyền và Câu lạc bộ thể thao dưới nước” DHC-Marina sẽ đẩy mạnh du lịch du thuyền, khai thác các tour thưởng ngoạn sông Hàn, biển đảo Cù Lao Chàm,… Quản lý bến và du thuyền, cung cấp nơi đậu đỗ, bảo quản du thuyền; tổ chức hội thảo; CLB thể thao dưới nước. Định vị thương hiệu, phát triển thị trường thông qua việc bán, cho thuê du thuyền, trở thành cơ sở sản xuất của các thương hiệu tiếng; hợp tác đào tạo lái du thuyền,…
+                                        </p>
+                                        <p class="small margin-clear">
+                                            Công viên Suối khoáng nóng Núi Thần Tài phân thành nhiều hạng mục nhằm khai thác nguồn tài nguyên mỏ nước khoáng nóng cùng cảnh quan sinh thái đẹp mắt. Dự án chú trọng các khu tắm khoáng nóng, tắm bùn, tắm Onsen... cùng các dịch vụ spa giúp thư giãn hiệu quả. Nằm tại xã Hòa Phú, huyện Hòa Vang, TP. Đà Nẵng, dự án hứa hẹn sẽ là một điểm đến hấp dẫn, phát triển tiềm năng kinh tế của khu vực Tây Nam thành phố.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="body">
+                                    <div class="pv-30 visible-lg"></div>
+                                    <h3>Hoạt Động Kinh Doanh</h3>
+                                    <div class="separator-2"></div>
+                                    <p class="margin-clear">"Bến du thuyền và CLB thể thao dưới nước", "Công viên suối khoáng nóng Núi Thần Tài" là những dự án quy mô lớn do các công ty thành viên của Tổng CTy CPĐT DHC làm chủ đầu tư.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image-box style-4">
+                        <div class="row grid-space-0">
+                            <div class="col-md-6">
+                                <div class="body">
+                                    <div class="pv-30 visible-lg"></div>
+                                    <h3>Hoạt Động Xây Dựng</h3>
+                                    <div class="separator-2"></div>
+                                    <p class="margin-clear">
+                                        Nằm trong chiến lược cung cấp dịch vụ trọn gói từ tư vấn thiết kế, giám sát, thi công và nội thất công trình, mảng xây dựng công trình là một trong những phần quan trọng bậc nhất của DHC Group.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="overlay-container">
+                                    <img src="http://dhcgroup.vn/Content/UserFiles/Images/Service/dichvu.jpg" alt="">
+                                    <div class="overlay-to-top">
+                                        <p class="small margin-clear">
+                                            Nằm trong chiến lược cung cấp dịch vụ trọn gói từ tư vấn thiết kế, giám sát, thi công và nội thất công trình, mảng xây dựng công trình là một trong những phần quan trọng bậc nhất của DHC Group. Lĩnh vực hoạt động bao gồm:
+                                        </p>
+                                        <p class="small margin-clear">
+
+                                            Nhà hàng và các dịch vụ ăn uống phục vụ lưu động
+                                        </p>
+                                        <p class="small margin-clear">
+
+                                            Bán lẻ khác trong các cừa hàng kinh doanh tổng hợp
+                                        </p>
+                                        <p class="small margin-clear">
+                                            Dịch vụ lưu trú ngắn ngày: Kinh doanh cơ sở lưu trú du lịch
+                                        </p>
+                                        <p class="small margin-clear">
+                                            Bán lẻ đồ ngũ kim, sơn, kính và thiết bị lắp đặt khác trong xây dựng trong các cửa hàng chuyên doanh (Riêng xi măng, gạch xây, ngói, đá, cát, sạn bán tại chân công trình)
+                                        </p>
+                                        <p class="small margin-clear">
+                                            Bán lẻ theo yêu cầu đặt hàng qua bưu điện hoặc internet
+                                        </p>
+                                        <p class="small margin-clear">
+                                            Hoạt động tư vấn quản lý: Tư vấn đầu tư xây dựng, quản lý dự án
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- main end -->
+
+            </div>
+        </div>
+    </section>
 </div>
 
 @section Scripts

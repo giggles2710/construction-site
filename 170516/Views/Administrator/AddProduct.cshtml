@@ -2,17 +2,21 @@
 @{
     ViewBag.Title = "Tạo sản phẩm mới";
 }
-<div class="row">
-    <div class="col-md-12">
-        <div class="main-content-wrapper">
-            <div class="panel-heading">
-                @*nav bar*@
-                <ol class="breadcrumb">
-                    <li><a href="@Url.Action("ViewProduct","Administrator")">Quản lý sản phẩm</a></li>
-                    <li class="active">Tạo sản phẩm</li>
-                </ol>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="btn-group pull-right m-t-5 m-b-20">
+                <a href="@Url.Action("AddProduct","Administrator")" class="btn btn-custom dropdown-toggle waves-effect waves-light">Thêm sản phẩm <span class="m-l-5"><i class="fa fa-plus"></i></span></a>
             </div>
-            <div class="container-fluid">
+            <h4 class="page-title">Quản lý sản phẩm</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box">
                 <form id="AddProductForm">
                     <div class="form-horizontal">
                         <fieldset class="fieldset">
@@ -78,8 +82,10 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="ProductDiscount">Khuyến Mãi</label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control double-input large-input" id="ProductDiscount" name="ProductDiscount">
-                                            <h6>%</h6>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control double-input" id="ProductDiscount" name="ProductDiscount">
+                                                <span class="input-group-addon">%</span>
+                                            </div>
                                             <span class="input-error-box text-danger"></span>
                                         </div>
                                     </div>
@@ -87,8 +93,10 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="ProductPrice">Giá <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control double-input large-input" id="ProductPrice" name="ProductPrice">
-                                            <h6>đ</h6>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control double-input" id="ProductPrice" name="ProductPrice">
+                                                <span class="input-group-addon">vnđ</span>
+                                            </div>
                                             <span class="input-error-box text-danger"></span>
                                         </div>
                                     </div>
@@ -104,7 +112,7 @@
                                     <div class="form-group">
                                         <label class="control-label">Ảnh Sản Phẩm</label>
                                         <!-- IMAGE -->
-                                        <div class="image-box">
+                                        <div class="image-upload-box">
                                             <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
                                             <div id="ImagePreviewBox" class="preview-box" style="max-width:80%;"></div>
                                             <input id="ImageUpload" type="file" class="image-file-input" name="ImageUpload" />
@@ -121,7 +129,7 @@
 
                             <div class="row">
                                 <div id="AddProductSpecificationTable">
-                                    <!-- SPECIFICATION TABLE -->                                    
+                                    <!-- SPECIFICATION TABLE -->
                                 </div>
                             </div>
                             <div class="row">
@@ -195,6 +203,7 @@
         </div>
     </div>
 </div>
+
 @section Scripts
 {
     <script src="@Url.Content("~/Scripts/Admin/product.js")"></script>

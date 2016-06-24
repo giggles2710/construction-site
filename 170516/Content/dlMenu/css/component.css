@@ -10,7 +10,6 @@
 
 .dl-menuwrapper {
     width: 90%;
-    max-width: 300px;
     float: left;
     position: absolute;
     -webkit-perspective: 1000px;
@@ -73,7 +72,7 @@
             display: block;
             position: relative;
             padding: 15px 20px;
-            font-size: 14px;
+            font-size: 15px;
             line-height: 5px;
             font-weight: 300;
             color: #333333;

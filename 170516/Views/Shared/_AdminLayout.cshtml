@@ -10,62 +10,167 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="@Url.Action("Index","Administrator")">Construction Admin</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        @{Html.RenderAction("AccountMenu", "Administrator");}
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-    <div class="container-fluid main-content">
-        <div class="row">
-            <div class="col-md-3">
-                <!-- menu -->
-                <div class="list-group table-of-contents">
-                    <a class="list-group-item" href="#"><i class="fa fa-list"></i> Nội Dung</a>
-                    <a class="list-group-item list-group-item-child" href="@Url.Action("ViewProductCategory","Administrator")">Danh Mục</a>
-                    <a class="list-group-item list-group-item-child" href="@Url.Action("ViewProduct","Administrator")">Sản Phẩm</a>
-                    <a class="list-group-item list-group-item-child" href="@Url.Action("ViewSupplier","Administrator")">Nhà cung cấp</a>
-                    <a class="list-group-item list-group-item-child" href="@Url.Action("ViewShipper","Administrator")">Shipper</a>
-                    <a class="list-group-item list-group-item-child" href="@Url.Action("ViewSystemVariable","Administrator")">Thông Tin Công Ty</a>
-                    <a class="list-group-item" href="@Url.Action("ViewRequest","Administrator")"><i class="fa fa-inbox" aria-hidden="true"></i> Yêu Cầu Khách Hàng</a>
-                    <a class="list-group-item" href="@Url.Action("ViewUser","Administrator")"><i class="fa fa-users" aria-expanded="false"></i> Tài Khoản</a>
-                    <a class="list-group-item" href="@Url.Action("ViewOrder","Administrator")"><i class="fa fa-shopping-cart" aria-expanded="false"></i> Đơn Hàng</a>
+    <div id="wrapper" class="">
+
+        <!-- Top Bar Start -->
+        <div class="topbar">
+
+            <!-- LOGO -->
+            <div class="topbar-left">
+                <div class="text-center">
+                    <a href="index.html" class="logo">
+                        <i class="zmdi zmdi-toys icon-c-logo"></i><span>LOGO</span>
+                        <!--<span><img src="assets/images/logo.png" alt="logo" style="height: 20px;"></span>-->
+                    </a>
                 </div>
             </div>
-            <div class="col-md-9">
-                <!-- body content -->
-                @RenderBody()
-                <!-- end body-->
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container">
+                    <div class="">
+                        <div class="pull-left">
+                            <button class="button-menu-mobile open-left waves-effect waves-light">
+                                <i class="zmdi zmdi-menu"></i>
+                            </button>
+                            <span class="clearfix"></span>
+                        </div>
+                        @{Html.RenderAction("AccountMenu", "Administrator");}
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- Footer -->
-    <footer>
-        <div class="container-fluid">
-            <div class="copy text-center" style="height :52px; margin-top: 20px; ">
-                Copyright © 2016 <a href="#">OUR DEVELOPER</a>
+
+        <div class="left side-menu">
+            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 1183px;">
+                <div class="sidebar-inner slimscrollleft" style="overflow: hidden; width: auto; height: 1183px;">
+                    <div id="sidebar-menu">
+                        <ul>
+                            <li class="text-muted menu-title">Quản Lý Thông Tin</li>
+                            <li class="has_sub">
+                                <a href="@Url.Action("ViewProductCategory","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Danh Mục Sản Phẩm </span> </a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="@Url.Action("ViewSupplier","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Nhà Cung Cấp </span> </a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="@Url.Action("ViewShipper","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Đơn Vị Vận Chuyển </span> </a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="@Url.Action("ViewProduct","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Sản Phẩm </span> </a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="@Url.Action("ViewRequest","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Feedback Khách Hàng </span> </a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="@Url.Action("ViewSystemVariable","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Thông Tin Hệ Thống </span> </a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="@Url.Action("ViewUser","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Tài Khoản </span> </a>
+                            </li>
+                            <li class="text-muted menu-title">Quản Lý Cá Nhân</li>
+                            <li class="has_sub">
+                                <a href="index.html" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Thông Tin </span> </a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="index.html" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Đăng Xuất </span> </a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div><div class="slimScrollBar" style="width: 5px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 2691px; visibility: visible; background: rgb(220, 220, 220);"></div><div class="slimScrollRail" style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div>
+            </div>
+        </div>
+        <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="content-page">
+            <div class="content">
+                @RenderBody();
             </div>
 
+            <footer class="footer">
+                2016 © Flacto. Design by <a href="http://coderthemes.com/" target="_blank" class="text-muted">Coderthemes</a>
+            </footer>
+
         </div>
-    </footer>
+        <!-- ============================================================== -->
+        <!-- End Right content here -->
+        <!-- ============================================================== -->
+        <!-- Right Sidebar -->
+        <div class="side-bar right-bar">
+            <a href="javascript:void(0);" class="right-bar-toggle">
+                <i class="zmdi zmdi-close-circle-o"></i>
+            </a>
+            <h4 class="">Notifications</h4>
+            <div class="notification-list nicescroll" tabindex="5001" style="overflow: hidden; outline: none;">
+                <ul class="list-group list-no-border user-list">
+                    <li class="list-group-item">
+                        <a href="#" class="user-list-item">
+                            <div class="avatar">
+                                <img src="assets/images/users/avatar-2.jpg" alt="">
+                            </div>
+                            <div class="user-desc">
+                                <span class="name">Michael Zenaty</span>
+                                <span class="desc">There are new settings available</span>
+                                <span class="time">2 hours ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" class="user-list-item">
+                            <div class="icon">
+                                <i class="zmdi zmdi-account"></i>
+                            </div>
+                            <div class="user-desc">
+                                <span class="name">New Signup</span>
+                                <span class="desc">There are new settings available</span>
+                                <span class="time">5 hours ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" class="user-list-item">
+                            <div class="icon">
+                                <i class="zmdi zmdi-comment"></i>
+                            </div>
+                            <div class="user-desc">
+                                <span class="name">New Message received</span>
+                                <span class="desc">There are new settings available</span>
+                                <span class="time">1 day ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" class="user-list-item">
+                            <div class="avatar">
+                                <img src="assets/images/users/avatar-3.jpg" alt="">
+                            </div>
+                            <div class="user-desc">
+                                <span class="name">James Anderson</span>
+                                <span class="desc">There are new settings available</span>
+                                <span class="time">2 days ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="list-group-item active">
+                        <a href="#" class="user-list-item">
+                            <div class="icon">
+                                <i class="zmdi zmdi-settings"></i>
+                            </div>
+                            <div class="user-desc">
+                                <span class="name">Settings</span>
+                                <span class="desc">There are new settings available</span>
+                                <span class="time">1 day ago</span>
+                            </div>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <div id="ascrail2001" class="nicescroll-rails" style="width: 8px; z-index: 9999; cursor: default; position: absolute; top: 57px; left: 232px; height: 230px; opacity: 0;"><div style="position: relative; top: 0px; float: right; width: 6px; height: 113px; border: 1px solid rgb(255, 255, 255); border-radius: 5px; background-color: rgb(152, 166, 173); background-clip: padding-box;"></div></div><div id="ascrail2001-hr" class="nicescroll-rails" style="height: 8px; z-index: 9999; top: 279px; left: 0px; position: absolute; cursor: default; display: none; width: 232px; opacity: 0;"><div style="position: relative; top: 0px; height: 6px; width: 241px; border: 1px solid rgb(255, 255, 255); border-radius: 5px; background-color: rgb(152, 166, 173); background-clip: padding-box;"></div></div>
+        </div>
+    </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
