@@ -196,10 +196,16 @@
     <Compile Include="Entities\Customer.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\EmailTemplate.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\GetHashTokenByEmailAddress_Result.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\LoginByEmailAdress_Result.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MergeField.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Order.cs">
@@ -223,16 +229,7 @@
     <Compile Include="Entities\Shipper.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\sp_helpdiagrams_Result.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\Supplier.cs">
-      <DependentUpon>ConstructionEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\sysdiagram.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\SystemVariable.cs">
@@ -248,6 +245,7 @@
     <Compile Include="Models\Administrator\CreateProductModel.cs" />
     <Compile Include="Models\Administrator\CreateShipperModel.cs" />
     <Compile Include="Models\Administrator\CreateSupplierModel.cs" />
+    <Compile Include="Models\Administrator\EmailTemplateModel.cs" />
     <Compile Include="Models\Administrator\UpdateUserModel.cs" />
     <Compile Include="Models\Administrator\DetailProductModel.cs" />
     <Compile Include="Models\Administrator\DetailsCustomerModel.cs" />
@@ -317,16 +315,6 @@
     <Content Include="Content\maxImage\screen.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
-    <Content Include="Entities\ConstructionEntity.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-      <LastGenOutput>ConstructionEntity.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entities\ConstructionEntity.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-      <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\Admin\customer.js" />
     <Content Include="Scripts\Admin\js\calendar.js" />
     <Content Include="Scripts\Admin\js\custom.js" />
@@ -1416,12 +1404,23 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ConstructionEntity.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Entities\ConstructionEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <LastGenOutput>ConstructionEntity.Context.cs</LastGenOutput>
+    </Content>
     <Content Include="Entities\ConstructionEntity.edmx.diagram">
       <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+    </Content>
+    <Content Include="Entities\ConstructionEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\dlMenu\custom.dlmenu.js" />
     <Content Include="Scripts\dlMenu\modernizr.custom.js" />
+    <Content Include="Scripts\Admin\emailTemplate.js" />
     <Content Include="Scripts\Home\index.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
@@ -1614,6 +1613,7 @@
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="SQL Scripts\06242016.sql" />
     <Content Include="SQL Scripts\DB_Initial.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1691,6 +1691,7 @@
     <Content Include="Views\Administrator\AddUser.cshtml" />
     <Content Include="Views\Product\ViewCategory.cshtml" />
     <Content Include="Views\Product\ViewProductDetail.cshtml" />
+    <Content Include="Views\Administrator\AddEmailTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

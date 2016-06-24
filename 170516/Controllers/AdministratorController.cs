@@ -1929,7 +1929,7 @@ namespace _170516.Controllers
 
         #endregion
 
-        #region users
+        #region Users
 
         [Authorize]
         public ActionResult ViewUser(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
@@ -2220,6 +2220,9 @@ namespace _170516.Controllers
         }
         #endregion
 
+        #region Request
+        
+
         [HttpGet]
         [Authorize]
         public ActionResult ViewRequest(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
@@ -2389,5 +2392,50 @@ namespace _170516.Controllers
 
             return Json(new { isResult = false, result = "Không tìm thấy yêu cầu trong cơ sở dữ liệu. Vui lòng kiểm tra lại" }, JsonRequestBehavior.AllowGet);
         }
+
+        #endregion
+
+        #region EmailTemplate
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult AddEmailTemplate()
+        {
+            var model = new EmailTemplateModel();
+            model.IsHTML = true;
+            model.MergeFields = dbContext.MergeFields.Where(m => m.FieldType == (int)FieldTypes.Common || m.FieldType == (int)FieldTypes.AcceptOrder)
+                .Select(m => m.FieldName).ToList();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult AddEmailTemplate(EmailTemplateModel model)
+        {
+            var temp = new EmailTemplate
+            {
+                EmailTemplateName = model.EmailTemplateName,
+                EmailSubject = model.EmailSubject,
+                IsEnable = model.IsEnable,
+                IsBodyHtml = model.IsHTML,
+                HtmlBody = model.HtmlBody,
+                PlainText = model.PlainText,
+                CreatedBy = GetCurrentUserId(),
+                CreatedDate = DateTime.Now
+            };
+
+            try
+            {
+                dbContext.EmailTemplates.Add(temp);
+                dbContext.SaveChanges();
+                return Json(new { isResult = true, result = "Lưu email mẫu thành công" }, JsonRequestBehavior.AllowGet);
+            }            
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = "Có lỗi xảy ra trong qua trình lưu. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        #endregion
     }
 }
