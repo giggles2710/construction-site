@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Giỏ Hàng";
+}
+
+<div class="index-content-wrapper container-fluid">
+    <div class="banner dark-translucent-bg non-background">
+        <div class="breadcrumb-container">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home pr-10"></i><a class="link-dark" href="@Url.Action("Index","Home")">Trang Chủ</a></li>
+                    <li class="active">Giỏ Hàng</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <section class="main-container">
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-12">
+                    <h1 class="page-title">Giỏ Hàng</h1>
+                    <div class="separator-2"></div>
+                    <table class="table cart table-hover table-colored">
+                        <thead>
+                            <tr>
+                                <th>Tên sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Xóa</th>
+                                <th class="amount">Tổng Cộng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="remove-data">
+                                <td class="product product-name"><a href="shop-product.html">Product Title 1</a> <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</small></td>
+                                <td class="price">99.50 đ </td>
+                                <td class="quantity">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" value="2">
+                                    </div>
+                                </td>
+                                <td class="remove"><a class="btn btn-remove btn-sm btn-default">Xóa</a></td>
+                                <td class="amount">199.00 đ </td>
+                            </tr>
+                            <tr class="remove-data">
+                                <td class="product product-name"><a href="shop-product.html">Product Title 1</a> <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</small></td>
+                                <td class="price">99.50 đ </td>
+                                <td class="quantity">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" value="2">
+                                    </div>
+                                </td>
+                                <td class="remove"><a class="btn btn-remove btn-sm btn-default">Xóa</a></td>
+                                <td class="amount">199.00 đ </td>
+                            </tr>
+                            <tr class="remove-data">
+                                <td class="product product-name"><a href="shop-product.html">Product Title 1</a> <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</small></td>
+                                <td class="price">99.50 đ </td>
+                                <td class="quantity">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" value="2">
+                                    </div>
+                                </td>
+                                <td class="remove"><a class="btn btn-remove btn-sm btn-default">Xóa</a></td>
+                                <td class="amount">199.00 đ </td>
+                            </tr>
+                            <tr class="remove-data">
+                                <td class="product product-name"><a href="shop-product.html">Product Title 1</a> <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</small></td>
+                                <td class="price">99.50 đ </td>
+                                <td class="quantity">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" value="2">
+                                    </div>
+                                </td>
+                                <td class="remove"><a class="btn btn-remove btn-sm btn-default">Xóa</a></td>
+                                <td class="amount">199.00 đ </td>
+                            </tr>
+                            <tr>
+                                <td class="total-quantity" colspan="4">Tổng cộng 8 sản phẩm</td>
+                                <td class="total-amount">1997.00 đ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-right">
+                        <a href="#" class="btn btn-group btn-default">Cập Nhật</a>
+                        <a href="@Url.Action("Checkout","Product")" class="btn btn-group btn-default">Thanh Toán</a>
+                    </div>
+
+                </div>
+                <!-- main end -->
+
+            </div>
+        </div>
+    </section>
+</div>

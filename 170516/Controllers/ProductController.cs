@@ -242,5 +242,23 @@ namespace _170516.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public ActionResult ViewCart()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ViewCartMinimal()
+        {
+            return PartialView("_PartialCart");
+        }
+
+        [HttpGet]
+        public ActionResult Checkout()
+        {
+            return View();
+        }
     }
 }

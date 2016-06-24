@@ -3017,7 +3017,7 @@ h5 + .separator {
     .comment-content .comment-reply {
         padding-left: 50px;
         clear: both;
-       margin-bottom: 40px;
+        margin-bottom: 40px;
     }
 
 .comment-meta {
@@ -9874,4 +9874,19 @@ h6.media-heading {
         margin: 0 auto;
         min-width: 150px;
         border-radius: 50%;
+    }
+
+.non-background {
+    min-height: 0px !important;
+    padding-top: 38px !important;
+    padding-bottom: 0px !important;
+}
+
+.product-name {
+    
+}
+
+    .product-name a {
+        text-decoration: none !important;
+        color: #000 !important;
     }

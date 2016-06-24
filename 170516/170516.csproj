@@ -1719,6 +1719,9 @@
     <Content Include="Views\Product\ViewCategory.cshtml" />
     <Content Include="Views\Product\ViewProductDetail.cshtml" />
     <Content Include="Views\Administrator\AddEmailTemplate.cshtml" />
+    <Content Include="Views\Product\_PartialCart.cshtml" />
+    <Content Include="Views\Product\ViewCart.cshtml" />
+    <Content Include="Views\Product\Checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
