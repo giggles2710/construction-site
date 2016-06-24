@@ -10,10 +10,12 @@
 namespace _170516.Entities
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_helpdiagramdefinition_Result
+    public partial class MergeField
     {
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int FieldId { get; set; }
+        public string FieldName { get; set; }
+        public int FieldType { get; set; }
     }
 }

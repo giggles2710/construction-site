@@ -1929,7 +1929,7 @@ namespace _170516.Controllers
 
         #endregion
 
-        #region users
+        #region Users
 
         [Authorize]
         public ActionResult ViewUser(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
@@ -2177,7 +2177,7 @@ namespace _170516.Controllers
 
             if (isExist)
             {
-                return Json(new { isResult = false, result = Constant.UsernameExists }, JsonRequestBehavior.AllowGet);
+                return Json(new { isResult = false, result = Constant.EmailExists }, JsonRequestBehavior.AllowGet);
             }
 
             user.Username = model.Username;
@@ -2219,6 +2219,9 @@ namespace _170516.Controllers
             return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+        #region Request
+        
 
         [HttpGet]
         [Authorize]
@@ -2347,24 +2350,92 @@ namespace _170516.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [Authorize]
-        public ActionResult AnswerRequest(AnswerRequestModel model)
+        public JsonResult AnswerRequest(AnswerRequestModel model)
         {
             if(model.RequestID > 0)
             {
                 var request = dbContext.Requests.FirstOrDefault(r => r.RequestID == model.RequestID);
 
-                if(request != null)
+                var ob = new EmailDeliveryModel
+                {
+                    Subject = "test",
+                    IsBodyHtml = false,
+                    Body = model.ReplyContent,
+                    SendTo = "constructionsitestore@gmail.com"
+                };
+
+                bool isSuccess = EmailServiceHelper.Send(ob);
+
+                if (isSuccess)
                 {
                     request.Reply = model.ReplyContent;
                     request.ReplyUser = GetCurrentUserId();
                     request.DateCreated = DateTime.Now;
 
-                    dbContext.Entry(request).State = EntityState.Modified;
-                    dbContext.SaveChanges();
+                    try
+                    {
+                        dbContext.Entry(request).State = EntityState.Modified;
+                        dbContext.SaveChanges();
+
+                        return Json(new { isResult = true, result = "Đã trả lời" }, JsonRequestBehavior.AllowGet);
+                    }
+                    catch (Exception ex)
+                    {
+                        return Json(new { isResult = true, result = "Có lỗi xảy ra trong khi ghi dữ liệu. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
+                    }                    
                 }
+                else
+                {
+                    return Json(new { isResult = false, result = "Có lỗi xảy ra trong khi gửi email. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
+                }                
             }
 
-            return RedirectToAction("ViewRequestDetail", new { id = model.RequestID });
+            return Json(new { isResult = false, result = "Không tìm thấy yêu cầu trong cơ sở dữ liệu. Vui lòng kiểm tra lại" }, JsonRequestBehavior.AllowGet);
         }
+
+        #endregion
+
+        #region EmailTemplate
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult AddEmailTemplate()
+        {
+            var model = new EmailTemplateModel();
+            model.IsHTML = true;
+            model.MergeFields = dbContext.MergeFields.Where(m => m.FieldType == (int)FieldTypes.Common || m.FieldType == (int)FieldTypes.AcceptOrder)
+                .Select(m => m.FieldName).ToList();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult AddEmailTemplate(EmailTemplateModel model)
+        {
+            var temp = new EmailTemplate
+            {
+                EmailTemplateName = model.EmailTemplateName,
+                EmailSubject = model.EmailSubject,
+                IsEnable = model.IsEnable,
+                IsBodyHtml = model.IsHTML,
+                HtmlBody = model.HtmlBody,
+                PlainText = model.PlainText,
+                CreatedBy = GetCurrentUserId(),
+                CreatedDate = DateTime.Now
+            };
+
+            try
+            {
+                dbContext.EmailTemplates.Add(temp);
+                dbContext.SaveChanges();
+                return Json(new { isResult = true, result = "Lưu email mẫu thành công" }, JsonRequestBehavior.AllowGet);
+            }            
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = "Có lỗi xảy ra trong qua trình lưu. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        #endregion
     }
 }
