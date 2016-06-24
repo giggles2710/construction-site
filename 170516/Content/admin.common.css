@@ -2286,6 +2286,7 @@ pre {
 
     .data-table-wrapper .pagination-wrapper {
         float: right;
+        margin-top: 10px;
     }
 
         .data-table-wrapper .pagination-wrapper ul {
@@ -2295,10 +2296,12 @@ pre {
     .data-table-wrapper .summary-status {
         font-size: 15px;
         font-weight: bold;
+        margin-top: 10px;
     }
 
     .data-table-wrapper thead th {
         cursor: pointer;
+        text-align: center;
     }
 
     .data-table-wrapper thead i {

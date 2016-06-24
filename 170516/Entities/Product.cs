@@ -14,6 +14,7 @@ namespace _170516.Entities
     
     public partial class Product
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
             this.OrderDetails = new HashSet<OrderDetail>();
@@ -31,16 +32,21 @@ namespace _170516.Entities
         public Nullable<double> Discount { get; set; }
         public decimal UnitPrice { get; set; }
         public Nullable<decimal> DiscountedPrice { get; set; }
+        public Nullable<int> Rate { get; set; }
+        public Nullable<bool> IsFeatured { get; set; }
         public bool IsDiscountAvailable { get; set; }
         public bool IsAvailable { get; set; }
+        public Nullable<int> ViewNumber { get; set; }
         public Nullable<int> SupplierID { get; set; }
         public System.DateTime DateModified { get; set; }
         public string CreatedUserID { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual Category Category { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual Supplier Supplier { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductDetail> ProductDetails { get; set; }
     }
 }

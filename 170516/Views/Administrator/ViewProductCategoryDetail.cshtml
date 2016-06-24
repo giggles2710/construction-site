@@ -4,64 +4,60 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<div class="container">
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="main-content-wrapper">
-            <div class="panel-heading">
-                @*nav bar*@
-                <ol class="breadcrumb">
-                    <li><a href="@Url.Action("ViewProductCategory","Administrator")">Quản lý danh mục</a></li>
-                    <li class="active">Chi tiết danh mục</li>
-                </ol>
-                <div class="container-fluid admin-header">
-                    <div class="title col-md-6 col-xs-6"><h3>@Model.Name</h3></div>
-                </div>
-            </div>
-            <div class="container-fluid">                
-                    <div class="form-horizontal">
-                        <div class="row">                            
-                            <div class="col-md-offset-2 col-md-8 col-lg-8 detail-view">
-                                <!-- PRODUCT CATEGORY NAME -->
-                                @Html.HiddenFor(model => model.CategoryID)
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductName">Tên danh mục</label>
-                                    <div class="col-sm-7">
-                                        <p class="info-box">@Model.Name</p>
-                                     </div>
-                                </div>
-                                <!-- PRODUCT CATEGORY DESCRIPTION -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductName">Mô tả </label>
-                                    <div class="col-sm-7">
-                                        <p class="info-box">@Model.Description</p>
-                                    </div>
-                                </div>
-                                <!-- PRODUCT CATEGORY PARENT -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ParentID">Danh mục cha</label>
-                                    <div class="col-sm-7">
-                                        <p class="info-box">@Model.ParentCategoryName</p>
-                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Ảnh</label>
-                                    <!-- IMAGE -->
-                                    <div class="col-sm-7 image-box">
-                                        @if (string.IsNullOrEmpty(Model.CategoryImage))
-                                        {
-                                            <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
-                                        }
-                                        else
-                                        {
-                                            <img id="ImageBox" src="@Model.CategoryImage" class="image-box" />
-                                        }
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-title">Tạo danh mục sản phẩm</h4>
+        </div>
+    </div>
 
-                                    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box">
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-offset-2 col-md-8 col-lg-8 detail-view">
+                            <!-- PRODUCT CATEGORY NAME -->
+                            @Html.HiddenFor(model => model.CategoryID)
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="ProductName">Tên danh mục</label>
+                                <div class="col-sm-7">
+                                    <p class="info-box">@Model.Name</p>
+                                </div>
+                            </div>                            
+                            <!-- PRODUCT CATEGORY PARENT -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="ParentID">Danh mục cha</label>
+                                <div class="col-sm-7">
+                                    <p class="info-box">@Model.ParentCategoryName</p>
                                 </div>
                             </div>
-                        </div>  
-                    </div>                
+                            <!-- PRODUCT CATEGORY DESCRIPTION -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="ProductName">Mô tả </label>
+                                <div class="col-sm-7">
+                                    <p class="info-box">@Model.Description</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Ảnh</label>
+                                <!-- IMAGE -->
+                                <div class="col-sm-7 image-box">
+                                    @if (string.IsNullOrEmpty(Model.CategoryImage))
+                                    {
+                                        <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
+                                    }
+                                    else
+                                    {
+                                        <img id="ImageBox" src="@Model.CategoryImage" class="image-box" />
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -14,6 +14,7 @@ namespace _170516.Entities
     
     public partial class Category
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Category()
         {
             this.Category1 = new HashSet<Category>();
@@ -23,6 +24,7 @@ namespace _170516.Entities
         public int CategoryID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string Introduction { get; set; }
         public Nullable<int> ParentID { get; set; }
         public byte[] Image { get; set; }
         public string ImageType { get; set; }
@@ -30,8 +32,10 @@ namespace _170516.Entities
         public Nullable<int> CreatedUserID { get; set; }
         public bool IsActive { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Category> Category1 { get; set; }
         public virtual Category Category2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
     }
 }

@@ -2,99 +2,110 @@
 @{
     ViewBag.Title = "Chi tiết yêu cầu";
 }
-<div class="row">
-    <div class="col-md-12">
-        <div class="main-content-wrapper">
-            <div class="panel-heading">
-                <ol class="breadcrumb">
-                    <li><a href="@Url.Action("ViewProduct","Administrator")">Quản Lý Yêu Cầu</a></li>
-                    <li class="active">Chi tiết yêu cầu</li>
-                </ol>
-                <div class="container-fluid admin-header">
-                    <div class="title col-md-6 col-xs-6"><h3>Chi tiết yêu cầu khách hàng @Model.FullName</h3></div>
-                </div>
-            </div>
-            <div class="container-fluid">
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-title">Chi tiết feedback từ khách hàng</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box">
                 <div class="form-horizontal">
                     <input type="hidden" id="RequestIdInput" value="@Model.RequestID" />
                     <fieldset>
-                        <legend>Thông tin chung</legend>
+                        <legend>Thông tin chung</legend>                        
 
-                        <div class="row">
-                            <div class="col-md-6 col-lg-6 detail-view">
-                                <!-- FULL NAME -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="FullName">Họ và Tên</label>
-                                    <div class="col-sm-7">
-                                        <p class="info-box">@Model.FullName</p>
-                                    </div>
-                                </div>
-                                <!-- EMAIL ADDRESS -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="EmailAddress">Email</label>
-                                    <div class="col-sm-7">
-                                        <p class="info-box">@Model.EmailAddress</p>
-                                    </div>
-                                </div>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#home" data-toggle="tab">Thông tin chung</a></li>
+                            <li><a href="#profile" data-toggle="tab">Phản hồi</a></li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade active in" id="home">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12 detail-view">
+                                        <!-- FULL NAME -->
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label" for="FullName">Họ và Tên</label>
+                                            <div class="col-sm-7">
+                                                <p class="info-box">@Model.FullName</p>
+                                            </div>
+                                        </div>
+                                        <!-- EMAIL ADDRESS -->
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label" for="EmailAddress">Email</label>
+                                            <div class="col-sm-7">
+                                                <p class="info-box">@Model.EmailAddress</p>
+                                            </div>
+                                        </div>
 
-                                <!-- DATE CREATED -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductPrice">Ngày Tạo</label>
-                                    <div class="col-sm-7">
-                                        <p class="info-box">@Model.DateCreated</p>
-                                    </div>
-                                </div>
-                                <!-- CONTENT -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="Content">Nội Dung</label>
-                                    <div class="col-sm-7">
-                                        <p class="info-box">@Model.Content</p>
+                                        <!-- DATE CREATED -->
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label" for="ProductPrice">Ngày Tạo</label>
+                                            <div class="col-sm-7">
+                                                <p class="info-box">@Model.DateCreated</p>
+                                            </div>
+                                        </div>
+                                        <!-- CONTENT -->
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label" for="Content">Nội Dung</label>
+                                            <div class="col-sm-7">
+                                                <p class="info-box">@Model.Content</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-lg-6 detail-view">
-                                <!-- REPLY USER -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ReplyUser">Người trả lời</label>
-                                    <div class="col-sm-7">
-                                        @if (string.IsNullOrWhiteSpace(Model.ReplyUser))
-                                        {
-                                            <p class="info-box">Chưa có</p>
-                                        }
-                                        else
-                                        {
-                                            <p class="info-box">@Model.ReplyUser</p>
-                                        }
-                                    </div>
-                                </div>
+                            <div class="tab-pane fade" id="profile">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- REPLY USER -->
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label" for="ReplyUser">Người trả lời</label>
+                                            <div class="col-sm-7">
+                                                @if (string.IsNullOrWhiteSpace(Model.ReplyUser))
+                                                {
+                                                    <p class="info-box">Chưa có</p>
+                                                }
+                                                else
+                                                {
+                                                    <p class="info-box">@Model.ReplyUser</p>
+                                                }
+                                            </div>
+                                        </div>
 
-                                <!-- DATE REPLIED -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductPrice">Ngày Tạo</label>
-                                    <div class="col-sm-7">
-                                        @if (string.IsNullOrWhiteSpace(Model.DateCreated))
-                                        {
-                                            <p class="info-box">Chưa có</p>
-                                        }
-                                        else
-                                        {
-                                            <p class="info-box">@Model.DateCreated</p>
-                                        }
-                                    </div>
-                                </div>
+                                        <!-- DATE REPLIED -->
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label" for="ProductPrice">Ngày Tạo</label>
+                                            <div class="col-sm-7">
+                                                @if (string.IsNullOrWhiteSpace(Model.DateCreated))
+                                                {
+                                                    <p class="info-box">Chưa có</p>
+                                                }
+                                                else
+                                                {
+                                                    <p class="info-box">@Model.DateCreated</p>
+                                                }
+                                            </div>
+                                        </div>
 
-                                <!-- REPLY -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="Reply">Nội dung trả lời</label>
-                                    <div class="col-sm-7">
-                                        @if (string.IsNullOrWhiteSpace(Model.Reply))
-                                        {
-                                            <p class="info-box">Chưa có</p>
-                                        }
-                                        else
-                                        {
-                                            <p class="info-box">@Model.Reply</p>
-                                        }
+                                        <!-- REPLY -->
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label" for="Reply">Nội dung trả lời</label>
+                                            <div class="col-sm-7">
+                                                @if (string.IsNullOrWhiteSpace(Model.Reply))
+                                                {
+                                                    <p class="info-box">Chưa có</p>
+                                                }
+                                                else
+                                                {
+                                                    <p class="info-box">@Model.Reply</p>
+                                                }
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +118,7 @@
                         <div class="row">
                             <!-- DESCRIPTION -->
                             <div class="form-group col-sm-12 add-product-description" style="margin-left:2px;">
-                                <textarea class="tiny_mce_input" type="file" id="ReplyContent" name="ReplyContent" style=" width: 100%;"></textarea>
+                                <textarea class="tiny_mce_input" type="file" id="ReplyContent" name="ReplyContent" style=" width 100%;"></textarea>
                             </div>
                         </div>
                         <div class="row">
@@ -125,6 +136,7 @@
         </div>
     </div>
 </div>
+
 @section Scripts
 {
     <script src="@Url.Content("~/Scripts/Admin/request.js")"></script>

@@ -229,7 +229,16 @@
     <Compile Include="Entities\Shipper.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\sp_helpdiagrams_Result.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Supplier.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\sysdiagram.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\SystemVariable.cs">
@@ -274,8 +283,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\admin.common.css" />
-    <Content Include="Content\Admin\bootstrap\css\slate.bootstrap.css" />
-    <Content Include="Content\Admin\bootstrap\css\slate.bootstrap.min.css" />
+    <Content Include="Content\Admin\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\Admin\bootstrap\css\bootstrap.min.css" />
     <Content Include="Content\Admin\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Admin\css\buttons.css" />
     <Content Include="Content\Admin\css\calendar.css" />
@@ -319,6 +328,16 @@
     <Content Include="Content\slippry.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
+    <Content Include="Entities\ConstructionEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <LastGenOutput>ConstructionEntity.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entities\ConstructionEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\Admin\customer.js" />
     <Content Include="Scripts\Admin\js\calendar.js" />
     <Content Include="Scripts\Admin\js\custom.js" />
@@ -1403,27 +1422,17 @@
     <Content Include="Content\dlMenu\fonts\icomoon.ttf" />
     <Content Include="Content\dlMenu\fonts\icomoon.woff" />
     <Content Include="Content\bootstrap-select\bootstrap-select.css.map" />
-    <EntityDeploy Include="Entities\ConstructionEntity.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ConstructionEntity.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Entities\ConstructionEntity.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-      <LastGenOutput>ConstructionEntity.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entities\ConstructionEntity.edmx.diagram">
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-    </Content>
-    <Content Include="Entities\ConstructionEntity.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-      <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
-    </Content>
     <Content Include="Content\Image\slider\Thumbs.db" />
     <Content Include="Content\font\slick\slick.eot" />
     <Content Include="Content\font\slick\slick.ttf" />
     <Content Include="Content\font\slick\slick.woff" />
+    <EntityDeploy Include="Entities\ConstructionEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ConstructionEntity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Entities\ConstructionEntity.edmx.diagram">
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\dlMenu\custom.dlmenu.js" />
     <Content Include="Scripts\dlMenu\modernizr.custom.js" />
@@ -1744,7 +1753,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54772</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:54772/</IISUrl>
+          <IISUrl>http://localhost:8080/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -1,169 +1,88 @@
 ﻿@model _170516.Models.Administrator.ViewUserModel
 @{
-    ViewBag.Title = "Quản lý nhân viên";
+    ViewBag.Title = "Quản lý tài khoản";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="main-content-wrapper">
-            <div class="panel-heading">
-                <ol class="breadcrumb">
-                    <li class="active">Quản lý nhân viên</li>
-                </ol>
-                <div class="container-fluid admin-header">
-                    <div class="title col-md-6 col-xs-6"><h3>Danh Sách Nhân Viên</h3></div>
-                    <div class="col-md-6 col-xs-6">
-                        <a id="addBtn" href="@Url.Action("AddUser", "Administrator")" class="btn btn-primary btn-sm add-button"><i class="glyphicon glyphicon-plus"></i> Đăng ký nhân viên</a>
-                    </div>
-                </div>
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="btn-group pull-right m-t-5 m-b-20">
+                <a href="@Url.Action("AddUser","Administrator")" class="btn btn-custom dropdown-toggle waves-effect waves-light">Thêm tài khoản <span class="m-l-5"><i class="fa fa-plus"></i></span></a>
             </div>
-            <div class="container-fluid">
-                @if (Model.Users.Any())
-                {
+            <h4 class="page-title">Quản lý tài khoản</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box table-responsive">
+                <h4 class="header-title m-t-0 m-b-30">Danh sách tài khoản</h4>
+
+                <div class="data-table-wrapper form-inline dt-bootstrap no-footer">
+                    @if (Model.Users.Any())
+                    {
                     <div class="row">
                         <div class="col-sm-6">
-                            <input type="hidden" id="dataTables_sort_field_hidden" value="@Model.SortField" />
-                            <input type="hidden" id="dataTables_sort_direction_hidden" value="@Model.IsAsc" />
-                            <div class="dataTables_show_item_div form-inline">
-                                <label><span>Hiển thị</span></label>
-                                <select id="dataTables_showNumberSelectUser" aria-controls="dataTables-example" class="form-control input-sm">
-                                    @if (Model.ItemOnPage == 10)
-                                    {
+                            <div class="filter-wrapper">
+                                <label>
+                                    Hiển thị <select id="dataTables_showNumberSelect" aria-controls="dataTables-example" class="form-control input-sm">
+                                        @if (Model.ItemOnPage == 10)
+                                        {
                                         <option value="10" selected>10</option>
-                                    }
-                                    else
-                                    {
+                                        }
+                                        else
+                                        {
                                         <option value="10">10</option>
-                                    }
-                                    @if (Model.ItemOnPage == 25)
-                                    {
+                                        }
+                                        @if (Model.ItemOnPage == 25)
+                                        {
                                         <option value="25" selected>25</option>
-                                    }
-                                    else
-                                    {
+                                        }
+                                        else
+                                        {
                                         <option value="25">25</option>
-                                    }
-                                    @if (Model.ItemOnPage == 50)
-                                    {
+                                        }
+                                        @if (Model.ItemOnPage == 50)
+                                        {
                                         <option value="50" selected>50</option>
-                                    }
-                                    else
-                                    {
+                                        }
+                                        else
+                                        {
                                         <option value="50">50</option>
-                                    }
-                                    @if (Model.ItemOnPage == 100)
-                                    {
+                                        }
+                                        @if (Model.ItemOnPage == 100)
+                                        {
                                         <option value="100" selected>100</option>
-                                    }
-                                    else
-                                    {
+                                        }
+                                        else
+                                        {
                                         <option value="100">100</option>
-                                    }
-                                </select>
+                                        }
+                                    </select>
+                                </label>
                             </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div id="dataTables_show_item_search" class="dataTables_search_div form-inline">
-                                @if (!string.IsNullOrEmpty(Model.SearchText) && Model.SearchText.Equals("NULL"))
+                        </div><div class="col-sm-6">
+                            <div class="search-wrapper">
+                                @if (string.IsNullOrWhiteSpace(Model.SearchText))
                                 {
-                                    <input type="search" class="form-control input-sm" value="">
+                                <label><button type="button" id="dataTables_search" class="btn btn-default btn-sm"><i class="fa fa-search"></i></button> <input type="search" id="dataTables_show_item_search" class="form-control input-sm" placeholder="" aria-controls="datatable-fixed-header"></label>
                                 }
                                 else
                                 {
-                                    <input type="search" class="form-control input-sm" value="@Model.SearchText">
+                                <label><button type="button" id="dataTables_search" class="btn btn-default btn-sm"><i class="fa fa-search"></i></button> <input type="search" id="dataTables_show_item_search" value="@Model.SearchText" class="form-control input-sm" placeholder="" aria-controls="datatable-fixed-header"></label>
                                 }
-                                <button type="button" id="dataTables_searchUser" class="btn btn-info btn-sm"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 dataTable_grid">
-                            <table class="table table-striped table-hover dataTable no-footer dtr-inline" id="dataTable_user" role="grid" aria-describedby="dataTables-example_info" style="width: 100%;">
-                                <thead>
-                                    <tr role="row">
-                                        <th class="center" tabindex="0" rowspan="1" colspan="1">#</th>
-                                        @if (Model.SortField.Equals("Username"))
+                        <div class="col-sm-12">
+                            <div class="table-wrapper">
+                                <table class="table table-striped dt-responsive nowrap no-footer dtr-inline" role="grid">
+                                    <tbody>
+                                        @for (var i = 1; i <= Model.Users.Count; i++)
                                         {
-                                            if (Model.IsAsc)
-                                            {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="Username" data-direction="desc" colspan="1">Tên đăng nhập<i class="fa fa-fw fa-sort-asc"></i></th>
-                                            }
-                                            else
-                                            {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="Username" data-direction="asc" colspan="1">Tên đăng nhập <i class="fa fa-fw fa-sort-desc"></i></th>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="Username" data-direction="asc" colspan="1">Tên đăng nhập <i class="fa fa-fw fa-sort-asc"></i></th>
-                                        }
-                                        @if (Model.SortField.Equals("FirstName"))
-                                        {
-                                            if (Model.IsAsc)
-                                            {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="FirstName" data-direction="desc" colspan="1">Họ <i class="fa fa-fw fa-sort-asc"></i></th>
-                                            }
-                                            else
-                                            {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="FirstName" data-direction="asc" colspan="1">Họ <i class="fa fa-fw fa-sort-desc"></i></th>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="FirstName" data-direction="asc" colspan="1">Họ <i class="fa fa-fw fa-sort-asc"></i></th>
-                                        }
-                                        @if (Model.SortField.Equals("LastName"))
-                                        {
-                                            if (Model.IsAsc)
-                                            {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="LastName" data-direction="desc" colspan="1">Tên <i class="fa fa-fw fa-sort-asc"></i></th>
-                                            }
-                                            else
-                                            {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="LastName" data-direction="asc" colspan="1">Tên <i class="fa fa-fw fa-sort-desc"></i></th>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="LastName" data-direction="asc" colspan="1">Tên <i class="fa fa-fw fa-sort-asc"></i></th>
-                                        }
-                                        @if (Model.SortField.Equals("EmailAddress"))
-                                        {
-                                            if (Model.IsAsc)
-                                            {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="EmailAddress" data-direction="desc" colspan="1">Địa chỉ email <i class="fa fa-fw fa-sort-asc"></i></th>
-                                            }
-                                            else
-                                            {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="EmailAddress" data-direction="asc" colspan="1">Địa chỉ email <i class="fa fa-fw fa-sort-desc"></i></th>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="EmailAddress" data-direction="asc" colspan="1">Địa chỉ email<i class="fa fa-fw fa-sort-asc"></i></th>
-                                        }
-                                        @if (Model.SortField.Equals("IsActive"))
-                                        {
-                                            if (Model.IsAsc)
-                                            {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="IsActive" data-direction="desc" colspan="1">Trạng thái <i class="fa fa-fw fa-sort-asc"></i></th>
-                                            }
-                                            else
-                                            {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="IsActive" data-direction="asc" colspan="1">Trạng thái <i class="fa fa-fw fa-sort-desc"></i></th>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="IsActive" data-direction="asc" colspan="1">Trạng thái <i class="fa fa-fw fa-sort-asc"></i></th>
-                                        }
-                                        <th class="center" tabindex="0" rowspan="1" colspan="1"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (var i = 1; i <= Model.Users.Count; i++)
-                                    {
                                         <tr class="gradeA odd" role="row">
                                             <td>@i</td>
                                             <td>@Model.Users[i - 1].Username</td>
@@ -172,11 +91,11 @@
                                             <td>@Model.Users[i - 1].EmailAddress</td>
                                             @if (@Model.Users[i - 1].IsActive)
                                             {
-                                                <td class="text-center"><span class="text-success">Hoạt động</span></td>
+                                            <td class="text-center"><span class="text-success">Hoạt động</span></td>
                                             }
                                             else
                                             {
-                                                <td class="text-center"><span class="text-danger">Không hoạt động</span></td>
+                                            <td class="text-center"><span class="text-danger">Không hoạt động</span></td>
                                             }
 
                                             <td>
@@ -184,94 +103,186 @@
                                                 <a class="action-link update-link" title="Cập nhật" href="@Url.Action("UpdateUser", "Administrator", new { userid = Model.Users[i - 1].AccountID })"><i class="fa fa-pencil"></i></a>
                                                 @if (@Model.Users[i - 1].IsActive)
                                                 {
-                                                    <a class="action-link remove-link user" title="DeActive" href="#" data-url="@Url.Action("ChangeUserStatus", "Administrator", new { guid = Model.Users[i - 1].AccountID })"><i class="fa fa-close"></i></a>
+                                                <a class="action-link remove-link user" title="DeActive" href="#" data-url="@Url.Action("ChangeUserStatus", "Administrator", new { guid = Model.Users[i - 1].AccountID })"><i class="fa fa-close"></i></a>
                                                 }
                                                 else
                                                 {
-                                                    <a class="action-link remove-link user" title="Active" href="#" data-url="@Url.Action("ChangeUserStatus", "Administrator", new { guid = Model.Users[i - 1].AccountID })"><i class="fa fa-check"></i></a>
+                                                <a class="action-link remove-link user" title="Active" href="#" data-url="@Url.Action("ChangeUserStatus", "Administrator", new { guid = Model.Users[i - 1].AccountID })"><i class="fa fa-check"></i></a>
                                                 }
                                             </td>
                                         </tr>
-                                    }
-                                </tbody>
-                            </table>
+                                        }
+
+                                        @if (Model.Users.Count < Model.ItemOnPage)
+                                        {
+                                        for (var i = Model.Users.Count + 1; i <= Model.ItemOnPage; i++)
+                                        {
+                                        <tr class="odd" role="row">
+                                            <td>@i</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        }
+                                        }
+                                    </tbody>
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="center" tabindex="0" rowspan="1" colspan="1">#</th>
+                                            @if (Model.SortField.Equals("Username"))
+                                            {
+                                            if (Model.IsAsc)
+                                            {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="Username" data-direction="desc" colspan="1">Tên đăng nhập<i class="fa fa-fw fa-sort-asc"></i></th>
+                                            }
+                                            else
+                                            {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="Username" data-direction="asc" colspan="1">Tên đăng nhập <i class="fa fa-fw fa-sort-desc"></i></th>
+                                            }
+                                            }
+                                            else
+                                            {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="Username" data-direction="asc" colspan="1">Tên đăng nhập <i class="fa fa-fw fa-sort-asc"></i></th>
+                                            }
+                                            @if (Model.SortField.Equals("FirstName"))
+                                            {
+                                            if (Model.IsAsc)
+                                            {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="FirstName" data-direction="desc" colspan="1">Họ <i class="fa fa-fw fa-sort-asc"></i></th>
+                                            }
+                                            else
+                                            {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="FirstName" data-direction="asc" colspan="1">Họ <i class="fa fa-fw fa-sort-desc"></i></th>
+                                            }
+                                            }
+                                            else
+                                            {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="FirstName" data-direction="asc" colspan="1">Họ <i class="fa fa-fw fa-sort-asc"></i></th>
+                                            }
+                                            @if (Model.SortField.Equals("LastName"))
+                                            {
+                                            if (Model.IsAsc)
+                                            {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="LastName" data-direction="desc" colspan="1">Tên <i class="fa fa-fw fa-sort-asc"></i></th>
+                                            }
+                                            else
+                                            {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="LastName" data-direction="asc" colspan="1">Tên <i class="fa fa-fw fa-sort-desc"></i></th>
+                                            }
+                                            }
+                                            else
+                                            {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="LastName" data-direction="asc" colspan="1">Tên <i class="fa fa-fw fa-sort-asc"></i></th>
+                                            }
+                                            @if (Model.SortField.Equals("EmailAddress"))
+                                            {
+                                            if (Model.IsAsc)
+                                            {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="EmailAddress" data-direction="desc" colspan="1">Địa chỉ email <i class="fa fa-fw fa-sort-asc"></i></th>
+                                            }
+                                            else
+                                            {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="EmailAddress" data-direction="asc" colspan="1">Địa chỉ email <i class="fa fa-fw fa-sort-desc"></i></th>
+                                            }
+                                            }
+                                            else
+                                            {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="EmailAddress" data-direction="asc" colspan="1">Địa chỉ email<i class="fa fa-fw fa-sort-asc"></i></th>
+                                            }
+                                            @if (Model.SortField.Equals("IsActive"))
+                                            {
+                                            if (Model.IsAsc)
+                                            {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="IsActive" data-direction="desc" colspan="1">Trạng thái <i class="fa fa-fw fa-sort-asc"></i></th>
+                                            }
+                                            else
+                                            {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="IsActive" data-direction="asc" colspan="1">Trạng thái <i class="fa fa-fw fa-sort-desc"></i></th>
+                                            }
+                                            }
+                                            else
+                                            {
+                                            <th class="center" tabindex="0" rowspan="1" data-sort="IsActive" data-direction="asc" colspan="1">Trạng thái <i class="fa fa-fw fa-sort-asc"></i></th>
+                                            }
+                                            <th class="center" tabindex="0" rowspan="1" colspan="1"></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-sm-6">
-                            @if (Model.EndIndex > Model.TotalNumber)
-                            {
-                                <div class="dataTables_info" role="status" aria-live="polite">Hiển thị từ @Model.StartIndex tới @Model.TotalNumber trong @Model.TotalNumber người dùng</div>
-                            }
-                            else
-                            {
-                                <div class="dataTables_info" role="status" aria-live="polite">Hiển thị từ @Model.StartIndex tới @Model.EndIndex trong @Model.TotalNumber người dùng</div>
-                            }
+                            <div class="summary-status" role="status" aria-live="polite">Đang hiển thị record @Model.StartIndex tới @Model.EndIndex trong @Model.TotalNumber records</div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="dataTables_paginate">
+                            <div class="pagination-wrapper">
                                 <ul class="pagination">
                                     @if (Model.CurrentPage == 1)
                                     {
-                                        <li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-                                            <a href="#">Trước</a>
-                                        </li>
+                                    <li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
+                                        <a href="#">Trước</a>
+                                    </li>
                                     }
                                     else
                                     {
-                                        <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-                                            <a href="@Url.Action("ViewUser", "Administrator", new {page = Model.CurrentPage - 1, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc})">Trước</a>
-                                        </li>
+                                    <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
+                                        <a href="@Url.Action("ViewUser", "Administrator", new {page = Model.CurrentPage - 1, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc})">Trước</a>
+                                    </li>
                                     }
 
                                     @for (var i = 0; i < 5; i++)
                                     {
-                                        if ((Model.CurrentPage + i) <= Model.TotalPage)
-                                        {
-                                            if (i == 0)
-                                            {
-                                                <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
-                                                    <a href="@Url.Action("ViewUser", "Administrator", new {page = Model.CurrentPage + i, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc})">@((Model.CurrentPage + i).ToString())</a>
-                                                </li>
-                                            }
-                                            else
-                                            {
-                                                <li class="paginate_button" aria-controls="dataTables-example" tabindex="0">
-                                                    <a href="@Url.Action("ViewUser", "Administrator", new { page = Model.CurrentPage + i, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc })">@((Model.CurrentPage + i).ToString())</a>
-                                                </li>
-                                            }
-                                        }
+                                    if ((Model.CurrentPage + i) <= Model.TotalPage)
+                                    {
+                                    if (i == 0)
+                                    {
+                                    <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
+                                        <a href="@Url.Action("ViewUser", "Administrator", new {page = Model.CurrentPage + i, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc})">@((Model.CurrentPage + i).ToString())</a>
+                                    </li>
+                                    }
+                                    else
+                                    {
+                                    <li class="paginate_button" aria-controls="dataTables-example" tabindex="0">
+                                        <a href="@Url.Action("ViewUser", "Administrator", new { page = Model.CurrentPage + i, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc })">@((Model.CurrentPage + i).ToString())</a>
+                                    </li>
+                                    }
+                                    }
                                     }
 
                                     @if (Model.CurrentPage == Model.TotalPage)
                                     {
-                                        <li class="paginate_button next disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                                            <a href="#">Sau</a>
-                                        </li>
+                                    <li class="paginate_button next disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
+                                        <a href="#">Sau</a>
+                                    </li>
                                     }
                                     else
                                     {
-                                        <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                                            <a href="@Url.Action("ViewUser", "Administrator", new {page = Model.CurrentPage + 1, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc})">Sau</a>
-                                        </li>
+                                    <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
+                                        <a href="@Url.Action("ViewUser", "Administrator", new {page = Model.CurrentPage + 1, itemsPerPage = Model.ItemOnPage, searchText = Model.SearchText, sortField = Model.SortField, isAsc = Model.IsAsc})">Sau</a>
+                                    </li>
                                     }
                                 </ul>
                             </div>
                         </div>
                     </div>
-                }
-                else
-                {
-                    <h5>Không có người dùng nào được lưu trong cơ sở dữ liệu. Vui lòng tạo sản người dùng mới tại <a href="@Url.Action("AddUser", "Administrator")">đây</a></h5>
-                }
+                    }
+                    else
+                    {
+                    <h5>Không có tài khoản nào được lưu trong cơ sở dữ liệu. Vui lòng tạo tài khoản mới tại <a href="@Url.Action("AddUser", "Administrator")">đây</a></h5>
+                    }
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 @section Scripts
 {
-    <script src="@Url.Content("~/Scripts/Admin/user.js")"></script>
+<script src="@Url.Content("~/Scripts/Admin/user.js")"></script>
 }
 
 

@@ -1,24 +1,23 @@
 ﻿@model _170516.Models.Administrator.CreateProductCategoryModel
 
 @{
-    ViewBag.Title = "UpdateProductCategory";
+    ViewBag.Title = "Cập nhật danh mục sản phẩm";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="content-box-large">
-            <div class="panel-heading">
-                @*nav bar*@
-                <ol class="breadcrumb">
-                    <li><a href="@Url.Action("ViewProductCategory","Administrator")">Quản Lý Danh mục</a></li>
-                    <li class="active">Chỉnh sửa Danh Mục</li>
-                </ol>
-                <div class="panel-title title-3">Chỉnh sửa Danh mục</div>
-            </div>
-            <div class="panel-body">
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-title">Quản lý danh mục sản phẩm</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box">
                 @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "updateProductCategoryForm" }))
-                {                    
+                {
                     <div class="form-horizontal">
                         <div class="row">
                             @Html.ValidationSummary(true)
@@ -31,20 +30,11 @@
                                         @Html.TextBoxFor(model => model.Name, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
                                         @Html.ValidationMessageFor(model => model.Name, null, new { @class = "input-error-box text-danger" })
                                     </div>
-                                </div>
-                                <!-- PRODUCT CATEGORY DESCRIPTION -->
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductName">Mô tả <span class="text-danger">*</span></label>
-                                    <div class="col-sm-7">
-                                        @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })<span class="input-error-box text-danger"></span>
-                                        @Html.ValidationMessageFor(model => model.Description, null, new { @class = "input-error-box text-danger" })
-                                    </div>
-                                </div>
+                                </div>                                
                                 <!-- PRODUCT CATEGORY PARENT -->
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ParentID">Danh Mục cha</label>
                                     <div class="col-sm-7">
-
                                         <select id="ParentID" class="form-control" name="ParentID">
                                             <option value=""></option>
                                             @foreach (var category in Model.CategoryList)
@@ -65,12 +55,20 @@
                                         <span class="field-validation-valid" data-valmsg-for="ParentID" data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
+                                <!-- PRODUCT CATEGORY DESCRIPTION -->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ProductName">Mô tả <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })<span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.Description, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label class="control-label">Ảnh Danh mục</label>
                                     <!-- IMAGE -->
-                                    <div class="image-box">
+                                    <div class="image-upload-box">
                                         @if (string.IsNullOrEmpty(Model.CategoryImage))
                                         {
                                             <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
@@ -79,7 +77,7 @@
                                         {
                                             <img id="ImageBox" src="@Model.CategoryImage" class="image-box" />
                                         }
-                                        
+
                                         <div id="ImagePreviewBox" class="preview-box" style="max-width:80%;"></div>
                                         <input id="ImageUpload" type="file" class="image-file-input" name="ImageUpload" />
                                         <input id="ProductImage" type="hidden" name="CategoryImage" />

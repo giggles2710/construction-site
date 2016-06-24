@@ -4,34 +4,35 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="584bf73e15054b588815a9d61ec2a801" Name="Diagram1">
-        <EntityTypeShape EntityType="Entities.Account" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.Category" Width="1.5" PointX="3.75" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.Customer" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.EmailTemplate" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.MergeField" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.Order" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.OrderDetail" Width="1.5" PointX="11.25" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.Product" Width="1.5" PointX="6" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.ProductDetail" Width="1.5" PointX="8.25" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.Request" Width="1.5" PointX="3" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.Shipper" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.Supplier" Width="1.5" PointX="3.75" PointY="13.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.SystemVariable" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.Role" Width="1.5" PointX="3" PointY="22.25" IsExpanded="true" />
-        <AssociationConnector Association="Entities.FK_Account_Account" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.FK_Order_Account" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.FK_Product_Account" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.FK_Request_Account" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.FK_Role_Account" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.FK_Category_Category" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.FK_Product_Category" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.FK_Order_Customer" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.FK_Order_Shipper" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.FK_OrderDetail_Order" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.FK_OrderDetail_Product" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.FK_Product_Supplier" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.FK_ProductDetail_Product" ManuallyRouted="false" />
+      <Diagram DiagramId="959959bbc6994c138175b9c2825c3f03" Name="Diagram1">
+        <EntityTypeShape EntityType="ConstructionSiteModel.Account" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.Category" Width="1.5" PointX="3.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.Customer" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.EmailTemplate" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.MergeField" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.Order" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.OrderDetail" Width="1.5" PointX="11.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.Product" Width="1.5" PointX="6" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.ProductDetail" Width="1.5" PointX="8.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.Request" Width="1.5" PointX="3" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.Shipper" Width="1.5" PointX="0.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.Supplier" Width="1.5" PointX="3.75" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.SystemVariable" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.Role" Width="1.5" PointX="3" PointY="23.125" IsExpanded="true" />
+        <AssociationConnector Association="ConstructionSiteModel.FK_Account_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="ConstructionSiteModel.FK_Order_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="ConstructionSiteModel.FK_Product_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="ConstructionSiteModel.FK_Request_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="ConstructionSiteModel.FK_Role_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="ConstructionSiteModel.FK_Category_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="ConstructionSiteModel.FK_Product_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="ConstructionSiteModel.FK_Order_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="ConstructionSiteModel.FK_Order_Shipper" ManuallyRouted="false" />
+        <AssociationConnector Association="ConstructionSiteModel.FK_OrderDetail_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="ConstructionSiteModel.FK_OrderDetail_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="ConstructionSiteModel.FK_Product_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="ConstructionSiteModel.FK_ProductDetail_Product" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

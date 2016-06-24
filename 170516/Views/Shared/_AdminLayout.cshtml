@@ -18,9 +18,8 @@
             <!-- LOGO -->
             <div class="topbar-left">
                 <div class="text-center">
-                    <a href="index.html" class="logo">
+                    <a href="@Url.Action("Index", "Administrator")" class="logo">
                         <i class="zmdi zmdi-toys icon-c-logo"></i><span>LOGO</span>
-                        <!--<span><img src="assets/images/logo.png" alt="logo" style="height: 20px;"></span>-->
                     </a>
                 </div>
             </div>
@@ -46,16 +45,16 @@
                         <ul>
                             <li class="text-muted menu-title">Quản Lý Thông Tin</li>
                             <li class="has_sub">
-                                <a href="@Url.Action("ViewProductCategory","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Danh Mục Sản Phẩm </span> </a>
+                                <a href="@Url.Action("ViewProduct","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Sản Phẩm </span> </a>                                
                             </li>
                             <li class="has_sub">
-                                <a href="@Url.Action("ViewSupplier","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Nhà Cung Cấp </span> </a>
+                                <a href="@Url.Action("ViewProductCategory","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Danh Mục Sản Phẩm </span> </a>                                
                             </li>
                             <li class="has_sub">
                                 <a href="@Url.Action("ViewShipper","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Đơn Vị Vận Chuyển </span> </a>
                             </li>
                             <li class="has_sub">
-                                <a href="@Url.Action("ViewProduct","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Sản Phẩm </span> </a>
+                                <a href="@Url.Action("ViewSupplier","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Nhà Cung Cấp </span> </a>
                             </li>
                             <li class="has_sub">
                                 <a href="@Url.Action("ViewRequest","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Feedback Khách Hàng </span> </a>
