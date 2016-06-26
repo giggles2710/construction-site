@@ -1633,7 +1633,6 @@
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="SQL Scripts\06242016.sql" />
     <Content Include="SQL Scripts\DB_Initial.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
