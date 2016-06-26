@@ -114,11 +114,19 @@
 
                     <fieldset>
                         <legend>Trả lời</legend>
-
+                        
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Mẫu email <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    @Html.DropDownList("EmailTemplateForReply", Model.ListEmailTemplates, "Xin chọn mẫu email", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <!-- DESCRIPTION -->
                             <div class="form-group col-sm-12 add-product-description" style="margin-left:2px;">
-                                <textarea class="tiny_mce_input" type="file" id="ReplyContent" name="ReplyContent" style=" width 100%;"></textarea>
+                                <textarea class="tiny_mce_input form-control" type="file" id="ReplyContent" name="ReplyContent" style=" width 100%;"></textarea>
                             </div>
                         </div>
                         <div class="row">

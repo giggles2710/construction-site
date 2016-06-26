@@ -17,16 +17,15 @@ namespace _170516.Utility
 
         public static bool Send(EmailDeliveryModel ob)
         {
-            SmtpClient client = new SmtpClient();
-            client.Port = 587;
-            client.Host = "smtp.gmail.com";
-            client.EnableSsl = true;
-            client.Timeout = 30000;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.UseDefaultCredentials = false;
-            client.Credentials = new System.Net.NetworkCredential("doanhhnqt74@gmail.com", "naythipass1235$");
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            SmtpServer.Port = 587;
+            SmtpServer.UseDefaultCredentials = false;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("constructionsiteplus@gmail.com", "Khongcanpass123");
+            SmtpServer.EnableSsl = true;
+            SmtpServer.Timeout = 10000;
+            SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
 
-            MailMessage mm = new MailMessage("doanhhnqt74@gmail.com", ob.SendTo);
+            MailMessage mm = new MailMessage("constructionsiteplus@gmail.com", ob.SendTo);
 
             mm.IsBodyHtml = ob.IsBodyHtml;
             mm.Body = ob.Body;
@@ -36,7 +35,7 @@ namespace _170516.Utility
 
             try
             {
-                client.Send(mm);
+                SmtpServer.Send(mm);
 
                 ob.Status = (int) EmailStatus.Sent;
                 ob.SentDate = DateTime.Now;

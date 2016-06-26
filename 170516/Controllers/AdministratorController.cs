@@ -2338,7 +2338,10 @@ namespace _170516.Controllers
                     Reply = request.Reply,
                     EmailAddress = request.EmailAddress,
                     FullName = request.FullName
-                };                
+                };
+
+                model.ListEmailTemplates = dbContext.EmailTemplates.Where(e => e.IsEnable == true)
+                    .Select(e => new SelectListItem { Value = e.EmailTemplateId.ToString(), Text = e.EmailTemplateName }).ToList();
 
                 return View("ViewRequestDetail", "_AdminLayout", model);
             }
@@ -2359,9 +2362,9 @@ namespace _170516.Controllers
                 var ob = new EmailDeliveryModel
                 {
                     Subject = "test",
-                    IsBodyHtml = false,
+                    IsBodyHtml = true,
                     Body = model.ReplyContent,
-                    SendTo = "constructionsitestore@gmail.com"
+                    SendTo = "bac.bear@gmail.com"
                 };
 
                 bool isSuccess = EmailServiceHelper.Send(ob);
@@ -2391,6 +2394,28 @@ namespace _170516.Controllers
             }
 
             return Json(new { isResult = false, result = "Không tìm thấy yêu cầu trong cơ sở dữ liệu. Vui lòng kiểm tra lại" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetEmailTemplateContent(int id)
+        {
+            var emailTem = dbContext.EmailTemplates.FirstOrDefault(e => e.EmailTemplateId == id);
+
+            if (emailTem == null)
+            {
+                return Json(new { isResult = false, result = "Không tìm thấy email mẫu. Vui lòng kiểm tra lại" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                if (emailTem.IsBodyHtml == true)
+                {
+                    return Json(new { isResult = true, result = emailTem.HtmlBody}, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { isResult = true, result = emailTem.PlainText }, JsonRequestBehavior.AllowGet);
+                }                
+            }
         }
 
         #endregion

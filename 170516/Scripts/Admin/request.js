@@ -45,4 +45,29 @@
             });
         }
     });
+
+    $('#EmailTemplateForReply').on('change', function () {
+        if ($(this).val() == "")
+        {
+            tinyMCE.get('ReplyContent').setContent('');
+        }
+        else
+        {
+            // call ajax
+            $.ajax({
+                url: staticUrl.getEmailTemplateById + '/' + $('#EmailTemplateForReply').val(),
+                method: "GET",              
+                success: function (data) {
+                    if (data.isResult) {
+                        tinyMCE.get('ReplyContent').setContent(data.result);
+                    } else {
+                        toastr.error(data.result);
+                    }
+                },
+                error: function (e) {
+                    toastr.error('Có lỗi xảy ra.');
+                }
+            });
+        }
+    });
 });

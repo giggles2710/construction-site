@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace _170516.Models.Administrator
 {
@@ -38,6 +40,7 @@ namespace _170516.Models.Administrator
         public string ReplyUser { get; set; }
         public string Reply { get; set; }
         public string DateCreated { get; set; }
+        public List<SelectListItem> ListEmailTemplates { get; set; }
     }
 
     public class AnswerRequestModel
