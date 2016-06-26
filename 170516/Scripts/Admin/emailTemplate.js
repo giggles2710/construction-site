@@ -1,7 +1,6 @@
 ﻿$(document).ready(function() {
     //setup tinymce menu for the first time
     
-
     tinymce.init({
         selector: '.tiny_mce_input',  // change this value according to your HTML
         plugin: 'a_tinymce_plugin',
@@ -63,6 +62,60 @@
         }
     });
 
+    $('#SubmitUpdateEmailTemp').on('click', function () {
+        var form = $("#updateEmailTemplateForm");
+
+        var isValid = true;
+        var htmlContent = tinyMCE.get('txtA_htmlVersion').getContent();
+
+        if ($('#ddlEmailFormat').val() == 'HTML') {
+            if (htmlContent == "") {
+                isValid = false;
+                $('#contentValidation').text('Nội dung không được bỏ trống');
+            } else {
+                $('#contentValidation').text('');
+            }
+
+        } else {
+            if ($('#txtA_textVersion').val() == "") {
+                isValid = false;
+                $('#contentValidation').text('Nội dung không được bỏ trống');
+            } else {
+                $('#contentValidation').text('');
+            }
+        }
+
+        form.validate();
+        if (form.valid() && isValid) {
+            var dataToSend = {
+                EmailTemplateId: $('#EmailTemplateId').val(),
+                EmailTemplateName: $('#EmailTemplateName').val(),
+                EmailSubject: $('#EmailSubject').val(),
+                IsEnable: $('#IsEnable').val(),
+                IsHTML: $('#IsHTML').val(),
+                HtmlTextContent: htmlContent,
+                PlainTextContent: $('#txtA_textVersion').val()
+            }
+            $.ajax({
+                url: staticUrl.updateEmailTemplate,
+                data: dataToSend,
+                method: "POST",
+                cache: false,
+                success: function (data) {
+                    if (data != null) {
+                        if (data.isResult == false) {
+                            toastr.error('Có lỗi xảy ra trong quá trình chỉnh sửa. Vui lòng thử lại.');
+                        } else {
+                            toastr.success(data.result);
+                        }
+                    }
+                }, error: function (e) {
+                    toastr.error('Có lỗi xảy ra trong quá trình chỉnh sữa. Vui lòng thử lại.');
+                }
+            });
+        }
+    });
+
     $('.merge-item').on('click', function () {
         if ($('#ddlEmailFormat').val() == 'HTML')
         {
@@ -72,6 +125,27 @@
         {
             emailTemplateSupport.addToPlainText('[' + $(this).text() + ']');
         }
+    });
+
+    //search section
+    $("#dataTable_emailTemplate th").on('click', function () {
+        var sortStr = $(this).data('sort');
+        var direction = $(this).data('direction');
+
+        if (!Util.IsNullOrWhiteSpace(sortStr) && !Util.IsNullOrWhiteSpace(direction)) {
+            // do sort
+            emailTemplateSupport.SortEmailTemplate(sortStr, direction == "asc");
+        }
+    });
+
+    // btn search
+    $('#dataTables_searchEmailTemplate').on('click', function () {
+        emailTemplateSupport.ViewEmailTemplate();
+    });
+
+    // when change value of number of item shown in the grid
+    $('#dataTables_showNumberSelectEmailTemplate').on('change', function () {
+        emailTemplateSupport.ViewEmailTemplate();
     });
 });
 
@@ -98,5 +172,35 @@ var emailTemplateSupport = {
             $('#emailTemplate-area-text').show();
             $('#emailTemplate-area-html').hide();
         }
+    },
+
+    SortEmailTemplate: function (sortField, isAsc) {
+        var $activatePage = $('.pageinate_button.active');
+        var page = 1; // page
+        if ($activatePage.length > 0)
+            page = $activatePage[0].text;
+        var itemsOnPage = $('#dataTables_showNumberSelectEmailTemplate').val(); // items on page
+        var searchText = $('#dataTables_show_item_search').val(); // search text
+
+        window.location.href = staticUrl.viewEmailTemplate + "?page=" + page + "&itemsPerPage="
+            + itemsOnPage + "&searchText=" + searchText + "&sortField=" + sortField + "&isAsc=" + isAsc;
+    },
+    ViewEmailTemplate: function () {
+        window.location.href = emailTemplateSupport.GetCurrentViewEmailTemplateUrl();
+    },
+    GetCurrentViewEmailTemplateUrl: function () {
+        var $activatePage = $('.pageinate_button.active');
+        var page = 1; // page
+        if ($activatePage.length > 0)
+            page = $activatePage[0].text;
+
+        var itemsOnPage = $('#dataTables_showNumberSelectEmailTemplate').val(); // items on page
+        var searchText = $('#dataTables_show_item_search').val(); // search text
+        var sortField = $('#dataTables_sort_field_hidden').val(); // sort field
+        var directionField = $('#dataTables_sort_direction_hidden').val(); // direction field
+
+        return staticUrl.viewEmailTemplate + "?page=" + page + "&itemsPerPage="
+            + itemsOnPage + "&searchText=" + searchText + "&sortField=" + sortField + "&isAsc=" + directionField;
     }
+    
 };

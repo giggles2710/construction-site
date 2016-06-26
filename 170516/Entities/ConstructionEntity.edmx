@@ -240,6 +240,18 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EmailTemplate_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="EmailTemplate" Type="Self.EmailTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="EmailTemplate">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Order_Account">
           <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -410,6 +422,10 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             <End Role="Category" EntitySet="Category" />
             <End Role="Category1" EntitySet="Category" />
           </AssociationSet>
+          <AssociationSet Name="FK_EmailTemplate_Account" Association="Self.FK_EmailTemplate_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="EmailTemplate" EntitySet="EmailTemplate" />
+          </AssociationSet>
           <AssociationSet Name="FK_Order_Account" Association="Self.FK_Order_Account">
             <End Role="Account" EntitySet="Account" />
             <End Role="Order" EntitySet="Order" />
@@ -483,6 +499,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="EndDeactiveTime" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Account1" Relationship="Self.FK_Account_Account" FromRole="Account" ToRole="Account1" />
           <NavigationProperty Name="Account2" Relationship="Self.FK_Account_Account" FromRole="Account1" ToRole="Account" />
+          <NavigationProperty Name="EmailTemplates" Relationship="Self.FK_EmailTemplate_Account" FromRole="Account" ToRole="EmailTemplate" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Account" FromRole="Account" ToRole="Order" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Account" FromRole="Account" ToRole="Product" />
           <NavigationProperty Name="Requests" Relationship="Self.FK_Request_Account" FromRole="Account" ToRole="Request" />
@@ -539,6 +556,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="LastUpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_EmailTemplate_Account" FromRole="EmailTemplate" ToRole="Account" />
         </EntityType>
         <EntityType Name="MergeField">
           <Key>
@@ -707,6 +725,18 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EmailTemplate_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="EmailTemplate" Type="Self.EmailTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="EmailTemplate">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Order_Account">
           <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -869,6 +899,10 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <AssociationSet Name="FK_Account_Account" Association="Self.FK_Account_Account">
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Account1" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailTemplate_Account" Association="Self.FK_EmailTemplate_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="EmailTemplate" EntitySet="EmailTemplates" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_Account" Association="Self.FK_Order_Account">
             <End Role="Account" EntitySet="Accounts" />

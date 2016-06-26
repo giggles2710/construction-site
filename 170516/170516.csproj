@@ -252,6 +252,7 @@
     <Compile Include="Models\Administrator\SpecificationsTableModel.cs" />
     <Compile Include="Models\Administrator\UpdateOrderModel.cs" />
     <Compile Include="Models\Administrator\UpdateProductModel.cs" />
+    <Compile Include="Models\Administrator\ViewEmailTemplateModel.cs" />
     <Compile Include="Models\Administrator\ViewOrderDetailsModel.cs" />
     <Compile Include="Models\Administrator\ViewOrderModel.cs" />
     <Compile Include="Models\Administrator\ViewProductCategoryModel.cs" />
@@ -1714,6 +1715,8 @@
     <Content Include="Views\Product\_PartialCart.cshtml" />
     <Content Include="Views\Product\ViewCart.cshtml" />
     <Content Include="Views\Product\Checkout.cshtml" />
+    <Content Include="Views\Administrator\ViewEmailTemplate.cshtml" />
+    <Content Include="Views\Administrator\UpdateEmailTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

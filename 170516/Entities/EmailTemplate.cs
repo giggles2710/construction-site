@@ -25,5 +25,7 @@ namespace _170516.Entities
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> LastUpdatedDate { get; set; }
         public string LastUpdatedBy { get; set; }
+    
+        public virtual Account Account { get; set; }
     }
 }

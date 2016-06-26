@@ -18,6 +18,7 @@ namespace _170516.Entities
         public Account()
         {
             this.Account1 = new HashSet<Account>();
+            this.EmailTemplates = new HashSet<EmailTemplate>();
             this.Orders = new HashSet<Order>();
             this.Products = new HashSet<Product>();
             this.Requests = new HashSet<Request>();
@@ -45,6 +46,8 @@ namespace _170516.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Account> Account1 { get; set; }
         public virtual Account Account2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmailTemplate> EmailTemplates { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

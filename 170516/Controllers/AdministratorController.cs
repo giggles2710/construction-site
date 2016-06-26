@@ -2368,7 +2368,7 @@ namespace _170516.Controllers
                 //};
 
                 var ob = EmailMergingHelper.MergeFeedbackEmail(model);
-                ob.SendTo = "doanhhnqt74@gmail.com";
+                ob.SendTo = "giggles2710@gmail.com";
 
                 bool isSuccess = EmailServiceHelper.Send(ob);
 
@@ -2398,8 +2398,102 @@ namespace _170516.Controllers
 
             return Json(new { isResult = false, result = "Không tìm thấy yêu cầu trong cơ sở dữ liệu. Vui lòng kiểm tra lại" }, JsonRequestBehavior.AllowGet);
         }
+       
+        #endregion
+
+        #region EmailTemplate
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult ViewEmailTemplate(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
+        {
+            var pageNo = page.GetValueOrDefault();
+            var pageSize = itemsPerPage.GetValueOrDefault();
+
+            if (pageNo == 0) pageNo = 1;
+            if (pageSize == 0) pageSize = 10;
+            if (isAsc == null) isAsc = false;
+            if (string.IsNullOrEmpty(searchText)) searchText = null;
+            if (string.IsNullOrEmpty(sortField)) sortField = "CreatedDate";
+
+            IQueryable<EmailTemplate> templates;
+
+            switch (sortField)
+            {
+                case "EmailTemplateName":
+                    if (isAsc.GetValueOrDefault())
+                        templates = dbContext.EmailTemplates
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.EmailTemplateName.Contains(searchText))
+                            .OrderBy(p => p.EmailTemplateName);
+                    else
+                        templates = dbContext.EmailTemplates
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.EmailTemplateName.Contains(searchText))
+                            .OrderByDescending(p => p.EmailTemplateName);
+                    break;
+
+                case "IsEnable":
+                    if (isAsc.GetValueOrDefault())
+                        templates = dbContext.EmailTemplates
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.EmailTemplateName.Contains(searchText))
+                            .OrderBy(p => p.IsEnable);
+                    else
+                        templates = dbContext.EmailTemplates
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.EmailTemplateName.Contains(searchText))
+                            .OrderByDescending(p => p.IsEnable);
+                    break;
+
+                case "CreatedByUsername":
+                    if (isAsc.GetValueOrDefault())
+                        templates = dbContext.EmailTemplates
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.EmailTemplateName.Contains(searchText))
+                            .OrderBy(p => p.Account.Username);
+                    else
+                        templates = dbContext.EmailTemplates
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.EmailTemplateName.Contains(searchText))
+                            .OrderByDescending(p => p.Account.Username);
+                    break;
+                default:
+                    if (isAsc.GetValueOrDefault())
+                        templates = dbContext.EmailTemplates
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.EmailTemplateName.Contains(searchText))
+                            .OrderBy(p => p.CreatedDate);
+                    else
+                        templates = dbContext.EmailTemplates
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.EmailTemplateName.Contains(searchText))
+                            .OrderByDescending(p => p.CreatedDate);
+                    break;
+            }
+
+            // do the query
+            var templateModel = templates
+                .Select(p => new ViewEmailTemplateItem
+                {
+                    EmailTemplateId = p.EmailTemplateId,
+                    EmailTemplateName = p.EmailTemplateName,
+                    IsEnable = p.IsEnable == true,
+                    CreatedByUsername = p.Account != null ? p.Account.Username : string.Empty,
+                    CreatedDate = p.CreatedDate
+                })
+                .Skip(pageSize * (pageNo - 1))
+                .Take(pageSize).ToList();
+
+            var model = new ViewEmailTemplateModel();
+            model.CurrentPage = pageNo;
+            model.SearchText = searchText;
+            model.ItemOnPage = pageSize;
+            model.StartIndex = pageSize * pageNo - pageSize + 1;
+            model.EndIndex = model.StartIndex + pageSize - 1;
+            model.TotalNumber = templates.Count();
+            model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
+            model.Templates = templateModel;
+            model.SortField = sortField;
+            model.IsAsc = isAsc.GetValueOrDefault();
+
+            return View(model);
+        }
 
         [HttpGet]
+        [Authorize]
         public JsonResult GetEmailTemplateContent(int id)
         {
             var emailTem = dbContext.EmailTemplates.FirstOrDefault(e => e.EmailTemplateId == id);
@@ -2412,18 +2506,15 @@ namespace _170516.Controllers
             {
                 if (emailTem.IsBodyHtml == true)
                 {
-                    return Json(new { isResult = true, replySubject = emailTem.EmailSubject, replyContent = emailTem.HtmlBody}, JsonRequestBehavior.AllowGet);
+                    return Json(new { isResult = true, replySubject = emailTem.EmailSubject, replyContent = emailTem.HtmlBody }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
                     return Json(new { isResult = true, replySubject = emailTem.EmailSubject, replyContent = emailTem.PlainText }, JsonRequestBehavior.AllowGet);
-                }                
+                }
             }
         }
 
-        #endregion
-
-        #region EmailTemplate
 
         [HttpGet]
         [Authorize]
@@ -2464,6 +2555,63 @@ namespace _170516.Controllers
             }
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult UpdateEmailTemplate(int id)
+        {
+            var emailTemp = dbContext.EmailTemplates.FirstOrDefault(e => e.EmailTemplateId == id);
+
+            if (emailTemp == null)
+            {
+                return RedirectToAction("ViewEmailTemplate");
+            }
+
+            var model = new EmailTemplateModel
+            {
+                EmailTemplateId = id,
+                EmailTemplateName = emailTemp.EmailTemplateName,
+                EmailSubject = emailTemp.EmailSubject,
+                IsEnable = emailTemp.IsEnable == true,
+                IsHTML = emailTemp.IsBodyHtml == true,
+                HtmlTextContent = emailTemp.HtmlBody,
+                PlainTextContent = emailTemp.PlainText,
+            };
+
+            model.MergeFields = dbContext.MergeFields.Where(m => m.FieldType == (int)FieldTypes.Common || m.FieldType == (int)FieldTypes.AcceptOrder)
+                .Select(m => m.FieldName).ToList();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateEmailTemplate(EmailTemplateModel model)
+        {
+            var emailTemp = dbContext.EmailTemplates.FirstOrDefault(e => e.EmailTemplateId == model.EmailTemplateId);
+
+            if (emailTemp == null)
+            {
+                return Json(new { isResult = false, result = "Không tìm thấy email mẫu. Vui lòng thử lại" }, JsonRequestBehavior.AllowGet);
+            }
+
+            emailTemp.EmailTemplateName = model.EmailTemplateName;
+            emailTemp.EmailSubject = model.EmailSubject;
+            emailTemp.IsEnable = model.IsEnable;
+            emailTemp.IsBodyHtml = model.IsHTML;
+            emailTemp.HtmlBody = model.HtmlTextContent;
+            emailTemp.PlainText = model.PlainTextContent;
+            emailTemp.LastUpdatedBy = GetCurrentUserId();
+            emailTemp.LastUpdatedDate = DateTime.Now;
+
+            try
+            {
+                dbContext.SaveChanges();
+                return Json(new { isResult = true, result = "Cập nhật email mẫu thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = "Có lỗi xảy ra trong qua trình lưu. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
+            }
+        }
         #endregion
     }
 }
