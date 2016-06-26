@@ -11,12 +11,19 @@
     $('#AnswerButton').on('click', function() {
         var isValid = true;
         var content = tinyMCE.get('ReplyContent').getContent();
+        var subject = $('#ReplySubject').val();
 
         // validate
+        if (subject == null || subject.trim() == "") {
+            isValid = false;
+            // show message
+            $('#ReplySubjectValidation').text("Vui lòng nhập tiêu đề trả lời");
+        }
+
         if (content == null || content.trim() == "") {
             isValid = false;
             // show message
-            alert('khong duoc bo trong noi dung');
+            $('#ReplyContentValidation').text("Vui lòng nhập nội dung trả lời");
         }
 
         if (isValid) {
@@ -24,7 +31,8 @@
             // prepare model
             var answerModel = {
                 RequestId: $('#RequestIdInput').val(),
-                ReplyContent: content
+                ReplyContent: content,
+                ReplySubject: subject
             };
 
             // call ajax
@@ -34,9 +42,9 @@
                 data: answerModel,
                 success: function(data) {
                     if (data.isResult) {
-                        alert(data.result);
+                        toastr.success(data.result);
                     } else {
-                        alert(data.result);
+                        toastr.error(data.result);
                     }
                 },
                 error: function(e) {
@@ -49,6 +57,7 @@
     $('#EmailTemplateForReply').on('change', function () {
         if ($(this).val() == "")
         {
+            $('#ReplySubject').val('');
             tinyMCE.get('ReplyContent').setContent('');
         }
         else
@@ -59,7 +68,9 @@
                 method: "GET",              
                 success: function (data) {
                     if (data.isResult) {
-                        tinyMCE.get('ReplyContent').setContent(data.result);
+                        $('#ReplySubject').val(data.replySubject);
+                        tinyMCE.get('ReplyContent').setContent(data.replyContent);
+                        
                     } else {
                         toastr.error(data.result);
                     }

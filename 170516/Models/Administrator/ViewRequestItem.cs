@@ -46,6 +46,7 @@ namespace _170516.Models.Administrator
     public class AnswerRequestModel
     {
         public int RequestID { get; set; }
+        public string ReplySubject { get; set; }
         public string ReplyContent { get; set; }
     }
 }

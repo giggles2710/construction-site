@@ -2359,13 +2359,16 @@ namespace _170516.Controllers
             {
                 var request = dbContext.Requests.FirstOrDefault(r => r.RequestID == model.RequestID);
 
-                var ob = new EmailDeliveryModel
-                {
-                    Subject = "test",
-                    IsBodyHtml = true,
-                    Body = model.ReplyContent,
-                    SendTo = "bac.bear@gmail.com"
-                };
+                //var ob = new EmailDeliveryModel
+                //{
+                //    IsBodyHtml = true,
+                //    Subject = model.ReplySubject,                    
+                //    Body = model.ReplyContent,
+                //    SendTo = "bac.bear@gmail.com"
+                //};
+
+                var ob = EmailMergingHelper.MergeFeedbackEmail(model);
+                ob.SendTo = "doanhhnqt74@gmail.com";
 
                 bool isSuccess = EmailServiceHelper.Send(ob);
 
@@ -2409,11 +2412,11 @@ namespace _170516.Controllers
             {
                 if (emailTem.IsBodyHtml == true)
                 {
-                    return Json(new { isResult = true, result = emailTem.HtmlBody}, JsonRequestBehavior.AllowGet);
+                    return Json(new { isResult = true, replySubject = emailTem.EmailSubject, replyContent = emailTem.HtmlBody}, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return Json(new { isResult = true, result = emailTem.PlainText }, JsonRequestBehavior.AllowGet);
+                    return Json(new { isResult = true, replySubject = emailTem.EmailSubject, replyContent = emailTem.PlainText }, JsonRequestBehavior.AllowGet);
                 }                
             }
         }
