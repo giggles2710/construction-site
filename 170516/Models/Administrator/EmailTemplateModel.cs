@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace _170516.Models.Administrator
 {
@@ -14,10 +15,10 @@ namespace _170516.Models.Administrator
 
         [Required(ErrorMessage = "Vui lòng nhập tiêu đề")]
         public string EmailSubject { get; set; }
+        [AllowHtml]
+        public string HtmlTextContent { get; set; }
         
-        public string HtmlBody { get; set; }
-        
-        public string PlainText { get; set; }
+        public string PlainTextContent { get; set; }
 
         public bool IsHTML { get; set; }
         public bool IsEnable { get; set; }

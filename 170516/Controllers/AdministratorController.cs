@@ -2418,8 +2418,8 @@ namespace _170516.Controllers
                 EmailSubject = model.EmailSubject,
                 IsEnable = model.IsEnable,
                 IsBodyHtml = model.IsHTML,
-                HtmlBody = model.HtmlBody,
-                PlainText = model.PlainText,
+                HtmlBody = model.HtmlTextContent,
+                PlainText = model.PlainTextContent,
                 CreatedBy = GetCurrentUserId(),
                 CreatedDate = DateTime.Now
             };

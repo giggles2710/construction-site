@@ -24,7 +24,6 @@ namespace _170516.Entities
         public int CategoryID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Introduction { get; set; }
         public Nullable<int> ParentID { get; set; }
         public byte[] Image { get; set; }
         public string ImageType { get; set; }

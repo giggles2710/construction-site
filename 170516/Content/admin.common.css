@@ -2368,3 +2368,7 @@ pre {
     .image-upload-box .image-file-input {
         display: none;
     }
+
+    .merge-item {
+    cursor: pointer;
+    }

@@ -9886,7 +9886,11 @@ h6.media-heading {
     
 }
 
-    .product-name a {
-        text-decoration: none !important;
-        color: #000 !important;
-    }
+.product-name a {
+    text-decoration: none !important;
+    color: #000 !important;
+}
+
+.merge-item {
+    cursor: pointer;
+}

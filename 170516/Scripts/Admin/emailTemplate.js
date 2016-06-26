@@ -1,38 +1,23 @@
 ﻿$(document).ready(function() {
     //setup tinymce menu for the first time
-    tinymce.editors = [];
-    tinymce.init({
-        mode: "exact",
-        elements: "txtA_htmlVersion",
-        theme: "modern",
-        relative_urls: false,
-        remove_script_host: false,
-        plugins: [
-            "advlist autolink lists charmap preview hr",
-            "wordcount visualblocks code",
-            "insertdatetime save contextmenu directionality",
-            "textcolor colorpicker textpattern imagetools link"
-        ],
-        toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | autolink",
-        toolbar2: "preview | forecolor backcolor emoticons | fontselect link",
-        image_advtab: true,
-        templates: [
-            { title: 'Test template 1', content: 'Test 1' },
-            { title: 'Test template 2', content: 'Test 2' }
-        ],
-        setup: function (editor) {
-            
-        }
+    
 
+    tinymce.init({
+        selector: '.tiny_mce_input',  // change this value according to your HTML
+        plugin: 'a_tinymce_plugin',
+        a_plugin_option: true,
+        a_configuration_option: 400,
+        height: "480",        
     });
 
     $('#SubmitAddEmailTemp').on('click', function () {        
         var form = $("#addEmailTemplateForm");
-        tinyMCE.get("txtA_htmlVersion").save();
 
         var isValid = true;
+        var htmlContent = tinyMCE.get('txtA_htmlVersion').getContent();
+
         if ($('#ddlEmailFormat').val() == 'HTML') {
-            if (tinyMCE.get('txtA_htmlVersion').getContent() == "") {
+            if (htmlContent == "") {
                 isValid = false;
                 $('#contentValidation').text('Nội dung không được bỏ trống');
             } else {
@@ -48,16 +33,20 @@
             }
         }
 
-
-
         form.validate();
         if (form.valid() && isValid) {
-           
+            var dataToSend = {
+                EmailTemplateName : $('#EmailTemplateName').val(),
+                EmailSubject : $('#EmailSubject').val(),
+                IsEnable : $('#IsEnable').val(),
+                IsHTML: $('#IsHTML').val(),
+                HtmlTextContent: htmlContent,
+                PlainTextContent: $('#txtA_textVersion').val()
+            }
             $.ajax({
                 url: staticUrl.addEmailTemplate,
-                data: $('#addEmailTemplateForm').serialize(),                
+                data: dataToSend,
                 method: "POST",
-                dataType: "json",
                 cache: false,
                 success: function (data) {
                     if (data != null) {
@@ -73,10 +62,29 @@
             });
         }
     });
+
+    $('.merge-item').on('click', function () {
+        if ($('#ddlEmailFormat').val() == 'HTML')
+        {
+            tinymce.activeEditor.execCommand('mceInsertContent', false, '['+ $(this).text() +']');
+        }
+        else 
+        {
+            emailTemplateSupport.addToPlainText('[' + $(this).text() + ']');
+        }
+    });
 });
 
 
 var emailTemplateSupport = {
+    addToPlainText: function (text)
+    {
+        var $txt = jQuery("#txtA_textVersion");
+        var caretPos = $txt[0].selectionStart;
+        var textAreaTxt = $txt.val();
+        var txtToAdd = text;
+        $txt.val(textAreaTxt.substring(0, caretPos) +txtToAdd + textAreaTxt.substring(caretPos));
+    },
     //Binding data to IsHTML field
     ChangeHtmlToText: function (obj) {
         var value = $(obj).val();

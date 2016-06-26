@@ -42,7 +42,7 @@
                                     <div class="col-sm-7">
                                         @foreach (var item in Model.MergeFields)
                                         {
-                                            <a href="#" class="label label-success">@item</a>
+                                            <label class="label label-success merge-item">@item</label>
                                         }
                                     </div>
                                 </div>
@@ -69,12 +69,12 @@
                                     <label class="col-sm-3 control-label" for="">Nội dung<span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
                                         <div id="emailTemplate-area-html" @(!Model.IsHTML ? "hidden='hidden'" : "")>
-                                            @Html.TextAreaFor(model => model.HtmlBody, new { @class = "mceEditor", @id = "txtA_htmlVersion", @style = "height:250px", maxlength = 5000 })
-                                            @Html.ValidationMessageFor(model => model.HtmlBody)
+                                            @Html.TextAreaFor(model => model.HtmlTextContent, new { @class = "tiny_mce_input form-control", @id = "txtA_htmlVersion", @style = "height:250px", maxlength = 5000 })
+                                            @Html.ValidationMessageFor(model => model.HtmlTextContent)
                                         </div>
                                         <div id="emailTemplate-area-text" @(Model.IsHTML ? "hidden='hidden'" : "")>
-                                            @Html.TextAreaFor(model => model.PlainText, new { @id = "txtA_textVersion", @style = "min-height:250px; min-width:auto", @class = "form-control", maxlength = 5000 })
-                                            @Html.ValidationMessageFor(model => model.PlainText)
+                                            @Html.TextAreaFor(model => model.PlainTextContent, new { @id = "txtA_textVersion", @style = "min-height:250px; min-width:auto", @class = "form-control", maxlength = 5000 })
+                                            @Html.ValidationMessageFor(model => model.PlainTextContent)
                                         </div>                                       
                                     </div>                                    
                                 </div>

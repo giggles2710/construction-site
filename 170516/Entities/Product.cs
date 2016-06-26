@@ -32,11 +32,8 @@ namespace _170516.Entities
         public Nullable<double> Discount { get; set; }
         public decimal UnitPrice { get; set; }
         public Nullable<decimal> DiscountedPrice { get; set; }
-        public Nullable<int> Rate { get; set; }
-        public Nullable<bool> IsFeatured { get; set; }
         public bool IsDiscountAvailable { get; set; }
         public bool IsAvailable { get; set; }
-        public Nullable<int> ViewNumber { get; set; }
         public Nullable<int> SupplierID { get; set; }
         public System.DateTime DateModified { get; set; }
         public string CreatedUserID { get; set; }
