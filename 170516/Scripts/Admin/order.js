@@ -449,6 +449,7 @@ var orderSupportModel = {
             }
         }
 
+        /*
         //shipDate
         if ($shipDate.val() == null || $shipDate.val() == '' || $shipDate.val() == undefined) {
             $shipDate.parent().addClass('has-error');
@@ -483,6 +484,7 @@ var orderSupportModel = {
                 $paymentDate.nextAll('span.input-error-box').text("");
             }
         }
+        */
 
         //validate order details values
         var num = $('#OrderDetaisCount').val();

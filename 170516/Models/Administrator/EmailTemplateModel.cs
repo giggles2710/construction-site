@@ -29,7 +29,7 @@ namespace _170516.Models.Administrator
     public enum FieldTypes
     {
         Common = 0,
-        AcceptOrder = 1,
+        OrderConfirmation = 1,
         ReplyRequest = 2
     }
 }

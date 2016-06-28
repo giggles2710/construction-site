@@ -1684,6 +1684,16 @@ namespace _170516.Controllers
             try
             {
                 dbContext.SaveChanges();
+
+                var emailToSend = EmailMergingHelper.MergeOrderConfirmationEmail(model.OrderID);
+                emailToSend.SendTo = "giggles2710@gmail.com";
+
+                if (emailToSend != null)
+                {
+                    bool isSuccess = EmailServiceHelper.Send(emailToSend);
+                    if (!isSuccess)
+                        return Json(new { isResult = false, result = "Có lỗi xảy ra khi gửi mail" }, JsonRequestBehavior.AllowGet);
+                }
             }
             catch (Exception ex)
             {
@@ -2507,7 +2517,7 @@ namespace _170516.Controllers
         public ActionResult AddEmailTemplate()
         {
             var model = new EmailTemplateModel();
-            model.MergeFields = dbContext.MergeFields.Where(m => m.FieldType == (int)FieldTypes.Common || m.FieldType == (int)FieldTypes.AcceptOrder)
+            model.MergeFields = dbContext.MergeFields.Where(m => m.FieldType == (int)FieldTypes.Common || m.FieldType == (int)FieldTypes.ReplyRequest)
                 .Select(m => m.FieldName).ToList();
 
             return View(model);
@@ -2519,6 +2529,7 @@ namespace _170516.Controllers
         {
             var temp = new EmailTemplate
             {
+                EmailType = (int)FieldTypes.ReplyRequest,
                 EmailTemplateName = model.EmailTemplateName,
                 EmailSubject = model.EmailSubject,
                 HtmlBody = model.HtmlTextContent,
@@ -2557,7 +2568,7 @@ namespace _170516.Controllers
                 HtmlTextContent = emailTemp.HtmlBody,
             };
 
-            model.MergeFields = dbContext.MergeFields.Where(m => m.FieldType == (int)FieldTypes.Common || m.FieldType == (int)FieldTypes.AcceptOrder)
+            model.MergeFields = dbContext.MergeFields.Where(m => m.FieldType == emailTemp.EmailType)
                 .Select(m => m.FieldName).ToList();
 
             return View(model);

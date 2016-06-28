@@ -84,7 +84,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="Fax">Ngày yêu cầu <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        @Html.TextBox("ShipDate", Model.RequiredDate != null ? Model.RequiredDate.Value.ToShortDateString() : string.Empty, new { @class = "form-control datepicker" })
+                                        @Html.TextBox("RequiredDate", Model.RequiredDate != null ? Model.RequiredDate.Value.ToShortDateString() : string.Empty, new { @class = "form-control datepicker" })
                                         <span class="input-error-box text-danger"></span>                                     
                                     </div>
                                 </div>

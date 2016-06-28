@@ -17,16 +17,16 @@ namespace _170516.Utility
 
         public static bool Send(EmailDeliveryModel ob)
         {
-            //SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-            //SmtpServer.Port = 587;            
-            //SmtpServer.UseDefaultCredentials = false;
-            //SmtpServer.Credentials = new System.Net.NetworkCredential("constructionsiteplus@gmail.com", "Khongcanpass123");
-            //SmtpServer.EnableSsl = true;
-            //SmtpServer.Timeout = 20000;
-            //SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            SmtpServer.Port = 587;
+            SmtpServer.UseDefaultCredentials = false;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("constructionsiteplus@gmail.com", "Khongcanpass123");
+            SmtpServer.EnableSsl = true;
+            SmtpServer.Timeout = 20000;
+            SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
 
-            SmtpClient SmtpServer = new SmtpClient("localhost", 26);
-            SmtpServer.UseDefaultCredentials = true;            
+            //SmtpClient SmtpServer = new SmtpClient("localhost", 26);
+            //SmtpServer.UseDefaultCredentials = true;            
 
             MailMessage mm = new MailMessage("constructionsiteplus@gmail.com", ob.SendTo);
 
