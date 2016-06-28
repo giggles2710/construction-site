@@ -26,18 +26,10 @@
                                 
                                 @Html.HiddenFor(model => model.CustomerID)
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="ProductName">Họ <span class="text-danger">*</span></label>
+                                    <label class="col-md-3 control-label" for="ProductName">Họ tên khách hàng <span class="text-danger">*</span></label>
                                     <div class="col-md-7">
-                                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
-                                        @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "input-error-box text-danger" })
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="ProductName">Tên <span class="text-danger">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
-                                        @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "input-error-box text-danger" })
+                                        @Html.TextBoxFor(model => model.FullName, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.FullName, null, new { @class = "input-error-box text-danger" })
                                     </div>
                                 </div>
                                     
@@ -107,7 +99,14 @@
                                         @Html.TextBoxFor(model => model.ShipCity, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
                                         @Html.ValidationMessageFor(model => model.ShipCity, null, new { @class = "input-error-box text-danger" })
                                     </div>
-                                </div>                           
+                                </div>  
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="ProductName">Thông tin thêm  <span class="text-danger">*</span></label>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(model => model.ShipCity, new { @class = "form-control" }) 
+                                        @Html.ValidationMessageFor(model => model.AdditionalInformation, null, new { @class = "input-error-box text-danger" })
+                                    </div>
+                                </div>                              
                             </div>
                         </div>
                         <div class="row">

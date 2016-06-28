@@ -23,9 +23,9 @@ namespace _170516.Entities
         public int CustomerID { get; set; }
         public string OrderNumber { get; set; }
         public System.DateTime OrderDate { get; set; }
-        public System.DateTime ShipDate { get; set; }
-        public System.DateTime RequiredDate { get; set; }
-        public int ShipperID { get; set; }
+        public Nullable<System.DateTime> ShipDate { get; set; }
+        public Nullable<System.DateTime> RequiredDate { get; set; }
+        public Nullable<int> ShipperID { get; set; }
         public double Freight { get; set; }
         public decimal SalesTax { get; set; }
         public string OrderStatus { get; set; }

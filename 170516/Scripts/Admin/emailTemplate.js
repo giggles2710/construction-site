@@ -11,7 +11,18 @@
     //setup tinymce menu for the first time    
     tinymce.init({
         selector: '.tiny_mce_input',  // change this value according to your HTML
-        plugin: 'a_tinymce_plugin',
+        plugins: ['advlist autolink lists link image charmap preview hr anchor pagebreak',
+        'searchreplace wordcount visualblocks visualchars code',
+        'insertdatetime nonbreaking save table contextmenu directionality',
+        'paste textcolor colorpicker textpattern imagetools'
+        ],
+        toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        toolbar2: 'preview | forecolor backcolor',
+        formats: {
+            alignleft: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table', styles: { textAlign: 'left' } },
+            aligncenter: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table', styles: { textAlign: 'center' } },
+            alignright: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table', styles: { textAlign: 'right' } }
+        },
         a_plugin_option: true,
         a_configuration_option: 400,
         height: "480",        
@@ -23,21 +34,11 @@
         var isValid = true;
         var htmlContent = tinyMCE.get('txtA_htmlVersion').getContent();
 
-        if ($('#ddlEmailFormat').val() == 'HTML') {
-            if (htmlContent == "") {
-                isValid = false;
-                $('#contentValidation').text('Nội dung không được bỏ trống');
-            } else {
-                $('#contentValidation').text('');
-            }
-
+        if (htmlContent == "") {
+            isValid = false;
+            $('#contentValidation').text('Nội dung không được bỏ trống');
         } else {
-            if ($('#txtA_textVersion').val() == "") {
-                isValid = false;
-                $('#contentValidation').text('Nội dung không được bỏ trống');
-            } else {
-                $('#contentValidation').text('');
-            }
+            $('#contentValidation').text('');
         }
 
         form.validate();
@@ -45,10 +46,7 @@
             var dataToSend = {
                 EmailTemplateName : $('#EmailTemplateName').val(),
                 EmailSubject : $('#EmailSubject').val(),
-                IsEnable : $('#IsEnable').val(),
-                IsHTML: $('#IsHTML').val(),
-                HtmlTextContent: htmlContent,
-                PlainTextContent: $('#txtA_textVersion').val()
+                HtmlTextContent: htmlContent
             }
             $.ajax({
                 url: staticUrl.addEmailTemplate,
@@ -76,21 +74,11 @@
         var isValid = true;
         var htmlContent = tinyMCE.get('txtA_htmlVersion').getContent();
 
-        if ($('#ddlEmailFormat').val() == 'HTML') {
-            if (htmlContent == "") {
-                isValid = false;
-                $('#contentValidation').text('Nội dung không được bỏ trống');
-            } else {
-                $('#contentValidation').text('');
-            }
-
+        if (htmlContent == "") {
+            isValid = false;
+            $('#contentValidation').text('Nội dung không được bỏ trống');
         } else {
-            if ($('#txtA_textVersion').val() == "") {
-                isValid = false;
-                $('#contentValidation').text('Nội dung không được bỏ trống');
-            } else {
-                $('#contentValidation').text('');
-            }
+            $('#contentValidation').text('');
         }
 
         form.validate();
@@ -99,10 +87,7 @@
                 EmailTemplateId: $('#EmailTemplateId').val(),
                 EmailTemplateName: $('#EmailTemplateName').val(),
                 EmailSubject: $('#EmailSubject').val(),
-                IsEnable: $('#IsEnable').val(),
-                IsHTML: $('#IsHTML').val(),
                 HtmlTextContent: htmlContent,
-                PlainTextContent: $('#txtA_textVersion').val()
             }
             $.ajax({
                 url: staticUrl.updateEmailTemplate,

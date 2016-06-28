@@ -24,48 +24,54 @@
                     <div class="col-md-12 col-lg-12 detail-view">
                         <fieldset class="form-group">
                             <!-- PRODUCT NAME -->
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductName">Số đơn hàng</label>
+                            <div class="form-group col-sm-10">
+                                <label class="col-sm-3 control-label" for="">Số đơn hàng</label>
                                 <div class="col-sm-7">
                                     <p class="info-box">@Model.Order.OrderNumber</p>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductName">Trạng thái đơn hàng</label>
+                            <div class="form-group col-sm-10">
+                                <label class="col-sm-3 control-label" for="">Trạng thái đơn hàng</label>
                                 <div class="col-sm-7">
                                     <p class="info-box">@Model.Order.OrderStatusToUser</p>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductName">Tên khách hàng</label>
+                            <div class="form-group col-sm-10">
+                                <label class="col-sm-3 control-label" for="">Tên khách hàng</label>
                                 <div class="col-sm-7">
                                     <p class="info-box">
                                         <a class="no-underline" href="@Url.Action("ViewCustomerDetails", "Administrator", new { id = Model.Order.CustomerID })">@Model.Order.CustomerName</a>
                                     </p>
                                 </div>
+                            </div>                            
+                            <div class="form-group col-sm-10">
+                                <label class="col-sm-3 control-label" for="">Ngày đặt hàng</label>
+                                <div class="col-sm-7">
+                                    <p class="info-box">@Model.Order.OrderDate.ToShortDateString()</p>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductName">Shipper</label>
+                            <div class="form-group col-sm-10">
+                                <label class="col-sm-3 control-label" for="">Shipper</label>
                                 <div class="col-sm-7">
                                     <p class="info-box">
                                         <a class="no-underline" href="@Url.Action("ViewShipperDetails", "Administrator", new { id = Model.Order.ShipperID })">@Model.Order.ShipperCompanyName</a>
                                     </p>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductName">Ngày đặt hàng</label>
+
+                            <div class="form-group col-sm-10">
+                                <label class="col-sm-3 control-label" for="">Ngày ship</label>
                                 <div class="col-sm-7">
-                                    <p class="info-box">@Model.Order.OrderDate.ToShortDateString()</p>
+                                    <p class="info-box">
+                                        @if (Model.Order.ShipDate != null)
+                                        {
+                                            <span>@Model.Order.ShipDate.Value.ToShortDateString()</span>
+                                        }
+                                    </p>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductName">Ngày ship</label>
-                                <div class="col-sm-7">
-                                    <p class="info-box">@Model.Order.ShipDate.ToShortDateString()</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductName">Ngày trả tiền</label>
+                            <div class="form-group col-sm-10">
+                                <label class="col-sm-3 control-label" for="">Ngày trả tiền</label>
                                 <div class="col-sm-7">
                                     <p class="info-box">
                                         @if (Model.Order.PaymentDate != null)
@@ -75,22 +81,22 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductName">Tiền cước</label>
+                            <div class="form-group col-sm-10">
+                                <label class="col-sm-3 control-label" for="">Tiền cước</label>
                                 <div class="col-sm-7">
                                     <p class="info-box">
                                         @Html.DisplayFor(model => model.Order.Freight)
                                     </p>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductName">Tiền thuế</label>
+                            <div class="form-group col-sm-10">
+                                <label class="col-sm-3 control-label" for="">Tiền thuế</label>
                                 <div class="col-sm-7">
                                     <p class="info-box">@Html.DisplayFor(model => model.Order.SalesTax)</p>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="ProductName">Tổng đơn hàng</label>
+                            <div class="form-group col-sm-10">
+                                <label class="col-sm-3 control-label" for="">Tổng đơn hàng</label>
                                 <div class="col-sm-7">
                                     <p class="info-box">@Html.DisplayFor(model => model.Order.TotalIncome)</p>
                                 </div>

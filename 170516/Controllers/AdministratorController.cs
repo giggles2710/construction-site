@@ -771,15 +771,15 @@ namespace _170516.Controllers
                 Address = customer.Address,
                 City = customer.City,
                 District = customer.District,
+                FullName = customer.Fullname,
                 EmailAddress = customer.EmailAddress,
-                FirstName = customer.FirstName,
-                LastName = customer.LastName,
                 Phone = customer.Phone,
                 ShipAddress = customer.ShipAddress,
                 ShipCity = customer.ShipCity,
                 ShipDistrict = customer.ShipDistrict,
                 ShipPhone = customer.ShipPhone,
-                DateEntered = customer.DateEntered
+                DateEntered = customer.DateEntered,
+                AdditionalInformation = customer.AdditionalInformation
             };
 
             return View(customerView);
@@ -794,8 +794,7 @@ namespace _170516.Controllers
             var customer = dbContext.Customers.FirstOrDefault(c => c.CustomerID == id);
 
             model.CustomerID = customer.CustomerID;
-            model.FirstName = customer.FirstName;
-            model.LastName = customer.LastName;
+            model.FullName = customer.Fullname;
             model.Address = customer.Address;
             model.City = customer.City;
             model.District = customer.District;
@@ -805,6 +804,7 @@ namespace _170516.Controllers
             model.ShipCity = customer.ShipCity;
             model.ShipDistrict = customer.ShipDistrict;
             model.ShipPhone = customer.ShipPhone;
+            model.AdditionalInformation = customer.AdditionalInformation;
 
             if (customer == null)
             {
@@ -820,8 +820,7 @@ namespace _170516.Controllers
         {
             var customer = dbContext.Customers.FirstOrDefault(c => c.CustomerID == model.CustomerID);
 
-            customer.FirstName = model.FirstName;
-            customer.LastName = model.LastName;
+            customer.Fullname = model.FullName;
             customer.Address = model.Address;
             customer.City = model.City;
             customer.District = model.District;
@@ -831,6 +830,7 @@ namespace _170516.Controllers
             customer.ShipCity = model.ShipCity;
             customer.ShipDistrict = model.ShipDistrict;
             customer.ShipPhone = model.ShipPhone;
+            customer.AdditionalInformation = model.AdditionalInformation;
 
             try
             {
@@ -1453,24 +1453,25 @@ namespace _170516.Controllers
             if (string.IsNullOrEmpty(searchText)) searchText = null;
             if (string.IsNullOrEmpty(sortField)) sortField = "OrderDate";
 
-            IQueryable<Order> orders;
+            List<Order> orders;
             orders = dbContext.Orders
                             .Where(p => string.IsNullOrEmpty(searchText) ||
-                            (p.Customer.FirstName.Contains(searchText) || p.Customer.LastName.Contains(searchText)));
+                            (p.Customer.Fullname.Contains(searchText)))
+                            .ToList();
 
 
-            var ordersModel = orders.ToList().Select(o => new ViewOrderItem
+            var ordersModel = orders.Select(o => new ViewOrderItem
             {
                 OrderID = o.OrderID,
                 OrderNumber = o.OrderNumber,
-                OrderStatus = o.OrderStatus,
                 OrderStatusToUser = GetOrderStatusToUser(o.OrderStatus),
+                OrderStatus = o.OrderStatus,                
                 IsFulfilled = o.IsFulfilled,
                 IsCanceled = o.IsCanceled,
                 CustomerID = o.CustomerID,
-                CustomerName = string.Format("{0} {1}", o.Customer.FirstName, o.Customer.LastName),
-                ShipperID = o.ShipperID,
-                ShipperCompanyName = o.Shipper.CompanyName,
+                CustomerName = o.Customer.Fullname,
+                ShipperID = o.ShipperID ?? 0,
+                ShipperCompanyName = o.Shipper == null ? "":o.Shipper.CompanyName,
                 OrderDate = o.OrderDate,
                 ShipDate = o.ShipDate,
                 PaymentDate = o.PaymentDate,
@@ -1478,7 +1479,10 @@ namespace _170516.Controllers
                 Freight = o.Freight,
                 SalesTax = o.SalesTax,
                 Paid = o.Paid
-            });
+            }).ToList();
+
+
+
 
             IEnumerable<ViewOrderItem> result;
 
@@ -1606,8 +1610,8 @@ namespace _170516.Controllers
                 OrderID = order.OrderID,
                 OrderNumber = order.OrderNumber,
                 CustomerID = order.CustomerID,
-                CustomerName = string.Format("{0} {1}", order.Customer.FirstName, order.Customer.LastName),
-                ShipperID = order.ShipperID,
+                CustomerName = order.Customer.Fullname,
+                ShipperID = order.ShipperID??0,
                 Freight = order.Freight,
                 SalesTax = order.SalesTax,
                 Paid = order.Paid,
@@ -1841,9 +1845,9 @@ namespace _170516.Controllers
                 IsFulfilled = order.IsFulfilled,
                 IsCanceled = order.IsCanceled,
                 CustomerID = order.CustomerID,
-                CustomerName = string.Format("{0} {1}", order.Customer.FirstName, order.Customer.LastName),
-                ShipperID = order.ShipperID,
-                ShipperCompanyName = order.Shipper.CompanyName,
+                CustomerName = order.Customer.Fullname,
+                ShipperID = order.ShipperID??0,
+                ShipperCompanyName = order.Shipper == null? "" : order.Shipper.CompanyName,
                 OrderDate = order.OrderDate,
                 ShipDate = order.ShipDate,
                 PaymentDate = order.PaymentDate,
