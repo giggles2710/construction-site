@@ -18,9 +18,6 @@ namespace _170516.Entities
         public string EmailTemplateName { get; set; }
         public string EmailSubject { get; set; }
         public string HtmlBody { get; set; }
-        public string PlainText { get; set; }
-        public Nullable<bool> IsBodyHtml { get; set; }
-        public Nullable<bool> IsEnable { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> LastUpdatedDate { get; set; }

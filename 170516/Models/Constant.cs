@@ -13,6 +13,7 @@ namespace _170516.Models
         public const string ProductNotFound = "Sản phẩm này không còn tồn tại trong hệ thống.";
         public const string SupplierNotFound = "Nhà cung cấp này không còn tồn tại trong hệ thống.";
         public const string ShipperNotFound = "Shipper này không còn tồn tại trong hệ thống.";
+        public const string EmailTemplateNotFound = "EmailTemplate này không tồn tại trong hệ thống.";
         public const string OrderNotFound = "Đơn hàng này không còn tồn tại trong hệ thống.";
         public const string OrderDetailsNotFound = "Sản phẩm này không còn tồn tại trong đơn hàng.";
         public const string UserNotFound = "Người dùng này không còn tồn tại trong hệ thống.";

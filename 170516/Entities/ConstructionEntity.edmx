@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="AccountID" />
@@ -67,9 +67,6 @@
           <Property Name="EmailTemplateName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="EmailSubject" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="HtmlBody" Type="nvarchar(max)" />
-          <Property Name="PlainText" Type="nvarchar(max)" />
-          <Property Name="IsBodyHtml" Type="bit" />
-          <Property Name="IsEnable" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="LastUpdatedDate" Type="datetime" />
@@ -475,7 +472,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="AccountID" />
@@ -549,9 +546,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="EmailTemplateName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EmailSubject" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="HtmlBody" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PlainText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsBodyHtml" Type="Boolean" />
-          <Property Name="IsEnable" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
@@ -1041,9 +1035,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
                 <ScalarProperty Name="EmailTemplateName" ColumnName="EmailTemplateName" />
                 <ScalarProperty Name="EmailSubject" ColumnName="EmailSubject" />
                 <ScalarProperty Name="HtmlBody" ColumnName="HtmlBody" />
-                <ScalarProperty Name="PlainText" ColumnName="PlainText" />
-                <ScalarProperty Name="IsBodyHtml" ColumnName="IsBodyHtml" />
-                <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />

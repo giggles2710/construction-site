@@ -23,7 +23,6 @@ namespace _170516.Models.Administrator
     {
         public int EmailTemplateId { get; set; }
         public string EmailTemplateName { get; set; }
-        public bool IsEnable { get; set; }
         public string CreatedByUsername { get; set; }
         public string CreatedByAccountID { get; set; }
         public DateTime? CreatedDate { get; set; }

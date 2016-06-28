@@ -2340,7 +2340,7 @@ namespace _170516.Controllers
                     FullName = request.FullName
                 };
 
-                model.ListEmailTemplates = dbContext.EmailTemplates.Where(e => e.IsEnable == true)
+                model.ListEmailTemplates = dbContext.EmailTemplates
                     .Select(e => new SelectListItem { Value = e.EmailTemplateId.ToString(), Text = e.EmailTemplateName }).ToList();
 
                 return View("ViewRequestDetail", "_AdminLayout", model);
@@ -2368,7 +2368,7 @@ namespace _170516.Controllers
                 //};
 
                 var ob = EmailMergingHelper.MergeFeedbackEmail(model);
-                ob.SendTo = "giggles2710@gmail.com";
+                ob.SendTo = "doanhhnqt74@gmail.com";
 
                 bool isSuccess = EmailServiceHelper.Send(ob);
 
@@ -2430,18 +2430,7 @@ namespace _170516.Controllers
                             .Where(p => string.IsNullOrEmpty(searchText) || p.EmailTemplateName.Contains(searchText))
                             .OrderByDescending(p => p.EmailTemplateName);
                     break;
-
-                case "IsEnable":
-                    if (isAsc.GetValueOrDefault())
-                        templates = dbContext.EmailTemplates
-                            .Where(p => string.IsNullOrEmpty(searchText) || p.EmailTemplateName.Contains(searchText))
-                            .OrderBy(p => p.IsEnable);
-                    else
-                        templates = dbContext.EmailTemplates
-                            .Where(p => string.IsNullOrEmpty(searchText) || p.EmailTemplateName.Contains(searchText))
-                            .OrderByDescending(p => p.IsEnable);
-                    break;
-
+               
                 case "CreatedByUsername":
                     if (isAsc.GetValueOrDefault())
                         templates = dbContext.EmailTemplates
@@ -2470,7 +2459,6 @@ namespace _170516.Controllers
                 {
                     EmailTemplateId = p.EmailTemplateId,
                     EmailTemplateName = p.EmailTemplateName,
-                    IsEnable = p.IsEnable == true,
                     CreatedByUsername = p.Account != null ? p.Account.Username : string.Empty,
                     CreatedDate = p.CreatedDate
                 })
@@ -2504,14 +2492,8 @@ namespace _170516.Controllers
             }
             else
             {
-                if (emailTem.IsBodyHtml == true)
-                {
-                    return Json(new { isResult = true, replySubject = emailTem.EmailSubject, replyContent = emailTem.HtmlBody }, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json(new { isResult = true, replySubject = emailTem.EmailSubject, replyContent = emailTem.PlainText }, JsonRequestBehavior.AllowGet);
-                }
+                return Json(new { isResult = true, replySubject = emailTem.EmailSubject, replyContent = emailTem.HtmlBody }, JsonRequestBehavior.AllowGet);
+                
             }
         }
 
@@ -2521,7 +2503,6 @@ namespace _170516.Controllers
         public ActionResult AddEmailTemplate()
         {
             var model = new EmailTemplateModel();
-            model.IsHTML = true;
             model.MergeFields = dbContext.MergeFields.Where(m => m.FieldType == (int)FieldTypes.Common || m.FieldType == (int)FieldTypes.AcceptOrder)
                 .Select(m => m.FieldName).ToList();
 
@@ -2529,16 +2510,14 @@ namespace _170516.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult AddEmailTemplate(EmailTemplateModel model)
         {
             var temp = new EmailTemplate
             {
                 EmailTemplateName = model.EmailTemplateName,
                 EmailSubject = model.EmailSubject,
-                IsEnable = model.IsEnable,
-                IsBodyHtml = model.IsHTML,
                 HtmlBody = model.HtmlTextContent,
-                PlainText = model.PlainTextContent,
                 CreatedBy = GetCurrentUserId(),
                 CreatedDate = DateTime.Now
             };
@@ -2571,10 +2550,7 @@ namespace _170516.Controllers
                 EmailTemplateId = id,
                 EmailTemplateName = emailTemp.EmailTemplateName,
                 EmailSubject = emailTemp.EmailSubject,
-                IsEnable = emailTemp.IsEnable == true,
-                IsHTML = emailTemp.IsBodyHtml == true,
                 HtmlTextContent = emailTemp.HtmlBody,
-                PlainTextContent = emailTemp.PlainText,
             };
 
             model.MergeFields = dbContext.MergeFields.Where(m => m.FieldType == (int)FieldTypes.Common || m.FieldType == (int)FieldTypes.AcceptOrder)
@@ -2584,6 +2560,7 @@ namespace _170516.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult UpdateEmailTemplate(EmailTemplateModel model)
         {
             var emailTemp = dbContext.EmailTemplates.FirstOrDefault(e => e.EmailTemplateId == model.EmailTemplateId);
@@ -2594,11 +2571,8 @@ namespace _170516.Controllers
             }
 
             emailTemp.EmailTemplateName = model.EmailTemplateName;
-            emailTemp.EmailSubject = model.EmailSubject;
-            emailTemp.IsEnable = model.IsEnable;
-            emailTemp.IsBodyHtml = model.IsHTML;
-            emailTemp.HtmlBody = model.HtmlTextContent;
-            emailTemp.PlainText = model.PlainTextContent;
+            emailTemp.EmailSubject = model.EmailSubject;           
+            emailTemp.HtmlBody = model.HtmlTextContent;       
             emailTemp.LastUpdatedBy = GetCurrentUserId();
             emailTemp.LastUpdatedDate = DateTime.Now;
 
@@ -2611,6 +2585,33 @@ namespace _170516.Controllers
             {
                 return Json(new { isResult = false, result = "Có lỗi xảy ra trong qua trình lưu. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpPost]
+        [Authorize]
+        public JsonResult RemoveEmailTemplate(int id)
+        {
+            try
+            {
+                var emailTemplate = dbContext.EmailTemplates.FirstOrDefault(p => p.EmailTemplateId == id);
+
+                if (emailTemplate != null)
+                {
+                    // remove it
+                    dbContext.EmailTemplates.Remove(emailTemplate);
+                    dbContext.SaveChanges();
+                }
+                else
+                {
+                    return Json(new { isResult = false, result = Constant.EmailTemplateNotFound }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

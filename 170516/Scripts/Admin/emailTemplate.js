@@ -1,6 +1,14 @@
-﻿$(document).ready(function() {
-    //setup tinymce menu for the first time
-    
+﻿$(document).ready(function () {
+    // check to toast when delete success
+    if (window.sessionStorage.DeletedStatus == "true") {
+        toastr.success(window.sessionStorage.DeletedMessage);
+        window.sessionStorage.DeletedStatus = null;
+    } else if (window.sessionStorage.DeletedStatus == "false") {
+        toastr.error(window.sessionStorage.DeletedMessage)
+        window.sessionStorage.DeletedStatus = null;
+    }
+
+    //setup tinymce menu for the first time    
     tinymce.init({
         selector: '.tiny_mce_input',  // change this value according to your HTML
         plugin: 'a_tinymce_plugin',
@@ -116,15 +124,108 @@
         }
     });
 
+    // before delete, show confirmation dialog
+    $('.action-link.remove-link.emailTemplate').on('click', function () {
+        var removeUrl = $(this).data('url');
+        var currentViewUrl = emailTemplateSupport.GetCurrentViewEmailTemplateUrl();
+
+        bootbox.dialog({
+            message: "Bạn có chắc là muốn xóa mẫu Email này không?",
+            title: "Xóa mẫu Email",
+            buttons: {
+                okAction: {
+                    label: "Xóa",
+                    className: "btn btn-primary btn-sm",
+                    callback: function () {
+                        // ajax - remove
+                        $.ajax({
+                            url: removeUrl,
+                            method: "POST",
+                            success: function (data) {
+                                if (data != null) {
+                                    if (data.isResult == true) {
+                                        window.sessionStorage.DeletedStatus = true;
+                                        window.sessionStorage.DeletedMessage = 'Xóa mẫu Email thành công.';
+                                    } else {
+                                        window.sessionStorage.DeletedStatus = false;
+                                        window.sessionStorage.DeletedMessage = data.result;
+                                    }
+
+                                    window.location.href = currentViewUrl;
+                                }
+
+                            }, error: function (data) {
+                                toastr.error(data.result);
+
+                                window.sessionStorage.IsDeletedStatus = null;
+                            }
+                        });
+                    }
+                },
+                noAction: {
+                    label: "Hủy",
+                    className: "btn btn-default btn-sm",
+                    callback: function () {
+
+                    }
+                }
+            }
+        });
+    });
+
+    $('#DeleteEmailTemplate').on('click', function() {
+        bootbox.dialog({
+            message: "Bạn có chắc là muốn xóa mẫu Email này không?",
+            title: "Xóa mẫu Email",
+            buttons: {
+                okAction: {
+                    label: "Xóa",
+                    className: "btn btn-primary btn-sm",
+                    callback: function () {
+                        // ajax - remove
+                        $.ajax({
+                            url: '/Administrator/RemoveEmailTemplate',
+                            data: {
+                                id: $('#EmailTemplateId').val()
+                            },
+                            traditional: true,
+                            async: true,
+                            method: "POST",
+                            cache: false,
+                            success: function (data) {
+                                if (data != null) {
+                                    if (data.isResult == true) {
+                                        window.sessionStorage.DeletedStatus = true;
+                                        window.sessionStorage.DeletedMessage = 'Xóa mẫu Email thành công.';
+                                    } else {
+                                        window.sessionStorage.DeletedStatus = false;
+                                        window.sessionStorage.DeletedMessage = data.result;
+                                    }
+
+                                    window.location.href = staticUrl.viewEmailTemplate;
+                                }
+
+                            }, error: function (data) {
+                                toastr.error(data.result);
+
+                                window.sessionStorage.IsDeletedStatus = null;
+                            }
+                        });
+                    }
+                },
+                noAction: {
+                    label: "Hủy",
+                    className: "btn btn-default btn-sm",
+                    callback: function () {
+
+                    }
+                }
+            }
+        });
+    });
+
     $('.merge-item').on('click', function () {
-        if ($('#ddlEmailFormat').val() == 'HTML')
-        {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, '['+ $(this).text() +']');
-        }
-        else 
-        {
-            emailTemplateSupport.addToPlainText('[' + $(this).text() + ']');
-        }
+        tinymce.activeEditor.execCommand('mceInsertContent', false, '['+ $(this).text() +']');
     });
 
     //search section
@@ -150,30 +251,7 @@
 });
 
 
-var emailTemplateSupport = {
-    addToPlainText: function (text)
-    {
-        var $txt = jQuery("#txtA_textVersion");
-        var caretPos = $txt[0].selectionStart;
-        var textAreaTxt = $txt.val();
-        var txtToAdd = text;
-        $txt.val(textAreaTxt.substring(0, caretPos) +txtToAdd + textAreaTxt.substring(caretPos));
-    },
-    //Binding data to IsHTML field
-    ChangeHtmlToText: function (obj) {
-        var value = $(obj).val();
-        if (value == "HTML") {
-            $('#IsHTML').prop('checked', true);            
-            $('#emailTemplate-area-html').show();
-            $('#emailTemplate-area-text').hide();
-        }
-        else {
-            $('#IsHTML').prop('checked', false);            
-            $('#emailTemplate-area-text').show();
-            $('#emailTemplate-area-html').hide();
-        }
-    },
-
+var emailTemplateSupport = {    
     SortEmailTemplate: function (sortField, isAsc) {
         var $activatePage = $('.pageinate_button.active');
         var page = 1; // page
