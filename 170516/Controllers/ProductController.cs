@@ -66,26 +66,23 @@ namespace _170516.Controllers
             }).ToList();
 
             // fill up missing information
-            for (var i = 0; i < 10; i++)
+            foreach (var item in indexModel.Menu)
             {
-                foreach (var item in indexModel.Menu)
+                item.SubCategoryList = dbContext.Categories.Where(c => c.ParentID == item.CategoryId && c.IsActive).Select(ca => new MinimalCategoryItem
                 {
-                    item.SubCategoryList = dbContext.Categories.Where(c => c.ParentID == item.CategoryId && c.IsActive).Select(ca => new MinimalCategoryItem
-                    {
-                        CategoryId = ca.CategoryID,
-                        CategoryName = ca.Name
-                    }).ToList();
+                    CategoryId = ca.CategoryID,
+                    CategoryName = ca.Name
+                }).ToList();
 
-                    // image
-                    if (item.ImageByte != null)
-                    {
-                        item.ImageSrc = string.Format(Constant.ImageSourceFormat, item.ImageType, Convert.ToBase64String(item.ImageByte));
-                    }
+                // image
+                if (item.ImageByte != null)
+                {
+                    item.ImageSrc = string.Format(Constant.ImageSourceFormat, item.ImageType, Convert.ToBase64String(item.ImageByte));
+                }
 
-                    if (item.SubCategoryList.Any())
-                    {
-                        indexModel.MenuOnMainPage.Add(item);
-                    }
+                if (item.SubCategoryList.Any())
+                {
+                    indexModel.MenuOnMainPage.Add(item);
                 }
             }
 
@@ -156,14 +153,14 @@ namespace _170516.Controllers
                     {
                         ProductID = p.ProductID,
                         ProductName = p.Name,
-                        Discount = (double)p.Discount,
+                        Discount = p.Discount,
                         IsAvailable = p.IsAvailable,
                         IsDiscount = p.IsDiscountAvailable,
-                        Price = (double)p.UnitPrice,
+                        Price = p.UnitPrice,
                         UnitInStock = p.UnitsInStock,
                         ImageByte = p.Image,
                         ImageType = p.ImageType,
-                        Summary = "Every piece meets the highest grading standards, Can be primed then painted or sealed then stained and For basic interior or exterior structural applications"
+                        Summary = p.Summary
                     })
                     .OrderBy(p => p.Price)
                     .Skip(pageSize * (pageNo - 1))
@@ -192,6 +189,7 @@ namespace _170516.Controllers
                 model.SortField = sortField;
                 model.IsAsc = isAsc.GetValueOrDefault();
                 model.CategoryName = category.Name;
+                model.CategoryId = category.CategoryID;
             }
 
             return View(model);

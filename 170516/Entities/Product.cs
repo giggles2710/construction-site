@@ -35,6 +35,9 @@ namespace _170516.Entities
         public bool IsDiscountAvailable { get; set; }
         public bool IsAvailable { get; set; }
         public Nullable<int> SupplierID { get; set; }
+        public Nullable<int> OrderCount { get; set; }
+        public Nullable<int> ViewCount { get; set; }
+        public Nullable<int> Rate { get; set; }
         public System.DateTime DateModified { get; set; }
         public string CreatedUserID { get; set; }
     

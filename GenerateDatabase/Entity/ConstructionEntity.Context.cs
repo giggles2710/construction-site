@@ -15,10 +15,10 @@ namespace GenerateDatabase.Entity
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class ConstructionSiteEntities : DbContext
+    public partial class ConstructionSiteEntities1 : DbContext
     {
-        public ConstructionSiteEntities()
-            : base("name=ConstructionSiteEntities")
+        public ConstructionSiteEntities1()
+            : base("name=ConstructionSiteEntities1")
         {
         }
     
@@ -30,13 +30,17 @@ namespace GenerateDatabase.Entity
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<EmailTemplate> EmailTemplates { get; set; }
+        public virtual DbSet<MergeField> MergeFields { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductDetail> ProductDetails { get; set; }
+        public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<Shipper> Shippers { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<SystemVariable> SystemVariables { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
     
         public virtual ObjectResult<string> CheckUniqueEmailAddress(string emailAddress)

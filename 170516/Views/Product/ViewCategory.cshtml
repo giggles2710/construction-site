@@ -3,121 +3,158 @@
     ViewBag.Title = "Sản Phẩm";
 }
 
-<div class="col-lg-3 col-md-3 col-sm-4">
-    <!-- menu -->
-    <div class="clearfix">
-        <div id="dl-menu" class="dl-menuwrapper">
-            <ul class="dl-submenu">
-                <li class="dl-back"><a href="@Url.Action("ShowCase", "Product")"></a></li>
-                @foreach (var item in Model.Menu)
-                {
-                    <li>
-                        <a href="#" data-id="@item.CategoryId">@item.CategoryName</a>
-                        @if (item.SubCategoryList != null && item.SubCategoryList.Any())
-                        {
-                            <ul class="dl-submenu">
-                                <li><a href="#"></a></li>
-                            </ul>
-                        }
-                    </li>
-                }
-            </ul>
+<div class="index-content-wrapper container-fluid">
+    <div class="banner dark-translucent-bg" style="background-image:url('http://htmlcoder.me/preview/the_project/v.1.2/template/images/page-contact-banner.jpg'); background-position: 50% 30%;">
+        <div class="breadcrumb-container">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home pr-10"></i><a class="link-dark" href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                    <li class="active">Liên Hệ</li>
+                </ol>
+            </div>
         </div>
-    </div>
-</div>
-<div class="col-lg-9 col-md-9 col-sm-8 content-box">
-    <div class="container-fluid main-content-wrapper">
-        <h3 style="color: #2b3e50;">@Model.CategoryName</h3>
-        <div id="ShowCaseDiv" style="margin-top: 30px;">
+        <div class="container">
             <div class="row">
-                <div class="product-toolbar">
-                    <div class="col-lg-12 product-filter-wrapper">
-                        <span class="main-title-h6">Có @Model.MenuOnMainPage.Count sản phẩm trong danh mục @Model.CategoryName</span>
-                        <div class="btn-group bootstrap-select" id="product_itemNumber_select">
-                            <select class="selectpicker" tabindex="-98">
-                                <option selected="" value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                        </div>
-                        <div class="btn-group bootstrap-select" id="product_filter_select">
-                            <select class="selectpicker" tabindex="-98">
-                                <option selected="" value="position:asc">Mới nhất</option>
-                                <option value="price:asc">Giá thấp nhất</option>
-                                <option value="price:desc">Giá cao nhất</option>
-                                <option value="name:asc">Tên sản phẩm: A - Z</option>
-                                <option value="name:desc">Tên sản phẩm: Z - A</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-grid">
-
-                    @for (var i = 0; i < Model.MenuOnMainPage.Count; i++)
-                    {
-                    <div class="product-wrapper">
-                        <div class="product-row clearfix">
-                            <div class="row">
-                                <div class="col-md-4 col-sm-5">
-                                    <div class="product">
-                                        <div class="product-cover">
-                                            @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i].ImageSrc))
-                                            {
-                                                <img class="group list-group-image" src="@Model.MenuOnMainPage[i].ImageSrc" alt="" />
-                                            }
-                                            else
-                                            {
-                                                <img class="group list-group-image" src="~/Content/Image/image_placeholder.jpg" alt="" />
-                                            }
-                                        </div><!-- /.product-cover -->
-                                    </div><!-- /.product -->
-                                </div><!-- /.col -->
-                                <div class="col-md-8 col-sm-7 product-feature-wrapper">
-                                    <div class="product-details product-details-list-view">
-                                        <h3 class="product-name">
-                                            <a href="@Url.Action("ViewProductDetail","Product", new { id = Model.MenuOnMainPage[i].ProductID})">@Model.MenuOnMainPage[i].ProductName</a>
-                                        </h3>
-                                        <p class="product-price">@Model.MenuOnMainPage[i].Price đ</p>
-                                    </div>
-                                    <div class="featured-product-content">
-                                        <p class="hidden-sm hidden-md">@Model.MenuOnMainPage[i].Summary</p>
-                                    </div>
-                                    <div class="actions">
-                                        <button class="btn btn-primary add-to-cart"><i class="fa fa-plus-circle"></i> Thêm vào giỏ hàng</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    }
-                </div>
-                <div class="product-pagination">
-                    <ul class="pagination book-pagination">
-                        @for (var i = 0; i < 5; i++)
-                        {
-                            if ((Model.CurrentPage + i) <= Model.TotalPage)
-                            {
-                                if (i == 0)
-                                {
-                                    <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
-                                        <a href="@Url.Action("ViewProduct", "Administrator", new {page = Model.CurrentPage + i, itemsPerPage = Model.ItemOnPage, sortField = Model.SortField, isAsc = Model.IsAsc})">@((Model.CurrentPage + i).ToString())</a>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li class="paginate_button" aria-controls="dataTables-example" tabindex="0">
-                                        <a href="@Url.Action("ViewProduct", "Administrator", new { page = Model.CurrentPage + i, itemsPerPage = Model.ItemOnPage, sortField = Model.SortField, isAsc = Model.IsAsc })">@((Model.CurrentPage + i).ToString())</a>
-                                    </li>
-                                }
-                            }
-                        }
-                    </ul>
+                <div class="col-md-8 text-center col-md-offset-2 pv-20">
+                    <h2 class="title">Liên Lạc Với Chúng Tôi</h2>
+                    <div class="separator mt-10"></div>
+                    <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi perferendis magnam ea necessitatibus, officiis voluptas odit! Aperiam omnis, cupiditate laudantium velit nostrum, exercitationem accusamus, possimus soluta illo deserunt tempora qui.</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <section class="main-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-lg-offset-1 col-md-push-4 col-lg-push-3">
+                    <div class="container-fluid">
+                        <h3 style="color: #2b3e50;">@Model.CategoryName</h3>
+                        <div id="ShowCaseDiv" style="margin-top: 30px;">
+                            <div class="row">
+                                <div class="product-toolbar">
+                                    <div class="col-lg-12 product-filter-wrapper">
+                                        <span class="main-title-h6">Có @Model.MenuOnMainPage.Count sản phẩm trong danh mục @Model.CategoryName</span>
+                                        @if (Model.MenuOnMainPage.Any())
+                                        {
+                                            <div class="btn-group bootstrap-select" id="product_itemNumber_select">
+                                                <select class="selectpicker" tabindex="-98">
+                                                    <option selected="" value="10">10</option>
+                                                    <option value="25">25</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select>
+                                            </div>
+                                            <div class="btn-group bootstrap-select" id="product_filter_select">
+                                                <select class="selectpicker" tabindex="-98">
+                                                    <option selected="" value="position:asc">Mới nhất</option>
+                                                    <option value="price:asc">Giá thấp nhất</option>
+                                                    <option value="price:desc">Giá cao nhất</option>
+                                                    <option value="name:asc">Tên sản phẩm: A - Z</option>
+                                                    <option value="name:desc">Tên sản phẩm: Z - A</option>
+                                                </select>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="product-grid">
+
+                                    @for (var i = 0; i < Model.MenuOnMainPage.Count; i++)
+                                    {
+                                        <div class="product-wrapper">
+                                            <div class="product-row clearfix">
+                                                <div class="row">
+                                                    <div class="col-md-4 col-sm-5">
+                                                        <div class="product">
+                                                            <div class="product-cover">
+                                                                @if (!string.IsNullOrEmpty(Model.MenuOnMainPage[i].ImageSrc))
+                                                                {
+                                                                    <img class="group list-group-image" src="@Model.MenuOnMainPage[i].ImageSrc" alt="" />
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img class="group list-group-image" src="~/Content/Image/image_placeholder.jpg" alt="" />
+                                                                }
+                                                            </div><!-- /.product-cover -->
+                                                        </div><!-- /.product -->
+                                                    </div><!-- /.col -->
+                                                    <div class="col-md-8 col-sm-7 product-feature-wrapper">
+                                                        <div class="product-details product-details-list-view">
+                                                            <h3 class="product-name">
+                                                                <a href="@Url.Action("ViewProductDetail", "Product", new { id = Model.MenuOnMainPage[i].ProductID })">@Model.MenuOnMainPage[i].ProductName</a>
+                                                            </h3>
+                                                            <p class="product-price">@Model.MenuOnMainPage[i].Price đ</p>
+                                                        </div>
+                                                        <div class="featured-product-content">
+                                                            <p class="hidden-sm hidden-md">@Model.MenuOnMainPage[i].Summary</p>
+                                                        </div>
+                                                        <div class="actions">
+                                                            <button class="btn btn-primary add-to-cart"><i class="fa fa-plus-circle"></i> Thêm vào giỏ hàng</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="product-pagination">
+                                    <ul class="pagination book-pagination">
+                                        @for (var i = 0; i < 5; i++)
+                                        {
+                                            if ((Model.CurrentPage + i) <= Model.TotalPage)
+                                            {
+                                                if (i == 0)
+                                                {
+                                                    <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
+                                                        <a href="@Url.Action("ViewProduct", "Administrator", new { page = Model.CurrentPage + i, itemsPerPage = Model.ItemOnPage, sortField = Model.SortField, isAsc = Model.IsAsc })">@((Model.CurrentPage + i).ToString())</a>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    <li class="paginate_button" aria-controls="dataTables-example" tabindex="0">
+                                                        <a href="@Url.Action("ViewProduct", "Administrator", new { page = Model.CurrentPage + i, itemsPerPage = Model.ItemOnPage, sortField = Model.SortField, isAsc = Model.IsAsc })">@((Model.CurrentPage + i).ToString())</a>
+                                                    </li>
+                                                }
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- main end -->
+                <!-- sidebar start -->
+                <!-- ================ -->
+                <aside class="col-md-4 col-lg-3 col-md-pull-8 col-lg-pull-9">
+                    <div class="sidebar">
+                        <div class="block clearfix">
+                            <h3 class="title">Danh Mục Khác</h3>
+                            <div class="separator-2"></div>
+                            <nav>
+                                <ul class="nav nav-pills nav-stacked">
+                                    @foreach (var item in Model.Menu)
+            {
+                if (item.CategoryId == Model.CategoryId)
+                {
+                                            <li><a class="active" href="@Url.Action("ViewCategory", "Product", new { id = item.CategoryId })">@item.CategoryName</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="@Url.Action("ViewCategory", "Product", new { id = item.CategoryId })">@item.CategoryName</a></li>
+                                        }
+                                    }
+                                </ul>
+                            </nav>
+                        </div>
+
+                        @*@{Html.RenderAction("GetFeaturedProductInCategory", "Product", new { id = Model.CategoryId })}*@
+                    </div>
+                </aside>
+                <!-- sidebar end -->
+            </div>
+        </div>
+    </section>
 </div>
 
 @section Scripts

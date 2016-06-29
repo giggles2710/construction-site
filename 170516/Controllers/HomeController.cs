@@ -13,7 +13,55 @@ namespace _170516.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            // load product index            
+            var productModel = new IndexViewModel();
+
+            // latest products
+            productModel.LatestProducts = new List<ProductThumbnailViewModel>();
+            productModel.LatestProducts = dbContext.Products.OrderByDescending(p => p.DateModified).Select(s => new ProductThumbnailViewModel()
+            {
+                Name = s.Name,
+                Discount = s.Discount,
+                Price = s.UnitPrice,
+                ProductId = s.ProductID,
+                Rate = s.Rate,
+                Summary = s.Summary,
+                View = s.ViewCount,
+                Image = s.Image,
+                ImageType = s.ImageType
+            }).Take(10).ToList();
+
+            // hottest products
+            productModel.TopRatedProducts = new List<ProductThumbnailViewModel>();
+            productModel.TopRatedProducts = dbContext.Products.OrderByDescending(p => p.Rate).Select(s => new ProductThumbnailViewModel()
+            {
+                Name = s.Name,
+                Discount = s.Discount,
+                Price = s.UnitPrice,
+                ProductId = s.ProductID,
+                Rate = s.Rate,
+                Summary = s.Summary,
+                View = s.ViewCount,
+                Image = s.Image,
+                ImageType = s.ImageType
+            }).Take(10).ToList();
+
+            // best-seller products
+            productModel.BestSellerProducts = new List<ProductThumbnailViewModel>();
+            productModel.BestSellerProducts = dbContext.Products.OrderByDescending(p => p.OrderCount).Select(s => new ProductThumbnailViewModel()
+            {
+                Name = s.Name,
+                Discount = s.Discount,
+                Price = s.UnitPrice,
+                ProductId = s.ProductID,
+                Rate = s.Rate,
+                Summary = s.Summary,
+                View = s.ViewCount,
+                Image = s.Image,
+                ImageType = s.ImageType
+            }).Take(10).ToList();
+
+            return View(productModel);
         }
 
         public ActionResult About()

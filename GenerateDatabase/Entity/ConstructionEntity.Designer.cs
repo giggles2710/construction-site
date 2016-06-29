@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Working\thuannh2CM\constructin-site\GenerateDatabase\Entity\ConstructionEntity.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\Working Place\Dot NET\Construction Site\construction-site\GenerateDatabase\Entity\ConstructionEntity.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

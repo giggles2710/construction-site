@@ -229,7 +229,16 @@
     <Compile Include="Entities\Shipper.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\sp_helpdiagrams_Result.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Supplier.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\sysdiagram.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\SystemVariable.cs">
@@ -264,6 +273,7 @@
     <Compile Include="Models\CategoryIndexModel.cs" />
     <Compile Include="Models\Constant.cs" />
     <Compile Include="Models\EmailDeliveryModel.cs" />
+    <Compile Include="Models\IndexViewModel.cs" />
     <Compile Include="Models\ProductIndexModel.cs" />
     <Compile Include="Models\RequestContactModel.cs" />
     <Compile Include="Models\ShowcaseProductDetail.cs" />
@@ -299,8 +309,8 @@
     <Content Include="Content\fullwidth-list\component.css" />
     <Content Include="Content\fullwidth-list\default.css" />
     <Content Include="Content\Image\ajax-loader.gif" />
-    <Content Include="Content\Image\cat.jpg" />
     <Content Include="Content\Image\image_placeholder.jpg" />
+    <Content Include="Content\Image\logo.png" />
     <Content Include="Content\Image\slider\1.png" />
     <Content Include="Content\Image\slider\2.png" />
     <Content Include="Content\Image\slider\3.png" />
@@ -1716,6 +1726,7 @@
     <Content Include="Views\Product\Checkout.cshtml" />
     <Content Include="Views\Administrator\ViewEmailTemplate.cshtml" />
     <Content Include="Views\Administrator\UpdateEmailTemplate.cshtml" />
+    <Content Include="Views\Product\_PartialAdvertiseProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,4 @@
-﻿@model _170516.Models.ProductIndexModel
+﻿@model _170516.Models.IndexViewModel
 @{
     ViewBag.Title = "Trang Chủ";
 }
@@ -92,7 +92,7 @@
                                 Cras sit amet nibh libero. Nulla vel metus scelerisque.
                             </div>
                         </div>
-                        <p><a href="page-services.html" class="btn btn-default-transparent btn-animated">Xem Tiếp <i class="fa fa-arrow-right pl-10"></i></a></p>
+                        <p><a href="@Url.Action("About","Home")" class="btn btn-default-transparent btn-animated">Xem Tiếp <i class="fa fa-arrow-right pl-10"></i></a></p>
                     </div>
                 </div>
             </div>
@@ -110,520 +110,194 @@
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
-                    <ul class="nav nav-pills" role="tablist">
-                        <li class="active"><a href="#pill-1" role="tab" data-toggle="tab" title="Sản phẩm mới nhất"><i class="icon-star"></i> Mới Nhất</a></li>
-                        <li><a href="#pill-2" role="tab" data-toggle="tab" title="Sản phẩm nổi bật"><i class="icon-heart"></i> Nổi Bật</a></li>
-                        <li><a href="#pill-3" role="tab" data-toggle="tab" title="Sản phẩm bán chạy"><i class=" icon-up-1"></i> Bán Chạy</a></li>
-                    </ul>
-                    <div class="tab-content clear-style">
-                        <div class="tab-pane active" id="pill-1">
-                            <div class="masonry-grid-fitrows grid-space-10" style="position: relative; height: 1078.02px;">
-                                <ul class="products">
-                                    <li class="list-group mansory-grid-li products-li">
-                                        <div class="item">
-                                            <div class="masonry-grid-item">
-                                                <div class="listing-item white-bg bordered mb-20">
-                                                    <div class="overlay-container">
-                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
-                                                        <span class="badge">30% OFF</span>
-                                                        <div class="overlay-to-top links">
-                                                            <span class="small">
-                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
-                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="body">
-                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
-                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
-                                                        <div class="elements-list clearfix">
-                                                            <span class="price"><del>$100.00</del> $70.00</span>
-                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group mansory-grid-li products-li">
-                                        <div class="item">
-                                            <div class="masonry-grid-item">
-                                                <div class="listing-item white-bg bordered mb-20">
-                                                    <div class="overlay-container">
-                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
-                                                        <span class="badge">30% OFF</span>
-                                                        <div class="overlay-to-top links">
-                                                            <span class="small">
-                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
-                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="body">
-                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
-                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
-                                                        <div class="elements-list clearfix">
-                                                            <span class="price"><del>$100.00</del> $70.00</span>
-                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group mansory-grid-li products-li">
-                                        <div class="item">
-                                            <div class="masonry-grid-item">
-                                                <div class="listing-item white-bg bordered mb-20">
-                                                    <div class="overlay-container">
-                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
-                                                        <span class="badge">30% OFF</span>
-                                                        <div class="overlay-to-top links">
-                                                            <span class="small">
-                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
-                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="body">
-                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
-                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
-                                                        <div class="elements-list clearfix">
-                                                            <span class="price"><del>$100.00</del> $70.00</span>
-                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group mansory-grid-li products-li">
-                                        <div class="item">
-                                            <div class="masonry-grid-item">
-                                                <div class="listing-item white-bg bordered mb-20">
-                                                    <div class="overlay-container">
-                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
-                                                        <span class="badge">30% OFF</span>
-                                                        <div class="overlay-to-top links">
-                                                            <span class="small">
-                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
-                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="body">
-                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
-                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
-                                                        <div class="elements-list clearfix">
-                                                            <span class="price"><del>$100.00</del> $70.00</span>
-                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group mansory-grid-li products-li">
-                                        <div class="item">
-                                            <div class="masonry-grid-item">
-                                                <div class="listing-item white-bg bordered mb-20">
-                                                    <div class="overlay-container">
-                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
-                                                        <span class="badge">30% OFF</span>
-                                                        <div class="overlay-to-top links">
-                                                            <span class="small">
-                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
-                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="body">
-                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
-                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
-                                                        <div class="elements-list clearfix">
-                                                            <span class="price"><del>$100.00</del> $70.00</span>
-                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group mansory-grid-li products-li">
-                                        <div class="item">
-                                            <div class="masonry-grid-item">
-                                                <div class="listing-item white-bg bordered mb-20">
-                                                    <div class="overlay-container">
-                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
-                                                        <span class="badge">30% OFF</span>
-                                                        <div class="overlay-to-top links">
-                                                            <span class="small">
-                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
-                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="body">
-                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
-                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
-                                                        <div class="elements-list clearfix">
-                                                            <span class="price"><del>$100.00</del> $70.00</span>
-                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+                <div class="col-md-12 col-xs-12 col-sm-12">
+                    <div class="product-container">
+                        <ul class="nav nav-pills" role="tablist">
+                            <li class="active"><a href="#pill-1" role="tab" data-toggle="tab" title="Sản phẩm mới nhất"><i class="icon-star"></i> Mới Nhất</a></li>
+                            <li><a href="#pill-2" role="tab" data-toggle="tab" title="Sản phẩm nổi bật"><i class="icon-heart"></i> Nổi Bật</a></li>
+                            <li><a href="#pill-3" role="tab" data-toggle="tab" title="Sản phẩm bán chạy"><i class=" icon-up-1"></i> Bán Chạy</a></li>
+                        </ul>
+                        <div class="tab-content clear-style">
+                            <div class="tab-pane active" id="pill-1">
+                                <div class="masonry-grid-fitrows grid-space-10" style="position: relative;">
+                                    <ul class="products">
+                                        @foreach (var product in Model.LatestProducts)
+                                        {
+                                            <li class="list-group mansory-grid-li products-li">
+                                                <div class="item">
+                                                    <div class="masonry-grid-item">
+                                                        <div class="listing-item white-bg bordered mb-20">
+                                                            <div class="overlay-container">
+                                                                @if (string.IsNullOrWhiteSpace(product.ImageSrc))
+                                                                {
+                                                                    <img src="http://placehold.it/350x350" alt="">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src="@product.ImageSrc" alt="">
+                                                                }
+                                                                <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                                @if (product.Discount > 0)
+                                                                {
+                                                                    <span class="badge">@product.Discount %</span>
+                                                                }
 
-                                </ul>
+                                                                <div class="overlay-to-top links">
+                                                                    <span class="small">
+                                                                        @for (var i = 0; i < 5; i++)
+                                                                        {
+                                                                            if (i > product.Rate)
+                                                                            {
+                                                                                <a href="#"><i class="fa fa-heart-o pr-10"></i></a>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <a href="#"><i class="fa fa-heart pr-10"></i></a>
+                                                                            }
+                                                                        }
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="body">
+                                                                <h3><a href="shop-product.html">@product.Name</a></h3>
+                                                                <p class="small">@product.Summary</p>
+                                                                <div class="elements-list clearfix">
+                                                                    <span class="price"><del>@product.Price.ToString("N") đ</del></span>
+                                                                </div>
+                                                                <div class="elements-list clearfix">
+                                                                    <span class="price">@product.DiscountedPrice.ToString("N") đ</span>
+                                                                    <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Thêm vào giỏ<i class="fa fa-shopping-cart"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                        <div class="tab-pane" id="pill-2">
-                            <div class="masonry-grid-fitrows grid-space-10" style="position: relative; height: 1078.02px;">
-                                <ul class="products">
-                                    <li class="list-group mansory-grid-li products-li">
-                                        <div class="item">
-                                            <div class="masonry-grid-item">
-                                                <div class="listing-item white-bg bordered mb-20">
-                                                    <div class="overlay-container">
-                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
-                                                        <span class="badge">30% OFF</span>
-                                                        <div class="overlay-to-top links">
-                                                            <span class="small">
-                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
-                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="body">
-                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
-                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
-                                                        <div class="elements-list clearfix">
-                                                            <span class="price"><del>$100.00</del> $70.00</span>
-                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group mansory-grid-li products-li">
-                                        <div class="item">
-                                            <div class="masonry-grid-item">
-                                                <div class="listing-item white-bg bordered mb-20">
-                                                    <div class="overlay-container">
-                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
-                                                        <span class="badge">30% OFF</span>
-                                                        <div class="overlay-to-top links">
-                                                            <span class="small">
-                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
-                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="body">
-                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
-                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
-                                                        <div class="elements-list clearfix">
-                                                            <span class="price"><del>$100.00</del> $70.00</span>
-                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group mansory-grid-li products-li">
-                                        <div class="item">
-                                            <div class="masonry-grid-item">
-                                                <div class="listing-item white-bg bordered mb-20">
-                                                    <div class="overlay-container">
-                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
-                                                        <span class="badge">30% OFF</span>
-                                                        <div class="overlay-to-top links">
-                                                            <span class="small">
-                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
-                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="body">
-                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
-                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
-                                                        <div class="elements-list clearfix">
-                                                            <span class="price"><del>$100.00</del> $70.00</span>
-                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group mansory-grid-li products-li">
-                                        <div class="item">
-                                            <div class="masonry-grid-item">
-                                                <div class="listing-item white-bg bordered mb-20">
-                                                    <div class="overlay-container">
-                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
-                                                        <span class="badge">30% OFF</span>
-                                                        <div class="overlay-to-top links">
-                                                            <span class="small">
-                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
-                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="body">
-                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
-                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
-                                                        <div class="elements-list clearfix">
-                                                            <span class="price"><del>$100.00</del> $70.00</span>
-                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group mansory-grid-li products-li">
-                                        <div class="item">
-                                            <div class="masonry-grid-item">
-                                                <div class="listing-item white-bg bordered mb-20">
-                                                    <div class="overlay-container">
-                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
-                                                        <span class="badge">30% OFF</span>
-                                                        <div class="overlay-to-top links">
-                                                            <span class="small">
-                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
-                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="body">
-                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
-                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
-                                                        <div class="elements-list clearfix">
-                                                            <span class="price"><del>$100.00</del> $70.00</span>
-                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group mansory-grid-li products-li">
-                                        <div class="item">
-                                            <div class="masonry-grid-item">
-                                                <div class="listing-item white-bg bordered mb-20">
-                                                    <div class="overlay-container">
-                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
-                                                        <span class="badge">30% OFF</span>
-                                                        <div class="overlay-to-top links">
-                                                            <span class="small">
-                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
-                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="body">
-                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
-                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
-                                                        <div class="elements-list clearfix">
-                                                            <span class="price"><del>$100.00</del> $70.00</span>
-                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+                            <div class="tab-pane" id="pill-2">
+                                <div class="masonry-grid-fitrows grid-space-10" style="position: relative;">
+                                    <ul class="products">
+                                        @foreach (var product in Model.TopRatedProducts)
+                                        {
+                                            <li class="list-group mansory-grid-li products-li">
+                                                <div class="item">
+                                                    <div class="masonry-grid-item">
+                                                        <div class="listing-item white-bg bordered mb-20">
+                                                            <div class="overlay-container">
+                                                                @if (string.IsNullOrWhiteSpace(product.ImageSrc))
+                                                                {
+                                                                    <img src="http://placehold.it/350x350" alt="">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src="@product.ImageSrc" alt="">
+                                                                }
+                                                                <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                                @if (product.Discount > 0)
+                                                                {
+                                                                    <span class="badge">@product.Discount %</span>
+                                                                }
 
-                                </ul>
+                                                                <div class="overlay-to-top links">
+                                                                    <span class="small">
+                                                                        @for (var i = 0; i < 5; i++)
+                                                                        {
+                                                                            if (i > product.Rate)
+                                                                            {
+                                                                                <a href="#"><i class="fa fa-heart-o pr-10"></i></a>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <a href="#"><i class="fa fa-heart pr-10"></i></a>
+                                                                            }
+                                                                        }
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="body">
+                                                                <h3><a href="shop-product.html">@product.Name</a></h3>
+                                                                <p class="small">@product.Summary</p>
+                                                                <div class="elements-list clearfix">
+                                                                    <span class="price"><del>@product.Price.ToString("N") đ</del></span>
+                                                                </div>
+                                                                <div class="elements-list clearfix">
+                                                                    <span class="price">@product.DiscountedPrice.ToString("N") đ</span>
+                                                                    <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Thêm vào giỏ<i class="fa fa-shopping-cart"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        }
+
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                        <div class="tab-pane" id="pill-3">
-                            <div class="masonry-grid-fitrows grid-space-10" style="position: relative; height: 1078.02px;">
-                                <ul class="products">
-                                    <li class="list-group mansory-grid-li products-li">
-                                        <div class="item">
-                                            <div class="masonry-grid-item">
-                                                <div class="listing-item white-bg bordered mb-20">
-                                                    <div class="overlay-container">
-                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
-                                                        <span class="badge">30% OFF</span>
-                                                        <div class="overlay-to-top links">
-                                                            <span class="small">
-                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
-                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="body">
-                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
-                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
-                                                        <div class="elements-list clearfix">
-                                                            <span class="price"><del>$100.00</del> $70.00</span>
-                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group mansory-grid-li products-li">
-                                        <div class="item">
-                                            <div class="masonry-grid-item">
-                                                <div class="listing-item white-bg bordered mb-20">
-                                                    <div class="overlay-container">
-                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
-                                                        <span class="badge">30% OFF</span>
-                                                        <div class="overlay-to-top links">
-                                                            <span class="small">
-                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
-                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="body">
-                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
-                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
-                                                        <div class="elements-list clearfix">
-                                                            <span class="price"><del>$100.00</del> $70.00</span>
-                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group mansory-grid-li products-li">
-                                        <div class="item">
-                                            <div class="masonry-grid-item">
-                                                <div class="listing-item white-bg bordered mb-20">
-                                                    <div class="overlay-container">
-                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
-                                                        <span class="badge">30% OFF</span>
-                                                        <div class="overlay-to-top links">
-                                                            <span class="small">
-                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
-                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="body">
-                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
-                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
-                                                        <div class="elements-list clearfix">
-                                                            <span class="price"><del>$100.00</del> $70.00</span>
-                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group mansory-grid-li products-li">
-                                        <div class="item">
-                                            <div class="masonry-grid-item">
-                                                <div class="listing-item white-bg bordered mb-20">
-                                                    <div class="overlay-container">
-                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
-                                                        <span class="badge">30% OFF</span>
-                                                        <div class="overlay-to-top links">
-                                                            <span class="small">
-                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
-                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="body">
-                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
-                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
-                                                        <div class="elements-list clearfix">
-                                                            <span class="price"><del>$100.00</del> $70.00</span>
-                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group mansory-grid-li products-li">
-                                        <div class="item">
-                                            <div class="masonry-grid-item">
-                                                <div class="listing-item white-bg bordered mb-20">
-                                                    <div class="overlay-container">
-                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
-                                                        <span class="badge">30% OFF</span>
-                                                        <div class="overlay-to-top links">
-                                                            <span class="small">
-                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
-                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="body">
-                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
-                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
-                                                        <div class="elements-list clearfix">
-                                                            <span class="price"><del>$100.00</del> $70.00</span>
-                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group mansory-grid-li products-li">
-                                        <div class="item">
-                                            <div class="masonry-grid-item">
-                                                <div class="listing-item white-bg bordered mb-20">
-                                                    <div class="overlay-container">
-                                                        <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                                        <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
-                                                        <span class="badge">30% OFF</span>
-                                                        <div class="overlay-to-top links">
-                                                            <span class="small">
-                                                                <a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>Add to Wishlist</a>
-                                                                <a href="#" class="btn-sm-link"><i class="icon-link pr-5"></i>View Details</a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="body">
-                                                        <h3><a href="shop-product.html">Suscipit consequatur velit</a></h3>
-                                                        <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
-                                                        <div class="elements-list clearfix">
-                                                            <span class="price"><del>$100.00</del> $70.00</span>
-                                                            <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+                            <div class="tab-pane" id="pill-3">
+                                <div class="masonry-grid-fitrows grid-space-10" style="position: relative;">
+                                    <ul class="products">
+                                        @foreach (var product in Model.BestSellerProducts)
+                                        {
+                                            <li class="list-group mansory-grid-li products-li">
+                                                <div class="item">
+                                                    <div class="masonry-grid-item">
+                                                        <div class="listing-item white-bg bordered mb-20">
+                                                            <div class="overlay-container">
+                                                                @if (string.IsNullOrWhiteSpace(product.ImageSrc))
+                                                                {
+                                                                    <img src="http://placehold.it/350x350" alt="">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src="@product.ImageSrc" alt="">
+                                                                }
+                                                                <a class="overlay-link popup-img-single" href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg"><i class="fa fa-search-plus"></i></a>
+                                                                @if (product.Discount > 0)
+                                                                {
+                                                                    <span class="badge">@product.Discount %</span>
+                                                                }
 
-                                </ul>
+                                                                <div class="overlay-to-top links">
+                                                                    <span class="small">
+                                                                        @for (var i = 0; i < 5; i++)
+                                                                        {
+                                                                            if (i > product.Rate)
+                                                                            {
+                                                                                <a href="#"><i class="fa fa-heart-o pr-10"></i></a>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <a href="#"><i class="fa fa-heart pr-10"></i></a>
+                                                                            }
+                                                                        }
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="body">
+                                                                <h3><a href="shop-product.html">@product.Name</a></h3>
+                                                                <p class="small">@product.Summary</p>
+                                                                <div class="elements-list clearfix">
+                                                                    <span class="price"><del>@product.Price.ToString("N") đ</del></span>
+                                                                </div>
+                                                                <div class="elements-list clearfix">
+                                                                    <span class="price">@product.DiscountedPrice.ToString("N") đ</span>
+                                                                    <a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">Thêm vào giỏ<i class="fa fa-shopping-cart"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        }
+
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

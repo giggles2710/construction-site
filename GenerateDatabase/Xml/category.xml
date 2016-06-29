@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<categories>
+  <category>
+    <name>Gạch nung</name>
+    <parentCategoryName>Gạch và ngói</parentCategoryName>
+    <createdUser></createdUser>
+    <description>Gạch nung, gạch đỏ hay thường gọi đơn giản là gạch là một loại vật liệu xây dựng được làm từ đất sét nung. Lịch sử sản xuất và sử dụng gạch vẫn là một điều gây tranh cãi, nhưng đã được loài người sử dụng hàng ngàn năm trước Công nguyên. Hiện vật gạch được tìm thấy ở Çayönü, một khu vực gần Tigris có niên đại 7500 trước Công nguyên [cần dẫn nguồn]. Do đặc tính bền bỉ theo thời gian, gạch đã được sử dụng cho các công trình xây dựng có tuổi thọ hàng ngàn năm.</description>
+    <isActive>true</isActive>
+  </category>
+  <category>
+    <name>Gạch cổ</name>
+    <parentCategoryName>Gạch và ngói</parentCategoryName>
+    <createdUser></createdUser>
+    <description>Gạch nung, gạch đỏ hay thường gọi đơn giản là gạch là một loại vật liệu xây dựng được làm từ đất sét nung. Lịch sử sản xuất và sử dụng gạch vẫn là một điều gây tranh cãi, nhưng đã được loài người sử dụng hàng ngàn năm trước Công nguyên. Hiện vật gạch được tìm thấy ở Çayönü, một khu vực gần Tigris có niên đại 7500 trước Công nguyên [cần dẫn nguồn]. Do đặc tính bền bỉ theo thời gian, gạch đã được sử dụng cho các công trình xây dựng có tuổi thọ hàng ngàn năm.</description>
+    <isActive>true</isActive>
+  </category>
+  <category>
+    <name>Gạch block</name>
+    <parentCategoryName>Gạch và ngói</parentCategoryName>
+    <createdUser></createdUser>
+    <description>Gạch không nung hay gạch block là một loại gạch mà sau nguyên công định hình thì tự đóng rắn đạt các chỉ số về cơ học như cường độ nén, uốn, độ hút nước... mà không cần qua nhiệt độ, không phải sử dụng nhiệt để nung nóng đỏ viên gạch nhằm tăng độ bền của viên gạch. Độ bền của viên gạch không nung được gia tăng nhờ lực ép hoặc rung hoặc cả ép lẫn rung lên viên gạch và thành phần kết dính của chúng.</description>
+    <isActive>true</isActive>
+  </category>
+  <category>
+    <name>Gạch nhẹ</name>
+    <parentCategoryName>Gạch và ngói</parentCategoryName>
+    <createdUser></createdUser>
+    <description>Gạch nung, gạch đỏ hay thường gọi đơn giản là gạch là một loại vật liệu xây dựng được làm từ đất sét nung. Lịch sử sản xuất và sử dụng gạch vẫn là một điều gây tranh cãi, nhưng đã được loài người sử dụng hàng ngàn năm trước Công nguyên. Hiện vật gạch được tìm thấy ở Çayönü, một khu vực gần Tigris có niên đại 7500 trước Công nguyên [cần dẫn nguồn]. Do đặc tính bền bỉ theo thời gian, gạch đã được sử dụng cho các công trình xây dựng có tuổi thọ hàng ngàn năm.</description>
+    <isActive>true</isActive>
+  </category>
+</categories>

@@ -18,8 +18,10 @@ namespace GenerateDatabase.Entity
         public Account()
         {
             this.Account1 = new HashSet<Account>();
+            this.EmailTemplates = new HashSet<EmailTemplate>();
             this.Orders = new HashSet<Order>();
             this.Products = new HashSet<Product>();
+            this.Requests = new HashSet<Request>();
             this.Roles = new HashSet<Role>();
         }
     
@@ -45,9 +47,13 @@ namespace GenerateDatabase.Entity
         public virtual ICollection<Account> Account1 { get; set; }
         public virtual Account Account2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmailTemplate> EmailTemplates { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Request> Requests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Role> Roles { get; set; }
     }

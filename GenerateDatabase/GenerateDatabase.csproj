@@ -78,10 +78,16 @@
     <Compile Include="Entity\Customer.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\EmailTemplate.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\GetHashTokenByEmailAddress_Result.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\LoginByEmailAdress_Result.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MergeField.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Order.cs">
@@ -94,6 +100,9 @@
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\ProductDetail.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Request.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Role.cs">
@@ -114,6 +123,9 @@
     <Compile Include="Entity\sysdiagram.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\SystemVariable.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -123,18 +135,8 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ConstructionEntity.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Entity\ConstructionEntity.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-      <LastGenOutput>ConstructionEntity.Context.cs</LastGenOutput>
-    </None>
     <None Include="Entity\ConstructionEntity.edmx.diagram">
       <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-    </None>
-    <None Include="Entity\ConstructionEntity.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
-      <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="scripts\tinymce\langs\readme.md" />
@@ -160,6 +162,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Entity\ConstructionEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <LastGenOutput>ConstructionEntity.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entity\ConstructionEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
+    </Content>
     <Content Include="scripts\tinymce\jquery.tinymce.min.js" />
     <Content Include="scripts\tinymce\license.txt" />
     <Content Include="scripts\tinymce\plugins\advlist\plugin.js" />
@@ -316,6 +328,13 @@
     <Content Include="scripts\tinymce\themes\modern\theme.min.js" />
     <Content Include="scripts\tinymce\tinymce.js" />
     <Content Include="scripts\tinymce\tinymce.min.js" />
+    <Content Include="Xml\parent-category.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Xml\category.xml" />
+    <Content Include="Xml\product.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

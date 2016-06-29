@@ -5,6 +5,7 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using Utility;
 
 namespace GenerateDatabase
@@ -18,6 +19,11 @@ namespace GenerateDatabase
             // generate account
             Console.WriteLine("==== GENERATING USER ====");
             generator.GenerateUser();
+            Console.WriteLine("==== DONE ====");
+
+            // generate parent category
+            Console.WriteLine("==== GENERATING PARENT CATEGORY ====");
+            generator.GenerateParentCategory();
             Console.WriteLine("==== DONE ====");
 
             // generate category
@@ -42,12 +48,12 @@ namespace GenerateDatabase
 
     public class Generator
     {
-        private ConstructionSiteEntities dbContext;
+        private ConstructionSiteEntities1 dbContext;
         private Random random;
 
         public Generator()
         {
-            dbContext = new ConstructionSiteEntities();
+            dbContext = new ConstructionSiteEntities1();
             random = new Random();
         }
 
@@ -77,111 +83,136 @@ namespace GenerateDatabase
             dbContext.SaveChanges();
         }
 
+        public void GenerateParentCategory()
+        {
+            Category category = new Category();
+
+            XmlTextReader reader = new XmlTextReader("D:/Working Place/Dot NET/Construction Site/construction-site/GenerateDatabase/Xml/parent-category.xml");
+            while (reader.Read())
+            {
+                switch (reader.NodeType)
+                {
+                    case XmlNodeType.Element: // The node is an element.
+                        switch (reader.Name)
+                        {
+                            case "category":
+                                category = new Category();
+                                break;
+                            case "name":
+                                reader.Read();
+                                category.Name = reader.Value;
+                                break;
+                            case "description":
+                                reader.Read();
+                                category.Description = reader.Value;
+                                break;
+                            case "isActive":
+                                reader.Read();
+                                category.IsActive = true;
+                                break;
+                        }
+                        break;
+                    case XmlNodeType.EndElement: //Display the end of the element.
+                        switch (reader.Name)
+                        {
+                            case "category":
+                                dbContext.Categories.Add(category);
+                                break;
+                        }
+                        break;
+                }
+            }
+
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
         public void GenerateCategory()
         {
-            var parentCategory = new string[] { "Gạch và ngói", "Thiết bị vệ sinh", "Điện", "Cửa nhựa lõi thép" };
-            var gachVaNgoiCate = new string[] { "Gạch block", "Gạch cổ và Ngói cổ", "Gạch ngoại thất", "Gạch nhẹ", "Gạch nung", "Ngói màu", "Ngói nung", "Ngói tráng men", "Gạch ốp lát", "TOLE và Tấm lợp" };
-            var thietBiVeSinh = new string[] { "Bồn cầu", "Bồn rửa mặt", "Máy sấy khăn", "Nội thất phòng tắm", "Lavabo", "Bồn tiểu", "Vòi nước", "Bồn tắm", "Phụ kiện khác" };
-            var dien = new string[] { "Đèn chiếu sáng", "Dây và Cáp điện", "Thiết bị điện", "Thiết Bị Cơ Điện-Lạnh" };
+            Category category = new Category();
 
-            // generate category
-            // parents
-            #region Parent Category
-
-            foreach (var parent in parentCategory)
+            XmlTextReader reader = new XmlTextReader("D:/Working Place/Dot NET/Construction Site/construction-site/GenerateDatabase/Xml/category.xml");
+            while (reader.Read())
             {
-                dbContext.Categories.Add(new Category
+                switch (reader.NodeType)
                 {
-                    DateModified = DateTime.Now,
-                    Description = random.Next() % 2 != 0 ? UtilityHelper.RandomString(100) : string.Empty,
-                    IsActive = true,
-                    Name = parent
-                });
-            }
-
-            dbContext.SaveChanges();
-
-            #endregion
-
-            #region Gach va Ngoi
-            var gachVaNgoiParent = dbContext.Categories.FirstOrDefault(c => c.Name.Equals("Gạch và ngói", StringComparison.OrdinalIgnoreCase));
-
-            if (gachVaNgoiParent != null)
-            {
-                foreach (var item in gachVaNgoiCate)
-                {
-                    dbContext.Categories.Add(new Category
-                    {
-                        DateModified = DateTime.Now,
-                        Description = random.Next() % 2 != 0 ? UtilityHelper.RandomString(100) : string.Empty,
-                        IsActive = true,
-                        Name = item,
-                        ParentID = gachVaNgoiParent.CategoryID
-                    });
+                    case XmlNodeType.Element: // The node is an element.
+                        switch (reader.Name)
+                        {
+                            case "category":
+                                category = new Category();
+                                break;
+                            case "name":
+                                reader.Read();
+                                category.Name = reader.Value;
+                                break;
+                            case "parentCategoryName":
+                                reader.Read();
+                                var parentCategory = dbContext.Categories.FirstOrDefault(c => c.Name.Equals(reader.Value, StringComparison.InvariantCultureIgnoreCase));
+                                if (parentCategory != null)
+                                    category.ParentID = parentCategory.CategoryID;
+                                break;
+                            case "description":
+                                reader.Read();
+                                category.Description = reader.Value;
+                                break;
+                            case "isActive":
+                                reader.Read();
+                                category.IsActive = true;
+                                break;
+                        }
+                        break;
+                    case XmlNodeType.EndElement: //Display the end of the element.
+                        switch (reader.Name)
+                        {
+                            case "category":
+                                dbContext.Categories.Add(category);
+                                break;
+                        }
+                        break;
                 }
             }
 
-            var gachBlock = dbContext.Categories.FirstOrDefault(c => c.Name.Equals("Gạch block", StringComparison.OrdinalIgnoreCase));
-
-            if (gachBlock != null)
+            try
             {
-                for (var i = 0; i < 5; i++)
+                dbContext.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
                 {
-                    dbContext.Categories.Add(new Category
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
                     {
-                        DateModified = DateTime.Now,
-                        Description = random.Next() % 2 != 0 ? UtilityHelper.RandomString(100) : string.Empty,
-                        IsActive = true,
-                        Name = string.Format("Gạch block {0}",i),
-                        ParentID = gachBlock.CategoryID
-                    });
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
                 }
             }
-            #endregion
-
-            #region Thiet bi ve sinh
-
-            var thietbivesinhCate = dbContext.Categories.FirstOrDefault(c => c.Name.Equals("Thiết bị vệ sinh", StringComparison.OrdinalIgnoreCase));
-
-            if (thietbivesinhCate != null)
+            catch (Exception ex)
             {
-                foreach (var item in thietBiVeSinh)
-                {
-                    dbContext.Categories.Add(new Category
-                    {
-                        DateModified = DateTime.Now,
-                        Description = random.Next() % 2 != 0 ? UtilityHelper.RandomString(100) : string.Empty,
-                        IsActive = true,
-                        Name = item,
-                        ParentID = thietbivesinhCate.CategoryID
-                    });
-                }
+                Console.WriteLine(ex.Message);
             }
-            #endregion
-
-            #region Dien
-
-            var dienCategory = dbContext.Categories.FirstOrDefault(c => c.Name.Equals("Điện", StringComparison.OrdinalIgnoreCase));
-
-            if (dienCategory != null)
-            {
-                foreach (var item in dien)
-                {
-
-                    dbContext.Categories.Add(new Category
-                    {
-                        DateModified = DateTime.Now,
-                        Description = random.Next() % 2 != 0 ? UtilityHelper.RandomString(100) : string.Empty,
-                        IsActive = true,
-                        Name = item,
-                        ParentID = dienCategory.CategoryID
-                    });
-                }
-            }
-
-            #endregion
-
-            dbContext.SaveChanges();
         }
 
         public void GenerateSupplier()
@@ -243,29 +274,91 @@ namespace GenerateDatabase
 
         public void GenerateProduct()
         {
-            for (var i = 0; i < 300; i++)
+            Product product = new Product();
+            ProductDetail detail = new ProductDetail();
+
+            XmlTextReader reader = new XmlTextReader("D:/Working Place/Dot NET/Construction Site/construction-site/GenerateDatabase/Xml/product.xml");
+            while (reader.Read())
             {
-                var product = dbContext.Products.FirstOrDefault(p => p.ProductID == i);
+                switch (reader.NodeType)
+                {
+                    case XmlNodeType.Element: // The node is an element.
+                        switch (reader.Name)
+                        {
+                            case "product":
+                                product = new Product();
+                                break;
+                            case "specification":
+                                detail = new ProductDetail();
+                                break;
+                            case "name":
+                                reader.Read();
+                                product.Name = reader.Value;
+                                break;
+                            case "categoryName":
+                                reader.Read();
+                                var category = dbContext.Categories.FirstOrDefault(c => c.Name.Equals(reader.Value, StringComparison.InvariantCultureIgnoreCase));
+                                if (category != null)
+                                    product.CategoryID = category.CategoryID;
+                                break;
+                            case "description":
+                                reader.Read();
+                                product.Description = reader.Value;
+                                break;
+                            case "discount":
+                                reader.Read();
+                                if (!string.IsNullOrWhiteSpace(reader.Value))
+                                    product.Discount = double.Parse(reader.Value);
+                                break;
+                            case "isAvailable":
+                                reader.Read();
+                                product.IsAvailable = bool.Parse(reader.Value);
+                                break;
+                            case "unitPrice":
+                                reader.Read();
+                                product.UnitPrice = decimal.Parse(reader.Value);
+                                break;
+                            case "unitsInStock":
+                                reader.Read();
+                                product.UnitsInStock = int.Parse(reader.Value);
+                                break;
+                            case "summary":
+                                reader.Read();
+                                product.Summary = reader.Value;
+                                break;
+                            case "detailName":
+                                reader.Read();
+                                detail.Name = reader.Value;
+                                break;
+                            case "detailValue":
+                                reader.Read();
+                                detail.Value = reader.Value;
+                                break;
+                            case "detailType":
+                                reader.Read();
+                                detail.Type = int.Parse(reader.Value);
+                                break;
+                        }
+                        break;
+                    case XmlNodeType.EndElement: //Display the end of the element.
+                        switch (reader.Name)
+                        {
+                            case "product":
+                                var random = new Random();
 
-                if (product == null)
-                    product = new Product();
+                                product.DateModified = DateTime.Now;
+                                product.Rate = random.Next(0, 5);
+                                product.ViewCount = random.Next(0, 1000000);
+                                product.OrderCount = random.Next(0, 1000000);
 
-                var category = dbContext.Categories.ToArray()[random.Next(1, dbContext.Categories.Count())];
-
-                product.CategoryID = category.CategoryID;
-                product.CreatedUserID = string.Empty;
-                product.DateModified = DateTime.Now;
-                product.Description = random.Next() % 2 != 0 ? UtilityHelper.RandomString(50) : string.Empty;
-                product.Discount = random.Next() % 2 != 0 ? random.NextDouble() : 0;
-                product.IsAvailable = random.Next() % 2 != 0;
-                product.Name = string.Format("{0}_{1}", category.Name, i);
-                product.SupplierID = random.Next(1, 300);
-                product.UnitPrice = (decimal)random.NextDouble();
-                product.UnitsInStock = random.Next(1, 100);
-                product.IsDiscountAvailable = product.Discount.GetValueOrDefault() > 0;
-
-                if (product == null)
-                    dbContext.Products.Add(product);
+                                dbContext.Products.Add(product);
+                                break;
+                            case "specification":
+                                product.ProductDetails.Add(detail);
+                                break;
+                        }
+                        break;
+                }
             }
 
             try

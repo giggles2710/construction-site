@@ -1,0 +1,32 @@
+﻿@model _170516.Models.AdvertiseProductModel
+
+<div class="block clearfix">
+    <h3 class="title">@Model.PageTitle</h3>
+    <div class="separator-2"></div>
+    <div id="carousel-portfolio-sidebar" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            @for (var i = 0; i < Model.Items.Count; i++)
+            {
+                <li data-target="#carousel-portfolio-sidebar" data-slide-to="@i" class=""></li>
+            }
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            @foreach(var item in Model.Items)
+            {
+                <div class="item">
+                    <div class="image-box shadow text-center mb-20">
+                        <div class="overlay-container">
+                            <img src="@item.ImageSrc" alt="@item.Name">
+                            <a href="#" class="overlay-link">
+                                <i class="fa fa-link"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

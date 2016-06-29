@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<categories>
+  <category>
+    <name>Gạch và Ngói</name>
+    <parentCategoryName></parentCategoryName>
+    <createdUser></createdUser>
+    <description>Ngói là loại vật liệu được thường sử dụng để lợp mái các công trình xây dựng. Tùy theo cách thức chế tạo, phương pháp sản xuất, nguyên liệu sản xuất, công nghệ sản xuất hoặc phạm vi sử dụng để có thể phân thành nhiều loại và nhiều tên gọi khác nhau.</description>
+    <isActive>true</isActive>
+  </category>
+  <category>
+    <name>Thiết bị vệ sinh</name>
+    <parentCategoryName></parentCategoryName>
+    <createdUser></createdUser>
+    <description>Thiết bị vệ sinh TOTO, bàn cầu, bồn tắm, vòi sen, lavabo, phụ kiện phòng tắm cao cấp, đậm nét truyền thống nhật bản trong từng thiết bị vệ sinh cao cấp.</description>
+    <isActive>true</isActive>
+  </category>
+  <category>
+    <name>Điện</name>
+    <parentCategoryName></parentCategoryName>
+    <createdUser></createdUser>
+    <description>Bán thiết bị điện công nghiệp và thiết bị điện dân dụng giá rẻ tại tp.Hồ Chí Minh. Mua thiết bị điện dân dụng và điện công nghiệp với giá tốt nhất.</description>
+    <isActive>true</isActive>
+  </category>
+  <category>
+    <name>Cửa nhựa lõi thép</name>
+    <parentCategoryName></parentCategoryName>
+    <createdUser></createdUser>
+    <description>Công ty cửa nhựa lõi thép asia chúng tôi chuyên sản xuất, thi công, lắp đặt cửa nhựa lõi thép upvc. Chúng tôi có đội ngủ nhân viên tận tình trong công việc thợ</description>
+    <isActive>true</isActive>
+  </category>
+</categories>

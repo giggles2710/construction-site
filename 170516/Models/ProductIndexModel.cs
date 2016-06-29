@@ -45,5 +45,21 @@ namespace _170516.Models
         public bool IsAsc { get; set; }
 
         public string CategoryName { get; set; }
+        public int CategoryId { get; set; }
+    }
+
+    public class AdvertiseProductModel
+    {
+        public string PageTitle { get; set; }
+        public List<AdvertiseProductItem> Items { get; set; }
+    }
+
+    public class AdvertiseProductItem
+    {
+        public string Name { get; set; }
+        public int Id { get; set; }
+        public string ImageSrc { get; set; }
+        public string Image { get; set; }
+        public string ImageType { get; set; }
     }
 }
