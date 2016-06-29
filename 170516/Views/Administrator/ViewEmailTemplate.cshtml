@@ -89,17 +89,13 @@
                                                 <tr class="gradeA odd" role="row">
                                                     <td>@i</td>
                                                     <td>@Model.Templates[i - 1].EmailTemplateName</td>
-                                                    <td style="text-align:center;">
-                                                        @if (Model.Templates[i - 1].IsEnable)
-                                                        {
-                                                            <i class="fa fa-check fa-2x text-success"></i>
-                                                        }
-                                                    </td>
+
                                                     <td>@Model.Templates[i - 1].CreatedByUsername</td>
 
                                                     <td>@Model.Templates[i - 1].CreatedDate.Value.ToString("dd/MM/yyyy hh:mm:ss")</td>
                                                     <td style="text-align:center;">
-                                                        <a class="action-link detail-link" title="Chi tiết" href="@Url.Action("UpdateEmailTemplate", "Administrator", new { id = Model.Templates[i - 1].EmailTemplateId })"><i class="fa fa-info-circle fa-lg" title="Chi tiết"></i></a>
+                                                        <a class="action-link update-link" title="Chỉnh sửa" href="@Url.Action("UpdateEmailTemplate", "Administrator", new { id = Model.Templates[i - 1].EmailTemplateId })"><i class="fa fa-pencil"></i></a>
+                                                        <a class="action-link remove-link emailTemplate" title="Xóa" href="#" data-url="@Url.Action("RemoveEmailTemplate", "Administrator", new { id = Model.Templates[i - 1].EmailTemplateId })"><i class="fa fa-remove"></i></a>
                                                     </td>
                                                 </tr>
                                             }
@@ -110,8 +106,7 @@
                                                 {
                                                     <tr class="odd" role="row">
                                                         <td>@i</td>
-                                                        <td></td>
-                                                        <td></td>
+                                                        <td></td>                  
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
@@ -136,22 +131,7 @@
                                                 else
                                                 {
                                                     <th class="center" tabindex="0" rowspan="1" data-sort="EmailTemplateName" data-direction="asc" colspan="1">Tên mẫu email <i class="fa fa-fw fa-sort-asc"></i></th>
-                                                }
-                                                @if (Model.SortField.Equals("IsEnable"))
-                                                {
-                                                    if (Model.IsAsc)
-                                                    {
-                                                        <th class="center" tabindex="0" rowspan="1" data-sort="IsEnable" data-direction="desc" colspan="1">Sử dụng <i class="fa fa-fw fa-sort-asc"></i></th>
-                                                    }
-                                                    else
-                                                    {
-                                                        <th class="center" tabindex="0" rowspan="1" data-sort="IsEnable" data-direction="asc" colspan="1">Sử dụng<i class="fa fa-fw fa-sort-desc"></i></th>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    <th class="center" tabindex="0" rowspan="1" data-sort="IsEnable" data-direction="asc" colspan="1">Sử dụng<i class="fa fa-fw fa-sort-asc"></i></th>
-                                                }
+                                                }                                                
                                                 @if (Model.SortField.Equals("CreatedByUsername"))
                                                 {
                                                     if (Model.IsAsc)

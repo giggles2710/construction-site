@@ -22,8 +22,11 @@ namespace _170516.Utility
             SmtpServer.UseDefaultCredentials = false;
             SmtpServer.Credentials = new System.Net.NetworkCredential("constructionsiteplus@gmail.com", "Khongcanpass123");
             SmtpServer.EnableSsl = true;
-            SmtpServer.Timeout = 10000;
+            SmtpServer.Timeout = 20000;
             SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+            //SmtpClient SmtpServer = new SmtpClient("localhost", 26);
+            //SmtpServer.UseDefaultCredentials = true;            
 
             MailMessage mm = new MailMessage("constructionsiteplus@gmail.com", ob.SendTo);
 

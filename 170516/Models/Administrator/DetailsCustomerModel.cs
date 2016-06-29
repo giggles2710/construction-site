@@ -9,10 +9,8 @@ namespace _170516.Models.Administrator
     public class DetailsCustomerModel
     {
         public int CustomerID { get; set; }
-        [Required(ErrorMessage = "Vui lòng nhập họ")]
-        public string FirstName { get; set; }
-        [Required(ErrorMessage = "Vui lòng nhập tên")]
-        public string LastName { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập họ và tên")]
+        public string FullName { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập địa chỉ")]
         public string Address { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập thành phố/tỉnh")]
@@ -32,6 +30,7 @@ namespace _170516.Models.Administrator
         public string ShipDistrict { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập số điện thoại khi sản phẩm ship đến")]
         public string ShipPhone { get; set; }
+        public string AdditionalInformation { get; set; }
         public Nullable<System.DateTime> DateEntered { get; set; }
     }
 }

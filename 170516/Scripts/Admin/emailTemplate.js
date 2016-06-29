@@ -1,9 +1,28 @@
-﻿$(document).ready(function() {
-    //setup tinymce menu for the first time
-    
+﻿$(document).ready(function () {
+    // check to toast when delete success
+    if (window.sessionStorage.DeletedStatus == "true") {
+        toastr.success(window.sessionStorage.DeletedMessage);
+        window.sessionStorage.DeletedStatus = null;
+    } else if (window.sessionStorage.DeletedStatus == "false") {
+        toastr.error(window.sessionStorage.DeletedMessage)
+        window.sessionStorage.DeletedStatus = null;
+    }
+
+    //setup tinymce menu for the first time    
     tinymce.init({
         selector: '.tiny_mce_input',  // change this value according to your HTML
-        plugin: 'a_tinymce_plugin',
+        plugins: ['advlist autolink lists link image charmap preview hr anchor pagebreak',
+        'searchreplace wordcount visualblocks visualchars code',
+        'insertdatetime nonbreaking save table contextmenu directionality',
+        'paste textcolor colorpicker textpattern imagetools'
+        ],
+        toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        toolbar2: 'preview | forecolor backcolor',
+        formats: {
+            alignleft: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table', styles: { textAlign: 'left' } },
+            aligncenter: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table', styles: { textAlign: 'center' } },
+            alignright: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table', styles: { textAlign: 'right' } }
+        },
         a_plugin_option: true,
         a_configuration_option: 400,
         height: "480",        
@@ -15,21 +34,11 @@
         var isValid = true;
         var htmlContent = tinyMCE.get('txtA_htmlVersion').getContent();
 
-        if ($('#ddlEmailFormat').val() == 'HTML') {
-            if (htmlContent == "") {
-                isValid = false;
-                $('#contentValidation').text('Nội dung không được bỏ trống');
-            } else {
-                $('#contentValidation').text('');
-            }
-
+        if (htmlContent == "") {
+            isValid = false;
+            $('#contentValidation').text('Nội dung không được bỏ trống');
         } else {
-            if ($('#txtA_textVersion').val() == "") {
-                isValid = false;
-                $('#contentValidation').text('Nội dung không được bỏ trống');
-            } else {
-                $('#contentValidation').text('');
-            }
+            $('#contentValidation').text('');
         }
 
         form.validate();
@@ -37,10 +46,7 @@
             var dataToSend = {
                 EmailTemplateName : $('#EmailTemplateName').val(),
                 EmailSubject : $('#EmailSubject').val(),
-                IsEnable : $('#IsEnable').val(),
-                IsHTML: $('#IsHTML').val(),
-                HtmlTextContent: htmlContent,
-                PlainTextContent: $('#txtA_textVersion').val()
+                HtmlTextContent: htmlContent
             }
             $.ajax({
                 url: staticUrl.addEmailTemplate,
@@ -68,21 +74,11 @@
         var isValid = true;
         var htmlContent = tinyMCE.get('txtA_htmlVersion').getContent();
 
-        if ($('#ddlEmailFormat').val() == 'HTML') {
-            if (htmlContent == "") {
-                isValid = false;
-                $('#contentValidation').text('Nội dung không được bỏ trống');
-            } else {
-                $('#contentValidation').text('');
-            }
-
+        if (htmlContent == "") {
+            isValid = false;
+            $('#contentValidation').text('Nội dung không được bỏ trống');
         } else {
-            if ($('#txtA_textVersion').val() == "") {
-                isValid = false;
-                $('#contentValidation').text('Nội dung không được bỏ trống');
-            } else {
-                $('#contentValidation').text('');
-            }
+            $('#contentValidation').text('');
         }
 
         form.validate();
@@ -91,10 +87,7 @@
                 EmailTemplateId: $('#EmailTemplateId').val(),
                 EmailTemplateName: $('#EmailTemplateName').val(),
                 EmailSubject: $('#EmailSubject').val(),
-                IsEnable: $('#IsEnable').val(),
-                IsHTML: $('#IsHTML').val(),
                 HtmlTextContent: htmlContent,
-                PlainTextContent: $('#txtA_textVersion').val()
             }
             $.ajax({
                 url: staticUrl.updateEmailTemplate,
@@ -116,15 +109,108 @@
         }
     });
 
+    // before delete, show confirmation dialog
+    $('.action-link.remove-link.emailTemplate').on('click', function () {
+        var removeUrl = $(this).data('url');
+        var currentViewUrl = emailTemplateSupport.GetCurrentViewEmailTemplateUrl();
+
+        bootbox.dialog({
+            message: "Bạn có chắc là muốn xóa mẫu Email này không?",
+            title: "Xóa mẫu Email",
+            buttons: {
+                okAction: {
+                    label: "Xóa",
+                    className: "btn btn-primary btn-sm",
+                    callback: function () {
+                        // ajax - remove
+                        $.ajax({
+                            url: removeUrl,
+                            method: "POST",
+                            success: function (data) {
+                                if (data != null) {
+                                    if (data.isResult == true) {
+                                        window.sessionStorage.DeletedStatus = true;
+                                        window.sessionStorage.DeletedMessage = 'Xóa mẫu Email thành công.';
+                                    } else {
+                                        window.sessionStorage.DeletedStatus = false;
+                                        window.sessionStorage.DeletedMessage = data.result;
+                                    }
+
+                                    window.location.href = currentViewUrl;
+                                }
+
+                            }, error: function (data) {
+                                toastr.error(data.result);
+
+                                window.sessionStorage.IsDeletedStatus = null;
+                            }
+                        });
+                    }
+                },
+                noAction: {
+                    label: "Hủy",
+                    className: "btn btn-default btn-sm",
+                    callback: function () {
+
+                    }
+                }
+            }
+        });
+    });
+
+    $('#DeleteEmailTemplate').on('click', function() {
+        bootbox.dialog({
+            message: "Bạn có chắc là muốn xóa mẫu Email này không?",
+            title: "Xóa mẫu Email",
+            buttons: {
+                okAction: {
+                    label: "Xóa",
+                    className: "btn btn-primary btn-sm",
+                    callback: function () {
+                        // ajax - remove
+                        $.ajax({
+                            url: '/Administrator/RemoveEmailTemplate',
+                            data: {
+                                id: $('#EmailTemplateId').val()
+                            },
+                            traditional: true,
+                            async: true,
+                            method: "POST",
+                            cache: false,
+                            success: function (data) {
+                                if (data != null) {
+                                    if (data.isResult == true) {
+                                        window.sessionStorage.DeletedStatus = true;
+                                        window.sessionStorage.DeletedMessage = 'Xóa mẫu Email thành công.';
+                                    } else {
+                                        window.sessionStorage.DeletedStatus = false;
+                                        window.sessionStorage.DeletedMessage = data.result;
+                                    }
+
+                                    window.location.href = staticUrl.viewEmailTemplate;
+                                }
+
+                            }, error: function (data) {
+                                toastr.error(data.result);
+
+                                window.sessionStorage.IsDeletedStatus = null;
+                            }
+                        });
+                    }
+                },
+                noAction: {
+                    label: "Hủy",
+                    className: "btn btn-default btn-sm",
+                    callback: function () {
+
+                    }
+                }
+            }
+        });
+    });
+
     $('.merge-item').on('click', function () {
-        if ($('#ddlEmailFormat').val() == 'HTML')
-        {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, '['+ $(this).text() +']');
-        }
-        else 
-        {
-            emailTemplateSupport.addToPlainText('[' + $(this).text() + ']');
-        }
+        tinymce.activeEditor.execCommand('mceInsertContent', false, '['+ $(this).text() +']');
     });
 
     //search section
@@ -150,30 +236,7 @@
 });
 
 
-var emailTemplateSupport = {
-    addToPlainText: function (text)
-    {
-        var $txt = jQuery("#txtA_textVersion");
-        var caretPos = $txt[0].selectionStart;
-        var textAreaTxt = $txt.val();
-        var txtToAdd = text;
-        $txt.val(textAreaTxt.substring(0, caretPos) +txtToAdd + textAreaTxt.substring(caretPos));
-    },
-    //Binding data to IsHTML field
-    ChangeHtmlToText: function (obj) {
-        var value = $(obj).val();
-        if (value == "HTML") {
-            $('#IsHTML').prop('checked', true);            
-            $('#emailTemplate-area-html').show();
-            $('#emailTemplate-area-text').hide();
-        }
-        else {
-            $('#IsHTML').prop('checked', false);            
-            $('#emailTemplate-area-text').show();
-            $('#emailTemplate-area-html').hide();
-        }
-    },
-
+var emailTemplateSupport = {    
     SortEmailTemplate: function (sortField, isAsc) {
         var $activatePage = $('.pageinate_button.active');
         var page = 1; // page

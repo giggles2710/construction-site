@@ -17,11 +17,7 @@ namespace _170516.Models.Administrator
         public string EmailSubject { get; set; }
         [AllowHtml]
         public string HtmlTextContent { get; set; }
-        
-        public string PlainTextContent { get; set; }
 
-        public bool IsHTML { get; set; }
-        public bool IsEnable { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime LastUpdatedDate { get; set; }
@@ -33,7 +29,7 @@ namespace _170516.Models.Administrator
     public enum FieldTypes
     {
         Common = 0,
-        AcceptOrder = 1,
+        OrderConfirmation = 1,
         ReplyRequest = 2
     }
 }

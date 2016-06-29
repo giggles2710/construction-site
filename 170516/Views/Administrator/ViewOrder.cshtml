@@ -256,7 +256,12 @@
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(model => model.Orders[i - 1].TotalIncome)
-                                            <td>@Model.Orders[i - 1].ShipDate.ToString("dd/MM/yyyy")</td>
+                                            <td>
+                                                @if (Model.Orders[i - 1].ShipDate != null)
+                                                {
+                                                    <span>@Model.Orders[i - 1].ShipDate.Value.ToShortDateString()</span>
+                                                }
+                                            </td>
                                             <td>
                                                 @if (Model.Orders[i - 1].PaymentDate != null)
                                                 {

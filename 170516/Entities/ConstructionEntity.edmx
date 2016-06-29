@@ -45,19 +45,19 @@
           <Key>
             <PropertyRef Name="CustomerID" />
           </Key>
-          <Property Name="CustomerID" Type="int" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="50" />
           <Property Name="City" Type="nvarchar" MaxLength="50" />
           <Property Name="District" Type="nvarchar" MaxLength="50" />
-          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
-          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" />
-          <Property Name="ShipAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ShipCity" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ShipDistrict" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ShipPhone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShipAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShipCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShipDistrict" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShipPhone" Type="nvarchar" MaxLength="50" />
           <Property Name="DateEntered" Type="date" />
+          <Property Name="Fullname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AdditionalInformation" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="EmailTemplate">
           <Key>
@@ -67,13 +67,11 @@
           <Property Name="EmailTemplateName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="EmailSubject" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="HtmlBody" Type="nvarchar(max)" />
-          <Property Name="PlainText" Type="nvarchar(max)" />
-          <Property Name="IsBodyHtml" Type="bit" />
-          <Property Name="IsEnable" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="LastUpdatedDate" Type="datetime" />
           <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailType" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MergeField">
           <Key>
@@ -87,13 +85,13 @@
           <Key>
             <PropertyRef Name="OrderID" />
           </Key>
-          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="OrderNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="OrderDate" Type="date" Nullable="false" />
-          <Property Name="ShipDate" Type="date" Nullable="false" />
-          <Property Name="RequiredDate" Type="date" Nullable="false" />
-          <Property Name="ShipperID" Type="int" Nullable="false" />
+          <Property Name="ShipDate" Type="date" />
+          <Property Name="RequiredDate" Type="date" />
+          <Property Name="ShipperID" Type="int" />
           <Property Name="Freight" Type="float" Nullable="false" />
           <Property Name="SalesTax" Type="money" Nullable="false" />
           <Property Name="OrderStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -108,7 +106,7 @@
           <Key>
             <PropertyRef Name="OrderDetailID" />
           </Key>
-          <Property Name="OrderDetailID" Type="int" Nullable="false" />
+          <Property Name="OrderDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="OrderID" Type="int" Nullable="false" />
           <Property Name="OrderNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -290,7 +288,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_Shipper">
-          <End Role="Shipper" Type="Self.Shipper" Multiplicity="1" />
+          <End Role="Shipper" Type="Self.Shipper" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Shipper">
@@ -571,19 +569,19 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Key>
             <PropertyRef Name="CustomerID" />
           </Key>
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="District" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ShipAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ShipCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ShipDistrict" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ShipPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShipAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipDistrict" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DateEntered" Type="DateTime" Precision="0" />
+          <Property Name="Fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AdditionalInformation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
         </EntityType>
         <EntityType Name="EmailTemplate">
@@ -594,13 +592,11 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="EmailTemplateName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EmailSubject" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="HtmlBody" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PlainText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsBodyHtml" Type="Boolean" />
-          <Property Name="IsEnable" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="LastUpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailType" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="Self.FK_EmailTemplate_Account" FromRole="EmailTemplate" ToRole="Account" />
         </EntityType>
         <EntityType Name="MergeField">
@@ -615,13 +611,13 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Key>
             <PropertyRef Name="OrderID" />
           </Key>
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
           <Property Name="OrderNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ShipDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="RequiredDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ShipperID" Type="Int32" Nullable="false" />
+          <Property Name="ShipDate" Type="DateTime" Precision="0" />
+          <Property Name="RequiredDate" Type="DateTime" Precision="0" />
+          <Property Name="ShipperID" Type="Int32" />
           <Property Name="Freight" Type="Double" Nullable="false" />
           <Property Name="SalesTax" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="OrderStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -640,7 +636,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Key>
             <PropertyRef Name="OrderDetailID" />
           </Key>
-          <Property Name="OrderDetailID" Type="Int32" Nullable="false" />
+          <Property Name="OrderDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="OrderID" Type="Int32" Nullable="false" />
           <Property Name="OrderNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -880,7 +876,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_Shipper">
-          <End Role="Shipper" Type="Self.Shipper" Multiplicity="1" />
+          <End Role="Shipper" Type="Self.Shipper" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Shipper">
@@ -1119,8 +1115,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             <EntityTypeMapping TypeName="ConstructionSiteModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="District" ColumnName="District" />
@@ -1131,6 +1125,8 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
                 <ScalarProperty Name="ShipDistrict" ColumnName="ShipDistrict" />
                 <ScalarProperty Name="ShipPhone" ColumnName="ShipPhone" />
                 <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="AdditionalInformation" ColumnName="AdditionalInformation" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1141,13 +1137,11 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
                 <ScalarProperty Name="EmailTemplateName" ColumnName="EmailTemplateName" />
                 <ScalarProperty Name="EmailSubject" ColumnName="EmailSubject" />
                 <ScalarProperty Name="HtmlBody" ColumnName="HtmlBody" />
-                <ScalarProperty Name="PlainText" ColumnName="PlainText" />
-                <ScalarProperty Name="IsBodyHtml" ColumnName="IsBodyHtml" />
-                <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
                 <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="EmailType" ColumnName="EmailType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

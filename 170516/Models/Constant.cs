@@ -13,6 +13,7 @@ namespace _170516.Models
         public const string ProductNotFound = "Sản phẩm này không còn tồn tại trong hệ thống.";
         public const string SupplierNotFound = "Nhà cung cấp này không còn tồn tại trong hệ thống.";
         public const string ShipperNotFound = "Shipper này không còn tồn tại trong hệ thống.";
+        public const string EmailTemplateNotFound = "EmailTemplate này không tồn tại trong hệ thống.";
         public const string OrderNotFound = "Đơn hàng này không còn tồn tại trong hệ thống.";
         public const string OrderDetailsNotFound = "Sản phẩm này không còn tồn tại trong đơn hàng.";
         public const string UserNotFound = "Người dùng này không còn tồn tại trong hệ thống.";
@@ -35,5 +36,29 @@ namespace _170516.Models
         };
 
         public const string SessionSpecification = "AddProduct_Specification";
+
+        public const string CustomerNameField = "[T&ecirc;n kh&aacute;ch h&agrave;ng]";
+        public const string OrderNumberField = "[M&atilde; đơn h&agrave;ng]";
+        public const string OrderDateField = "[Ng&agrave;y giờ đặt h&agrave;ng]";
+        public const string OrderDetailsField = "[Chi tiết đơn h&agrave;ng]";
+        public const string OrderSummaryField = "[Tổng đơn h&agrave;ng]";
+        public const string CustomerEmailField = "[Email kh&aacute;ch h&agrave;ng]";
+        public const string CustomerPhoneField = "[Số điện thoại kh&aacute;ch h&agrave;ng]";
+        public const string CustomerAddressField = "[Địa chỉ kh&aacute;ch h&agrave;ng]";
+        public const string CustomerShipToAddressField = "[Địa chỉ chuyển h&agrave;ng]";
+        public const string CustomerPostalCodeField = "[M&atilde; Postal]";
+
+        //public const string OrderNumberField = "[M&atilde; &#273;&#417;n h&agrave;ng]";
+        //public const string OrderDetailsField = "[Chi ti&#7871;t &#273;&#417;n h&agrave;ng]";
+        //public const string OrderSummaryField = "[T&#7893;ng &#273;&#417;n h&agrave;ng]";
+        //public const string OrderDateField = "[Ng&agrave;y gi&#7901; &#273;&#7863;t h&agrave;ng]";
+        //public const string CustomerPhoneField = "[S&#7889; &#273;i&#7879;n tho&#7841;i kh&aacute;ch h&agrave;ng]";
+        //public const string CustomerAddressField = "[&#272;&#7883;a ch&#7881; kh&aacute;ch h&agrave;ng]";
+        //public const string CustomerShipToAddressField = "[&#272;&#7883;a ch&#7881; chuy&#7875;n h&agrave;ng]";
+
+        public const string CompanyNameField = "[T&ecirc;n c&ocirc;ng ty]";
+        public const string CompanyWebsiteField = "[Website c&ocirc;ng ty]";
+
+
     }
 }

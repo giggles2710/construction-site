@@ -29,7 +29,7 @@ namespace _170516.Models.Administrator
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public System.DateTime OrderDate { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
-        public System.DateTime ShipDate { get; set; }
+        public Nullable<System.DateTime> ShipDate { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public System.DateTime RequiredDate { get; set; }
         public int ShipperID { get; set; }

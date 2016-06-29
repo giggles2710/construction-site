@@ -2371,4 +2371,6 @@ pre {
 
     .merge-item {
     cursor: pointer;
+    font-size: 11px !important;
+    padding: .2em .6em .2em;
     }
