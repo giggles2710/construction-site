@@ -16,7 +16,7 @@ namespace _170516.Utility
 
         public static EmailDeliveryModel MergeOrderConfirmationEmail(int orderId)
         {
-            var emailTemp = dbContext.EmailTemplates.FirstOrDefault(e => e.EmailType == (int)FieldTypes.OrderConfirmation);
+            var emailTemp = new EmailTemplate();
             var order = dbContext.Orders.FirstOrDefault(o => o.OrderID == orderId);
 
             if (emailTemp == null || order == null)
@@ -26,7 +26,7 @@ namespace _170516.Utility
 
             string content = emailTemp.HtmlBody;
             
-            content = content.Replace(Constant.CustomerNameField, order.Customer.Fullname);
+            //content = content.Replace(Constant.CustomerNameField, order.Customer.Fullname);
             content = content.Replace(Constant.CustomerEmailField, order.Customer.EmailAddress);
             content = content.Replace(Constant.CustomerPhoneField, order.Customer.Phone);
             content = content.Replace(Constant.CustomerAddressField, order.Customer.Address);

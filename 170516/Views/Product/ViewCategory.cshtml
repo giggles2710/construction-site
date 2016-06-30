@@ -29,7 +29,6 @@
             <div class="row">
                 <div class="col-md-8 col-lg-offset-1 col-md-push-4 col-lg-push-3">
                     <div class="container-fluid">
-                        <h3 style="color: #2b3e50;">@Model.CategoryName</h3>
                         <div id="ShowCaseDiv" style="margin-top: 30px;">
                             <div class="row">
                                 <div class="product-toolbar">
@@ -76,6 +75,10 @@
                                                                     <img class="group list-group-image" src="~/Content/Image/image_placeholder.jpg" alt="" />
                                                                 }
                                                             </div><!-- /.product-cover -->
+                                                            @if (Model.MenuOnMainPage[i].Discount > 0)
+                                                            {
+                                                                <span class="badge">@Model.MenuOnMainPage[i].Discount %</span>
+                                                            }
                                                         </div><!-- /.product -->
                                                     </div><!-- /.col -->
                                                     <div class="col-md-8 col-sm-7 product-feature-wrapper">
@@ -83,18 +86,27 @@
                                                             <h3 class="product-name">
                                                                 <a href="@Url.Action("ViewProductDetail", "Product", new { id = Model.MenuOnMainPage[i].ProductID })">@Model.MenuOnMainPage[i].ProductName</a>
                                                             </h3>
-                                                            <p class="product-price">@Model.MenuOnMainPage[i].Price đ</p>
+                                                            <p class="price">
+                                                                <span class="product-price">@Model.MenuOnMainPage[i].DiscountedPrice.ToString("N") đ</span>
+                                                                @if (Model.MenuOnMainPage[i].Discount > 0)
+                                                                {
+                                                                    <span class="product-price" style="margin-left:10px;">
+                                                                        <del>@Model.MenuOnMainPage[i].Price.ToString("N") đ</del>
+                                                                    </span>
+                                                                }
+                                                            </p>
                                                         </div>
                                                         <div class="featured-product-content">
                                                             <p class="hidden-sm hidden-md">@Model.MenuOnMainPage[i].Summary</p>
                                                         </div>
                                                         <div class="actions">
-                                                            <button class="btn btn-primary add-to-cart"><i class="fa fa-plus-circle"></i> Thêm vào giỏ hàng</button>
+                                                            <button class="btn btn-default btn-animated add-to-cart"><i class="fa fa-cart-plus"></i> Thêm vào giỏ hàng</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="separator-2"></div>
                                     }
                                 </div>
                                 <div class="product-pagination">
@@ -134,21 +146,23 @@
                             <nav>
                                 <ul class="nav nav-pills nav-stacked">
                                     @foreach (var item in Model.Menu)
-            {
-                if (item.CategoryId == Model.CategoryId)
-                {
-                                            <li><a class="active" href="@Url.Action("ViewCategory", "Product", new { id = item.CategoryId })">@item.CategoryName</a></li>
+                                    {
+                                        if (item.CategoryId == Model.CategoryId)
+                                        {
+                                            <li class="active"><a class="font-15" href="@Url.Action("ViewCategory", "Product", new { id = item.CategoryId })">@item.CategoryName</a></li>
                                         }
                                         else
                                         {
-                                            <li><a href="@Url.Action("ViewCategory", "Product", new { id = item.CategoryId })">@item.CategoryName</a></li>
+                                            <li><a class="font-15" href="@Url.Action("ViewCategory", "Product", new { id = item.CategoryId })">@item.CategoryName</a></li>
                                         }
                                     }
                                 </ul>
                             </nav>
                         </div>
 
-                        @*@{Html.RenderAction("GetFeaturedProductInCategory", "Product", new { id = Model.CategoryId })}*@
+                        @{Html.RenderAction("GetLatestProductInCategory", "Product", new { id = Model.CategoryId });}
+                        @{Html.RenderAction("GetTopRatedProductInCategory", "Product", new { id = Model.CategoryId });}
+                        @{Html.RenderAction("GetBestSellerProductInCategory", "Product", new { id = Model.CategoryId });}
                     </div>
                 </aside>
                 <!-- sidebar end -->

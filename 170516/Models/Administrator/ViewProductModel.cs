@@ -56,5 +56,13 @@ namespace _170516.Models.Administrator
         public string ImageType { get; set; }
         public byte[] ImageByte { get; set; }
         public string Summary { get; set; }
+        public decimal DiscountedPrice
+        {
+            get
+            {
+                return Price - (Price * (decimal)Discount.GetValueOrDefault() / 100);
+            }
+        }
+
     }
 }

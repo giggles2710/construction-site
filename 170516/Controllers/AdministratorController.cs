@@ -771,7 +771,7 @@ namespace _170516.Controllers
                 Address = customer.Address,
                 City = customer.City,
                 District = customer.District,
-                FullName = customer.Fullname,
+                //FullName = customer.Fullname,
                 EmailAddress = customer.EmailAddress,
                 Phone = customer.Phone,
                 ShipAddress = customer.ShipAddress,
@@ -779,7 +779,7 @@ namespace _170516.Controllers
                 ShipDistrict = customer.ShipDistrict,
                 ShipPhone = customer.ShipPhone,
                 DateEntered = customer.DateEntered,
-                AdditionalInformation = customer.AdditionalInformation
+                //AdditionalInformation = customer.AdditionalInformation
             };
 
             return View(customerView);
@@ -794,7 +794,7 @@ namespace _170516.Controllers
             var customer = dbContext.Customers.FirstOrDefault(c => c.CustomerID == id);
 
             model.CustomerID = customer.CustomerID;
-            model.FullName = customer.Fullname;
+            //model.FullName = customer.Fullname;
             model.Address = customer.Address;
             model.City = customer.City;
             model.District = customer.District;
@@ -804,7 +804,7 @@ namespace _170516.Controllers
             model.ShipCity = customer.ShipCity;
             model.ShipDistrict = customer.ShipDistrict;
             model.ShipPhone = customer.ShipPhone;
-            model.AdditionalInformation = customer.AdditionalInformation;
+            //model.AdditionalInformation = customer.AdditionalInformation;
 
             if (customer == null)
             {
@@ -820,7 +820,7 @@ namespace _170516.Controllers
         {
             var customer = dbContext.Customers.FirstOrDefault(c => c.CustomerID == model.CustomerID);
 
-            customer.Fullname = model.FullName;
+            //customer.Fullname = model.FullName;
             customer.Address = model.Address;
             customer.City = model.City;
             customer.District = model.District;
@@ -830,7 +830,7 @@ namespace _170516.Controllers
             customer.ShipCity = model.ShipCity;
             customer.ShipDistrict = model.ShipDistrict;
             customer.ShipPhone = model.ShipPhone;
-            customer.AdditionalInformation = model.AdditionalInformation;
+            //customer.AdditionalInformation = model.AdditionalInformation;
 
             try
             {
@@ -1453,11 +1453,11 @@ namespace _170516.Controllers
             if (string.IsNullOrEmpty(searchText)) searchText = null;
             if (string.IsNullOrEmpty(sortField)) sortField = "OrderDate";
 
-            List<Order> orders;
-            orders = dbContext.Orders
-                            .Where(p => string.IsNullOrEmpty(searchText) ||
-                            (p.Customer.Fullname.Contains(searchText)))
-                            .ToList();
+            List<Order> orders = new List<Order>();
+            //orders = dbContext.Orders
+            //                .Where(p => string.IsNullOrEmpty(searchText) ||
+            //                (p.Customer.Fullname.Contains(searchText)))
+            //                .ToList();
 
 
             var ordersModel = orders.Select(o => new ViewOrderItem
@@ -1469,8 +1469,8 @@ namespace _170516.Controllers
                 IsFulfilled = o.IsFulfilled,
                 IsCanceled = o.IsCanceled,
                 CustomerID = o.CustomerID,
-                CustomerName = o.Customer.Fullname,
-                ShipperID = o.ShipperID ?? 0,
+                //CustomerName = o.Customer.Fullname,
+                //ShipperID = o.ShipperID ?? 0,
                 ShipperCompanyName = o.Shipper == null ? "":o.Shipper.CompanyName,
                 OrderDate = o.OrderDate,
                 ShipDate = o.ShipDate,
@@ -1610,8 +1610,8 @@ namespace _170516.Controllers
                 OrderID = order.OrderID,
                 OrderNumber = order.OrderNumber,
                 CustomerID = order.CustomerID,
-                CustomerName = order.Customer.Fullname,
-                ShipperID = order.ShipperID??0,
+                //CustomerName = order.Customer.Fullname,
+                //ShipperID = order.ShipperID??0,
                 Freight = order.Freight,
                 SalesTax = order.SalesTax,
                 Paid = order.Paid,
@@ -1662,8 +1662,8 @@ namespace _170516.Controllers
             order.Freight = model.Freight;
             order.SalesTax = model.SalesTax;
             order.Paid = model.Paid;
-            order.ShipDate = model.ShipDate;
-            order.RequiredDate = model.RequiredDate;
+            //order.ShipDate = model.ShipDate;
+            //order.RequiredDate = model.RequiredDate;
             order.PaymentDate = model.PaymentDate;
             order.OrderStatus = model.OrderStatus;
 
@@ -1855,8 +1855,8 @@ namespace _170516.Controllers
                 IsFulfilled = order.IsFulfilled,
                 IsCanceled = order.IsCanceled,
                 CustomerID = order.CustomerID,
-                CustomerName = order.Customer.Fullname,
-                ShipperID = order.ShipperID??0,
+                //CustomerName = order.Customer.Fullname,
+                //ShipperID = order.ShipperID??0,
                 ShipperCompanyName = order.Shipper == null? "" : order.Shipper.CompanyName,
                 OrderDate = order.OrderDate,
                 ShipDate = order.ShipDate,
@@ -2529,7 +2529,7 @@ namespace _170516.Controllers
         {
             var temp = new EmailTemplate
             {
-                EmailType = (int)FieldTypes.ReplyRequest,
+                //EmailType = (int)FieldTypes.ReplyRequest,
                 EmailTemplateName = model.EmailTemplateName,
                 EmailSubject = model.EmailSubject,
                 HtmlBody = model.HtmlTextContent,
@@ -2568,8 +2568,7 @@ namespace _170516.Controllers
                 HtmlTextContent = emailTemp.HtmlBody,
             };
 
-            model.MergeFields = dbContext.MergeFields.Where(m => m.FieldType == emailTemp.EmailType)
-                .Select(m => m.FieldName).ToList();
+            model.MergeFields = new List<string>();
 
             return View(model);
         }

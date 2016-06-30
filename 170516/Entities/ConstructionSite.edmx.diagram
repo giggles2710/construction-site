@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1ca8e3a863554a0db86c8414ab33de0f" Name="Diagram1">
+      <Diagram DiagramId="cd744967c0af4605b86d7ca2c24f3673" Name="Diagram1">
         <EntityTypeShape EntityType="ConstructionSiteModel.Account" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ConstructionSiteModel.Category" Width="1.5" PointX="3.75" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ConstructionSiteModel.Customer" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
@@ -17,7 +17,6 @@
         <EntityTypeShape EntityType="ConstructionSiteModel.Request" Width="1.5" PointX="3" PointY="24" IsExpanded="true" />
         <EntityTypeShape EntityType="ConstructionSiteModel.Shipper" Width="1.5" PointX="0.75" PointY="16.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ConstructionSiteModel.Supplier" Width="1.5" PointX="3.75" PointY="18.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConstructionSiteModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ConstructionSiteModel.SystemVariable" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ConstructionSiteModel.Role" Width="1.5" PointX="3" PointY="27.5" IsExpanded="true" />
         <AssociationConnector Association="ConstructionSiteModel.FK_Account_Account" ManuallyRouted="false" />

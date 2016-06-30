@@ -3,29 +3,69 @@
 <div class="block clearfix">
     <h3 class="title">@Model.PageTitle</h3>
     <div class="separator-2"></div>
-    <div id="carousel-portfolio-sidebar" class="carousel slide" data-ride="carousel">
+    <div id="carousel-portfolio-sidebar-@Model.UniqueGuid" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
             @for (var i = 0; i < Model.Items.Count; i++)
             {
-                <li data-target="#carousel-portfolio-sidebar" data-slide-to="@i" class=""></li>
+                if (i == 0)
+                {
+                    <li data-target="#carousel-portfolio-sidebar-@Model.UniqueGuid" data-slide-to="@i" class="active"></li>
+                }
+                else
+                {
+                    <li data-target="#carousel-portfolio-sidebar-@Model.UniqueGuid" data-slide-to="@i" class=""></li>
+                }
+
             }
         </ol>
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
-            @foreach(var item in Model.Items)
+            @for (var i = 0; i < Model.Items.Count; i++)
             {
-                <div class="item">
-                    <div class="image-box shadow text-center mb-20">
-                        <div class="overlay-container">
-                            <img src="@item.ImageSrc" alt="@item.Name">
-                            <a href="#" class="overlay-link">
-                                <i class="fa fa-link"></i>
-                            </a>
+                if (i == 0)
+                {
+                    <div class="item active">
+                        <div class="image-box shadow text-center mb-20">
+                            <div class="overlay-container">
+                                @if (!string.IsNullOrEmpty(Model.Items[i].ImageSrc))
+                                {
+                                    <img class="group list-group-image" src="@Model.Items[i].ImageSrc" alt="@Model.Items[i].Name" />
+                                }
+                                else
+                                {
+                                    <img class="group list-group-image" src="~/Content/Image/image_placeholder.jpg" alt="@Model.Items[i].Name" />
+                                }
+                                <a href="@Url.Action("ViewProductDetail","Product", new { id = Model.Items[i].Id })" class="overlay-link">
+                                    <span>@Model.Items[i].Name</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div class="item">
+                        <div class="image-box shadow text-center mb-20">
+                            <div class="overlay-container">
+                                @if (!string.IsNullOrEmpty(Model.Items[i].ImageSrc))
+                                {
+                                    <img class="group list-group-image" src="@Model.Items[i].ImageSrc" alt="@Model.Items[i].Name" />
+                                }
+                                else
+                                {
+                                    <img class="group list-group-image" src="~/Content/Image/image_placeholder.jpg" alt="@Model.Items[i].Name" />
+                                }
+                                <a href="@Url.Action("ViewProductDetail","Product", new { id = Model.Items[i].Id })" class="overlay-link">
+                                    <span>@Model.Items[i].Name</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
             }
         </div>
     </div>

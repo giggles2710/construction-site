@@ -741,6 +741,7 @@ ul.products {
     }
 
     .product-wrapper .product-cover {
+        margin-top: 15px;
     }
 
         .product-wrapper .product-cover img {
@@ -1026,6 +1027,14 @@ footer {
     font-size: 26px;
     font-family: inherit;
     font-weight: 400;
+    line-height: 1.1;
+    color: #2b3e50;
+}
+
+.main-title-h5 {
+    font-size: 17px;
+    font-family: inherit;
+    font-weight: 500;
     line-height: 1.1;
     color: #2b3e50;
 }
@@ -4468,6 +4477,10 @@ ul.pager {
     display: inline-block;
 }
 
+.font-15 {
+    font-size: 15px !important;
+}
+
 .nav-pills > li > a {
     border-radius: 0;
     padding: 7px 10px;
@@ -5666,6 +5679,18 @@ fieldset[disabled] .form-control {
 }
 
     .listing-item .price del {
+        font-size: 12px;
+        color: #999999;
+    }
+
+.product-price {
+    font-size: 18px;
+    margin-top: 1px;
+    display: inline-block;
+    font-weight: 400;
+}
+
+    .product-price del {
         font-size: 12px;
         color: #999999;
     }
@@ -9890,6 +9915,10 @@ h6.media-heading {
         color: #000 !important;
     }
 
+        .product-name a:hover {
+            color: #B93C49 !important;
+        }
+
 .merge-item {
     cursor: pointer;
 }
@@ -9900,4 +9929,31 @@ h6.media-heading {
 
 .content-box {
     min-height: 500px;
+}
+
+.carousel-inner {
+}
+
+    .carousel-inner a {
+        text-decoration: none;
+    }
+
+    .carousel-inner span {
+        font-size: 20px;
+        font-weight: 500;
+        color: #fff;
+    }
+
+.product .badge {
+    position: absolute;
+    border: 1px solid #B93C49;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #B93C49;
+    font-weight: 400;
+    padding: 4px;
+    top: 20px;
+    right: 20px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
 }

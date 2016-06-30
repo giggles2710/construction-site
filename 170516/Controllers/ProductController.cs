@@ -258,5 +258,80 @@ namespace _170516.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public ActionResult GetLatestProductInCategory(int id)
+        {
+            var model = new AdvertiseProductModel()
+            {
+                Items = new List<AdvertiseProductItem>()
+            };
+
+            var category = dbContext.Categories.FirstOrDefault(c => c.CategoryID == id);
+
+            if (category != null && category.Products.Any())
+            {
+                model.PageTitle = "Mới Nhất";
+                model.Items = category.Products.OrderByDescending(p => p.DateModified).Take(5).Select(p => new AdvertiseProductItem
+                {
+                    Id = p.ProductID,
+                    Image = p.Image,
+                    ImageType = p.ImageType,
+                    Name = p.Name
+                }).ToList();
+            }
+
+            return PartialView("_PartialAdvertiseProduct", model);
+        }
+
+        [HttpGet]
+        public ActionResult GetTopRatedProductInCategory(int id)
+        {
+            var model = new AdvertiseProductModel()
+            {
+                Items = new List<AdvertiseProductItem>()
+            };
+
+            var category = dbContext.Categories.FirstOrDefault(c => c.CategoryID == id);
+
+            if (category != null && category.Products.Any())
+            {
+                model.PageTitle = "Đánh Giá Cao Nhất";
+                model.Items = category.Products.OrderByDescending(p => p.Rate).Take(5).Select(p => new AdvertiseProductItem
+                {
+                    Id = p.ProductID,
+                    Image = p.Image,
+                    ImageType = p.ImageType,
+                    Name = p.Name
+                }).ToList();
+            }
+
+            return PartialView("_PartialAdvertiseProduct", model);
+        }
+
+        [HttpGet]
+        public ActionResult GetBestSellerProductInCategory(int id)
+        {
+            var model = new AdvertiseProductModel()
+            {
+                Items = new List<AdvertiseProductItem>()
+            };
+
+            var category = dbContext.Categories.FirstOrDefault(c => c.CategoryID == id);
+
+            if (category != null && category.Products.Any())
+            {
+                model.PageTitle = "Bán Chạy";
+                model.Items = category.Products.OrderByDescending(p => p.OrderCount).Take(5).Select(p => new AdvertiseProductItem
+                {
+                    Id = p.ProductID,
+                    Image = p.Image,
+                    ImageType = p.ImageType,
+                    Name = p.Name
+                }).ToList();
+            }
+
+            return PartialView("_PartialAdvertiseProduct", model);
+        }
     }
 }

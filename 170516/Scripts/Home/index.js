@@ -59,4 +59,27 @@
           // instead of a settings object
         ]
     });
+
+    $('#product_itemNumber_select').on('change'){
+
+    }
 });
+
+var viewProductDetail = function(){
+    window.location.href = getViewProductDetailUrl();
+}
+
+var getViewProductDetailUrl = function(){
+    var $activatePage = $('.paginate_button.active a');
+    var page = 1; // page
+    if ($activatePage.length > 0)
+        page = $activatePage[0].text;
+
+    var itemsOnPage = $('#dataTables_showNumberSelect').val(); // items on page
+    var searchText = $('#dataTables_show_item_search').val(); // search text
+    var sortField = $('#dataTables_sort_field_hidden').val(); // sort field
+    var directionField = $('#dataTables_sort_direction_hidden').val(); // direction field
+
+    return staticUrl.viewProduct + "?page=" + page + "&itemsPerPage="
+        + itemsOnPage + "&searchText=" + (searchText == undefined ? "" : searchText) + "&sortField=" + (sortField == undefined ? "" : sortField) + "&isAsc=" + (directionField == undefined ? "" : directionField);
+}
