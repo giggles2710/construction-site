@@ -59,6 +59,8 @@ namespace _170516.Models
         public const string CompanyNameField = "[T&ecirc;n c&ocirc;ng ty]";
         public const string CompanyWebsiteField = "[Website c&ocirc;ng ty]";
 
+        //Store Session
+        public const string Cart = "Cart";
 
     }
 }

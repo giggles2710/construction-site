@@ -1431,6 +1431,7 @@
     <Content Include="Scripts\dlMenu\custom.dlmenu.js" />
     <Content Include="Scripts\dlMenu\modernizr.custom.js" />
     <Content Include="Scripts\Admin\emailTemplate.js" />
+    <Content Include="Scripts\Home\cart.js" />
     <Content Include="Scripts\Home\index.js" />
     <Content Include="Scripts\inputmask.date.extensions.js" />
     <Content Include="Scripts\inputmask.dependencyLib.jquery.js" />

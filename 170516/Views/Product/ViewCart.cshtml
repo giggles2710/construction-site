@@ -1,4 +1,4 @@
-﻿
+﻿@model _170516.Models.CartViewModel
 @{
     ViewBag.Title = "Giỏ Hàng";
 }
@@ -18,76 +18,64 @@
     <section class="main-container">
         <div class="container">
             <div class="row">
-                <div class="main col-md-12">
-                    <h1 class="page-title">Giỏ Hàng</h1>
-                    <div class="separator-2"></div>
-                    <table class="table cart table-hover table-colored">
-                        <thead>
-                            <tr>
-                                <th>Tên sản phẩm</th>
-                                <th>Giá</th>
-                                <th>Số lượng</th>
-                                <th>Xóa</th>
-                                <th class="amount">Tổng Cộng</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="remove-data">
-                                <td class="product product-name"><a href="shop-product.html">Product Title 1</a> <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</small></td>
-                                <td class="price">99.50 đ </td>
-                                <td class="quantity">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" value="2">
-                                    </div>
-                                </td>
-                                <td class="remove"><a class="btn btn-remove btn-sm btn-default">Xóa</a></td>
-                                <td class="amount">199.00 đ </td>
-                            </tr>
-                            <tr class="remove-data">
-                                <td class="product product-name"><a href="shop-product.html">Product Title 1</a> <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</small></td>
-                                <td class="price">99.50 đ </td>
-                                <td class="quantity">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" value="2">
-                                    </div>
-                                </td>
-                                <td class="remove"><a class="btn btn-remove btn-sm btn-default">Xóa</a></td>
-                                <td class="amount">199.00 đ </td>
-                            </tr>
-                            <tr class="remove-data">
-                                <td class="product product-name"><a href="shop-product.html">Product Title 1</a> <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</small></td>
-                                <td class="price">99.50 đ </td>
-                                <td class="quantity">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" value="2">
-                                    </div>
-                                </td>
-                                <td class="remove"><a class="btn btn-remove btn-sm btn-default">Xóa</a></td>
-                                <td class="amount">199.00 đ </td>
-                            </tr>
-                            <tr class="remove-data">
-                                <td class="product product-name"><a href="shop-product.html">Product Title 1</a> <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</small></td>
-                                <td class="price">99.50 đ </td>
-                                <td class="quantity">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" value="2">
-                                    </div>
-                                </td>
-                                <td class="remove"><a class="btn btn-remove btn-sm btn-default">Xóa</a></td>
-                                <td class="amount">199.00 đ </td>
-                            </tr>
-                            <tr>
-                                <td class="total-quantity" colspan="4">Tổng cộng 8 sản phẩm</td>
-                                <td class="total-amount">1997.00 đ</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="text-right">
-                        <a href="#" class="btn btn-group btn-default">Cập Nhật</a>
-                        <a href="@Url.Action("Checkout","Product")" class="btn btn-group btn-default">Thanh Toán</a>
-                    </div>
+                @using (Html.BeginForm("UpdateCart", "Product", FormMethod.Post, new { @id = "updateCartForm" }))
+                {
+                    <div class="main col-md-12">
+                        <h1 class="page-title">Giỏ Hàng</h1>
+                        <div class="separator-2"></div>
+                        <table class="table cart table-hover table-colored">
+                            <thead>
+                                <tr>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Xóa</th>
+                                    <th class="amount">Tổng Cộng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Products.Any())
+                                {
+                                    for (int i = 0; i < Model.Products.Count; i++)
+                                    {
+                                        <tr class="remove-data">
+                                            @Html.HiddenFor(model => model.Products[i].ProductId)
+                                            @Html.HiddenFor(model => model.Products[i].ProductName)
+                                            @Html.HiddenFor(model => model.Products[i].Price)
+                                            @Html.HiddenFor(model => model.Products[i].Total)
+                                            <td class="product product-name"><a href="@Url.Action("ViewProductDetail", "Product", new { id = Model.Products[i].ProductId })">@Model.Products[i].ProductName</a> <small></small></td>
+                                            <td class="price">
+                                                @Html.DisplayFor(model => model.Products[i].Price, new { Value = String.Format("{0:0}", Model.Products[i].Price) })
+                                            </td>
+                                            <td class="quantity">
+                                                <div class="form-group">
+                                                    @Html.TextBoxFor(model => model.Products[i].Quantity, new { @class = "form-control" })
+                                                    <span class="input-error-box text-danger" id="error-pro-@Model.Products[i].ProductId"></span>
+                                                </div>
+                                            </td>
+                                            <td class="remove">
+                                                <a class="btn btn-remove btn-sm btn-default deleteProductInCartBtn" data-url="@Url.Action("DeleteProductInCart", "Product", new { @id = Model.Products[i].ProductId })">Xóa</a>
+                                            </td>
+                                            <td class="amount">@Html.DisplayFor(model => model.Products[i].Total, new { Value = String.Format("{0:0}", Model.Products[i].Price) })</td>
+                                        </tr>
+                                    }
+                                }
 
-                </div>
+                                <tr>
+                                    <td class="total-quantity" colspan="4">Tổng cộng @Model.Products.Count sản phẩm</td>
+                                    <td class="total-amount">
+                                        @Html.DisplayFor(model => model.GrandTotal, new { Value = String.Format("{0:0}", Model.GrandTotal) })
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-right">
+                            <button type="button" id="UpdateProductCartBtn" class="btn btn-group btn-default">Cập Nhật</button>
+                            <a href="@Url.Action("Checkout","Product")" class="btn btn-group btn-default">Thanh Toán</a>
+                        </div>
+
+                    </div>
+                }
                 <!-- main end -->
 
             </div>
