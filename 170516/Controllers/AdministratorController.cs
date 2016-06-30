@@ -771,7 +771,7 @@ namespace _170516.Controllers
                 Address = customer.Address,
                 City = customer.City,
                 District = customer.District,
-                //FullName = customer.Fullname,
+                FullName = customer.Fullname,
                 EmailAddress = customer.EmailAddress,
                 Phone = customer.Phone,
                 ShipAddress = customer.ShipAddress,
@@ -779,7 +779,7 @@ namespace _170516.Controllers
                 ShipDistrict = customer.ShipDistrict,
                 ShipPhone = customer.ShipPhone,
                 DateEntered = customer.DateEntered,
-                //AdditionalInformation = customer.AdditionalInformation
+                AdditionalInformation = customer.AdditionalInformation
             };
 
             return View(customerView);
@@ -794,7 +794,7 @@ namespace _170516.Controllers
             var customer = dbContext.Customers.FirstOrDefault(c => c.CustomerID == id);
 
             model.CustomerID = customer.CustomerID;
-            //model.FullName = customer.Fullname;
+            model.FullName = customer.Fullname;
             model.Address = customer.Address;
             model.City = customer.City;
             model.District = customer.District;
@@ -804,7 +804,7 @@ namespace _170516.Controllers
             model.ShipCity = customer.ShipCity;
             model.ShipDistrict = customer.ShipDistrict;
             model.ShipPhone = customer.ShipPhone;
-            //model.AdditionalInformation = customer.AdditionalInformation;
+            model.AdditionalInformation = customer.AdditionalInformation;
 
             if (customer == null)
             {
@@ -820,7 +820,7 @@ namespace _170516.Controllers
         {
             var customer = dbContext.Customers.FirstOrDefault(c => c.CustomerID == model.CustomerID);
 
-            //customer.Fullname = model.FullName;
+            customer.Fullname = model.FullName;
             customer.Address = model.Address;
             customer.City = model.City;
             customer.District = model.District;
@@ -830,7 +830,7 @@ namespace _170516.Controllers
             customer.ShipCity = model.ShipCity;
             customer.ShipDistrict = model.ShipDistrict;
             customer.ShipPhone = model.ShipPhone;
-            //customer.AdditionalInformation = model.AdditionalInformation;
+            customer.AdditionalInformation = model.AdditionalInformation;
 
             try
             {

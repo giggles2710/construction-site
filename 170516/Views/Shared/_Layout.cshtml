@@ -142,6 +142,7 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/main_script")
     @RenderSection("scripts", required: false)
@@ -149,13 +150,15 @@
     <script src="@Url.Content("~/Scripts/Home/cart.js")"></script>
     <script type="text/javascript">
         var staticUrl = {
+            HomePage: "@Url.Action("Index","Product")",
             ViewCategory: "@Url.Action("ViewCategory","Product")",
             GetSubCategory: "@Url.Action("GetSubCategory","Product")",
             SendRequestContact: "@Url.Action("SendRequestContact", "Home")",
             AddProductToCart: "@Url.Action("AddProductToCart", "Product")",
             UpdateCart: "@Url.Action("UpdateCart", "Product")",
             ViewCart: "@Url.Action("ViewCart", "Product")",
-            ViewPartialCart: "@Url.Action("ViewCartMinimal", "Product")"
+            ViewPartialCart: "@Url.Action("ViewCartMinimal", "Product")",
+            CheckOut: "@Url.Action("CheckOut", "Product")"
         };
 
         var sampleRegex = {

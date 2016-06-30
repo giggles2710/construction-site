@@ -1,4 +1,13 @@
 ﻿$(document).ready(function () {
+    // check to toast when delete success
+    if (window.sessionStorage.CheckoutStatus == "true") {
+        toastr.success(window.sessionStorage.ThankyouMessage);
+        window.sessionStorage.CheckoutStatus = null;
+    } else if (window.sessionStorage.ErrorStatus == "true") {
+        toastr.error(window.sessionStorage.ErrorMessage)
+        window.sessionStorage.ErrorStatus = null;
+    }
+
     $('#addToCartBtn').click(function () {
         var cartData = {
             ProductId : $('#ProductID').val(),
@@ -96,6 +105,91 @@
                     }
                 },
                 error: function () {                    
+                }
+            });
+        }
+    });
+
+    $('#shipping-info-check').on('change', function () {
+        if ($('#shipping-info-check').is(":checked"))
+        {
+            $('#shipping-information').hide();
+        }
+        else
+        {
+            $('#shipping-information').show();
+        }
+    });
+
+    $('#btnCheckout').click(function () {
+        var form = $("#checkoutForm");
+        var isValid = true;
+        form.validate();
+
+        if (!$('#shipping-info-check').is(":checked"))
+        {
+            //address
+            if ($('#Customer_ShipAddress').val() == null || $('#Customer_ShipAddress').val() == '' || $('#Customer_ShipAddress').val() == undefined) {
+                //$('#Customer_ShipAddress').parent().addClass('has-error');
+                $('#Customer_ShipAddress').nextAll('span.input-error-box').text("Vui lòng nhập địa chỉ chuyển hàng đến.");
+                isValid = false;
+            } else {
+                //$('#Customer_ShipAddress').parent().removeClass('has-error');
+                $('#Customer_ShipAddress').nextAll('span.input-error-box').text("");
+            }
+
+            //district
+            if ($('#Customer_ShipDistrict').val() == null || $('#Customer_ShipDistrict').val() == '' || $('#Customer_ShipDistrict').val() == undefined) {
+                //$('#Customer_ShipDistrict').parent().addClass('has-error');
+                $('#Customer_ShipDistrict').nextAll('span.input-error-box').text("Vui lòng nhập quận/huyện chuyển hàng đến.");
+                isValid = false;
+            } else {
+                //$('#Customer_ShipDistrict').parent().removeClass('has-error');
+                $('#Customer_ShipDistrict').nextAll('span.input-error-box').text("");
+            }
+
+            //city
+            if ($('#Customer_ShipCity').val() == null || $('#Customer_ShipCity').val() == '' || $('#Customer_ShipCity').val() == undefined) {
+                //$('#Customer_ShipCity').parent().addClass('has-error');
+                $('#Customer_ShipCity').nextAll('span.input-error-box').text("Vui lòng nhập thành phố/tỉnh chuyển hàng đến.");
+                isValid = false;
+            } else {
+                //$('#Customer_ShipCity').parent().removeClass('has-error');
+                $('#Customer_ShipCity').nextAll('span.input-error-box').text("");
+            }
+
+            //phone
+            if ($('#Customer_ShipPhone').val() == null || $('#Customer_ShipPhone').val() == '' || $('#Customer_ShipPhone').val() == undefined) {
+                //$('#Customer_ShipPhone').parent().addClass('has-error');
+                $('#Customer_ShipPhone').nextAll('span.input-error-box').text("Vui lòng nhập số điện thoại khi chuyển hàng đến.");
+                isValid = false;
+            } else {
+                ///$('#Customer_ShipPhone').parent().removeClass('has-error');
+                $('#Customer_ShipPhone').nextAll('span.input-error-box').text("");
+            }
+        }
+        
+        if (form.valid() && isValid)
+        {
+            $.ajax({
+                url: staticUrl.CheckOut,
+                data: form.serialize(),
+                async: true,
+                method: "POST",
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    if (data.isResult == false) {                        
+                        toastr.error(data.result);
+                    }
+                    else {                        
+                        window.sessionStorage.CheckoutStatus = true;
+                        window.sessionStorage.ThankyouMessage = "Cảm ơn bạn đã đặt hàng. Hãy kiểm tra email để có thông tin chi tiết.";
+                        window.location.href = staticUrl.HomePage;
+                    }
+                },
+                error: function (e) {                    
+                    toastr.error('Có lỗi xảy ra trong quá trình thanh toán. Vui lòng thử lại.');
                 }
             });
         }

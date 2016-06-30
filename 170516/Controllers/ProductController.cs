@@ -342,7 +342,107 @@ namespace _170516.Controllers
         [HttpGet]
         public ActionResult Checkout()
         {
-            return View();
+            CartViewModel cart;
+
+            if (Session[Constant.Cart] == null)
+            {
+                cart = new CartViewModel();
+            }
+            else
+            {
+                cart = Session[Constant.Cart] as CartViewModel;
+            }
+
+            var model = new CheckoutModel { Cart = cart, Customer = new CustomerCheckoutModel()};
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult Checkout(CheckoutModel model)
+        {
+            var customer = new Customer {
+                Fullname = model.Customer.FullName,
+                EmailAddress = model.Customer.EmailAddress,
+                Phone = model.Customer.Phone,
+                Address = model.Customer.Address,
+                District = model.Customer.District,
+                City = model.Customer.City,
+            };
+
+            if (model.Customer.SameInfoForShipping)
+            {
+                customer.ShipAddress = customer.Address;
+                customer.ShipDistrict = customer.District;
+                customer.ShipCity = customer.City;
+                customer.ShipPhone = customer.Phone;
+            }
+            else
+            {
+                customer.ShipAddress = model.Customer.ShipAddress;
+                customer.ShipDistrict = model.Customer.ShipDistrict;
+                customer.ShipCity = model.Customer.ShipCity;
+                customer.ShipPhone = model.Customer.ShipPhone;
+            }
+
+            try
+            {
+                dbContext.Customers.Add(customer);
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new {isResult = false, result = "Lỗi khi lưu thông tin Khách hàng. Vui lòng thử lại sau" },JsonRequestBehavior.AllowGet);
+            }
+
+            var order = new Order
+            {
+                CustomerID = customer.CustomerID,
+                Freight = 0,
+                SalesTax = 0,
+                OrderStatus = Constant.OrderIsProcessingtatus,
+                OrderNumber = string.Format("DH-{0}", DateTime.Now.Millisecond),
+                IsCanceled = false,
+                IsFulfilled = false,
+                OrderDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                ModifiedUserID = GetCurrentUserId()
+            };
+
+            try
+            {
+                dbContext.Orders.Add(order);
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = "Lỗi khi lưu thông tin giỏ hàng. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
+            }
+
+            OrderDetail orderDetails = new OrderDetail();
+
+            model.Cart.Products.ForEach(p => {
+                orderDetails.ProductID = p.ProductId;
+                orderDetails.OrderID = order.OrderID;
+                orderDetails.OrderNumber = order.OrderNumber;
+                orderDetails.Price = p.Price;
+                orderDetails.Quantity = p.Quantity;
+                orderDetails.Total = p.Total;
+                orderDetails.Size = 0;
+                orderDetails.IsFulfilled = false;
+                dbContext.OrderDetails.Add(orderDetails);
+            });
+
+            try
+            {                
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = "Lỗi khi lưu thông tin giỏ hàng. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true}, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
