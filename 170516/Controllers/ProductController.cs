@@ -94,7 +94,7 @@ namespace _170516.Controllers
         //    var pageNo = page.GetValueOrDefault();
         //    var pageSize = itemsPerPage.GetValueOrDefault();
         [HttpGet]
-        public ActionResult ViewCategory(int id, int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
+        public ActionResult ViewCategory(int id, int? page, int? itemsPerPage, string sortField)
         {
             var category = dbContext.Categories.FirstOrDefault(c => c.CategoryID == id);
             var model = new ViewCategoryModel();
@@ -106,49 +106,10 @@ namespace _170516.Controllers
 
                 if (pageNo == 0) pageNo = 1;
                 if (pageSize == 0) pageSize = 10;
-                if (isAsc == null) isAsc = true;
-                if (string.IsNullOrEmpty(searchText)) searchText = null;
-                if (string.IsNullOrEmpty(sortField)) sortField = "Latest";
+                if (string.IsNullOrEmpty(sortField)) sortField = "latest";
 
-                IQueryable<Product> products;
-
-                switch (sortField)
-                {
-                    case "ProductName":
-                        if (isAsc.GetValueOrDefault())
-                            products = dbContext.Products
-                                .Where(p => p.CategoryID == id && p.IsAvailable)
-                                .OrderBy(p => p.Name);
-                        else
-                            products = dbContext.Products
-                                .Where(p => p.CategoryID == id && p.IsAvailable)
-                                .OrderBy(p => p.Name);
-                        break;
-                    case "Price":
-                        if (isAsc.GetValueOrDefault())
-                            products = dbContext.Products
-                                .Where(p => p.CategoryID == id && p.IsAvailable)
-                                .OrderBy(p => p.UnitPrice);
-                        else
-                            products = dbContext.Products
-                                .Where(p => p.CategoryID == id && p.IsAvailable)
-                                .OrderBy(p => p.UnitPrice);
-                        break;
-                    default:
-                        if (isAsc.GetValueOrDefault())
-                            products = dbContext.Products
-                                .Where(p => p.CategoryID == id && p.IsAvailable)
-                                .OrderBy(p => p.DateModified);
-                        else
-                            products = dbContext.Products
-                                .Where(p => p.CategoryID == id && p.IsAvailable)
-                                .OrderBy(p => p.DateModified);
-                        break;
-                }
-
-                // do the query
-                var productsModel = dbContext.Products
-                    .Where(p => p.CategoryID == id)
+                IEnumerable<ShowcaseProductItem> products = dbContext.Products
+                    .Where(p => p.CategoryID == id && p.IsAvailable)
                     .Select(p => new ShowcaseProductItem
                     {
                         ProductID = p.ProductID,
@@ -161,16 +122,38 @@ namespace _170516.Controllers
                         ImageByte = p.Image,
                         ImageType = p.ImageType,
                         Summary = p.Summary
-                    })
-                    .OrderBy(p => p.Price)
-                    .Skip(pageSize * (pageNo - 1))
-                    .Take(pageSize).ToList();
+                    });
+
+                List<ShowcaseProductItem> sortedProducts;
+
+                switch (sortField)
+                {
+                    case "priceAsc":
+                        sortedProducts = products.OrderBy(p => p.DiscountedPrice).Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
+                        break;
+                    case "priceDesc":
+                        sortedProducts = products.OrderByDescending(p => p.DiscountedPrice).Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
+                        break;
+                    case "nameAsc":
+                        sortedProducts = products
+                                .OrderBy(p => p.ProductName).Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
+                        break;
+                    case "nameDesc":
+                        sortedProducts = products
+                                .OrderByDescending(p => p.ProductName).Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
+                        break;
+                    default:
+                        sortedProducts = products
+                                .OrderByDescending(p => p.DateModified)
+                                .Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
+                        break;
+                }
 
                 // prepare image
-                for (var i = 0; i < productsModel.Count; i++)
+                for (var i = 0; i < sortedProducts.Count; i++)
                 {
-                    if (productsModel[i].ImageByte != null && productsModel[i].ImageByte.Count() > 0)
-                        productsModel[i].ImageSrc = string.Format(Constant.ImageSourceFormat, productsModel[i].ImageType, Convert.ToBase64String(productsModel[i].ImageByte));
+                    if (sortedProducts[i].ImageByte != null && sortedProducts[i].ImageByte.Count() > 0)
+                        sortedProducts[i].ImageSrc = string.Format(Constant.ImageSourceFormat, sortedProducts[i].ImageType, Convert.ToBase64String(sortedProducts[i].ImageByte));
                 }
 
                 // prepare menu
@@ -185,9 +168,8 @@ namespace _170516.Controllers
                 model.ItemOnPage = pageSize;
                 model.TotalNumber = products.Count();
                 model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
-                model.MenuOnMainPage = productsModel;
+                model.MenuOnMainPage = sortedProducts;
                 model.SortField = sortField;
-                model.IsAsc = isAsc.GetValueOrDefault();
                 model.CategoryName = category.Name;
                 model.CategoryId = category.CategoryID;
             }
@@ -332,6 +314,36 @@ namespace _170516.Controllers
             }
 
             return PartialView("_PartialAdvertiseProduct", model);
+        }
+
+        [HttpGet]
+        public ActionResult GetSimilarProductPartial(int id)
+        {
+            var model = new AdvertiseProductModel
+            {
+                Items = new List<AdvertiseProductItem>()
+            };
+
+            var product = dbContext.Products.FirstOrDefault(p => p.ProductID == id);
+
+            if (product != null && product.Category != null)
+            {
+                model.PageTitle = "Sản Phẩm Tương Tự";
+                model.Items = dbContext.Products.Where(p => p.CategoryID == product.CategoryID)
+                    .OrderByDescending(p => p.Rate)
+                    .Take(4).Select(p => new AdvertiseProductItem
+                    {
+                        Id = p.ProductID,
+                        Image = p.Image,
+                        ImageType = p.ImageType,
+                        Name = p.Name,
+                        Rate = p.Rate,
+                        Price = p.UnitPrice,
+                        Discount = p.Discount
+                    }).ToList();
+            }
+
+            return PartialView("_PartialGetSimiliarProduct", model);
         }
     }
 }

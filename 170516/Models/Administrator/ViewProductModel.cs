@@ -64,5 +64,7 @@ namespace _170516.Models.Administrator
             }
         }
 
+        public DateTime DateModified { get; set; }
+
     }
 }

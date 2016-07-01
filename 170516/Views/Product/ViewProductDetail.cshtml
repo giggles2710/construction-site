@@ -4,13 +4,15 @@
 }
 
 <div class="index-content-wrapper container-fluid">
-    <div class="breadcrumb-container">
-        <div class="container">
-            <ol class="breadcrumb">
-                <li><i class="fa fa-home pr-10"></i><a href="@Url.Action("Index","Home")">Trang Chủ</a></li>
-                <li><a href="@Url.Action("Showcase","Product")">Sản Phẩm</a></li>
-                <li class="active">@Model.ProductName</li>
-            </ol>
+    <div class="banner dark-translucent-bg banner-without-image">
+        <div class="breadcrumb-container">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home pr-10"></i><a href="@Url.Action("Index","Home")">Trang Chủ</a></li>
+                    <li><a href="@Url.Action("Showcase","Product")">Sản Phẩm</a></li>
+                    <li class="active">@Model.ProductName</li>
+                </ol>
+            </div>
         </div>
     </div>
 
@@ -29,11 +31,16 @@
                                 <div class="tab-pane active" id="pill-1">
                                     <div class="owl-carousel content-slider-with-large-controls">
                                         <div class="overlay-container overlay-visible">
-                                            <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                            <a href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" class="popup-img overlay-link" title="image title"><i class="icon-plus-1"></i></a>
-                                        </div><div class="overlay-container overlay-visible">
-                                            <img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" alt="">
-                                            <a href="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-1.jpg" class="popup-img overlay-link" title="image title"><i class="icon-plus-1"></i></a>
+                                            @if (string.IsNullOrWhiteSpace(Model.ImageSrc))
+                                            {
+                                                <img src="~/Content/Image/image_placeholder.jpg" alt="">
+                                                <a href="#" class="popup-img overlay-link" title="image title"><i class="fa fa-search-plus"></i></a>
+                                            }
+                                            else
+                                            {
+                                                <img src="@Model.ImageSrc" alt="">
+                                                <a href="@Model.ImageSrc" class="popup-img overlay-link" title="image title"><i class="fa fa-search-plus"></i></a>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -63,10 +70,13 @@
                                 </form>
                             </div>
                             <div class="light-gray-bg p-20 bordered clearfix">
-                                <span class="product price"><i class="fa fa-tag pr-10"></i>99.00 đ</span>
-                                <span class="product price" style="margin-left: 5px;color: #7f8c8d;font-size: 15px;"><del>50.00 đ</del></span>
+                                <span class="product price"><i class="fa fa-tag pr-10"></i>@Model.DiscountedPrice.ToString("N") đ</span>
+                                @if (Model.Discount > 0)
+                                {
+                                    <span class="product price" style="margin-left: 5px;color: #7f8c8d;font-size: 15px;"><del>@Model.Price.ToString("N") đ</del></span>
+                                }
                                 <div class="product elements-list pull-right clearfix">
-                                    <input type="submit" value="Add to Cart" class="margin-clear btn btn-default">
+                                    <button class="btn btn-default btn-animated add-to-cart"><i class="fa fa-cart-plus"></i> Thêm vào giỏ hàng</button>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +108,7 @@
                                 @foreach (var specification in Model.SpecificationList.Where(s => !s.IsSize))
                                 {
                                     <dt>@specification.Name</dt>
-                                    <dd>@specification.Value</dd>
+                                        <dd>@specification.Value</dd>
                                 }
                             </dl>
 
@@ -109,7 +119,7 @@
                                 @foreach (var specification in Model.SpecificationList.Where(s => s.IsSize))
                                 {
                                     <dt>@specification.Name</dt>
-                                    <dd>@specification.Value</dd>
+                                        <dd>@specification.Value</dd>
                                 }
                             </dl>
                         </div>
@@ -182,89 +192,9 @@
 
                 <aside class="col-md-4 col-lg-3 col-lg-offset-1">
                     <div class="sidebar">
-                        <div class="block clearfix">
-                            <h3 class="title">Sản Phẩm Tương Tự</h3>
-                            <div class="separator-2"></div>
-                            <div class="media margin-clear">
-                                <div class="media-left">
-                                    <div class="overlay-container">
-                                        <img class="media-object" src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-5.jpg" alt="blog-thumb">
-                                        <a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <div class="media-body">
-                                    <h6 class="media-heading"><a href="shop-product.html">Lorem ipsum dolor sit amet</a></h6>
-                                    <p class="margin-clear">
-                                        <i class="fa fa-star text-default"></i>
-                                        <i class="fa fa-star text-default"></i>
-                                        <i class="fa fa-star text-default"></i>
-                                        <i class="fa fa-star text-default"></i>
-                                        <i class="fa fa-star text-default"></i>
-                                    </p>
-                                    <p class="price">$99.00</p>
-                                </div>
-                                <hr>
-                            </div>
-                            <div class="media margin-clear">
-                                <div class="media-left">
-                                    <div class="overlay-container">
-                                        <img class="media-object" src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-4.jpg" alt="blog-thumb">
-                                        <a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <div class="media-body">
-                                    <h6 class="media-heading"><a href="shop-product.html">Eum repudiandae ipsam</a></h6>
-                                    <p class="margin-clear">
-                                        <i class="fa fa-star text-default"></i>
-                                        <i class="fa fa-star text-default"></i>
-                                        <i class="fa fa-star text-default"></i>
-                                        <i class="fa fa-star text-default"></i>
-                                        <i class="fa fa-star"></i>
-                                    </p>
-                                    <p class="price">$299.00</p>
-                                </div>
-                                <hr>
-                            </div>
-                            <div class="media margin-clear">
-                                <div class="media-left">
-                                    <div class="overlay-container">
-                                        <img class="media-object" src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-7.jpg" alt="blog-thumb">
-                                        <a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <div class="media-body">
-                                    <h6 class="media-heading"><a href="shop-product.html">Quia aperiam velit fuga</a></h6>
-                                    <p class="margin-clear">
-                                        <i class="fa fa-star text-default"></i>
-                                        <i class="fa fa-star text-default"></i>
-                                        <i class="fa fa-star text-default"></i>
-                                        <i class="fa fa-star text-default"></i>
-                                        <i class="fa fa-star"></i>
-                                    </p>
-                                    <p class="price">$9.99</p>
-                                </div>
-                                <hr>
-                            </div>
-                            <div class="media margin-clear">
-                                <div class="media-left">
-                                    <div class="overlay-container">
-                                        <img class="media-object" src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/product-8.jpg" alt="blog-thumb">
-                                        <a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <div class="media-body">
-                                    <h6 class="media-heading"><a href="shop-product.html">Fugit non natus officiis</a></h6>
-                                    <p class="margin-clear">
-                                        <i class="fa fa-star text-default"></i>
-                                        <i class="fa fa-star text-default"></i>
-                                        <i class="fa fa-star text-default"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </p>
-                                    <p class="price">$399.00</p>
-                                </div>
-                            </div>
-                        </div>
+                       
+
+                        @{Html.RenderAction("GetSimilarProductPartial", "Product", new { id = Model.ProductID });}
                     </div>
                 </aside>
             </div>

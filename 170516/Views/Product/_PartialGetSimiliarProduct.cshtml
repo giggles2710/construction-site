@@ -1,0 +1,46 @@
+﻿@model _170516.Models.AdvertiseProductModel
+
+<div class="block clearfix">
+    <h3 class="title">@Model.PageTitle</h3>
+    <div class="separator-2"></div>
+    @for (var i = 0; i < Model.Items.Count; i++)
+    {
+        <div class="media margin-clear">
+            <div class="media-left">
+                <div class="overlay-container">
+                    @if (!string.IsNullOrEmpty(Model.Items[i].ImageSrc))
+                    {
+                        <img class="media-object" src="@Model.Items[i].ImageSrc" alt="@Model.Items[i].Name" />
+                    }
+                    else
+                    {
+                        <img class="media-object" src="~/Content/Image/image_placeholder.jpg" alt="@Model.Items[i].Name" />
+                    }
+                    <a href="@Url.Action("ViewProductDetail","Product", new { id = Model.Items[i].Id })" class="overlay-link small"><i class="fa fa-link"></i></a>
+                </div>
+            </div>
+            <div class="media-body">
+                <h6 class="media-heading"><a href="@Url.Action("ViewProductDetail","Product", new { id = Model.Items[i].Id })">@Model.Items[i].Name</a></h6>
+                <p class="margin-clear">
+                    @for (var j = 0; j < 5; j++)
+                    {
+                        if (i <= Model.Items[i].Rate.GetValueOrDefault())
+                        {
+                            <i class="fa fa-heart text-default"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-heart-o text-default"></i>
+                        }
+                    }
+                </p>
+                <p class="price">@Model.Items[i].DiscountedPrice.ToString("N") đ</p>
+                @if (Model.Items[i].Discount > 0)
+                {
+                    <p class="price"><del>@Model.Items[i].Price.ToString("N") đ</del></p>
+                }
+            </div>
+            <hr>
+        </div>
+    }
+</div>

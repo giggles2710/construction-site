@@ -692,6 +692,10 @@ ul.products {
     color: #2b3e50 !important;
 }
 
+    .index-content-wrapper h4 {
+        color: #B93C49 !important;
+    }
+
     .index-content-wrapper h3 {
         color: #B93C49 !important;
     }
@@ -711,6 +715,12 @@ ul.products {
         max-width: 100%;
         max-height: 100%;
     }
+
+.banner-without-image {
+    min-height: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 40px !important;
+}
 
 .contact-wrapper {
     color: #2b3e50;
@@ -915,6 +925,11 @@ ul.products {
     color: #FFFFFF;
     padding: 9px 35px;
     font-size: 24px;
+}
+
+.price del {
+    color: #cdcdcd;
+    font-size: 13px;
 }
 
 .product-detail-body .price-real-price {
@@ -3484,7 +3499,7 @@ h5 + .separator {
 .btn-default {
     color: #ffffff;
     background-color: #B93C49;
-    border-color: #0c9ec7;
+    border-color: #B93C49;
 }
 
     .btn-default:hover,
@@ -4201,25 +4216,32 @@ h5 + .separator {
 
         .nav-tabs.style-4 > li > a:hover {
             color: #ffffff;
-            background-color: #333333 !important;
-            border-color: #333333;
-            border-bottom-color: #333333 !important;
+            background-color: #0c9ec7 !important;
+            border-color: #0c9ec7;
+            border-bottom-color: #0c9ec7 !important;
         }
 
         .nav-tabs.style-4 > li > a:focus {
-            border-color: #333333;
-            background-color: #333333;
+            border-color: #0c9ec7;
+            background-color: #0c9ec7;
         }
 
-    .nav-tabs.style-4 > li.active > a,
-    .nav-tabs.style-4 > li.active > a:hover,
-    .nav-tabs.style-4 > li.active > a:focus {
+    .nav-tabs.style-4 > li.active > a {
         color: #ffffff;
         cursor: default;
-        background-color: #333333;
-        border-color: #333333;
+        background-color: #B93C49;
+        border-color: #B93C49;
         border-bottom-color: transparent;
     }
+
+        .nav-tabs.style-4 > li.active > a:hover,
+        .nav-tabs.style-4 > li.active > a:focus {
+            color: #ffffff;
+            cursor: default;
+            background-color: #0c9ec7;
+            border-color: #0c9ec7;
+            border-bottom-color: transparent;
+        }
 /* Small devices (tablets, smartphones) */
 @media (min-width: 481px) and (max-width: 767px) {
     .nav-tabs > li > a {
@@ -9947,8 +9969,8 @@ h6.media-heading {
 .product .badge {
     position: absolute;
     border: 1px solid #B93C49;
-    background-color: rgba(255, 255, 255, 0.95);
-    color: #B93C49;
+    background-color: #B93C49;
+    color: #fff;
     font-weight: 400;
     padding: 4px;
     top: 20px;

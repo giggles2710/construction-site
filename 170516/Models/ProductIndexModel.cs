@@ -85,5 +85,16 @@ namespace _170516.Models
         }
         public byte[] Image { get; set; }
         public string ImageType { get; set; }
+
+        public int? Rate { get; set; }
+        public decimal Price { get; set; }
+        public double? Discount { get; set; }
+        public decimal DiscountedPrice
+        {
+            get
+            {
+                return this.Price - (this.Price * (decimal)this.Discount.GetValueOrDefault() / 100);
+            }
+        }
     }
 }

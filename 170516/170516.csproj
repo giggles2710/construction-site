@@ -1718,6 +1718,7 @@
     <Content Include="Views\Administrator\ViewEmailTemplate.cshtml" />
     <Content Include="Views\Administrator\UpdateEmailTemplate.cshtml" />
     <Content Include="Views\Product\_PartialAdvertiseProduct.cshtml" />
+    <Content Include="Views\Product\_PartialGetSimiliarProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

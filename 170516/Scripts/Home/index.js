@@ -29,7 +29,7 @@
         slidesToScroll: 4,
         prevArrow: false,
         nextArrow: false,
-        lazyLoad: 'ondemand',   
+        lazyLoad: 'ondemand',
         responsive: [
           {
               breakpoint: 1024,
@@ -60,26 +60,29 @@
         ]
     });
 
-    $('#product_itemNumber_select').on('change'){
+    $('#product_itemNumber_select .selectpicker').on('change', function () {
+        viewProductDetail();
+    });
 
-    }
+    $('#product_filter_select .selectpicker').on('change', function () {
+        viewProductDetail();
+    });
 });
 
-var viewProductDetail = function(){
+var viewProductDetail = function () {
     window.location.href = getViewProductDetailUrl();
 }
 
-var getViewProductDetailUrl = function(){
+var getViewProductDetailUrl = function () {
     var $activatePage = $('.paginate_button.active a');
     var page = 1; // page
     if ($activatePage.length > 0)
         page = $activatePage[0].text;
 
-    var itemsOnPage = $('#dataTables_showNumberSelect').val(); // items on page
-    var searchText = $('#dataTables_show_item_search').val(); // search text
-    var sortField = $('#dataTables_sort_field_hidden').val(); // sort field
-    var directionField = $('#dataTables_sort_direction_hidden').val(); // direction field
-
-    return staticUrl.viewProduct + "?page=" + page + "&itemsPerPage="
-        + itemsOnPage + "&searchText=" + (searchText == undefined ? "" : searchText) + "&sortField=" + (sortField == undefined ? "" : sortField) + "&isAsc=" + (directionField == undefined ? "" : directionField);
+    var id = $('#category_id').val();
+    var itemsOnPage = $('#product_itemNumber_select .selectpicker').val(); // items on page
+    var sortField = $('#product_filter_select .selectpicker').val(); // sort field
+        
+    return staticUrl.ViewCategory + "?page=" + page + "&itemsPerPage="
+        + itemsOnPage + "&sortField=" + (sortField == undefined ? "" : sortField);
 }
