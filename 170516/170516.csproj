@@ -173,67 +173,67 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Entities\Account.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Category.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\ConstructionSite.Context.cs">
+    <Compile Include="Entities\ConstructionEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ConstructionSite.Context.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\ConstructionSite.cs">
+    <Compile Include="Entities\ConstructionEntity.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\ConstructionSite.Designer.cs">
+    <Compile Include="Entities\ConstructionEntity.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ConstructionSite.edmx</DependentUpon>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
     </Compile>
     <Compile Include="Entities\Customer.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\EmailTemplate.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\GetHashTokenByEmailAddress_Result.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\LoginByEmailAdress_Result.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\MergeField.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Order.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\OrderDetail.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Product.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\ProductDetail.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Request.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Role.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Shipper.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Supplier.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\SystemVariable.cs">
-      <DependentUpon>ConstructionSite.tt</DependentUpon>
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -262,6 +262,7 @@
     <Compile Include="Models\Administrator\ViewSupplierModel.cs" />
     <Compile Include="Models\Administrator\ViewUserModel.cs" />
     <Compile Include="Models\CategoryIndexModel.cs" />
+    <Compile Include="Models\CheckoutModel.cs" />
     <Compile Include="Models\Constant.cs" />
     <Compile Include="Models\EmailDeliveryModel.cs" />
     <Compile Include="Models\IndexViewModel.cs" />
@@ -322,15 +323,15 @@
     <Content Include="Content\slippry.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
-    <Content Include="Entities\ConstructionSite.Context.tt">
+    <Content Include="Entities\ConstructionEntity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionSite.edmx</DependentUpon>
-      <LastGenOutput>ConstructionSite.Context.cs</LastGenOutput>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <LastGenOutput>ConstructionEntity.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Entities\ConstructionSite.tt">
+    <Content Include="Entities\ConstructionEntity.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConstructionSite.edmx</DependentUpon>
-      <LastGenOutput>ConstructionSite.cs</LastGenOutput>
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
+      <LastGenOutput>ConstructionEntity.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\Admin\customer.js" />
     <Content Include="Scripts\Admin\js\calendar.js" />
@@ -1420,17 +1421,18 @@
     <Content Include="Content\font\slick\slick.eot" />
     <Content Include="Content\font\slick\slick.ttf" />
     <Content Include="Content\font\slick\slick.woff" />
-    <EntityDeploy Include="Entities\ConstructionSite.edmx">
+    <EntityDeploy Include="Entities\ConstructionEntity.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ConstructionSite.Designer.cs</LastGenOutput>
+      <LastGenOutput>ConstructionEntity.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Entities\ConstructionSite.edmx.diagram">
-      <DependentUpon>ConstructionSite.edmx</DependentUpon>
+    <Content Include="Entities\ConstructionEntity.edmx.diagram">
+      <DependentUpon>ConstructionEntity.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\dlMenu\custom.dlmenu.js" />
     <Content Include="Scripts\dlMenu\modernizr.custom.js" />
     <Content Include="Scripts\Admin\emailTemplate.js" />
+    <Content Include="Scripts\Home\cart.js" />
     <Content Include="Scripts\Home\index.js" />
     <Content Include="Scripts\inputmask.date.extensions.js" />
     <Content Include="Scripts\inputmask.dependencyLib.jquery.js" />

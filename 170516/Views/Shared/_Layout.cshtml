@@ -54,10 +54,10 @@
                             <div id="header-top-second" class="clearfix">
                                 <div class="header-top-dropdown text-right">
                                     <div class="btn-group dropdown">
-                                        <button type="button" class="btn dropdown-toggle btn-default btn-sm" data-toggle="dropdown"><i class="fa fa-shopping-cart pr-10"></i> Giỏ Hàng</button>
+                                        <button type="button" class="btn dropdown-toggle btn-default btn-sm" id="btnViewCartPopup" data-toggle="dropdown"><i class="fa fa-shopping-cart pr-10"></i> Giỏ Hàng</button>
                                         <ul class="dropdown-menu dropdown-menu-right dropdown-animation" style="z-index: 9000;">
-                                            <li>
-                                                @{Html.RenderAction("ViewCartMinimal", "Product");}
+                                            <li id="cartPartialView">
+                                                @*@{Html.RenderAction("ViewCartMinimal", "Product");}*@
                                             </li>
                                         </ul>
                                     </div>
@@ -142,15 +142,27 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/main_script")
     @RenderSection("scripts", required: false)
 
+    <script src="@Url.Content("~/Scripts/Home/cart.js")"></script>
     <script type="text/javascript">
         var staticUrl = {
+            HomePage: "@Url.Action("Index","Product")",
             ViewCategory: "@Url.Action("ViewCategory","Product")",
             GetSubCategory: "@Url.Action("GetSubCategory","Product")",
-            SendRequestContact: "@Url.Action("SendRequestContact", "Home")"
+            SendRequestContact: "@Url.Action("SendRequestContact", "Home")",
+            AddProductToCart: "@Url.Action("AddProductToCart", "Product")",
+            UpdateCart: "@Url.Action("UpdateCart", "Product")",
+            ViewCart: "@Url.Action("ViewCart", "Product")",
+            ViewPartialCart: "@Url.Action("ViewCartMinimal", "Product")",
+            CheckOut: "@Url.Action("CheckOut", "Product")"
+        };
+
+        var sampleRegex = {
+            integerRegex: new RegExp("^[1-9]([0-9]*)$")
         };
 
         // environment

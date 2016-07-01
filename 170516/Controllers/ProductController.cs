@@ -226,19 +226,267 @@ namespace _170516.Controllers
         [HttpGet]
         public ActionResult ViewCart()
         {
-            return View();
+            CartViewModel cart;
+
+            if (Session[Constant.Cart] == null)
+            {
+                cart = new CartViewModel();
+            }
+            else
+            {
+                cart = Session[Constant.Cart] as CartViewModel;
+            }
+
+            return View(cart);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateCart(CartViewModel model)
+        {
+            Product product;
+            List<ProductError> errors = new List<ProductError>();
+            model.Products.ForEach(p => {
+                product = dbContext.Products.FirstOrDefault(ob => ob.ProductID == p.ProductId);
+
+                if (product.UnitsInStock == 0)
+                {
+                    ProductError err = new ProductError { ProductId = product.ProductID, Error = "Sản phẩm này đã hết hàng" };
+                    errors.Add(err);
+                }
+                else
+                if (product.UnitsInStock < p.Quantity)
+                {
+                    ProductError err = new ProductError { ProductId = product.ProductID, Error = "Chỉ còn " + product.UnitsInStock + " sản phẩm trong kho" };
+                    errors.Add(err);
+                }
+            });
+
+            if (errors.Count > 0)
+            {
+                return Json(new { isResult = false, errors = errors }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                model.GrandTotal = 0;
+
+                model.Products.ForEach(p => {
+                    p.Total = p.Price * p.Quantity;
+                    model.GrandTotal += p.Total;
+                });
+
+                Session[Constant.Cart] = model;
+
+                return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult DeleteProductInCart(int id)
+        {
+            CartViewModel cart;
+
+            if (Session[Constant.Cart] == null)
+            {
+                cart = new CartViewModel();
+            }
+            else
+            {
+                cart = Session[Constant.Cart] as CartViewModel;
+            }
+
+            var p = cart.Products.FirstOrDefault(ob => ob.ProductId == id);
+
+            if (p != null)
+            {
+                cart.Products.Remove(p);
+            }
+
+            return View("ViewCart", cart);
         }
 
         [HttpGet]
         public ActionResult ViewCartMinimal()
         {
-            return PartialView("_PartialCart");
+            CartViewModel cart;
+
+            if (Session[Constant.Cart] == null)
+            {
+                cart = new CartViewModel();
+            }
+            else
+            {
+                cart = Session[Constant.Cart] as CartViewModel;
+            }
+
+            return PartialView("_PartialCart", cart);
         }
 
         [HttpGet]
         public ActionResult Checkout()
         {
-            return View();
+            CartViewModel cart;
+
+            if (Session[Constant.Cart] == null)
+            {
+                cart = new CartViewModel();
+            }
+            else
+            {
+                cart = Session[Constant.Cart] as CartViewModel;
+            }
+
+            var model = new CheckoutModel { Cart = cart, Customer = new CustomerCheckoutModel()};
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult Checkout(CheckoutModel model)
+        {
+            var customer = new Customer {
+                Fullname = model.Customer.FullName,
+                EmailAddress = model.Customer.EmailAddress,
+                Phone = model.Customer.Phone,
+                Address = model.Customer.Address,
+                District = model.Customer.District,
+                City = model.Customer.City,
+            };
+
+            if (model.Customer.SameInfoForShipping)
+            {
+                customer.ShipAddress = customer.Address;
+                customer.ShipDistrict = customer.District;
+                customer.ShipCity = customer.City;
+                customer.ShipPhone = customer.Phone;
+            }
+            else
+            {
+                customer.ShipAddress = model.Customer.ShipAddress;
+                customer.ShipDistrict = model.Customer.ShipDistrict;
+                customer.ShipCity = model.Customer.ShipCity;
+                customer.ShipPhone = model.Customer.ShipPhone;
+            }
+
+            try
+            {
+                dbContext.Customers.Add(customer);
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new {isResult = false, result = "Lỗi khi lưu thông tin Khách hàng. Vui lòng thử lại sau" },JsonRequestBehavior.AllowGet);
+            }
+
+            var order = new Order
+            {
+                CustomerID = customer.CustomerID,
+                Freight = 0,
+                SalesTax = 0,
+                OrderStatus = Constant.OrderIsProcessingtatus,
+                OrderNumber = string.Format("DH-{0}", DateTime.Now.Millisecond),
+                IsCanceled = false,
+                IsFulfilled = false,
+                OrderDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                ModifiedUserID = GetCurrentUserId()
+            };
+
+            try
+            {
+                dbContext.Orders.Add(order);
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = "Lỗi khi lưu thông tin giỏ hàng. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
+            }
+
+            OrderDetail orderDetails = new OrderDetail();
+
+            model.Cart.Products.ForEach(p => {
+                orderDetails.ProductID = p.ProductId;
+                orderDetails.OrderID = order.OrderID;
+                orderDetails.OrderNumber = order.OrderNumber;
+                orderDetails.Price = p.Price;
+                orderDetails.Quantity = p.Quantity;
+                orderDetails.Total = p.Total;
+                orderDetails.Size = 0;
+                orderDetails.IsFulfilled = false;
+                dbContext.OrderDetails.Add(orderDetails);
+            });
+
+            try
+            {                
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isResult = false, result = "Lỗi khi lưu thông tin giỏ hàng. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true}, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult AddProductToCart(ProductInCart model)
+        {
+            if (model.ProductId == 0)
+            {
+                return Json(new { isResult = false, result = "Sản phẩm không tồn tại" }, JsonRequestBehavior.AllowGet);
+            }
+
+            var product = dbContext.Products.FirstOrDefault(p => p.ProductID == model.ProductId);
+
+            if (product == null)
+            {
+                return Json(new { isResult = false, result = "Sản phẩm không tồn tại" }, JsonRequestBehavior.AllowGet);
+            }
+            else if (product.UnitsInStock < model.Quantity)
+            {
+                if (product.UnitsInStock == 0)
+                {
+                    return Json(new { isResult = false, result = "Sản phẩm này đã hết hàng. Vui lòng quay lại sau" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { isResult = false, result = "Chỉ còn " + product.UnitsInStock + "sản phẩm trong kho. Vui lòng giảm số lượng sản phẩm" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                //add Product to Cart Sesssion
+                CartViewModel cart;
+
+                if (Session[Constant.Cart] == null)
+                {
+                    cart = new CartViewModel();
+                }
+                else
+                {
+                    cart = Session[Constant.Cart] as CartViewModel;
+                }
+
+                if (cart.Products.Any(p => p.ProductId == model.ProductId))
+                {
+                    return Json(new { isResult = false, result = "Sản phẩm này đã có trong giỏ hàng của bạn. Vui lòng kiểm tra lại" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    ProductInCart p = new ProductInCart();
+                    p.ProductId = product.ProductID;
+                    p.ProductName = product.Name;
+                    p.Quantity = model.Quantity;
+                    p.Price = product.DiscountedPrice == null ? product.UnitPrice : product.DiscountedPrice.Value;
+                    p.Total = p.Price * p.Quantity;
+
+                    cart.Products.Add(p);
+                    cart.GrandTotal += p.Total;
+
+                    Session[Constant.Cart] = cart;
+
+                    return Json(new { isResult = true, result = "Thêm sản phẩm vào giỏ hàng thành công" }, JsonRequestBehavior.AllowGet);
+                }
+            }
         }
 
         [HttpGet]

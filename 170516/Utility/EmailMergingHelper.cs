@@ -26,7 +26,7 @@ namespace _170516.Utility
 
             string content = emailTemp.HtmlBody;
             
-            //content = content.Replace(Constant.CustomerNameField, order.Customer.Fullname);
+            content = content.Replace(Constant.CustomerNameField, order.Customer.Fullname);
             content = content.Replace(Constant.CustomerEmailField, order.Customer.EmailAddress);
             content = content.Replace(Constant.CustomerPhoneField, order.Customer.Phone);
             content = content.Replace(Constant.CustomerAddressField, order.Customer.Address);

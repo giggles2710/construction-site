@@ -1,6 +1,7 @@
 ﻿using _170516.Models.Administrator;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -96,5 +97,40 @@ namespace _170516.Models
                 return this.Price - (this.Price * (decimal)this.Discount.GetValueOrDefault() / 100);
             }
         }
+    }
+
+    public class CartViewModel
+    {
+        public CartViewModel()
+        {
+            GrandTotal = 0;
+            CouponCode = string.Empty;
+            DiscountPercent = 0;
+            Products = new List<ProductInCart>();
+        }
+        [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = false)]
+        public decimal GrandTotal { get; set; }
+        public string CouponCode { get; set; }
+        public int DiscountPercent { get; set; }
+
+        public List<ProductInCart> Products { get; set; }
+    }
+
+    public class ProductInCart
+    {
+        public int ProductId { get; set; }
+        public string ProductName { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = false)]
+        public decimal Price { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Vui lòng nhập số lượng lớn hơn 0")]
+        public int Quantity { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = false)]
+        public decimal Total { get; set; }
+    }
+
+    public class ProductError
+    {
+        public int ProductId { get; set; }
+        public string Error { get; set; }
     }
 }

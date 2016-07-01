@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ConstructionSiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="AccountID" />
@@ -45,19 +45,19 @@
           <Key>
             <PropertyRef Name="CustomerID" />
           </Key>
-          <Property Name="CustomerID" Type="int" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Address" Type="nvarchar" MaxLength="50" />
-          <Property Name="City" Type="nvarchar" MaxLength="50" />
-          <Property Name="District" Type="nvarchar" MaxLength="50" />
-          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
-          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" />
-          <Property Name="ShipAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ShipCity" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ShipDistrict" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ShipPhone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fullname" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="District" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShipAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShipCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShipDistrict" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShipPhone" Type="nvarchar" MaxLength="50" />
           <Property Name="DateEntered" Type="date" />
+          <Property Name="AdditionalInformation" Type="nvarchar" MaxLength="220" />
         </EntityType>
         <EntityType Name="EmailTemplate">
           <Key>
@@ -87,13 +87,13 @@
           <Key>
             <PropertyRef Name="OrderID" />
           </Key>
-          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="OrderNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="OrderDate" Type="date" Nullable="false" />
-          <Property Name="ShipDate" Type="date" Nullable="false" />
-          <Property Name="RequiredDate" Type="date" Nullable="false" />
-          <Property Name="ShipperID" Type="int" Nullable="false" />
+          <Property Name="ShipDate" Type="date" />
+          <Property Name="RequiredDate" Type="date" />
+          <Property Name="ShipperID" Type="int" />
           <Property Name="Freight" Type="float" Nullable="false" />
           <Property Name="SalesTax" Type="money" Nullable="false" />
           <Property Name="OrderStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -108,7 +108,7 @@
           <Key>
             <PropertyRef Name="OrderDetailID" />
           </Key>
-          <Property Name="OrderDetailID" Type="int" Nullable="false" />
+          <Property Name="OrderDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="OrderID" Type="int" Nullable="false" />
           <Property Name="OrderNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -280,7 +280,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_Shipper">
-          <End Role="Shipper" Type="Self.Shipper" Multiplicity="1" />
+          <End Role="Shipper" Type="Self.Shipper" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Shipper">
@@ -397,7 +397,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
           <Parameter Name="Password" Type="nvarchar" Mode="In" />
         </Function>
-        <EntityContainer Name="ConstructionSiteModelStoreContainer">
+        <EntityContainer Name="EntitiesStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
@@ -478,7 +478,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ConstructionSiteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="AccountID" />
@@ -529,19 +529,19 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Key>
             <PropertyRef Name="CustomerID" />
           </Key>
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="District" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ShipAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ShipCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ShipDistrict" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ShipPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fullname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="District" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShipAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipDistrict" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DateEntered" Type="DateTime" Precision="0" />
+          <Property Name="AdditionalInformation" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
         </EntityType>
         <EntityType Name="EmailTemplate">
@@ -573,13 +573,13 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Key>
             <PropertyRef Name="OrderID" />
           </Key>
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
           <Property Name="OrderNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ShipDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="RequiredDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ShipperID" Type="Int32" Nullable="false" />
+          <Property Name="ShipDate" Type="DateTime" Precision="0" />
+          <Property Name="RequiredDate" Type="DateTime" Precision="0" />
+          <Property Name="ShipperID" Type="Int32" />
           <Property Name="Freight" Type="Double" Nullable="false" />
           <Property Name="SalesTax" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="OrderStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -598,7 +598,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Key>
             <PropertyRef Name="OrderDetailID" />
           </Key>
-          <Property Name="OrderDetailID" Type="Int32" Nullable="false" />
+          <Property Name="OrderDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="OrderID" Type="Int32" Nullable="false" />
           <Property Name="OrderNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -828,7 +828,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_Shipper">
-          <End Role="Shipper" Type="Self.Shipper" Multiplicity="1" />
+          <End Role="Shipper" Type="Self.Shipper" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Shipper">
@@ -961,10 +961,10 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <FunctionImport Name="CheckUniqueEmailAddress" ReturnType="Collection(String)">
             <Parameter Name="EmailAddress" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="GetHashTokenByEmailAddress" ReturnType="Collection(ConstructionSiteModel.GetHashTokenByEmailAddress_Result)">
+          <FunctionImport Name="GetHashTokenByEmailAddress" ReturnType="Collection(Entities.GetHashTokenByEmailAddress_Result)">
             <Parameter Name="EmailAddress" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="LoginByEmailAdress" ReturnType="Collection(ConstructionSiteModel.LoginByEmailAdress_Result)">
+          <FunctionImport Name="LoginByEmailAdress" ReturnType="Collection(Entities.LoginByEmailAdress_Result)">
             <Parameter Name="EmailAddress" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
@@ -982,9 +982,9 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ConstructionSiteModelStoreContainer" CdmEntityContainer="ConstructionSiteEntities">
+        <EntityContainerMapping StorageEntityContainer="EntitiesStoreContainer" CdmEntityContainer="ConstructionSiteEntities">
           <EntitySetMapping Name="Accounts">
-            <EntityTypeMapping TypeName="ConstructionSiteModel.Account">
+            <EntityTypeMapping TypeName="Entities.Account">
               <MappingFragment StoreEntitySet="Account">
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -1007,7 +1007,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="ConstructionSiteModel.Category">
+            <EntityTypeMapping TypeName="Entities.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1022,11 +1022,10 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="ConstructionSiteModel.Customer">
+            <EntityTypeMapping TypeName="Entities.Customer">
               <MappingFragment StoreEntitySet="Customer">
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="District" ColumnName="District" />
@@ -1037,11 +1036,12 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
                 <ScalarProperty Name="ShipDistrict" ColumnName="ShipDistrict" />
                 <ScalarProperty Name="ShipPhone" ColumnName="ShipPhone" />
                 <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
+                <ScalarProperty Name="AdditionalInformation" ColumnName="AdditionalInformation" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmailTemplates">
-            <EntityTypeMapping TypeName="ConstructionSiteModel.EmailTemplate">
+            <EntityTypeMapping TypeName="Entities.EmailTemplate">
               <MappingFragment StoreEntitySet="EmailTemplate">
                 <ScalarProperty Name="EmailTemplateId" ColumnName="EmailTemplateId" />
                 <ScalarProperty Name="EmailTemplateName" ColumnName="EmailTemplateName" />
@@ -1058,7 +1058,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MergeFields">
-            <EntityTypeMapping TypeName="ConstructionSiteModel.MergeField">
+            <EntityTypeMapping TypeName="Entities.MergeField">
               <MappingFragment StoreEntitySet="MergeField">
                 <ScalarProperty Name="FieldId" ColumnName="FieldId" />
                 <ScalarProperty Name="FieldName" ColumnName="FieldName" />
@@ -1067,7 +1067,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="ConstructionSiteModel.Order">
+            <EntityTypeMapping TypeName="Entities.Order">
               <MappingFragment StoreEntitySet="Order">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -1089,7 +1089,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderDetails">
-            <EntityTypeMapping TypeName="ConstructionSiteModel.OrderDetail">
+            <EntityTypeMapping TypeName="Entities.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetail">
                 <ScalarProperty Name="OrderDetailID" ColumnName="OrderDetailID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
@@ -1107,7 +1107,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="ConstructionSiteModel.Product">
+            <EntityTypeMapping TypeName="Entities.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1132,7 +1132,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductDetails">
-            <EntityTypeMapping TypeName="ConstructionSiteModel.ProductDetail">
+            <EntityTypeMapping TypeName="Entities.ProductDetail">
               <MappingFragment StoreEntitySet="ProductDetail">
                 <ScalarProperty Name="ProductDetailID" ColumnName="ProductDetailID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1143,7 +1143,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Requests">
-            <EntityTypeMapping TypeName="ConstructionSiteModel.Request">
+            <EntityTypeMapping TypeName="Entities.Request">
               <MappingFragment StoreEntitySet="Request">
                 <ScalarProperty Name="RequestID" ColumnName="RequestID" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
@@ -1157,7 +1157,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Shippers">
-            <EntityTypeMapping TypeName="ConstructionSiteModel.Shipper">
+            <EntityTypeMapping TypeName="Entities.Shipper">
               <MappingFragment StoreEntitySet="Shipper">
                 <ScalarProperty Name="ShipperID" ColumnName="ShipperID" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
@@ -1170,7 +1170,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Suppliers">
-            <EntityTypeMapping TypeName="ConstructionSiteModel.Supplier">
+            <EntityTypeMapping TypeName="Entities.Supplier">
               <MappingFragment StoreEntitySet="Supplier">
                 <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
@@ -1191,7 +1191,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SystemVariables">
-            <EntityTypeMapping TypeName="ConstructionSiteModel.SystemVariable">
+            <EntityTypeMapping TypeName="Entities.SystemVariable">
               <MappingFragment StoreEntitySet="SystemVariable">
                 <ScalarProperty Name="VariableId" ColumnName="VariableId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1201,25 +1201,25 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="ConstructionSiteModel.Role">
+            <EntityTypeMapping TypeName="Entities.Role">
               <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="CheckUniqueEmailAddress" FunctionName="ConstructionSiteModel.Store.CheckUniqueEmailAddress" />
-          <FunctionImportMapping FunctionImportName="GetHashTokenByEmailAddress" FunctionName="ConstructionSiteModel.Store.GetHashTokenByEmailAddress">
+          <FunctionImportMapping FunctionImportName="CheckUniqueEmailAddress" FunctionName="Entities.Store.CheckUniqueEmailAddress" />
+          <FunctionImportMapping FunctionImportName="GetHashTokenByEmailAddress" FunctionName="Entities.Store.GetHashTokenByEmailAddress">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="ConstructionSiteModel.GetHashTokenByEmailAddress_Result">
+              <ComplexTypeMapping TypeName="Entities.GetHashTokenByEmailAddress_Result">
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
                 <ScalarProperty Name="HashToken" ColumnName="HashToken" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="LoginByEmailAdress" FunctionName="ConstructionSiteModel.Store.LoginByEmailAdress">
+          <FunctionImportMapping FunctionImportName="LoginByEmailAdress" FunctionName="Entities.Store.LoginByEmailAdress">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="ConstructionSiteModel.LoginByEmailAdress_Result">
+              <ComplexTypeMapping TypeName="Entities.LoginByEmailAdress_Result">
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
               </ComplexTypeMapping>
