@@ -308,7 +308,7 @@ namespace _170516.Controllers
                     ProductID = product.ProductID,
                     ProductDescription = product.Description,
                     ProductSummary = product.Summary,
-                    ProductDiscount = product.Discount.GetValueOrDefault(),
+                    ProductDiscount = product.Discount,
                     ProductPrice = (double)product.UnitPrice,
                     ProductName = product.Name,
                     ProductQuantity = product.UnitsInStock
@@ -390,7 +390,7 @@ namespace _170516.Controllers
                     product.IsAvailable = true;
                     product.IsDiscountAvailable = model.ProductDiscount > 0;
                     product.Name = model.ProductName;
-                    product.UnitPrice = (decimal)model.ProductPrice;
+                    product.UnitPrice = model.ProductPrice;
                     product.UnitsInStock = model.ProductQuantity;
 
                     // product supplier id
@@ -460,8 +460,8 @@ namespace _170516.Controllers
                 {
                     Description = product.Description,
                     Summary = product.Summary,
-                    Discount = product.Discount.GetValueOrDefault(),
-                    Price = (double)product.UnitPrice,
+                    Discount = product.Discount,
+                    Price = product.UnitPrice,
                     ProductName = product.Name,
                     QuantityUnit = product.UnitsInStock,
                     DateModified = product.DateModified
@@ -659,7 +659,7 @@ namespace _170516.Controllers
                 IsAvailable = true,
                 IsDiscountAvailable = model.ProductDiscount > 0,
                 Name = model.ProductName,
-                UnitPrice = (decimal)model.ProductPrice,
+                UnitPrice = model.ProductPrice,
                 UnitsInStock = model.ProductQuantity
             };
 
@@ -1454,10 +1454,10 @@ namespace _170516.Controllers
             if (string.IsNullOrEmpty(sortField)) sortField = "OrderDate";
 
             List<Order> orders = new List<Order>();
-            //orders = dbContext.Orders
-            //                .Where(p => string.IsNullOrEmpty(searchText) ||
-            //                (p.Customer.Fullname.Contains(searchText)))
-            //                .ToList();
+            orders = dbContext.Orders
+                            .Where(p => string.IsNullOrEmpty(searchText) ||
+                            (p.Customer.Fullname.Contains(searchText)))
+                            .ToList();
 
 
             var ordersModel = orders.Select(o => new ViewOrderItem
@@ -1469,8 +1469,8 @@ namespace _170516.Controllers
                 IsFulfilled = o.IsFulfilled,
                 IsCanceled = o.IsCanceled,
                 CustomerID = o.CustomerID,
-                //CustomerName = o.Customer.Fullname,
-                //ShipperID = o.ShipperID ?? 0,
+                CustomerName = o.Customer.Fullname,
+                ShipperID = o.ShipperID ?? 0,
                 ShipperCompanyName = o.Shipper == null ? "":o.Shipper.CompanyName,
                 OrderDate = o.OrderDate,
                 ShipDate = o.ShipDate,
@@ -1570,24 +1570,25 @@ namespace _170516.Controllers
         }
 
         [Authorize]
-        private string GetOrderStatusToUser(string orderStatus)
+        private string GetOrderStatusToUser(int orderStatus)
         {
             string result = string.Empty;
             switch (orderStatus)
             {
-                case Constant.OrderCanceledStatus:
+                case (int)OrderStatuses.OrderIsCanceled:
                     result = "Đơn hàng đã hủy";
                     break;
-                case Constant.OrderFulfilledStatus:
+                case (int)OrderStatuses.OrderIsFulfilled:
                     result = "Đơn hàng đã xong";
                     break;
-                case Constant.OrderIsProcessingtatus:
+                case (int)OrderStatuses.OrderIsBeingProcessing:
                     result = "Đang được xử lý";
                     break;
-                case Constant.OrderDeliveredStatus:
+                case (int)OrderStatuses.OrderIsDelivered:
                     result = "Đã được chuyển đến";
                     break;
                 default:
+                    result = "Đã hàng đã được tạo";
                     break;
             }
 
@@ -1610,8 +1611,8 @@ namespace _170516.Controllers
                 OrderID = order.OrderID,
                 OrderNumber = order.OrderNumber,
                 CustomerID = order.CustomerID,
-                //CustomerName = order.Customer.Fullname,
-                //ShipperID = order.ShipperID??0,
+                CustomerName = order.Customer.Fullname,
+                ShipperID = order.ShipperID ?? 0,
                 Freight = order.Freight,
                 SalesTax = order.SalesTax,
                 Paid = order.Paid,
@@ -1620,7 +1621,7 @@ namespace _170516.Controllers
                 OrderDate = order.OrderDate,
                 IsFulfilled = order.IsFulfilled,
                 IsCanceled = order.IsCanceled,
-                OrderStatus = order.OrderStatus,
+                OrderStatus = ((int)order.OrderStatus).ToString(),
                 RequiredDate = order.RequiredDate,
             };
 
@@ -1649,6 +1650,8 @@ namespace _170516.Controllers
                 CompanyName = s.CompanyName
             }).ToList();
 
+            updateOrderModel.Shippers.Insert(0, new ViewShipperItem { ShipperID = 0, CompanyName = "Vui lòng chọn" });
+
             return View(updateOrderModel);
         }
 
@@ -1658,17 +1661,17 @@ namespace _170516.Controllers
         {
             var order = dbContext.Orders.FirstOrDefault(o => o.OrderID == model.OrderID);
 
-            order.ShipperID = model.ShipperID;
+            if (model.ShipperID > 0) order.ShipperID = model.ShipperID;
             order.Freight = model.Freight;
             order.SalesTax = model.SalesTax;
             order.Paid = model.Paid;
-            //order.ShipDate = model.ShipDate;
-            //order.RequiredDate = model.RequiredDate;
+            order.ShipDate = model.ShipDate;
+            order.RequiredDate = model.RequiredDate;
             order.PaymentDate = model.PaymentDate;
-            order.OrderStatus = model.OrderStatus;
+            order.OrderStatus = int.Parse(model.OrderStatus);
 
-            order.IsCanceled = order.OrderStatus == Constant.OrderCanceledStatus;
-            order.IsFulfilled = order.OrderStatus == Constant.OrderFulfilledStatus;
+            order.IsCanceled = false;
+            order.IsFulfilled = false;
             order.ModifiedDate = DateTime.Now;
 
             for (int i = 0; i < order.OrderDetails.Count; i++)
@@ -1677,7 +1680,7 @@ namespace _170516.Controllers
                 order.OrderDetails.ElementAt(i).Quantity = model.OrderDetails[i].Quantity;
                 order.OrderDetails.ElementAt(i).Size = model.OrderDetails[i].Size;
                 order.OrderDetails.ElementAt(i).Discount = model.OrderDetails[i].Discount;
-                order.OrderDetails.ElementAt(i).Total = (model.OrderDetails[i].Price * model.OrderDetails[i].Quantity) - (decimal)model.OrderDetails[i].Discount;
+                order.OrderDetails.ElementAt(i).Total = (model.OrderDetails[i].Price * (100 - model.OrderDetails[i].Discount) / 100) * model.OrderDetails[i].Quantity;
                 order.OrderDetails.ElementAt(i).IsFulfilled = model.OrderDetails[i].IsFulfilled;
             }
 
@@ -1685,15 +1688,15 @@ namespace _170516.Controllers
             {
                 dbContext.SaveChanges();
 
-                var emailToSend = EmailMergingHelper.MergeOrderConfirmationEmail(model.OrderID);
-                emailToSend.SendTo = "giggles2710@gmail.com";
+                //var emailToSend = EmailMergingHelper.MergeOrderConfirmationEmail(model.OrderID);
+                //emailToSend.SendTo = "doanhhnqt74@gmail.com";
 
-                if (emailToSend != null)
-                {
-                    bool isSuccess = EmailServiceHelper.Send(emailToSend);
-                    if (!isSuccess)
-                        return Json(new { isResult = false, result = "Có lỗi xảy ra khi gửi mail" }, JsonRequestBehavior.AllowGet);
-                }
+                //if (emailToSend != null)
+                //{
+                //    bool isSuccess = EmailServiceHelper.Send(emailToSend);
+                //    if (!isSuccess)
+                //        return Json(new { isResult = false, result = "Có lỗi xảy ra khi gửi mail" }, JsonRequestBehavior.AllowGet);
+                //}
             }
             catch (Exception ex)
             {
@@ -1715,7 +1718,7 @@ namespace _170516.Controllers
                 {
                     // remove it
                     order.IsCanceled = true;
-                    order.OrderStatus = Constant.OrderCanceledStatus;
+                    order.OrderStatus = (int)OrderStatuses.OrderIsCanceled;
                     dbContext.SaveChanges();
                 }
                 else
@@ -1911,7 +1914,7 @@ namespace _170516.Controllers
 
         [HttpPost]
         [Authorize]
-        public JsonResult UpdateOrderDetails(int orderDetaisId, decimal price, int quantity, double discount, int size, bool isFulfilled)
+        public JsonResult UpdateOrderDetails(int orderDetaisId, double price, int quantity, double discount, int size, bool isFulfilled)
         {
             var orderDetails = dbContext.OrderDetails.FirstOrDefault(o => o.OrderDetailID == orderDetaisId);
 
@@ -1925,7 +1928,7 @@ namespace _170516.Controllers
                     orderDetails.Discount = discount;
                     orderDetails.Size = size;
                     orderDetails.IsFulfilled = isFulfilled;
-                    orderDetails.Total = price * quantity - (decimal)discount;
+                    orderDetails.Total = (price * (100 - discount) / 100) * quantity;
                     dbContext.SaveChanges();
                 }
                 else

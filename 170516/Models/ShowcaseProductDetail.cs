@@ -19,7 +19,7 @@ namespace _170516.Models
         {
             get
             {
-                return Price * Discount / 100;
+                return Price * (100 - Discount) / 100;
             }
         }
         public double Discount { get; set; }

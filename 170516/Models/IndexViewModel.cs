@@ -31,14 +31,14 @@ namespace _170516.Models
         }
         public string Name { get; set; }
         public string Summary { get; set; }
-        public decimal DiscountedPrice
+        public double DiscountedPrice
         {
             get
             {
-                return Price - (Price * (decimal)Discount.GetValueOrDefault() / 100);
+                return Price - (Price * Discount.GetValueOrDefault() / 100);
             }
         }
-        public decimal Price { get; set; }
+        public double Price { get; set; }
         public double? Discount { get; set; }
         public int ProductId { get; set; }
         public int? Rate { get; set; }

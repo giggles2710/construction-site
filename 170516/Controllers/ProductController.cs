@@ -382,7 +382,7 @@ namespace _170516.Controllers
                 CustomerID = customer.CustomerID,
                 Freight = 0,
                 SalesTax = 0,
-                OrderStatus = Constant.OrderIsProcessingtatus,
+                OrderStatus = (int) OrderStatuses.OrderIsCreated,
                 OrderNumber = string.Format("DH-{0}", DateTime.Now.Millisecond),
                 IsCanceled = false,
                 IsFulfilled = false,
@@ -401,9 +401,8 @@ namespace _170516.Controllers
                 return Json(new { isResult = false, result = "Lỗi khi lưu thông tin giỏ hàng. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
             }
 
-            OrderDetail orderDetails = new OrderDetail();
-
             model.Cart.Products.ForEach(p => {
+                OrderDetail orderDetails = new OrderDetail();
                 orderDetails.ProductID = p.ProductId;
                 orderDetails.OrderID = order.OrderID;
                 orderDetails.OrderNumber = order.OrderNumber;
@@ -447,17 +446,6 @@ namespace _170516.Controllers
             {
                 return Json(new { isResult = false, result = "Sản phẩm không tồn tại" }, JsonRequestBehavior.AllowGet);
             }
-            else if (product.UnitsInStock < model.Quantity)
-            {
-                if (product.UnitsInStock == 0)
-                {
-                    return Json(new { isResult = false, result = "Sản phẩm này đã hết hàng. Vui lòng quay lại sau" }, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json(new { isResult = false, result = "Chỉ còn " + product.UnitsInStock + "sản phẩm trong kho. Vui lòng giảm số lượng sản phẩm" }, JsonRequestBehavior.AllowGet);
-                }
-            }
             else
             {
                 //add Product to Cart Sesssion
@@ -477,21 +465,33 @@ namespace _170516.Controllers
                     return Json(new { isResult = false, result = "Sản phẩm này đã có trong giỏ hàng của bạn. Vui lòng kiểm tra lại" }, JsonRequestBehavior.AllowGet);
                 }
                 else
-                {
-                    ProductInCart p = new ProductInCart();
-                    p.ProductId = product.ProductID;
-                    p.ProductName = product.Name;
-                    p.Quantity = model.Quantity;
-                    p.Price = product.DiscountedPrice == null ? product.UnitPrice : product.DiscountedPrice.Value;
-                    p.Total = p.Price * p.Quantity;
+                    if (product.UnitsInStock < model.Quantity)
+                    {
+                        if (product.UnitsInStock == 0)
+                        {
+                            return Json(new { isResult = false, result = "Sản phẩm này đã hết hàng. Vui lòng quay lại sau" }, JsonRequestBehavior.AllowGet);
+                        }
+                        else
+                        {
+                            return Json(new { isResult = false, result = "Chỉ còn " + product.UnitsInStock + " sản phẩm trong kho. Vui lòng giảm số lượng sản phẩm" }, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+                    else
+                    {
+                        ProductInCart p = new ProductInCart();
+                        p.ProductId = product.ProductID;
+                        p.ProductName = product.Name;
+                        p.Quantity = model.Quantity;
+                        p.Price = product.UnitPrice * (100 - product.Discount) / 100;
+                        p.Total = p.Price * p.Quantity;
 
-                    cart.Products.Add(p);
-                    cart.GrandTotal += p.Total;
+                        cart.Products.Add(p);
+                        cart.GrandTotal += p.Total;
 
-                    Session[Constant.Cart] = cart;
+                        Session[Constant.Cart] = cart;
 
-                    return Json(new { isResult = true, result = "Thêm sản phẩm vào giỏ hàng thành công" }, JsonRequestBehavior.AllowGet);
-                }
+                        return Json(new { isResult = true, result = "Thêm sản phẩm vào giỏ hàng thành công" }, JsonRequestBehavior.AllowGet);
+                    }
             }
         }
 

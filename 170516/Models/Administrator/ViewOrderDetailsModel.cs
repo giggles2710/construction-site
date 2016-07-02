@@ -32,12 +32,12 @@ namespace _170516.Models.Administrator
         public int OrderID { get; set; }
         public string OrderNumber { get; set; }
         [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
-        public decimal Price { get; set; }
+        public double Price { get; set; }
         public int Quantity { get; set; }
         [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
-        public Nullable<double> Discount { get; set; }
+        public double Discount { get; set; }
         [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
-        public decimal Total { get; set; }
+        public double Total { get; set; }
         public int Size { get; set; }
         public bool IsFulfilled { get; set; }
         public string FullFillStr { get; set; }

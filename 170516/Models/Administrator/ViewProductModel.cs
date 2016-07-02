@@ -48,19 +48,19 @@ namespace _170516.Models.Administrator
         public int ProductID { get; set; }
         public string ProductName { get; set; }
         public int UnitInStock { get; set; }
-        public double? Discount { get; set; }
-        public decimal Price { get; set; }
+        public double Discount { get; set; }
+        public double Price { get; set; }
         public bool IsDiscount { get; set; }
         public bool IsAvailable { get; set; }
         public string ImageSrc { get; set; }
         public string ImageType { get; set; }
         public byte[] ImageByte { get; set; }
         public string Summary { get; set; }
-        public decimal DiscountedPrice
+        public double DiscountedPrice
         {
             get
             {
-                return Price - (Price * (decimal)Discount.GetValueOrDefault() / 100);
+                return Price - (Price * Discount / 100);
             }
         }
 

@@ -9,9 +9,55 @@
     }
 
     $('#addToCartBtn').click(function () {
+        var isValid = true;
+
+        value = $('#productInCartQuantity').val();
+        if (value == null || value == '' || value == undefined) {
+            $('#productInCartQuantity').parent().addClass('has-error');
+            $('#productInCartQuantity').nextAll('span.input-error-box').text("Vui lòng nhập số lượng");
+            isValid = false;
+        } else {
+            // test regex
+            if (!sampleRegex.integerRegex.test(value)) {
+                $('#productInCartQuantity').parent().addClass('has-error');
+                $('#productInCartQuantity').nextAll('span.input-error-box').text("Làm ơn chỉ nhập số lớn hơn 0");
+                isValid = false;
+            } else {
+                $('#productInCartQuantity').parent().removeClass('has-error');
+                $('#productInCartQuantity').nextAll('span.input-error-box').text("");
+            }
+        }
+
+        if (isValid)
+        {
+            var cartData = {
+                ProductId: $('#ProductID').val(),
+                Quantity: $('#productInCartQuantity').val()
+            };
+
+            $.ajax({
+                url: staticUrl.AddProductToCart,
+                data: cartData,
+                method: "POST",
+                success: function (data) {
+                    if (data.isResult) {
+                        toastr.success('Đã thêm sản phẩm vào giỏ hàng.');
+                    }
+                    else {
+                        toastr.error(data.result);
+                    }
+                },
+                error: function (e) {
+                    toastr.error('Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng. Vui lòng thử lại');
+                }
+            });
+        }
+    });
+
+    $('.addToCartFrCategory').click(function () {
         var cartData = {
-            ProductId : $('#ProductID').val(),
-            Quantity: $('#productInCartQuantity').val()            
+            ProductId: $(this).attr('data-content'),
+            Quantity: 1
         };
 
         $.ajax({

@@ -28,11 +28,11 @@ namespace _170516.Entities
         public Nullable<System.DateTime> RequiredDate { get; set; }
         public Nullable<int> ShipperID { get; set; }
         public double Freight { get; set; }
-        public decimal SalesTax { get; set; }
-        public string OrderStatus { get; set; }
+        public double SalesTax { get; set; }
+        public int OrderStatus { get; set; }
         public bool IsFulfilled { get; set; }
         public bool IsCanceled { get; set; }
-        public Nullable<decimal> Paid { get; set; }
+        public double Paid { get; set; }
         public Nullable<System.DateTime> PaymentDate { get; set; }
         public System.DateTime ModifiedDate { get; set; }
         public string ModifiedUserID { get; set; }

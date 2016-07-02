@@ -16,11 +16,12 @@ namespace _170516.Models.Administrator
             OrderDetails = new List<ViewOrderDetailsItem>();
 
             Statuses = new List<SelectListItem>();
-            Statuses.Add(new SelectListItem {Text = "Đang được xử lý", Value = Constant.OrderIsProcessingtatus });
-            Statuses.Add(new SelectListItem { Text = "Đã được chuyển đến", Value = Constant.OrderDeliveredStatus });
-            Statuses.Add(new SelectListItem { Text = "Đơn hàng đã hủy", Value = Constant.OrderCanceledStatus });
-            Statuses.Add(new SelectListItem { Text = "Đơn hàng đã xong", Value = Constant.OrderFulfilledStatus });
-
+            Statuses.Add(new SelectListItem { Text = "Đơn hàng đã được tạo", Value = ((int)OrderStatuses.OrderIsCreated).ToString() });
+            Statuses.Add(new SelectListItem {Text = "Đang được xử lý", Value = ((int)OrderStatuses.OrderIsBeingProcessing).ToString() });
+            Statuses.Add(new SelectListItem { Text = "Đã được chuyển đến", Value = ((int)OrderStatuses.OrderIsDelivered).ToString() });
+            Statuses.Add(new SelectListItem { Text = "Đơn hàng đã hủy", Value = ((int)OrderStatuses.OrderIsCanceled).ToString() });
+            Statuses.Add(new SelectListItem { Text = "Đơn hàng đã xong", Value = ((int)OrderStatuses.OrderIsFulfilled).ToString() });
+            
             Fulfills = new List<SelectListItem>();            
             Fulfills.Add(new SelectListItem { Text = "Đã xong", Value = true.ToString() });
             Fulfills.Add(new SelectListItem { Text = "Chưa giao", Value = false.ToString()});
@@ -42,12 +43,12 @@ namespace _170516.Models.Administrator
         public double Freight { get; set; }
         [Required(ErrorMessage = "Vui lòng điền số tiền thuế")]
         [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = false)]
-        public decimal SalesTax { get; set; }
+        public double SalesTax { get; set; }
         public string OrderStatus { get; set; }
         public bool IsFulfilled { get; set; }
         public bool IsCanceled { get; set; }
         [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
-        public Nullable<decimal> Paid { get; set; }
+        public double Paid { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public Nullable<System.DateTime> PaymentDate { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]

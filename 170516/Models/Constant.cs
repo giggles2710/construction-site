@@ -63,4 +63,13 @@ namespace _170516.Models
         public const string Cart = "Cart";
 
     }
+
+    public enum OrderStatuses
+    {
+        OrderIsCreated = 0,
+        OrderIsBeingProcessing = 1,
+        OrderIsDelivered = 2,
+        OrderIsFulfilled = 3,
+        OrderIsCanceled = 4
+    }
 }

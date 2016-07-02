@@ -88,13 +88,13 @@ namespace _170516.Models
         public string ImageType { get; set; }
 
         public int? Rate { get; set; }
-        public decimal Price { get; set; }
+        public double Price { get; set; }
         public double? Discount { get; set; }
-        public decimal DiscountedPrice
+        public double DiscountedPrice
         {
             get
             {
-                return this.Price - (this.Price * (decimal)this.Discount.GetValueOrDefault() / 100);
+                return this.Price - (this.Price * this.Discount.GetValueOrDefault() / 100);
             }
         }
     }
@@ -109,7 +109,7 @@ namespace _170516.Models
             Products = new List<ProductInCart>();
         }
         [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = false)]
-        public decimal GrandTotal { get; set; }
+        public double GrandTotal { get; set; }
         public string CouponCode { get; set; }
         public int DiscountPercent { get; set; }
 
@@ -121,11 +121,11 @@ namespace _170516.Models
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = false)]
-        public decimal Price { get; set; }
+        public double Price { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Vui lòng nhập số lượng lớn hơn 0")]
         public int Quantity { get; set; }
         [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = false)]
-        public decimal Total { get; set; }
+        public double Total { get; set; }
     }
 
     public class ProductError

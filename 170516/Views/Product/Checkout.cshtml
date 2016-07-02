@@ -43,6 +43,7 @@
                                             @Html.HiddenFor(model => model.Cart.Products[i].ProductId)
                                             @Html.HiddenFor(model => model.Cart.Products[i].ProductName)
                                             @Html.HiddenFor(model => model.Cart.Products[i].Price)
+                                            @Html.HiddenFor(model => model.Cart.Products[i].Quantity)
                                             @Html.HiddenFor(model => model.Cart.Products[i].Total)
                                             <td class="product product-name"><a href="@Url.Action("ViewProductDetail", "Product", new { id = Model.Cart.Products[i].ProductId })">@Model.Cart.Products[i].ProductName</a> <small></small></td>
                                             <td class="price">

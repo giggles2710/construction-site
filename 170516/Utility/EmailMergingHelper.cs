@@ -53,7 +53,7 @@ namespace _170516.Utility
             orderDetails.Append("<table border=\"1px\" style = \"width: 469px;\" cellpadding = \"0\">");
             orderDetails.Append("<tbody>");
 
-            decimal total = 0;
+            double total = 0;
             foreach (var item in order.OrderDetails)
             {
                 orderDetails.Append("<tr>");
@@ -64,7 +64,7 @@ namespace _170516.Utility
                 orderDetails.Append("</td>");
                 orderDetails.Append(string.Format("<td style = \"width: 77px;\" ><strong>{0} đ</strong></td>", item.Total.ToString("0.##")));
                 orderDetails.Append("</tr>");
-                total += item.Price * item.Quantity;
+                total += (item.Price * (100 - item.Discount) / 100) * item.Quantity;
             }
 
             orderDetails.Append("</tbody>");
@@ -73,7 +73,7 @@ namespace _170516.Utility
             content = content.Replace(Constant.OrderDetailsField, orderDetails.ToString());
 
             //total order
-            decimal totalHaveToPaid = total + (decimal)order.Freight + order.SalesTax;
+            double totalHaveToPaid = total + order.Freight + order.SalesTax;
 
             StringBuilder summaryOrder = new StringBuilder();
             summaryOrder.Append("<table style=\"height: 92px; width: 472px; \">");

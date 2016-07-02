@@ -37,7 +37,7 @@ namespace _170516.Models.Administrator
         [EmailAddress(ErrorMessage ="Địa chỉ email không hợp lệ")]
         public string EmailAddress { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập số giảm giá. 0 nếu không có giảm giá")]
-        [Range(typeof(decimal), "0", "100", ErrorMessage = "Giảm giá phải từ 0 đến 100")]
+        [Range(typeof(double), "0", "100", ErrorMessage = "Giảm giá phải từ 0 đến 100")]
         public double Discount { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập loại sản phẩm")]
         public string ProductType { get; set; }
