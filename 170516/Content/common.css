@@ -9979,3 +9979,20 @@ h6.media-heading {
     -moz-border-radius: 2px;
     border-radius: 2px;
 }
+
+.logo-div {
+    background: url('Image/logo.png') no-repeat center center;
+    height: 75px;
+}
+
+.form-login label {
+    font-size: 15px !important;
+}
+
+.form-login input::-webkit-input-placeholder {
+    font-size: 12px;
+}
+
+.text-decoration-none {
+    text-decoration: none !important;
+}

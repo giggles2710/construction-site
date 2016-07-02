@@ -22,7 +22,7 @@
 
         <!-- banner start -->
         <!-- ================ -->
-        <div class="pv-40 dark-translucent-bg">
+        <div class="pv-40 dark-translucent-bg" style="position: inherit;color: #fff;padding-top:10% !important;">
             @RenderBody();
         </div>
     </div>
@@ -30,7 +30,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/main_script")
-    @RenderSection("scripts", required: false)    
+    @RenderSection("scripts", required: false)
 
     <script type="text/javascript">
         var staticUrl = {

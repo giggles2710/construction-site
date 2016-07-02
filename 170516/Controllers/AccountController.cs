@@ -57,30 +57,30 @@ namespace _170516.Controllers
                 if (user != null)
                 {
                     var foundUser = user.ToList();
-                    // hashed the inputed password
-                    var hashedPassword = EncryptionHelper.HashPassword(model.Password, foundUser.First().HashToken);
-                    var loginInfo = dbContext.LoginByEmailAdress(model.Email.Trim(), hashedPassword.Trim());
 
-                    if (loginInfo != null)
+                    if (foundUser.Any())
                     {
-                        var loginDetails = loginInfo.ToList();
+                        // hashed the inputed password
+                        var hashedPassword = EncryptionHelper.HashPassword(model.Password, foundUser.First().HashToken);
+                        var loginInfo = dbContext.LoginByEmailAdress(model.Email.Trim(), hashedPassword.Trim());
 
-                        if (loginDetails.Any())
+                        if (loginInfo != null)
                         {
-                            var loginDetail = loginDetails.First();
-                            // log him in
-                            SignInUser(loginDetail.Username, false);
+                            var loginDetails = loginInfo.ToList();
 
-                            return RedirectToAction("Index", "Administrator");
+                            if (loginDetails.Any())
+                            {
+                                var loginDetail = loginDetails.First();
+                                // log him in
+                                SignInUser(loginDetail.Username, false);
+
+                                return RedirectToAction("Index", "Administrator");
+                            }
                         }
                     }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, Constant.InvalidLogin);
-                    }
+
+                    ModelState.AddModelError(string.Empty, Constant.InvalidLogin);
                 }
-
-
             }
             catch (Exception ex)
             {
