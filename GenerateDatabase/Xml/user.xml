@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<users>
+  <user>
+    <username>thuannh2</username>
+    <password>asdf1234!</password>
+    <firstName>Thuan</firstName>
+    <lastName>Nguyen Hoang</lastName>
+    <phoneNumber>0933962589</phoneNumber>
+    <emailAddress>thuannh.1027@gmail.com</emailAddress>
+    <note>here is a note for this user</note>
+  </user>
+  <user>
+    <username>thuannguyen</username>
+    <password>asdf1234!</password>
+    <firstName>Thuan</firstName>
+    <lastName>Nguyen</lastName>
+    <phoneNumber>0933962589</phoneNumber>
+    <emailAddress>giggles.2710@gmail.com</emailAddress>
+    <note>here is a note for this user</note>
+  </user>
+</users>

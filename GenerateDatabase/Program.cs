@@ -59,28 +59,87 @@ namespace GenerateDatabase
 
         public void GenerateUser()
         {
-            for (var i = 0; i < 300; i++)
+            Account account = new Account();
+
+            XmlTextReader reader = new XmlTextReader("Xml/user.xml");
+            while (reader.Read())
             {
-                var account = new Account
+                switch (reader.NodeType)
                 {
-                    AccountID = Guid.NewGuid().ToString(),
-                    EmailAddress = string.Format("User_{0}.TEST@gmail.com", i).ToLower(),
-                    FirstName = "User",
-                    LastName = i.ToString(),
-                    ModifiedDate = DateTime.Now,
-                    IsActive = random.Next() % 2 != 0,
-                    HashToken = UtilityHelper.RandomString(10),
-                    Note = UtilityHelper.RandomString(100),
-                    PhoneNumber = UtilityHelper.RandomTelephoneNumber(),
-                    Username = string.Format("User{0}", i)
-                };
+                    case XmlNodeType.Element: // The node is an element.
+                        switch (reader.Name)
+                        {
+                            case "user":
+                                account = new Account();
+                                account.AccountID = Guid.NewGuid().ToString();
+                                account.HashToken = UtilityHelper.RandomString(10);
+                                account.IsActive = true;
+                                break;
+                            case "username":
+                                reader.Read();
+                                account.Username = reader.Value;
+                                break;
+                            case "password":
+                                reader.Read();
+                                account.Password = EncryptionHelper.HashPassword(reader.Value, account.HashToken);
+                                break;
+                            case "firstName":
+                                reader.Read();
+                                account.FirstName = reader.Value;
+                                break;
+                            case "lastName":
+                                reader.Read();
+                                account.LastName = reader.Value;
+                                break;
+                            case "phoneNumber":
+                                reader.Read();
+                                account.PhoneNumber = reader.Value;
+                                break;
+                            case "emailAddress":
+                                reader.Read();
+                                account.EmailAddress = reader.Value;
+                                break;
+                            case "Note":
+                                reader.Read();
+                                account.Note = reader.Value;
+                                break;
+                        }
+                        break;
+                    case XmlNodeType.EndElement: //Display the end of the element.
+                        switch (reader.Name)
+                        {
+                            case "user":
+                                var isDuplicate = dbContext.Accounts.Any(a => a.EmailAddress.Equals(account.EmailAddress, StringComparison.InvariantCultureIgnoreCase));
 
-                account.Password = EncryptionHelper.HashPassword("yuiop67890", account.HashToken);
-
-                dbContext.Accounts.Add(account);
+                                if (!isDuplicate)
+                                    dbContext.Accounts.Add(account);
+                                break;
+                        }
+                        break;
+                }
             }
 
-            dbContext.SaveChanges();
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public void GenerateParentCategory()

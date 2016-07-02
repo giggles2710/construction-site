@@ -335,6 +335,7 @@
     <Content Include="Xml\product.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Xml\user.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
