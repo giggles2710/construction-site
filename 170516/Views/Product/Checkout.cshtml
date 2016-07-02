@@ -56,19 +56,9 @@
                                             <td class="amount">@Html.DisplayFor(model => model.Cart.Products[i].Total, new { Value = String.Format("{0:0}", Model.Cart.Products[i].Price) })</td>
                                         </tr>
                                     }
-                                }
-
-                                @*<tr>
-                                        <td class="total-quantity" colspan="3">Tổng</td>
-                                        <td class="amount">1997.00 đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="total-quantity" colspan="2">Coupon giảm giá</td>
-                                        <td class="price">TheProject25672</td>
-                                        <td class="amount">-20%</td>
-                                    </tr>*@
+                                }                                
                                 <tr>
-                                    <td class="total-quantity" colspan="3">Tổng cộng @Model.Cart.Products.Count sản phẩm</td>
+                                    <td class="total-quantity" colspan="3">@Model.Cart.Products.Count sản phẩm</td>
                                     <td class="total-amount">
                                         @Html.DisplayFor(model => model.Cart.GrandTotal, new { Value = String.Format("{0:0}", Model.Cart.GrandTotal) })
                                     </td>
@@ -131,18 +121,18 @@
 
                                         <div class="form-group">
                                             <label for="billingCity" class="col-md-2 control-label">Thành phố/Tỉnh<small class="text-default">*</small></label>
-                                            <div class="col-md-10">                                                
+                                            <div class="col-md-10">
                                                 @Html.TextBoxFor(model => model.Customer.City, new { @class = "form-control", @placeholder = "Thành phố/Tỉnh" })
                                                 @Html.ValidationMessageFor(model => model.Customer.City, null, new { @class = "input-error-box text-danger" })
                                             </div>
                                         </div>
                                         @*<div class="form-group">
-                                            <label for="billingPostalCode" class="col-md-2 control-label">Zip Code<small class="text-default">*</small></label>
-                                            <div class="col-md-10">
-                                                <input type="text" class="form-control" id="billingPostalCode" value="Postal Code">
-                                                <span class="input-error-box text-danger"></span>
-                                            </div>
-                                        </div>*@
+                                                <label for="billingPostalCode" class="col-md-2 control-label">Zip Code<small class="text-default">*</small></label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" id="billingPostalCode" value="Postal Code">
+                                                    <span class="input-error-box text-danger"></span>
+                                                </div>
+                                            </div>*@
                                     </div>
                                 </div>
                                 <div class="space"></div>
@@ -194,12 +184,12 @@
                                             </div>
 
                                             @*<div class="form-group">
-                                                <label for="shippingPostalCode" class="col-md-2 control-label">Zip Code<small class="text-default">*</small></label>
-                                                <div class="col-md-10">
-                                                    <input type="text" class="form-control" id="shippingPostalCode" value="Postal Code">
-                                                    <span class="input-error-box text-danger"></span>
-                                                </div>
-                                            </div>*@
+                                                    <label for="shippingPostalCode" class="col-md-2 control-label">Zip Code<small class="text-default">*</small></label>
+                                                    <div class="col-md-10">
+                                                        <input type="text" class="form-control" id="shippingPostalCode" value="Postal Code">
+                                                        <span class="input-error-box text-danger"></span>
+                                                    </div>
+                                                </div>*@
 
                                             <div class="form-group">
                                                 <label for="shippingPhone" class="col-md-2 control-label">Số điện thoại<small class="text-default">*</small></label>
@@ -220,13 +210,13 @@
                         </fieldset>
                         <div class="text-right">
                             <a href="@Url.Action("ViewCart","Product")" class="btn btn-group btn-default"><i class="icon-left-open-big"></i> Giỏ hàng</a>
-                            <button id="btnCheckout" type="button" class="btn btn-group btn-default">Thanhh toán <i class="icon-right-open-big"></i></button>
+                            <button id="btnCheckout" type="button" class="btn btn-group btn-default">Thanh toán <i class="icon-right-open-big"></i></button>
                         </div>
 
                     </div>
                 <!-- main end -->
                 }
-              
+
 
             </div>
         </div>

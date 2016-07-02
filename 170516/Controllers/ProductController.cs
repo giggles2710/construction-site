@@ -427,6 +427,12 @@ namespace _170516.Controllers
             return Json(new { isResult = true}, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public ActionResult CheckoutConfirmation()
+        {
+            return View();
+        }
+
         [HttpPost]
         public JsonResult AddProductToCart(ProductInCart model)
         {
@@ -593,5 +599,7 @@ namespace _170516.Controllers
 
             return PartialView("_PartialGetSimiliarProduct", model);
         }
+
+        
     }
 }

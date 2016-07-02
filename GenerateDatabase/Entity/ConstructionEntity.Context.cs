@@ -15,10 +15,10 @@ namespace GenerateDatabase.Entity
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class ConstructionSiteEntities1 : DbContext
+    public partial class ConstructionSiteEntities : DbContext
     {
-        public ConstructionSiteEntities1()
-            : base("name=ConstructionSiteEntities1")
+        public ConstructionSiteEntities()
+            : base("name=ConstructionSiteEntities")
         {
         }
     

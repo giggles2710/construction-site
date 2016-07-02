@@ -48,12 +48,12 @@ namespace GenerateDatabase
 
     public class Generator
     {
-        private ConstructionSiteEntities1 dbContext;
+        private ConstructionSiteEntities dbContext;
         private Random random;
 
         public Generator()
         {
-            dbContext = new ConstructionSiteEntities1();
+            dbContext = new ConstructionSiteEntities();
             random = new Random();
         }
 
