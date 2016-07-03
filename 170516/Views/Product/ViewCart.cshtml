@@ -69,11 +69,19 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="text-right">
-                            <button type="button" id="UpdateProductCartBtn" class="btn btn-group btn-default">Cập Nhật</button>
-                            <a href="@Url.Action("Checkout","Product")" class="btn btn-group btn-default">Thanh Toán</a>
-                        </div>
-
+                        @if (@Model.Products.Count > 0)
+                        {
+                            <div class="text-right">
+                                <button type="button" id="UpdateProductCartBtn" class="btn btn-group btn-default">Cập Nhật</button>
+                                <a href="@Url.Action("Checkout","Product")" class="btn btn-group btn-default">Thanh Toán</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-right">                                
+                                <a href="@Url.Action("Index","Home")" class="btn btn-group btn-default">Mua sắm</a>
+                            </div>
+                        }
                     </div>
                 }
                 <!-- main end -->

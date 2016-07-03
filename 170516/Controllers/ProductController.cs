@@ -1,6 +1,7 @@
 ﻿using _170516.Entities;
 using _170516.Models;
 using _170516.Models.Administrator;
+using _170516.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -341,54 +342,71 @@ namespace _170516.Controllers
         }
 
         [HttpPost]
-        public JsonResult Checkout(CheckoutModel model)
+        public ActionResult Checkout(CheckoutModel model)
         {
-            var customer = new Customer {
+            if (model.Customer.SameInfoForShipping)
+            {
+                model.Customer.ShipAddress = model.Customer.Address;
+                model.Customer.ShipDistrict = model.Customer.District;
+                model.Customer.ShipCity = model.Customer.City;
+                model.Customer.ShipPhone = model.Customer.Phone;
+            }
+
+            TempData["ConfirmationModel"] = model;
+            return RedirectToAction("CheckoutConfirmation");
+        }
+
+        [HttpGet]
+        public ActionResult CheckoutConfirmation()
+        {            
+            var model = TempData["ConfirmationModel"] as CheckoutModel;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult CheckoutConfirmation(CheckoutModel model)
+        {
+            //create customer
+            var customer = new Customer
+            {
                 Fullname = model.Customer.FullName,
                 EmailAddress = model.Customer.EmailAddress,
                 Phone = model.Customer.Phone,
                 Address = model.Customer.Address,
                 District = model.Customer.District,
                 City = model.Customer.City,
+                ShipAddress = model.Customer.ShipAddress,
+                ShipDistrict = model.Customer.ShipDistrict,
+                ShipCity = model.Customer.ShipCity,
+                ShipPhone = model.Customer.ShipPhone
             };
 
-            if (model.Customer.SameInfoForShipping)
-            {
-                customer.ShipAddress = customer.Address;
-                customer.ShipDistrict = customer.District;
-                customer.ShipCity = customer.City;
-                customer.ShipPhone = customer.Phone;
-            }
-            else
-            {
-                customer.ShipAddress = model.Customer.ShipAddress;
-                customer.ShipDistrict = model.Customer.ShipDistrict;
-                customer.ShipCity = model.Customer.ShipCity;
-                customer.ShipPhone = model.Customer.ShipPhone;
-            }
+            //create order details
+            List<OrderDetail> listProduct = new List<OrderDetail>();
 
-            try
-            {
-                dbContext.Customers.Add(customer);
-                dbContext.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                return Json(new {isResult = false, result = "Lỗi khi lưu thông tin Khách hàng. Vui lòng thử lại sau" },JsonRequestBehavior.AllowGet);
-            }
+            model.Cart.Products.ForEach(p => {
+                OrderDetail orderDetails = new OrderDetail();
+                orderDetails.ProductID = p.ProductId;
+                orderDetails.Price = p.Price;
+                orderDetails.Quantity = p.Quantity;
+                orderDetails.Total = p.Total;
+                orderDetails.Size = 0;
+                orderDetails.IsFulfilled = false;
+                listProduct.Add(orderDetails);
+            });
 
+            //create order
             var order = new Order
             {
-                CustomerID = customer.CustomerID,
+                Customer = customer,
+                OrderDetails = listProduct,
                 Freight = 0,
                 SalesTax = 0,
-                OrderStatus = (int) OrderStatuses.OrderIsCreated,
-                OrderNumber = string.Format("DH-{0}", DateTime.Now.Millisecond),
-                IsCanceled = false,
-                IsFulfilled = false,
+                OrderStatus = (int)OrderStatuses.OrderIsCreated,
+                OrderNumber = string.Format("DH-{0}", DateTime.Now.ToShortDateString()),
                 OrderDate = DateTime.Now,
                 ModifiedDate = DateTime.Now,
-                ModifiedUserID = GetCurrentUserId()
             };
 
             try
@@ -401,35 +419,19 @@ namespace _170516.Controllers
                 return Json(new { isResult = false, result = "Lỗi khi lưu thông tin giỏ hàng. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
             }
 
-            model.Cart.Products.ForEach(p => {
-                OrderDetail orderDetails = new OrderDetail();
-                orderDetails.ProductID = p.ProductId;
-                orderDetails.OrderID = order.OrderID;
-                orderDetails.OrderNumber = order.OrderNumber;
-                orderDetails.Price = p.Price;
-                orderDetails.Quantity = p.Quantity;
-                orderDetails.Total = p.Total;
-                orderDetails.Size = 0;
-                orderDetails.IsFulfilled = false;
-                dbContext.OrderDetails.Add(orderDetails);
-            });
+            Session[Constant.Cart] = null;
 
-            try
-            {                
-                dbContext.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                return Json(new { isResult = false, result = "Lỗi khi lưu thông tin giỏ hàng. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
-            }
+            //var emailToSend = EmailMergingHelper.MergeOrderConfirmationEmail(order.OrderID);
+            //emailToSend.SendTo = "doanhhnqt74@gmail.com";
 
-            return Json(new { isResult = true}, JsonRequestBehavior.AllowGet);
-        }
+            //if (emailToSend != null)
+            //{
+            //    bool isSuccess = EmailServiceHelper.Send(emailToSend);
+            //    if (!isSuccess)
+            //        return Json(new { isResult = false, result = "Có lỗi xảy ra khi gửi mail" }, JsonRequestBehavior.AllowGet);
+            //}
 
-        [HttpGet]
-        public ActionResult CheckoutConfirmation()
-        {
-            return View();
+            return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

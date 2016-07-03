@@ -24,9 +24,11 @@
                     {
                         <div class="row">
                             <div class="col-sm-6">
+                                <input type="hidden" id="dataTables_sort_field_hidden" value="@Model.SortField" />
+                                <input type="hidden" id="dataTables_sort_direction_hidden" value="@Model.IsAsc" />
                                 <div class="filter-wrapper">
                                     <label>
-                                        Hiển thị <select id="dataTables_showNumberSelect" aria-controls="dataTables-example" class="form-control input-sm">
+                                        Hiển thị <select id="dataTables_showNumberSelectCategory" aria-controls="dataTables-example" class="form-control input-sm">
                                             @if (Model.ItemOnPage == 10)
                                             {
                                                 <option value="10" selected>10</option>
@@ -66,11 +68,11 @@
                                 <div class="search-wrapper">
                                     @if (string.IsNullOrWhiteSpace(Model.SearchText))
                                     {
-                                        <label><button type="button" id="dataTables_search" class="btn btn-default btn-sm"><i class="fa fa-search"></i></button> <input type="search" id="dataTables_show_item_search" class="form-control input-sm" placeholder="" aria-controls="datatable-fixed-header"></label>
+                                        <label><button type="button" id="dataTables_searchCategory" class="btn btn-default btn-sm"><i class="fa fa-search"></i></button> <input type="search" id="dataTables_show_item_search" class="form-control input-sm" placeholder="" aria-controls="datatable-fixed-header"></label>
                                     }
                                     else
                                     {
-                                        <label><button type="button" id="dataTables_search" class="btn btn-default btn-sm"><i class="fa fa-search"></i></button> <input type="search" id="dataTables_show_item_search" value="@Model.SearchText" class="form-control input-sm" placeholder="" aria-controls="datatable-fixed-header"></label>
+                                        <label><button type="button" id="dataTables_searchCategory" class="btn btn-default btn-sm"><i class="fa fa-search"></i></button> <input type="search" id="dataTables_show_item_search" value="@Model.SearchText" class="form-control input-sm" placeholder="" aria-controls="datatable-fixed-header"></label>
                                     }
                                 </div>
                             </div>
@@ -78,7 +80,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="table-wrapper">
-                                    <table class="table table-striped dt-responsive nowrap no-footer dtr-inline" role="grid">
+                                    <table class="table table-striped dt-responsive nowrap no-footer dtr-inline"id="dataTable_category" role="grid">
                                         <tbody>
                                             @for (var i = 1; i <= Model.Categories.Count; i++)
                                             {
@@ -87,11 +89,11 @@
                                                     <td>@Model.Categories[i - 1].Name</td>
                                                     <td style="width:30%;">@Model.Categories[i - 1].Description</td>
                                                     <td>@Model.Categories[i - 1].DateModified.ToString("dd/MM/yyyy hh:mm")</td>
-                                                    <td>@Model.Categories[i - 1].CreatedUserID</td>
+                                                    <td></td>
                                                     <td style="text-align:center; width: 7%;">
                                                         <a class="action-link detail-link" title="Chi tiết" href="@Url.Action("ViewProductCategoryDetail", "Administrator", new { id = Model.Categories[i - 1].CategoryID })"><i class="fa fa-info"></i></a>
                                                         <a class="action-link update-link" title="Cập nhật" href="@Url.Action("UpdateProductCategory", "Administrator", new { id = Model.Categories[i - 1].CategoryID })"><i class="fa fa-pencil"></i></a>
-                                                        <a class="action-link remove-link product" title="Xóa" href="#" data-url="@Url.Action("RemoveProductCategory", "Administrator", new { id = Model.Categories[i - 1].CategoryID })"><i class="fa fa-remove"></i></a>
+                                                        <a class="action-link remove-link category" title="Xóa" href="#" data-url="@Url.Action("RemoveProductCategory", "Administrator", new { id = Model.Categories[i - 1].CategoryID })"><i class="fa fa-remove"></i></a>
                                                     </td>
                                                 </tr>
                                             }

@@ -29,9 +29,9 @@ namespace GenerateDatabase.Entity
         public string ImageType { get; set; }
         public Nullable<int> CategoryID { get; set; }
         public int UnitsInStock { get; set; }
-        public Nullable<double> Discount { get; set; }
-        public decimal UnitPrice { get; set; }
-        public Nullable<decimal> DiscountedPrice { get; set; }
+        public double Discount { get; set; }
+        public double UnitPrice { get; set; }
+        public double DiscountedPrice { get; set; }
         public bool IsDiscountAvailable { get; set; }
         public bool IsAvailable { get; set; }
         public Nullable<int> SupplierID { get; set; }

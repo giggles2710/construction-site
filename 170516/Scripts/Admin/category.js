@@ -252,7 +252,7 @@ var productCategoryModel = {
         if ($activatePage.length > 0)
             page = $activatePage[0].text;
         var itemsOnPage = $('#dataTables_showNumberSelectCategory').val(); // items on page
-        var searchText = $('#dataTables_show_item_search input[type="search"]').val(); // search text
+        var searchText = $('#dataTables_show_item_search').val(); // search text
 
         window.location.href = staticUrl.viewProductCategory + "?page=" + page + "&itemsPerPage="
             + itemsOnPage + "&searchText=" + searchText + "&sortField=" + sortField + "&isAsc=" + isAsc;
@@ -267,7 +267,7 @@ var productCategoryModel = {
             page = $activatePage[0].text;
 
         var itemsOnPage = $('#dataTables_showNumberSelectCategory').val(); // items on page
-        var searchText = $('#dataTables_show_item_search input[type="search"]').val(); // search text
+        var searchText = $('#dataTables_show_item_search').val(); // search text
         var sortField = $('#dataTables_sort_field_hidden').val(); // sort field
         var directionField = $('#dataTables_sort_direction_hidden').val(); // direction field
 

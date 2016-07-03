@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,6 +42,16 @@ namespace GenerateDatabase
             generator.GenerateProduct();
             Console.WriteLine("==== DONE ====");
 
+            // generate merge fields
+            Console.WriteLine("==== GENERATING MERGE FIELD ====");
+            generator.GenerateMergeFields();
+            Console.WriteLine("==== DONE ====");
+
+            // generate emailTemplate
+            Console.WriteLine("==== GENERATING Email Template ====");
+            generator.GenerateEmailTemplates();
+            Console.WriteLine("==== DONE ====");
+
             Console.WriteLine("==== GENERATING ALL DONE ====");
             Console.ReadLine();
         }
@@ -61,7 +72,7 @@ namespace GenerateDatabase
         {
             Account account = new Account();
 
-            XmlTextReader reader = new XmlTextReader("Xml/user.xml");
+            XmlTextReader reader = new XmlTextReader(@"C:\Users\Administrator\Source\Repos\construction-site\GenerateDatabase\Xml\user.xml");
             while (reader.Read())
             {
                 switch (reader.NodeType)
@@ -108,6 +119,7 @@ namespace GenerateDatabase
                     case XmlNodeType.EndElement: //Display the end of the element.
                         switch (reader.Name)
                         {
+
                             case "user":
                                 var isDuplicate = dbContext.Accounts.Any(a => a.EmailAddress.Equals(account.EmailAddress, StringComparison.InvariantCultureIgnoreCase));
 
@@ -146,7 +158,7 @@ namespace GenerateDatabase
         {
             Category category = new Category();
 
-            XmlTextReader reader = new XmlTextReader("D:/Working Place/Dot NET/Construction Site/construction-site/GenerateDatabase/Xml/parent-category.xml");
+            XmlTextReader reader = new XmlTextReader(@"C:\Users\Administrator\Source\Repos\construction-site\GenerateDatabase\Xml\parent-category.xml");
             while (reader.Read())
             {
                 switch (reader.NodeType)
@@ -209,7 +221,7 @@ namespace GenerateDatabase
         {
             Category category = new Category();
 
-            XmlTextReader reader = new XmlTextReader("D:/Working Place/Dot NET/Construction Site/construction-site/GenerateDatabase/Xml/category.xml");
+            XmlTextReader reader = new XmlTextReader(@"C:\Users\Administrator\Source\Repos\construction-site\GenerateDatabase\Xml\category.xml");
             while (reader.Read())
             {
                 switch (reader.NodeType)
@@ -336,7 +348,7 @@ namespace GenerateDatabase
             Product product = new Product();
             ProductDetail detail = new ProductDetail();
 
-            XmlTextReader reader = new XmlTextReader("D:/Working Place/Dot NET/Construction Site/construction-site/GenerateDatabase/Xml/product.xml");
+            XmlTextReader reader = new XmlTextReader(@"C:\Users\Administrator\Source\Repos\construction-site\GenerateDatabase\Xml\product.xml");
             while (reader.Read())
             {
                 switch (reader.NodeType)
@@ -375,7 +387,7 @@ namespace GenerateDatabase
                                 break;
                             case "unitPrice":
                                 reader.Read();
-                                product.UnitPrice = decimal.Parse(reader.Value);
+                                product.UnitPrice = double.Parse(reader.Value);
                                 break;
                             case "unitsInStock":
                                 reader.Read();
@@ -443,6 +455,108 @@ namespace GenerateDatabase
             }
         }
 
+        public void GenerateMergeFields()
+        {
+            MergeField field = new MergeField();
 
+            XmlTextReader reader = new XmlTextReader(@"C:\Users\Administrator\Source\Repos\construction-site\GenerateDatabase\Xml\merge-fields.xml");
+            while (reader.Read())
+            {
+                switch (reader.NodeType)
+                {
+                    case XmlNodeType.Element: // The node is an element.
+                        switch (reader.Name)
+                        {
+                            case "mergeField":
+                                field = new MergeField();
+                                break;
+                            case "name":
+                                reader.Read();
+                                field.FieldName = reader.Value;
+                                break;
+                            case "type":
+                                reader.Read();
+                                field.FieldType = int.Parse(reader.Value);
+                                break;                            
+                        }
+                        break;
+                    case XmlNodeType.EndElement: //Display the end of the element.
+                        switch (reader.Name)
+                        {
+                            case "mergeField":
+                                dbContext.MergeFields.Add(field);
+                                break;
+                        }
+                        break;
+                }
+            }
+
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void GenerateEmailTemplates()
+        {
+            EmailTemplate emailTempOrder = new EmailTemplate();
+            emailTempOrder.EmailTemplateName = @"Xác nhận đơn hàng";
+            emailTempOrder.EmailSubject = @"Xác nhận đơn hàng trên ConstructionSite.com";
+            emailTempOrder.HtmlBody = File.ReadAllText(@"C:\Users\Administrator\Source\Repos\construction-site\GenerateDatabase\Xml\OrderConfirmationEmailTemp.txt");
+            emailTempOrder.EmailType = 1;
+            emailTempOrder.CreatedDate = DateTime.Now;
+            emailTempOrder.LastUpdatedDate = DateTime.Now;
+
+            dbContext.EmailTemplates.Add(emailTempOrder);
+
+            EmailTemplate emailTempReplyRequest = new EmailTemplate();
+            emailTempReplyRequest.EmailTemplateName = @"Phản hồi khách hàng";
+            emailTempReplyRequest.EmailSubject = @"Construction Site: Cảm ơn quý khách đã đóng góp ý kiến";
+            emailTempReplyRequest.HtmlBody = File.ReadAllText(@"C:\Users\Administrator\Source\Repos\construction-site\GenerateDatabase\Xml\ReplyRequestEmailTemplate.txt");
+            emailTempReplyRequest.EmailType = 2;
+            emailTempReplyRequest.CreatedDate = DateTime.Now;
+            emailTempReplyRequest.LastUpdatedDate = DateTime.Now;
+
+            dbContext.EmailTemplates.Add(emailTempReplyRequest);
+
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }

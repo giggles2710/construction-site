@@ -1,0 +1,49 @@
+﻿<table style="height: 666px; width: 573px; padding-left: 90px;">
+<tbody>
+<tr style="height: 60px;">
+<td style="width: 150px; height: 60px;">
+<h3><a href="http://www.bennadel.com/" target="_blank"><img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/logo_light_blue.png" alt="Construction Site" width="150" height="35" /></a></h3>
+</td>
+<td style="width: 439px; text-align: right; height: 60px;">
+<h3><span style="color: #339966;"><a style="color: #339966;" title="Đi đến Construction Site" href="../" target="_blank">Construction Site</a></span>&nbsp;|<span style="color: #339966;"><a style="color: #339966;" title="Li&ecirc;n hệ với Construction" href="../Home/Contact" target="_blank"> Li&ecirc;n hệ</a></span></h3>
+</td>
+</tr>
+<tr style="height: 26px;">
+<td style="width: 589px; height: 26px;" colspan="2">
+<h3><span style="color: #d16319;"><strong>Xin ch&agrave;o&nbsp;[T&ecirc;n kh&aacute;ch h&agrave;ng],</strong></span></h3>
+<p>&nbsp;Cảm ơn bạn đ&atilde; mua h&agrave;ng tại website của&nbsp;[T&ecirc;n c&ocirc;ng ty].&nbsp;</p>
+<p>&nbsp;Dưới đ&acirc;y l&agrave; những sản phẩm trong đơn h&agrave;ng của bạn.</p>
+</td>
+</tr>
+<tr style="height: 26px;">
+<td style="width: 589px; height: 26px;" colspan="2">
+<h3><span style="color: #d16319;"><strong>Chi tiết đơn h&agrave;ng</strong></span></h3>
+<hr />
+<p><span style="color: #000000;">M&atilde; đơn h&agrave;ng: [M&atilde; đơn h&agrave;ng]</span></p>
+<p><span style="color: #000000;">Đặt h&agrave;ng l&uacute;c [Ng&agrave;y giờ đặt h&agrave;ng]</span></p>
+<p>&nbsp;<span style="color: #000000;">[Chi tiết đơn h&agrave;ng]</span></p>
+<hr />
+<p><span style="color: #000000;">[Tổng đơn h&agrave;ng]</span></p>
+<hr /></td>
+</tr>
+<tr style="height: 26px;">
+<td style="width: 589px; height: 26px;" colspan="2">
+<h3><span style="color: #d16319;"><strong>Th&ocirc;ng tin kh&aacute;ch h&agrave;ng</strong></span></h3>
+<hr />
+<p><span style="color: #000000;">Họ t&ecirc;n:<strong> [T&ecirc;n kh&aacute;ch h&agrave;ng]</strong></span></p>
+<p><span style="color: #000000;">Email:<strong> [Email kh&aacute;ch h&agrave;ng]</strong></span></p>
+<p><span style="color: #000000;">Số Điện thoại:<strong> [Số điện thoại kh&aacute;ch h&agrave;ng]</strong></span></p>
+<p><span style="color: #000000;">Địa chỉ:<strong> [Địa chỉ kh&aacute;ch h&agrave;ng]</strong></span></p>
+<p><span style="color: #000000;">Địa chỉ chuyển h&agrave;ng:<strong> [Địa chỉ chuyển h&agrave;ng]</strong></span></p>
+<hr /></td>
+</tr>
+<tr style="height: 26px;">
+<td style="width: 589px; height: 26px;" colspan="2">
+<p>Cảm ơn bạn đ&atilde; mua h&agrave;ng. Hẹn gặp lại!</p>
+<h3>[T&ecirc;n c&ocirc;ng ty]</h3>
+<p style="text-align: right;">&nbsp;</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="padding-left: 60px; text-align: center;">&nbsp;</p>

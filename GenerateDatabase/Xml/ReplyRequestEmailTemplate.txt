@@ -1,0 +1,38 @@
+﻿<table style="height: 164px; width: 701px;">
+<tbody>
+<tr style="height: 60px;">
+<td style="width: 137px; height: 60px;">
+<h3><a href="http://www.bennadel.com/" target="_blank"><img src="http://htmlcoder.me/preview/the_project/v.1.2/template/images/logo_light_blue.png" alt="Construction Site" width="150" height="35" /></a></h3>
+</td>
+<td style="width: 550px; text-align: right; height: 60px;">
+<h3><span style="color: #339966;"><a style="color: #339966;" title="Đi đến Construction Site" href="../" target="_blank">Construction Site</a></span>&nbsp;|<span style="color: #339966;"><a style="color: #339966;" title="Li&ecirc;n hệ với Construction" href="../Home/Contact" target="_blank"> Li&ecirc;n hệ</a></span></h3>
+</td>
+</tr>
+<tr style="height: 26px;">
+<td style="width: 137px; height: 26px;" colspan="2">
+<h3><span style="color: #d16319;"><strong>Xin ch&agrave;o&nbsp;[T&ecirc;n người g&oacute;p &yacute;],</strong></span></h3>
+<p>&nbsp;</p>
+</td>
+</tr>
+<tr style="height: 26px;">
+<td style="width: 137px; height: 26px;" colspan="2">
+<p>Ch&uacute;ng t&ocirc;i rất vui khi nhận được g&oacute;p &yacute; của bạn.</p>
+<p>Cảm ơn bạn đ&atilde; để lại &yacute; kiến cho ch&uacute;ng t&ocirc;i. Ch&uacute;ng t&ocirc;i sẽ xem x&eacute;t v&agrave; sẽ sớm c&oacute; ch&iacute;nh s&aacute;ch ph&ugrave; hợp.</p>
+<p>&nbsp;</p>
+</td>
+</tr>
+<tr style="height: 26px;">
+<td style="width: 137px; height: 26px;" colspan="2">
+<p>Tr&acirc;n trọng,</p>
+<h3>&nbsp;[T&ecirc;n c&ocirc;ng ty]</h3>
+&nbsp;</td>
+</tr>
+<tr style="height: 26px;">
+<td style="width: 137px; height: 26px;" colspan="2">
+<p>&nbsp;</p>
+<hr />
+<p style="text-align: right;">&nbsp;</p>
+</td>
+</tr>
+</tbody>
+</table>

@@ -1389,12 +1389,12 @@ namespace _170516.Controllers
         {
             var shipper = dbContext.Shippers.FirstOrDefault(s => s.ShipperID == model.ShipperID);
 
-            shipper.CompanyName = shipper.CompanyName;
-            shipper.Phone = shipper.Phone;
-            shipper.EmailAddress = shipper.EmailAddress;
-            shipper.Address = shipper.Address;
-            shipper.City = shipper.City;
-            shipper.District = shipper.District;
+            shipper.CompanyName = model.CompanyName;
+            shipper.Phone = model.Phone;
+            shipper.EmailAddress = model.EmailAddress;
+            shipper.Address = model.Address;
+            shipper.City = model.City;
+            shipper.District = model.District;
 
 
             try
@@ -1466,8 +1466,6 @@ namespace _170516.Controllers
                 OrderNumber = o.OrderNumber,
                 OrderStatusToUser = GetOrderStatusToUser(o.OrderStatus),
                 OrderStatus = o.OrderStatus,                
-                IsFulfilled = o.IsFulfilled,
-                IsCanceled = o.IsCanceled,
                 CustomerID = o.CustomerID,
                 CustomerName = o.Customer.Fullname,
                 ShipperID = o.ShipperID ?? 0,
@@ -1619,8 +1617,6 @@ namespace _170516.Controllers
                 ShipDate = order.ShipDate,
                 PaymentDate = order.PaymentDate,
                 OrderDate = order.OrderDate,
-                IsFulfilled = order.IsFulfilled,
-                IsCanceled = order.IsCanceled,
                 OrderStatus = ((int)order.OrderStatus).ToString(),
                 RequiredDate = order.RequiredDate,
             };
@@ -1631,10 +1627,8 @@ namespace _170516.Controllers
                 ProductID = o.ProductID,
                 ProductName = o.Product.Name,
                 OrderID = o.OrderID,
-                OrderNumber = o.OrderNumber,
                 Price = o.Price,
                 Quantity = o.Quantity,
-                Discount = o.Discount,
                 Total = o.Total,
                 Size = o.Size,
                 IsFulfilled = o.IsFulfilled,
@@ -1670,17 +1664,14 @@ namespace _170516.Controllers
             order.PaymentDate = model.PaymentDate;
             order.OrderStatus = int.Parse(model.OrderStatus);
 
-            order.IsCanceled = false;
-            order.IsFulfilled = false;
             order.ModifiedDate = DateTime.Now;
 
             for (int i = 0; i < order.OrderDetails.Count; i++)
             {
                 order.OrderDetails.ElementAt(i).Price = model.OrderDetails[i].Price;
                 order.OrderDetails.ElementAt(i).Quantity = model.OrderDetails[i].Quantity;
-                order.OrderDetails.ElementAt(i).Size = model.OrderDetails[i].Size;
-                order.OrderDetails.ElementAt(i).Discount = model.OrderDetails[i].Discount;
-                order.OrderDetails.ElementAt(i).Total = (model.OrderDetails[i].Price * (100 - model.OrderDetails[i].Discount) / 100) * model.OrderDetails[i].Quantity;
+                order.OrderDetails.ElementAt(i).Size = model.OrderDetails[i].Size;                
+                order.OrderDetails.ElementAt(i).Total = model.OrderDetails[i].Price * model.OrderDetails[i].Quantity;
                 order.OrderDetails.ElementAt(i).IsFulfilled = model.OrderDetails[i].IsFulfilled;
             }
 
@@ -1717,7 +1708,6 @@ namespace _170516.Controllers
                 if (order != null)
                 {
                     // remove it
-                    order.IsCanceled = true;
                     order.OrderStatus = (int)OrderStatuses.OrderIsCanceled;
                     dbContext.SaveChanges();
                 }
@@ -1765,10 +1755,8 @@ namespace _170516.Controllers
                 ProductID = o.ProductID,
                 ProductName = o.Product.Name,
                 OrderID = o.OrderID,
-                OrderNumber = o.OrderNumber,
                 Price = o.Price,
                 Quantity = o.Quantity,
-                Discount = o.Discount,
                 Total = o.Total,
                 Size = o.Size,
                 IsFulfilled = o.IsFulfilled,
@@ -1797,13 +1785,7 @@ namespace _170516.Controllers
                         result = orderDetailsModel.OrderBy(s => s.Quantity);
                     else
                         result = orderDetailsModel.OrderByDescending(s => s.Quantity);
-                    break;
-                case "Discount":
-                    if (isAsc.GetValueOrDefault())
-                        result = orderDetailsModel.OrderBy(s => s.Discount);
-                    else
-                        result = orderDetailsModel.OrderByDescending(s => s.Discount);
-                    break;
+                    break;               
                 case "Size":
                     if (isAsc.GetValueOrDefault())
                         result = orderDetailsModel.OrderBy(s => s.Size);
@@ -1855,11 +1837,9 @@ namespace _170516.Controllers
                 OrderNumber = order.OrderNumber,
                 OrderStatus = order.OrderStatus,
                 OrderStatusToUser = GetOrderStatusToUser(order.OrderStatus),
-                IsFulfilled = order.IsFulfilled,
-                IsCanceled = order.IsCanceled,
                 CustomerID = order.CustomerID,
-                //CustomerName = order.Customer.Fullname,
-                //ShipperID = order.ShipperID??0,
+                CustomerName = order.Customer.Fullname,
+                ShipperID = order.ShipperID ?? 0,
                 ShipperCompanyName = order.Shipper == null? "" : order.Shipper.CompanyName,
                 OrderDate = order.OrderDate,
                 ShipDate = order.ShipDate,
@@ -1925,7 +1905,6 @@ namespace _170516.Controllers
                     // remove it
                     orderDetails.Price = price;
                     orderDetails.Quantity = quantity;
-                    orderDetails.Discount = discount;
                     orderDetails.Size = size;
                     orderDetails.IsFulfilled = isFulfilled;
                     orderDetails.Total = (price * (100 - discount) / 100) * quantity;
@@ -2571,7 +2550,7 @@ namespace _170516.Controllers
                 HtmlTextContent = emailTemp.HtmlBody,
             };
 
-            model.MergeFields = new List<string>();
+            model.MergeFields = dbContext.MergeFields.Where(m => m.FieldType == emailTemp.EmailType).Select(m=>m.FieldName).ToList();
 
             return View(model);
         }

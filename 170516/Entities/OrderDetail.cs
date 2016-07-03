@@ -17,10 +17,8 @@ namespace _170516.Entities
         public int OrderDetailID { get; set; }
         public int ProductID { get; set; }
         public int OrderID { get; set; }
-        public string OrderNumber { get; set; }
         public double Price { get; set; }
         public int Quantity { get; set; }
-        public double Discount { get; set; }
         public double Total { get; set; }
         public int Size { get; set; }
         public bool IsFulfilled { get; set; }

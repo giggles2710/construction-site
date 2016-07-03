@@ -30,8 +30,6 @@ namespace _170516.Entities
         public double Freight { get; set; }
         public double SalesTax { get; set; }
         public int OrderStatus { get; set; }
-        public bool IsFulfilled { get; set; }
-        public bool IsCanceled { get; set; }
         public double Paid { get; set; }
         public Nullable<System.DateTime> PaymentDate { get; set; }
         public System.DateTime ModifiedDate { get; set; }

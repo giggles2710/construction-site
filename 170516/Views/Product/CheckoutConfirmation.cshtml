@@ -1,4 +1,9 @@
-﻿<div class="index-content-wrapper container-fluid">
+﻿@model _170516.Models.CheckoutModel
+
+@{
+    ViewBag.Title = "Thông tin đơn hàng";
+}
+<div class="index-content-wrapper container-fluid">
     <div class="banner dark-translucent-bg non-background">
         <div class="breadcrumb-container">
             <div class="container">
@@ -13,61 +18,52 @@
     <section class="main-container">
         <div class="container">
             <div class="row">
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "checkoutConfirmationForm" }))
+            {
                 <div class="main col-md-12">
-                    <h1 class="page-title">Checkout Review</h1>
+                    <h1 class="page-title">Thông tin đơn hàng</h1>
                     <div class="separator-2"></div>
                     <table class="table cart">
                         <thead>
                             <tr>
-                                <th>Product </th>
-                                <th>Price </th>
-                                <th>Quantity</th>
-                                <th class="amount">Total </th>
+                                <th>Tên sản phẩm </th>
+                                <th>Giá </th>
+                                <th>Số lượng</th>
+                                <th class="amount">Tổng Cộng </th>
                             </tr>
                         </thead>
                         <tbody>
+                            @if (Model.Cart.Products.Any())
+                            {
+                                for (int i = 0; i < Model.Cart.Products.Count; i++)
+                                {
+                                    <tr>
+                                        @Html.HiddenFor(model => model.Cart.Products[i].ProductId)
+                                        @Html.HiddenFor(model => model.Cart.Products[i].ProductName)
+                                        @Html.HiddenFor(model => model.Cart.Products[i].Price)
+                                        @Html.HiddenFor(model => model.Cart.Products[i].Quantity)
+                                        @Html.HiddenFor(model => model.Cart.Products[i].Total)
+                                        <td class="product"><a href="@Url.Action("ViewProductDetail", "Product", new { id = Model.Cart.Products[i].ProductId })">@Model.Cart.Products[i].ProductName</a> <small></small></td>
+                                        <td class="price">
+                                            @Html.DisplayFor(model => model.Cart.Products[i].Price, new { Value = String.Format("{0:0}", Model.Cart.Products[i].Price) })
+                                        </td>
+                                        <td class="quantity">
+                                            <div class="form-group">
+                                                @Html.TextBoxFor(model => model.Cart.Products[i].Quantity, new { @class = "form-control", @disabled = "" })
+                                            </div>
+                                        </td>
+                                        <td class="amount">
+                                            @Html.DisplayFor(model => model.Cart.Products[i].Total, new { Value = String.Format("{0:0}", Model.Cart.Products[i].Price) })
+                                        </td>
+                                    </tr>
+                                    }
+                                }
+                            
                             <tr>
-                                <td class="product"><a href="shop-product.html">Product Title 1</a> <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</small></td>
-                                <td class="price">$99.50 </td>
-                                <td class="quantity">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" value="2" disabled="">
-                                    </div>
+                                <td class="total-quantity" colspan="3">@Model.Cart.Products.Count sản phẩm</td>
+                                <td class="total-amount">
+                                    @Html.DisplayFor(model => model.Cart.GrandTotal, new { Value = String.Format("{0:0}", Model.Cart.GrandTotal) })
                                 </td>
-                                <td class="amount">$199.00 </td>
-                            </tr>
-                            <tr>
-                                <td class="product"><a href="shop-product.html">Product Title 2</a> <small>Quas inventore modi</small></td>
-                                <td class="price"> $99.66 </td>
-                                <td class="quantity">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" value="3" disabled="">
-                                    </div>
-                                </td>
-                                <td class="amount">$299.00 </td>
-                            </tr>
-                            <tr>
-                                <td class="product"><a href="shop-product.html">Product Title 3</a> <small>Fugiat nemo enim officiis repellendus</small></td>
-                                <td class="price"> $499.66 </td>
-                                <td class="quantity">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" value="3" disabled="">
-                                    </div>
-                                </td>
-                                <td class="amount">$1499.00 </td>
-                            </tr>
-                            <tr>
-                                <td class="total-quantity" colspan="3">Subtotal</td>
-                                <td class="amount">$1997.00</td>
-                            </tr>
-                            <tr>
-                                <td class="total-quantity" colspan="2">Discount Coupon</td>
-                                <td class="price">TheProject25672</td>
-                                <td class="amount">-20%</td>
-                            </tr>
-                            <tr>
-                                <td class="total-quantity" colspan="3">Total 8 Items</td>
-                                <td class="total-amount">$1597.00</td>
                             </tr>
                         </tbody>
                     </table>
@@ -75,29 +71,36 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th colspan="2">Billing Information </th>
+                                <th colspan="2">Thông tin thanh toán</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Full Name</td>
-                                <td class="information">John Doe </td>
+                                <td>Họ và tên</td>
+                                @Html.HiddenFor(model => model.Customer.FullName)
+                                <td class="information">@Html.DisplayTextFor(model => model.Customer.FullName) </td>
+                            </tr>
+                            <tr>
+                                <td>Số điện thoại</td>
+                                @Html.HiddenFor(model => model.Customer.Phone)
+                                <td class="information">@Html.DisplayTextFor(model => model.Customer.Phone)  </td>
                             </tr>
                             <tr>
                                 <td>Email</td>
-                                <td class="information">johndoe@mail.com </td>
+                                @Html.HiddenFor(model => model.Customer.EmailAddress)
+                                <td class="information">@Html.DisplayTextFor(model => model.Customer.EmailAddress)  </td>
                             </tr>
                             <tr>
-                                <td>Telephone</td>
-                                <td class="information">+00 123 123 1234</td>
-                            </tr>
-                            <tr>
-                                <td>Address</td>
-                                <td class="information">One infinity loop, 54100, United States</td>
+                                <td>Địa chỉ</td>
+                                @Html.HiddenFor(model => model.Customer.Address)
+                                @Html.HiddenFor(model => model.Customer.District)
+                                @Html.HiddenFor(model => model.Customer.City)
+                                <td class="information">@string.Format("{0} - {1} - {2}", Model.Customer.Address, Model.Customer.District, Model.Customer.City)</td>
                             </tr>
                             <tr>
                                 <td>Additional Info</td>
-                                <td class="information">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum accusamus pariatur odit neque.</td>
+                                @Html.HiddenFor(model => model.Customer.AdditionalInformation)
+                                <td class="information">@Html.DisplayTextFor(model => model.Customer.AdditionalInformation) </td>
                             </tr>
                         </tbody>
                     </table>
@@ -105,30 +108,31 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th colspan="2">Shipping Information </th>
+                                <th colspan = "2" > Thông tin vận chuyển</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Full Name</td>
-                                <td class="information">John Doe </td>
+                                <td>Họ và tên</td>                                
+                                <td class="information">@Html.DisplayTextFor(model => model.Customer.FullName) </td>
                             </tr>
                             <tr>
-                                <td>Email</td>
-                                <td class="information">johndoe@mail.com </td>
+                                <td>Số điện thoại</td>
+                                @Html.HiddenFor(model => model.Customer.ShipPhone)
+                                <td class="information">@Html.DisplayTextFor(model => model.Customer.ShipPhone)  </td>
                             </tr>
                             <tr>
-                                <td>Telephone</td>
-                                <td class="information">+00 123 123 1234</td>
+                                <td>Địa chỉ</td>
+                                @Html.HiddenFor(model => model.Customer.ShipAddress)
+                                @Html.HiddenFor(model => model.Customer.ShipDistrict)
+                                @Html.HiddenFor(model => model.Customer.ShipCity)
+                                <td class="information">@string.Format("{0} - {1} - {2}", Model.Customer.ShipAddress, Model.Customer.ShipDistrict, Model.Customer.ShipCity)</td>
                             </tr>
-                            <tr>
-                                <td>Address</td>
-                                <td class="information">One infinity loop, 54100, United States</td>
-                            </tr>
+                            @Html.HiddenFor(model => model.Customer.SameInfoForShipping)
                         </tbody>
                     </table>
                     <div class="space-bottom"></div>
-                    <table class="table">
+                    @*<table class="table">
                         <thead>
                             <tr>
                                 <th colspan="2">Payment </th>
@@ -140,12 +144,14 @@
                                 <td class="information">Visa ***917 </td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table>*@
                     <div class="text-right">
-                        <a href="shop-checkout-payment.html" class="btn btn-group btn-default"><i class="icon-left-open-big"></i> Go Back</a>
-                        <a href="shop-checkout-completed.html" class="btn btn-group btn-default"><i class="icon-check"></i> Complete Your Order</a>
+                        <a href="@Url.Action("Checkout","Product")" class="btn btn-group btn-default"><i class="icon-left-open-big"></i> Trở lại</a>
+                        <button id="btnPlaceOrder" type="button" class="btn btn-group btn-default"><i class="icon-check"></i> Đặt hàng</button>
                     </div>
                 </div>
+            }
+                
             </div>
         </div>
     </section>

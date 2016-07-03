@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mergeFields>
+  <mergeField>
+    <name>Tên khách hàng</name>
+    <type>1</type>
+  </mergeField>
+  <mergeField>
+    <name>Mã đơn hàng</name>
+    <type>1</type>
+  </mergeField>
+  <mergeField>
+    <name>Tên công ty</name>
+    <type>0</type>
+  </mergeField>
+  <mergeField>
+    <name>Website công ty</name>
+    <type>0</type>
+  </mergeField>
+  <mergeField>
+    <name>Mã đơn hàng</name>
+    <type>1</type>
+  </mergeField>
+  <mergeField>
+    <name>Ngày giờ đặt hàng</name>
+    <type>1</type>
+  </mergeField>
+  <mergeField>
+    <name>Chi tiết đơn hàng</name>
+    <type>1</type>
+  </mergeField>
+  <mergeField>
+    <name>Tổng đơn hàng</name>
+    <type>1</type>
+  </mergeField>
+  <mergeField>
+    <name>Email khách hàng</name>
+    <type>1</type>
+  </mergeField>
+  <mergeField>
+    <name>SDT khách hàng</name>
+    <type>1</type>
+  </mergeField>
+  <mergeField>
+    <name>Địa chỉ khách hàng</name>
+    <type>1</type>
+  </mergeField>
+  <mergeField>
+    <name>Địa chỉ chuyển hàng</name>
+    <type>1</type>
+  </mergeField>
+  <mergeField>
+    <name>Mã Postal</name>
+    <type>1</type>
+  </mergeField>
+  <mergeField>
+    <name>Tên người góp ý</name>
+    <type>2</type>
+  </mergeField>  
+</mergeFields>

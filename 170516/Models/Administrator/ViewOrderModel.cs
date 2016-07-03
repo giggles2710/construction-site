@@ -40,8 +40,7 @@ namespace _170516.Models.Administrator
         public double SalesTax { get; set; }
         public int OrderStatus { get; set; }
         public string OrderStatusToUser { get; set; }
-        public bool IsFulfilled { get; set; }
-        public bool IsCanceled { get; set; }
+
         [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
         public double Paid { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]

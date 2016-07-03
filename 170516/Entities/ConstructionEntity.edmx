@@ -67,13 +67,11 @@
           <Property Name="EmailTemplateName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="EmailSubject" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="HtmlBody" Type="nvarchar(max)" />
-          <Property Name="PlainText" Type="nvarchar(max)" />
-          <Property Name="IsBodyHtml" Type="bit" />
-          <Property Name="IsEnable" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="LastUpdatedDate" Type="datetime" />
           <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailType" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MergeField">
           <Key>
@@ -97,8 +95,6 @@
           <Property Name="Freight" Type="float" Nullable="false" />
           <Property Name="SalesTax" Type="float" Nullable="false" />
           <Property Name="OrderStatus" Type="int" Nullable="false" />
-          <Property Name="IsFulfilled" Type="bit" Nullable="false" />
-          <Property Name="IsCanceled" Type="bit" Nullable="false" />
           <Property Name="Paid" Type="float" Nullable="false" />
           <Property Name="PaymentDate" Type="date" />
           <Property Name="ModifiedDate" Type="date" Nullable="false" />
@@ -111,10 +107,8 @@
           <Property Name="OrderDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="OrderID" Type="int" Nullable="false" />
-          <Property Name="OrderNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Price" Type="float" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
-          <Property Name="Discount" Type="float" Nullable="false" />
           <Property Name="Total" Type="float" Nullable="false" />
           <Property Name="Size" Type="int" Nullable="false" />
           <Property Name="IsFulfilled" Type="bit" Nullable="false" />
@@ -552,13 +546,11 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="EmailTemplateName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EmailSubject" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="HtmlBody" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PlainText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsBodyHtml" Type="Boolean" />
-          <Property Name="IsEnable" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="LastUpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailType" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="Self.FK_EmailTemplate_Account" FromRole="EmailTemplate" ToRole="Account" />
         </EntityType>
         <EntityType Name="MergeField">
@@ -583,8 +575,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="Freight" Type="Double" Nullable="false" />
           <Property Name="SalesTax" Type="Double" Nullable="false" />
           <Property Name="OrderStatus" Type="Int32" Nullable="false" />
-          <Property Name="IsFulfilled" Type="Boolean" Nullable="false" />
-          <Property Name="IsCanceled" Type="Boolean" Nullable="false" />
           <Property Name="Paid" Type="Double" Nullable="false" />
           <Property Name="PaymentDate" Type="DateTime" Precision="0" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="0" />
@@ -601,10 +591,8 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Property Name="OrderDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <Property Name="OrderNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Price" Type="Double" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="Discount" Type="Double" Nullable="false" />
           <Property Name="Total" Type="Double" Nullable="false" />
           <Property Name="Size" Type="Int32" Nullable="false" />
           <Property Name="IsFulfilled" Type="Boolean" Nullable="false" />
@@ -1047,13 +1035,11 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
                 <ScalarProperty Name="EmailTemplateName" ColumnName="EmailTemplateName" />
                 <ScalarProperty Name="EmailSubject" ColumnName="EmailSubject" />
                 <ScalarProperty Name="HtmlBody" ColumnName="HtmlBody" />
-                <ScalarProperty Name="PlainText" ColumnName="PlainText" />
-                <ScalarProperty Name="IsBodyHtml" ColumnName="IsBodyHtml" />
-                <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
                 <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="EmailType" ColumnName="EmailType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1079,8 +1065,6 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
                 <ScalarProperty Name="Freight" ColumnName="Freight" />
                 <ScalarProperty Name="SalesTax" ColumnName="SalesTax" />
                 <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
-                <ScalarProperty Name="IsFulfilled" ColumnName="IsFulfilled" />
-                <ScalarProperty Name="IsCanceled" ColumnName="IsCanceled" />
                 <ScalarProperty Name="Paid" ColumnName="Paid" />
                 <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
@@ -1094,10 +1078,8 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
                 <ScalarProperty Name="OrderDetailID" ColumnName="OrderDetailID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="Size" ColumnName="Size" />
                 <ScalarProperty Name="IsFulfilled" ColumnName="IsFulfilled" />

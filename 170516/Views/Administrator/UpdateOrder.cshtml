@@ -128,9 +128,7 @@
                                                 
                                                 <th class="center input-grid-money" tabindex="0" rowspan="1" colspan="1">Giá</th>
                                                
-                                                <th class="center input-grid-number" tabindex="0" rowspan="1" colspan="1">Số lượng</th>
-                                                
-                                                <th class="center input-grid-money" tabindex="0" rowspan="1" colspan="1">Giảm giá </th>
+                                                <th class="center input-grid-number" tabindex="0" rowspan="1" colspan="1">Số lượng</th>                                                                                                
 
                                                 <th class="center input-grid-number" tabindex="0" rowspan="1" colspan="1">Size</th>
                                                 
@@ -152,10 +150,7 @@
                                                     </td>
                                                     <td>
                                                         @Html.TextBoxFor(model => model.OrderDetails[i - 1].Quantity, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>                                                        
-                                                    </td>
-                                                    <td>
-                                                        @Html.TextBoxFor(model => model.OrderDetails[i - 1].Discount, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>                                                        
-                                                    </td>
+                                                    </td>                                                   
                                                     <td>
                                                         @Html.TextBoxFor(model => model.OrderDetails[i - 1].Size, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>                                                        
                                                     <td>                                                        

@@ -54,7 +54,7 @@
         }
     });
 
-    $('.addToCartFrCategory').click(function () {
+    $('.add-to-cart-quantity-1').click(function () {
         var cartData = {
             ProductId: $(this).attr('data-content'),
             Quantity: 1
@@ -159,12 +159,40 @@
     $('#shipping-info-check').on('change', function () {
         if ($('#shipping-info-check').is(":checked"))
         {
+            $('#shipping-info-check').prop('checked', true);
             $('#shipping-information').hide();
         }
         else
         {
+            $('#shipping-info-check').prop('checked', false);
             $('#shipping-information').show();
         }
+    });
+
+    $('#btnPlaceOrder').click(function () {
+        console.log('check out confirm get here');
+        $.ajax({
+            url: staticUrl.CheckoutConfirmation,
+            data: $("#checkoutConfirmationForm").serialize(),
+            async: true,
+            method: "POST",
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                if (data.isResult == false) {
+                    toastr.error(data.result);
+                }
+                else {
+                    toastr.success("Cảm ơn bạn đã đặt hàng");
+                    window.sessionStorage.CheckoutStatus = true;
+                    window.sessionStorage.ThankyouMessage = "Cảm ơn bạn đã đặt hàng. Hãy kiểm tra email để có thông tin chi tiết.";
+                    window.location.href = staticUrl.HomePage;
+                }
+            },
+            error: function (e) {
+                toastr.error('Có lỗi xảy ra trong quá trình thanh toán. Vui lòng thử lại.');
+            }
+        });
     });
 
     $('#btnCheckout').click(function () {
@@ -216,28 +244,8 @@
         }
         
         if (form.valid() && isValid)
-        {
-            $.ajax({
-                url: staticUrl.CheckOut,
-                data: form.serialize(),
-                async: true,
-                method: "POST",
-                dataType: "json",
-                cache: false,
-                success: function (data) {
-                    if (data.isResult == false) {                        
-                        toastr.error(data.result);
-                    }
-                    else {                        
-                        window.sessionStorage.CheckoutStatus = true;
-                        window.sessionStorage.ThankyouMessage = "Cảm ơn bạn đã đặt hàng. Hãy kiểm tra email để có thông tin chi tiết.";
-                        window.location.href = staticUrl.HomePage;
-                    }
-                },
-                error: function (e) {                    
-                    toastr.error('Có lỗi xảy ra trong quá trình thanh toán. Vui lòng thử lại.');
-                }
-            });
+        {            
+            $("#checkoutForm").submit()
         }
     });
 });

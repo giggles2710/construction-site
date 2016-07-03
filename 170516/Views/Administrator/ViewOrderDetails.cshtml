@@ -182,23 +182,7 @@
                                         {
                                             <th class="center" tabindex="0" rowspan="1" data-sort="Quantity" data-direction="asc" colspan="1">Số lượng<i class="fa fa-fw fa-sort-asc"></i></th>
                                         }
-
-                                        @if (Model.SortField.Equals("Discount"))
-                                        {
-                                            if (Model.IsAsc)
-                                            {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="Discount" data-direction="desc" colspan="1">Giảm giá <i class="fa fa-fw fa-sort-asc"></i></th>
-                                            }
-                                            else
-                                            {
-                                                <th class="center" tabindex="0" rowspan="1" data-sort="Discount" data-direction="asc" colspan="1">Giảm giá <i class="fa fa-fw fa-sort-desc"></i></th>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <th class="center" tabindex="0" rowspan="1" data-sort="Discount" data-direction="asc" colspan="1">Giảm giá <i class="fa fa-fw fa-sort-asc"></i></th>
-                                        }
-
+                                        
                                         @if (Model.SortField.Equals("Size"))
                                         {
                                             if (Model.IsAsc)
@@ -259,10 +243,7 @@
                                             </td>
                                             <td>
                                                 <label id="Quantity">@Model.OrderDetails[i - 1].Quantity</label>
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(model => model.OrderDetails[i - 1].Discount)
-                                            </td>
+                                            </td>                                           
                                             <td>
                                                 <label id="Size">@Model.OrderDetails[i - 1].Size</label>
                                             <td>

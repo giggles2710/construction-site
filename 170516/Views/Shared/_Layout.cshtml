@@ -150,7 +150,7 @@
     <script src="@Url.Content("~/Scripts/Home/cart.js")"></script>
     <script type="text/javascript">
         var staticUrl = {
-            HomePage: "@Url.Action("Index","Product")",
+            HomePage: "@Url.Action("Index","Home")",
             ViewCategory: "@Url.Action("ViewCategory","Product")",
             GetSubCategory: "@Url.Action("GetSubCategory","Product")",
             SendRequestContact: "@Url.Action("SendRequestContact", "Home")",
@@ -158,7 +158,8 @@
             UpdateCart: "@Url.Action("UpdateCart", "Product")",
             ViewCart: "@Url.Action("ViewCart", "Product")",
             ViewPartialCart: "@Url.Action("ViewCartMinimal", "Product")",
-            CheckOut: "@Url.Action("CheckOut", "Product")"
+            CheckOut: "@Url.Action("CheckOut", "Product")",
+            CheckoutConfirmation: "@Url.Action("CheckoutConfirmation", "Product")",
         };
 
         var sampleRegex = {
@@ -175,7 +176,7 @@
             "newestOnTop": false,
             "progressBar": false,
             "positionClass": "toast-bottom-right",
-            "preventDuplicates": true,
+            "preventDuplicates": false,
             "onclick": null,
             "showDuration": "300",
             "hideDuration": "1000",

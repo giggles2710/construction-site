@@ -20,7 +20,7 @@
 
         <div class="container">
             <div class="row">
-                @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "checkoutForm" }))
+                @using (Html.BeginForm("Checkout","Product",FormMethod.Post, new { @id = "checkoutForm" }))
                 {
                     <div class="main col-md-12">
                         <h1 class="page-title">Thanh Toán</h1>
@@ -61,6 +61,7 @@
                                 <tr>
                                     <td class="total-quantity" colspan="3">@Model.Cart.Products.Count sản phẩm</td>
                                     <td class="total-amount">
+                                        @Html.HiddenFor(model => model.Cart.GrandTotal)
                                         @Html.DisplayFor(model => model.Cart.GrandTotal, new { Value = String.Format("{0:0}", Model.Cart.GrandTotal) })
                                     </td>
                                 </tr>
@@ -69,7 +70,7 @@
                         <div class="space-bottom"></div>
                         <fieldset>
                             <legend>Thông tin thanh toán</legend>
-                            <form role="form" class="form-horizontal" id="billing-information">
+                            <div role="form" class="form-horizontal" id="billing-information">
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <h3 class="title">Khách Hàng</h3>
@@ -148,13 +149,14 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
                                 </div>
-                            </form>
+                            </div>
                         </fieldset>
                         <fieldset>
                             <legend>Thông tin cho nhà vận chuyển</legend>
-                            <form role="form" class="form-horizontal" id="shipping-information-container">
-                                <div id="shipping-information" class="space-bottom" style="display: none">
+                            <div role="form" class="form-horizontal" id="shipping-information-container">
+                                <div id="shipping-information" class="space-bottom" style="display:none">
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <h3 class="title">Thông tin vận chuyển đến</h3>
@@ -207,11 +209,11 @@
                                         @Html.CheckBoxFor(model => model.Customer.SameInfoForShipping, new { @id = "shipping-info-check" }) Địa chỉ chuyển đến chính là địa chỉ của tôi
                                     </label>
                                 </div>
-                            </form>
+                            </div>
                         </fieldset>
                         <div class="text-right">
                             <a href="@Url.Action("ViewCart","Product")" class="btn btn-group btn-default"><i class="icon-left-open-big"></i> Giỏ hàng</a>
-                            <button id="btnCheckout" type="button" class="btn btn-group btn-default">Thanh toán <i class="icon-right-open-big"></i></button>
+                            <button id="btnCheckout" type="button" class="btn btn-group btn-default">Hoàn thành <i class="icon-right-open-big"></i></button>
                         </div>
 
                     </div>

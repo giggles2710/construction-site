@@ -16,7 +16,8 @@ namespace _170516.Utility
 
         public static EmailDeliveryModel MergeOrderConfirmationEmail(int orderId)
         {
-            var emailTemp = new EmailTemplate();
+            var emailTemp = dbContext.EmailTemplates.FirstOrDefault(p => p.EmailType == (int)FieldTypes.OrderConfirmation);
+
             var order = dbContext.Orders.FirstOrDefault(o => o.OrderID == orderId);
 
             if (emailTemp == null || order == null)
@@ -64,7 +65,7 @@ namespace _170516.Utility
                 orderDetails.Append("</td>");
                 orderDetails.Append(string.Format("<td style = \"width: 77px;\" ><strong>{0} đ</strong></td>", item.Total.ToString("0.##")));
                 orderDetails.Append("</tr>");
-                total += (item.Price * (100 - item.Discount) / 100) * item.Quantity;
+                total += item.Price * item.Quantity;
             }
 
             orderDetails.Append("</tbody>");

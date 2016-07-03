@@ -17,11 +17,9 @@ namespace GenerateDatabase.Entity
         public int OrderDetailID { get; set; }
         public int ProductID { get; set; }
         public int OrderID { get; set; }
-        public string OrderNumber { get; set; }
-        public decimal Price { get; set; }
+        public double Price { get; set; }
         public int Quantity { get; set; }
-        public Nullable<double> Discount { get; set; }
-        public decimal Total { get; set; }
+        public double Total { get; set; }
         public int Size { get; set; }
         public bool IsFulfilled { get; set; }
         public Nullable<System.DateTime> ShipDate { get; set; }

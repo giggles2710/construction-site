@@ -35,8 +35,6 @@ namespace _170516.Models.Administrator
         public double Price { get; set; }
         public int Quantity { get; set; }
         [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
-        public double Discount { get; set; }
-        [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
         public double Total { get; set; }
         public int Size { get; set; }
         public bool IsFulfilled { get; set; }
