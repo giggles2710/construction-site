@@ -2,6 +2,7 @@
 using _170516.Models;
 using _170516.Models.Administrator;
 using _170516.Utility;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -224,19 +225,45 @@ namespace _170516.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult ViewCart()
+        public CartViewModel GetCart(HttpContextBase context)
         {
             CartViewModel cart;
-
-            if (Session[Constant.Cart] == null)
+            
+            if (context.Request.Cookies[Constant.CartCookie] == null)
             {
                 cart = new CartViewModel();
             }
             else
             {
-                cart = Session[Constant.Cart] as CartViewModel;
+                HttpCookie cookie = context.Request.Cookies[Constant.CartCookie];
+
+                try
+                {
+                    string siteCart = cookie[Constant.ProductInCartCookie];
+                    cart = JsonConvert.DeserializeObject<CartViewModel>(siteCart);
+                }
+                catch
+                {
+                    cart = new CartViewModel();
+                }
             }
+
+            return cart;
+        }
+
+        public void AddCartToCookie(HttpContextBase context, CartViewModel cart)
+        {
+            HttpCookie cookie = new HttpCookie(Constant.CartCookie);
+            cookie[Constant.ProductInCartCookie] = JsonConvert.SerializeObject(cart);
+            cookie.Expires.AddDays(365);
+
+            context.Response.Cookies.Add(cookie);
+        }
+
+        [HttpGet]
+        public ActionResult ViewCart()
+        {
+            CartViewModel cart = GetCart(this.HttpContext);
 
             return View(cart);
         }
@@ -273,9 +300,9 @@ namespace _170516.Controllers
                 model.Products.ForEach(p => {
                     p.Total = p.Price * p.Quantity;
                     model.GrandTotal += p.Total;
-                });
+                });                
 
-                Session[Constant.Cart] = model;
+                AddCartToCookie(this.HttpContext, model);
 
                 return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
             }
@@ -284,22 +311,15 @@ namespace _170516.Controllers
         [HttpPost]
         public ActionResult DeleteProductInCart(int id)
         {
-            CartViewModel cart;
-
-            if (Session[Constant.Cart] == null)
-            {
-                cart = new CartViewModel();
-            }
-            else
-            {
-                cart = Session[Constant.Cart] as CartViewModel;
-            }
+            CartViewModel cart = GetCart(this.HttpContext);
 
             var p = cart.Products.FirstOrDefault(ob => ob.ProductId == id);
 
             if (p != null)
             {
                 cart.Products.Remove(p);
+
+                AddCartToCookie(this.HttpContext, cart);
             }
 
             return View("ViewCart", cart);
@@ -308,16 +328,7 @@ namespace _170516.Controllers
         [HttpGet]
         public ActionResult ViewCartMinimal()
         {
-            CartViewModel cart;
-
-            if (Session[Constant.Cart] == null)
-            {
-                cart = new CartViewModel();
-            }
-            else
-            {
-                cart = Session[Constant.Cart] as CartViewModel;
-            }
+            CartViewModel cart = GetCart(this.HttpContext);
 
             return PartialView("_PartialCart", cart);
         }
@@ -325,16 +336,7 @@ namespace _170516.Controllers
         [HttpGet]
         public ActionResult Checkout()
         {
-            CartViewModel cart;
-
-            if (Session[Constant.Cart] == null)
-            {
-                cart = new CartViewModel();
-            }
-            else
-            {
-                cart = Session[Constant.Cart] as CartViewModel;
-            }
+            CartViewModel cart = GetCart(this.HttpContext);
 
             var model = new CheckoutModel { Cart = cart, Customer = new CustomerCheckoutModel()};
 
@@ -419,7 +421,12 @@ namespace _170516.Controllers
                 return Json(new { isResult = false, result = "Lỗi khi lưu thông tin giỏ hàng. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
             }
 
-            Session[Constant.Cart] = null;
+            //clear cookie
+            HttpCookie cookie = new HttpCookie(Constant.CartCookie);
+            cookie.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Add(cookie);
+
+            //Response.Cookies.Remove(Constant.CartCookie);
 
             //var emailToSend = EmailMergingHelper.MergeOrderConfirmationEmail(order.OrderID);
             //emailToSend.SendTo = "doanhhnqt74@gmail.com";
@@ -433,6 +440,7 @@ namespace _170516.Controllers
 
             return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
         }
+
 
         [HttpPost]
         public JsonResult AddProductToCart(ProductInCart model)
@@ -450,17 +458,8 @@ namespace _170516.Controllers
             }
             else
             {
-                //add Product to Cart Sesssion
-                CartViewModel cart;
-
-                if (Session[Constant.Cart] == null)
-                {
-                    cart = new CartViewModel();
-                }
-                else
-                {
-                    cart = Session[Constant.Cart] as CartViewModel;
-                }
+                //add Product to Cart Cookie
+                CartViewModel cart = GetCart(this.HttpContext);
 
                 if (cart.Products.Any(p => p.ProductId == model.ProductId))
                 {
@@ -490,7 +489,7 @@ namespace _170516.Controllers
                         cart.Products.Add(p);
                         cart.GrandTotal += p.Total;
 
-                        Session[Constant.Cart] = cart;
+                        AddCartToCookie(this.HttpContext, cart);
 
                         return Json(new { isResult = true, result = "Thêm sản phẩm vào giỏ hàng thành công" }, JsonRequestBehavior.AllowGet);
                     }
