@@ -28,5 +28,13 @@
 </table>
 <div class="panel-body text-right">
     <a href="@Url.Action("ViewCart","Product")" class="btn btn-group btn-gray btn-sm">Giỏ Hàng</a>
-    <a href="@Url.Action("Checkout","Product")" class="btn btn-group btn-gray btn-sm">Thanh Toán</a>
+    @if (Model.Products.Any())
+    {
+        <a href="@Url.Action("Checkout","Product")" class="btn btn-group btn-gray btn-sm">Thanh Toán</a>
+    }
+    else
+    {
+        <a href="@Url.Action("Checkout","Product")" class="btn btn-group btn-gray btn-sm disabled" >Thanh Toán</a>
+    }
+
 </div>

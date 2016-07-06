@@ -200,6 +200,26 @@
         var isValid = true;
         form.validate();
 
+        //validate product quanity
+        $('#checkoutForm').find('input.product-quantity-input[type=text]').each(function () {
+            value = $(this).val();
+            if (value == null || value == '' || value == undefined) {
+                $(this).parent().addClass('has-error');
+                $(this).nextAll('span.input-error-box').text("Không được bỏ trống");
+                isValid = false;
+            } else {
+                // test regex
+                if (!sampleRegex.integerRegex.test(value)) {
+                    $(this).parent().addClass('has-error');
+                    $(this).nextAll('span.input-error-box').text("Làm ơn chỉ nhập số lớn hơn 0");
+                    isValid = false;
+                } else {
+                    $(this).parent().removeClass('has-error');
+                    $(this).nextAll('span.input-error-box').text("");
+                }
+            }
+        });
+
         if (!$('#shipping-info-check').is(":checked"))
         {
             //address
@@ -244,8 +264,30 @@
         }
         
         if (form.valid() && isValid)
-        {            
-            $("#checkoutForm").submit()
+        {                        
+            $.ajax({
+                url: staticUrl.CheckOut,
+                data: form.serialize(),
+                async: true,
+                method: "POST",
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    if (data.isResult == false) {
+                        data.errors.forEach(function (item) {
+                            var pro = $('#error-pro-' + item.ProductId);
+                            pro.parent().addClass('has-error');
+                            pro.text(item.Error);
+                        });
+                    }
+                    else {
+                        alert('abc');
+                        window.location.href = staticUrl.CheckoutConfirmation;
+                    }
+                },
+                error: function () {
+                }
+            });
         }
     });
 });

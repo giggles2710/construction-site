@@ -42,8 +42,7 @@
                                         <tr class="remove-data">
                                             @Html.HiddenFor(model => model.Cart.Products[i].ProductId)
                                             @Html.HiddenFor(model => model.Cart.Products[i].ProductName)
-                                            @Html.HiddenFor(model => model.Cart.Products[i].Price)
-                                            @Html.HiddenFor(model => model.Cart.Products[i].Quantity)
+                                            @Html.HiddenFor(model => model.Cart.Products[i].Price)                                            
                                             @Html.HiddenFor(model => model.Cart.Products[i].Total)
                                             <td class="product product-name"><a href="@Url.Action("ViewProductDetail", "Product", new { id = Model.Cart.Products[i].ProductId })">@Model.Cart.Products[i].ProductName</a> <small></small></td>
                                             <td class="price">
@@ -51,7 +50,8 @@
                                             </td>
                                             <td class="quantity">
                                                 <div class="form-group">
-                                                    @Html.TextBoxFor(model => model.Cart.Products[i].Quantity, new { @class = "form-control", @disabled = "" })
+                                                    @Html.TextBoxFor(model => model.Cart.Products[i].Quantity, new { @class = "form-control product-quantity-input"})
+                                                    <span class="input-error-box text-danger" id="error-pro-@Model.Cart.Products[i].ProductId"></span>
                                                 </div>
                                             </td>
                                             <td class="amount">@Html.DisplayFor(model => model.Cart.Products[i].Total, new { Value = String.Format("{0:0}", Model.Cart.Products[i].Price) })</td>
@@ -79,21 +79,21 @@
                                         <div class="form-group">
                                             <label for="billingName" class="col-md-2 control-label">Họ và Tên<small class="text-default">*</small></label>
                                             <div class="col-md-10">
-                                                @Html.TextBoxFor(model => model.Customer.FullName, new { @class = "form-control", @placeholder = "Họ và tên" })
+                                                @Html.TextBoxFor(model => model.Customer.FullName, new { @class = "form-control" })
                                                 @Html.ValidationMessageFor(model => model.Customer.FullName, null, new { @class = "input-error-box text-danger" })
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="billingTel" class="col-md-2 control-label">Số điện thoại<small class="text-default">*</small></label>
                                             <div class="col-md-10">
-                                                @Html.TextBoxFor(model => model.Customer.Phone, new { @class = "form-control", @placeholder = "Số điện thoại" })
+                                                @Html.TextBoxFor(model => model.Customer.Phone, new { @class = "form-control"})
                                                 @Html.ValidationMessageFor(model => model.Customer.Phone, null, new { @class = "input-error-box text-danger" })
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="billingemail" class="col-md-2 control-label">Địa chỉ email<small class="text-default">*</small></label>
                                             <div class="col-md-10">
-                                                @Html.TextBoxFor(model => model.Customer.EmailAddress, new { @class = "form-control", @placeholder = "Địa chỉ email" })
+                                                @Html.TextBoxFor(model => model.Customer.EmailAddress, new { @class = "form-control" })
                                                 @Html.ValidationMessageFor(model => model.Customer.EmailAddress, null, new { @class = "input-error-box text-danger" })
                                             </div>
                                         </div>
@@ -108,7 +108,7 @@
                                         <div class="form-group">
                                             <label for="billingAddress1" class="col-md-2 control-label">Địa chỉ<small class="text-default">*</small></label>
                                             <div class="col-md-10">
-                                                @Html.TextBoxFor(model => model.Customer.Address, new { @class = "form-control", @placeholder = "Địa chỉ" })
+                                                @Html.TextBoxFor(model => model.Customer.Address, new { @class = "form-control"})
                                                 @Html.ValidationMessageFor(model => model.Customer.Address, null, new { @class = "input-error-box text-danger" })
                                             </div>
                                         </div>
@@ -116,7 +116,7 @@
                                         <div class="form-group">
                                             <label for="billingAddress1" class="col-md-2 control-label">Phường/Huyện<small class="text-default">*</small></label>
                                             <div class="col-md-10">
-                                                @Html.TextBoxFor(model => model.Customer.District, new { @class = "form-control", @placeholder = "Phường/Huyện" })
+                                                @Html.TextBoxFor(model => model.Customer.District, new { @class = "form-control" })
                                                 @Html.ValidationMessageFor(model => model.Customer.District, null, new { @class = "input-error-box text-danger" })
                                             </div>
                                         </div>
@@ -124,7 +124,7 @@
                                         <div class="form-group">
                                             <label for="billingCity" class="col-md-2 control-label">Thành phố/Tỉnh<small class="text-default">*</small></label>
                                             <div class="col-md-10">
-                                                @Html.TextBoxFor(model => model.Customer.City, new { @class = "form-control", @placeholder = "Thành phố/Tỉnh" })
+                                                @Html.TextBoxFor(model => model.Customer.City, new { @class = "form-control" })
                                                 @Html.ValidationMessageFor(model => model.Customer.City, null, new { @class = "input-error-box text-danger" })
                                             </div>
                                         </div>
@@ -165,7 +165,7 @@
                                             <div class="form-group">
                                                 <label for="shippingAddress1" class="col-md-2 control-label">Địa chỉ<small class="text-default">*</small></label>
                                                 <div class="col-md-10">
-                                                    @Html.TextBoxFor(model => model.Customer.ShipAddress, new { @class = "form-control", @placeholder = "Địa chỉ" })
+                                                    @Html.TextBoxFor(model => model.Customer.ShipAddress, new { @class = "form-control"})
                                                     <span class="input-error-box text-danger"></span>
                                                 </div>
                                             </div>
@@ -173,7 +173,7 @@
                                             <div class="form-group">
                                                 <label for="shippingDistrict" class="col-md-2 control-label">Phường/Huyện<small class="text-default">*</small></label>
                                                 <div class="col-md-10">
-                                                    @Html.TextBoxFor(model => model.Customer.ShipDistrict, new { @class = "form-control", @placeholder = "Phường/Huyện" })
+                                                    @Html.TextBoxFor(model => model.Customer.ShipDistrict, new { @class = "form-control" })
                                                     <span class="input-error-box text-danger"></span>
                                                 </div>
                                             </div>
@@ -181,7 +181,7 @@
                                             <div class="form-group">
                                                 <label for="shippingCity" class="col-md-2 control-label">Thành phố/Tỉnh<small class="text-default">*</small></label>
                                                 <div class="col-md-10">
-                                                    @Html.TextBoxFor(model => model.Customer.ShipCity, new { @class = "form-control", @placeholder = "Thành phố/Tỉnh" })
+                                                    @Html.TextBoxFor(model => model.Customer.ShipCity, new { @class = "form-control" })
                                                     <span class="input-error-box text-danger"></span>
                                                 </div>
                                             </div>
@@ -197,7 +197,7 @@
                                             <div class="form-group">
                                                 <label for="shippingPhone" class="col-md-2 control-label">Số điện thoại<small class="text-default">*</small></label>
                                                 <div class="col-md-10">
-                                                    @Html.TextBoxFor(model => model.Customer.ShipPhone, new { @class = "form-control", @placeholder = "Số điện thoại" })
+                                                    @Html.TextBoxFor(model => model.Customer.ShipPhone, new { @class = "form-control" })
                                                     <span class="input-error-box text-danger"></span>
                                                 </div>
                                             </div>
