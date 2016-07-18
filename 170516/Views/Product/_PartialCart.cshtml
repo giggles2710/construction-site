@@ -19,13 +19,13 @@
                     <tr>
                         <td class="quantity" style="width:30%;text-align:center">@item.Quantity</td>
                         <td class="product" style="width: 50%;text-align:left;"><a href="@Url.Action("ViewProductDetail","Product", new {id = @item.ProductId })">@item.ProductName</a><span class="small"></span></td>
-                        <td class="amount" style="width: 40%;text-align:right;">@item.Price.ToString("N")</td>
+                        <td class="amount" style="width: 40%;text-align:right;">@item.Price.ToString("N0")</td>
                     </tr>
                 }
             }
             <tr>
-                <td class="total-quantity" colspan="2">Có @Model.Products.Count sản phẩm</td>
-                <td class="total-amount">@Model.GrandTotal.ToString("N")</td>
+                <td class="total-quantity" colspan="2"></td>
+                <td class="total-amount cart-title">@Model.GrandTotal.ToString("N0")</td>
             </tr>
         </tbody>
     </table>

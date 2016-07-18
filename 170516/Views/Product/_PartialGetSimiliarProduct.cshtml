@@ -34,10 +34,10 @@
                         }
                     }
                 </p>
-                <p class="price">@Model.Items[i].DiscountedPrice.ToString("N") đ</p>
+                <p class="price">@Model.Items[i].DiscountedPrice.ToString("N0") đ</p>
                 @if (Model.Items[i].Discount > 0)
                 {
-                    <p class="price"><del>@Model.Items[i].Price.ToString("N") đ</del></p>
+                    <p class="price"><del>@Model.Items[i].Price.ToString("N0") đ</del></p>
                 }
             </div>
             <hr>

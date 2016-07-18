@@ -131,7 +131,17 @@ namespace _170516.Controllers
             var cart = GetCart(this.HttpContext);
 
             var systemInformationModel = new SystemInformationViewModel();
-            systemInformationModel.CartCount = cart.Products.Count();
+
+            if(cart.Products != null)
+            {
+                foreach(var product in cart.Products)
+                {
+                    systemInformationModel.CartCount += product.Quantity;
+                }
+            }else
+            {
+                systemInformationModel.CartCount = 0;
+            }
 
             return Json(new { data = systemInformationModel }, JsonRequestBehavior.AllowGet);
         }

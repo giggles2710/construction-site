@@ -17,7 +17,7 @@ namespace _170516.Controllers
         {
             var user = dbContext.Accounts.FirstOrDefault(a => a.Username.Equals(User.Identity.Name));
 
-            if(user != null)
+            if (user != null)
             {
                 return user.AccountID;
             }
@@ -41,6 +41,16 @@ namespace _170516.Controllers
                 {
                     string siteCart = cookie[Constant.ProductInCartCookie];
                     cart = JsonConvert.DeserializeObject<CartViewModel>(siteCart);
+
+                    // recalculating grand total
+                    if (cart.Products != null && cart.Products.Any())
+                    {
+                        cart.GrandTotal = 0;
+                        foreach (var product in cart.Products)
+                        {
+                            cart.GrandTotal += product.Price * product.Quantity;
+                        }
+                    }
                 }
                 catch
                 {

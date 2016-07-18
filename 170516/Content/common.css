@@ -3342,6 +3342,11 @@ h5 + .separator {
     font-weight: 400;
 }
 
+.cart-title {
+    font-size: 15px;
+    font-weight: 600;
+}
+
 .cart.table .amount,
 .cart.table .remove,
 .cart.table .quantity {
