@@ -137,7 +137,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="body">
-                                                                <h3><a href="shop-product.html">@product.Name</a></h3>
+                                                                <h3><a href="@Url.Action("ViewProductDetail","Product",new {id=product.ProductId })">@product.Name</a></h3>
                                                                 <p class="small">@product.Summary</p>
                                                                 <div class="elements-list clearfix">
                                                                     <span class="price"><del>@product.Price.ToString("N") đ</del></span>
@@ -159,7 +159,7 @@
                                 <div class="masonry-grid-fitrows grid-space-10" style="position: relative;">
                                     <ul class="products">
                                         @foreach (var product in Model.TopRatedProducts)
-                                        {
+                                                                    {
                                             <li class="list-group mansory-grid-li products-li">
                                                 <div class="item">
                                                     <div class="masonry-grid-item">
@@ -196,7 +196,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="body">
-                                                                <h3><a href="shop-product.html">@product.Name</a></h3>
+                                                                <h3><a href="@Url.Action("ViewProductDetail","Product",new {id=product.ProductId })">@product.Name</a></h3>
                                                                 <p class="small">@product.Summary</p>
                                                                 <div class="elements-list clearfix">
                                                                     <span class="price"><del>@product.Price.ToString("N") đ</del></span>
@@ -257,7 +257,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="body">
-                                                                <h3><a href="shop-product.html">@product.Name</a></h3>
+                                                                <h3><a href="@Url.Action("ViewProductDetail","Product",new {id=product.ProductId })">@product.Name</a></h3>
                                                                 <p class="small">@product.Summary</p>
                                                                 <div class="elements-list clearfix">
                                                                     <span class="price"><del>@product.Price.ToString("N") đ</del></span>
