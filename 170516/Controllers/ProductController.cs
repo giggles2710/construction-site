@@ -219,37 +219,14 @@ namespace _170516.Controllers
                     }
                 }
 
+                // comment list
+                
+
                 return View(model);
             }
 
             return View();
-        }
-
-        public CartViewModel GetCart(HttpContextBase context)
-        {
-            CartViewModel cart;
-            
-            if (context.Request.Cookies[Constant.CartCookie] == null)
-            {
-                cart = new CartViewModel();
-            }
-            else
-            {
-                HttpCookie cookie = context.Request.Cookies[Constant.CartCookie];
-
-                try
-                {
-                    string siteCart = cookie[Constant.ProductInCartCookie];
-                    cart = JsonConvert.DeserializeObject<CartViewModel>(siteCart);
-                }
-                catch
-                {
-                    cart = new CartViewModel();
-                }
-            }
-
-            return cart;
-        }
+        }        
 
         public void AddCartToCookie(HttpContextBase context, CartViewModel cart)
         {

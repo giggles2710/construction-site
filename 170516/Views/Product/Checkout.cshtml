@@ -20,7 +20,7 @@
 
         <div class="container">
             <div class="row">
-                @using (Html.BeginForm("Checkout","Product",FormMethod.Post, new { @id = "checkoutForm" }))
+                @using (Html.BeginForm("Checkout", "Product", FormMethod.Post, new { @id = "checkoutForm" }))
                 {
                     <div class="main col-md-12">
                         <h1 class="page-title">Thanh Toán</h1>
@@ -28,8 +28,7 @@
                         <table class="table cart">
                             <thead>
                                 <tr>
-                                    <th>Tên sản phẩm </th>
-                                    <th>Giá </th>
+                                    <th>Sản Phẩm</th>
                                     <th>Số lượng</th>
                                     <th class="amount">Tổng Cộng </th>
                                 </tr>
@@ -45,24 +44,21 @@
                                             @Html.HiddenFor(model => model.Cart.Products[i].Price)
                                             @Html.HiddenFor(model => model.Cart.Products[i].Quantity)
                                             @Html.HiddenFor(model => model.Cart.Products[i].Total)
-                                            <td class="product product-name"><a href="@Url.Action("ViewProductDetail", "Product", new { id = Model.Cart.Products[i].ProductId })">@Model.Cart.Products[i].ProductName</a> <small></small></td>
-                                            <td class="price">
-                                                @Html.DisplayFor(model => model.Cart.Products[i].Price, new { Value = String.Format("{0:0}", Model.Cart.Products[i].Price) })
-                                            </td>
+                                            <td class="product product-name"><a href="@Url.Action("ViewProductDetail", "Product", new { id = Model.Cart.Products[i].ProductId })" style="font-size: 16px;font-weight: 600;">@Model.Cart.Products[i].ProductName</a> <small></small></td>
                                             <td class="quantity">
                                                 <div class="form-group">
                                                     @Html.TextBoxFor(model => model.Cart.Products[i].Quantity, new { @class = "form-control", @disabled = "" })
                                                 </div>
                                             </td>
-                                            <td class="amount">@Html.DisplayFor(model => model.Cart.Products[i].Total, new { Value = String.Format("{0:0}", Model.Cart.Products[i].Price) })</td>
+                                            <td class="price">@Model.Cart.Products[i].Price.ToString("N0") đ</td>
                                         </tr>
                                     }
-                                }                                
+                                }
                                 <tr>
-                                    <td class="total-quantity" colspan="3">@Model.Cart.Products.Count sản phẩm</td>
+                                    <td class="total-quantity" colspan="2"></td>
                                     <td class="total-amount">
                                         @Html.HiddenFor(model => model.Cart.GrandTotal)
-                                        @Html.DisplayFor(model => model.Cart.GrandTotal, new { Value = String.Format("{0:0}", Model.Cart.GrandTotal) })
+                                        <span style="font-size: 20px;">@Model.Cart.GrandTotal.ToString("N0") đ</span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -86,14 +82,14 @@
                                         <div class="form-group">
                                             <label for="billingTel" class="col-md-2 control-label">Số điện thoại<small class="text-default">*</small></label>
                                             <div class="col-md-10">
-                                                @Html.TextBoxFor(model => model.Customer.Phone, new { @class = "form-control", @placeholder = "Số điện thoại" })
+                                                @Html.TextBoxFor(model => model.Customer.Phone, new { @class = "form-control", @placeholder = "Số điện thoại", @type = "number" })
                                                 @Html.ValidationMessageFor(model => model.Customer.Phone, null, new { @class = "input-error-box text-danger" })
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="billingemail" class="col-md-2 control-label">Địa chỉ email<small class="text-default">*</small></label>
                                             <div class="col-md-10">
-                                                @Html.TextBoxFor(model => model.Customer.EmailAddress, new { @class = "form-control", @placeholder = "Địa chỉ email" })
+                                                @Html.TextBoxFor(model => model.Customer.EmailAddress, new { @class = "form-control", @placeholder = "Địa chỉ email", @type = "email" })
                                                 @Html.ValidationMessageFor(model => model.Customer.EmailAddress, null, new { @class = "input-error-box text-danger" })
                                             </div>
                                         </div>
@@ -140,7 +136,7 @@
                                 <div class="space"></div>
                                 <div class="row">
                                     <div class="col-lg-3">
-                                        <h3 class="title">Thông tin thêm</h3>
+                                        <h3 class="title">Ghi Chú</h3>
                                     </div>
                                     <div class="col-lg-8 col-lg-offset-1">
                                         <div class="form-group">
@@ -149,7 +145,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </fieldset>

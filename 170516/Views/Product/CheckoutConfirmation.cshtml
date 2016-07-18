@@ -26,10 +26,9 @@
                     <table class="table cart">
                         <thead>
                             <tr>
-                                <th>Tên sản phẩm </th>
-                                <th>Giá </th>
+                                <th>Sản Phẩm</th>
                                 <th>Số lượng</th>
-                                <th class="amount">Tổng Cộng </th>
+                                <th class="amount">Giá</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,26 +42,22 @@
                                         @Html.HiddenFor(model => model.Cart.Products[i].Price)
                                         @Html.HiddenFor(model => model.Cart.Products[i].Quantity)
                                         @Html.HiddenFor(model => model.Cart.Products[i].Total)
-                                        <td class="product"><a href="@Url.Action("ViewProductDetail", "Product", new { id = Model.Cart.Products[i].ProductId })">@Model.Cart.Products[i].ProductName</a> <small></small></td>
-                                        <td class="price">
-                                            @Html.DisplayFor(model => model.Cart.Products[i].Price, new { Value = String.Format("{0:0}", Model.Cart.Products[i].Price) })
-                                        </td>
+                                        <td class="product product-name"><a href="@Url.Action("ViewProductDetail", "Product", new { id = Model.Cart.Products[i].ProductId })" style="font-size: 16px;font-weight: 600;">@Model.Cart.Products[i].ProductName</a> <small></small></td>
                                         <td class="quantity">
                                             <div class="form-group">
                                                 @Html.TextBoxFor(model => model.Cart.Products[i].Quantity, new { @class = "form-control", @disabled = "" })
                                             </div>
                                         </td>
-                                        <td class="amount">
-                                            @Html.DisplayFor(model => model.Cart.Products[i].Total, new { Value = String.Format("{0:0}", Model.Cart.Products[i].Price) })
+                                        <td class="price">
+                                            @Model.Cart.Products[i].Price.ToString("N0") đ
                                         </td>
                                     </tr>
                                     }
                                 }
-                            
                             <tr>
-                                <td class="total-quantity" colspan="3">@Model.Cart.Products.Count sản phẩm</td>
+                                <td class="total-quantity" colspan="2"></td>
                                 <td class="total-amount">
-                                    @Html.DisplayFor(model => model.Cart.GrandTotal, new { Value = String.Format("{0:0}", Model.Cart.GrandTotal) })
+                                    <span style="font-size: 20px;">@Model.Cart.GrandTotal.ToString("N0") đ</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -98,7 +93,7 @@
                                 <td class="information">@string.Format("{0} - {1} - {2}", Model.Customer.Address, Model.Customer.District, Model.Customer.City)</td>
                             </tr>
                             <tr>
-                                <td>Additional Info</td>
+                                <td>Ghi chú</td>
                                 @Html.HiddenFor(model => model.Customer.AdditionalInformation)
                                 <td class="information">@Html.DisplayTextFor(model => model.Customer.AdditionalInformation) </td>
                             </tr>

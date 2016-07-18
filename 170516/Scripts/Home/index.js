@@ -1,4 +1,14 @@
 ﻿$(document).ready(function () {
+    $("#owl-demo").owlCarousel({
+        slideSpeed: 300,
+        paginationSpeed: 400,
+        singleItem: true,
+        itemsScaleUp: true,
+        responsive: true,
+        theme: "owl-theme",
+        transitionStyle: "fade"
+    });
+
     // initialize dl menu
     $('#dl-menu').dlmenu();
 

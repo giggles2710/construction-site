@@ -72,7 +72,7 @@ namespace GenerateDatabase
         {
             Account account = new Account();
 
-            XmlTextReader reader = new XmlTextReader(@"C:\Users\Administrator\Source\Repos\construction-site\GenerateDatabase\Xml\user.xml");
+            XmlTextReader reader = new XmlTextReader(@"Xml\user.xml");
             while (reader.Read())
             {
                 switch (reader.NodeType)
@@ -158,7 +158,7 @@ namespace GenerateDatabase
         {
             Category category = new Category();
 
-            XmlTextReader reader = new XmlTextReader(@"C:\Users\Administrator\Source\Repos\construction-site\GenerateDatabase\Xml\parent-category.xml");
+            XmlTextReader reader = new XmlTextReader(@"Xml\parent-category.xml");
             while (reader.Read())
             {
                 switch (reader.NodeType)
@@ -221,7 +221,7 @@ namespace GenerateDatabase
         {
             Category category = new Category();
 
-            XmlTextReader reader = new XmlTextReader(@"C:\Users\Administrator\Source\Repos\construction-site\GenerateDatabase\Xml\category.xml");
+            XmlTextReader reader = new XmlTextReader(@"Xml\category.xml");
             while (reader.Read())
             {
                 switch (reader.NodeType)
@@ -348,7 +348,7 @@ namespace GenerateDatabase
             Product product = new Product();
             ProductDetail detail = new ProductDetail();
 
-            XmlTextReader reader = new XmlTextReader(@"C:\Users\Administrator\Source\Repos\construction-site\GenerateDatabase\Xml\product.xml");
+            XmlTextReader reader = new XmlTextReader(@"Xml\product.xml");
             while (reader.Read())
             {
                 switch (reader.NodeType)
@@ -459,7 +459,7 @@ namespace GenerateDatabase
         {
             MergeField field = new MergeField();
 
-            XmlTextReader reader = new XmlTextReader(@"C:\Users\Administrator\Source\Repos\construction-site\GenerateDatabase\Xml\merge-fields.xml");
+            XmlTextReader reader = new XmlTextReader(@"Xml\merge-fields.xml");
             while (reader.Read())
             {
                 switch (reader.NodeType)
@@ -519,7 +519,7 @@ namespace GenerateDatabase
             EmailTemplate emailTempOrder = new EmailTemplate();
             emailTempOrder.EmailTemplateName = @"Xác nhận đơn hàng";
             emailTempOrder.EmailSubject = @"Xác nhận đơn hàng trên ConstructionSite.com";
-            emailTempOrder.HtmlBody = File.ReadAllText(@"C:\Users\Administrator\Source\Repos\construction-site\GenerateDatabase\Xml\OrderConfirmationEmailTemp.txt");
+            emailTempOrder.HtmlBody = File.ReadAllText(@"Xml\OrderConfirmationEmailTemp.txt");
             emailTempOrder.EmailType = 1;
             emailTempOrder.CreatedDate = DateTime.Now;
             emailTempOrder.LastUpdatedDate = DateTime.Now;
@@ -529,7 +529,7 @@ namespace GenerateDatabase
             EmailTemplate emailTempReplyRequest = new EmailTemplate();
             emailTempReplyRequest.EmailTemplateName = @"Phản hồi khách hàng";
             emailTempReplyRequest.EmailSubject = @"Construction Site: Cảm ơn quý khách đã đóng góp ý kiến";
-            emailTempReplyRequest.HtmlBody = File.ReadAllText(@"C:\Users\Administrator\Source\Repos\construction-site\GenerateDatabase\Xml\ReplyRequestEmailTemplate.txt");
+            emailTempReplyRequest.HtmlBody = File.ReadAllText(@"Xml\ReplyRequestEmailTemplate.txt");
             emailTempReplyRequest.EmailType = 2;
             emailTempReplyRequest.CreatedDate = DateTime.Now;
             emailTempReplyRequest.LastUpdatedDate = DateTime.Now;

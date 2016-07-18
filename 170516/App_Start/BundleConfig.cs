@@ -18,7 +18,7 @@ namespace _170516
                         "~/Scripts/inputmask.phone.extensions.js",
                         "~/Scripts/inputmask.regex.extensions.js",
                         "~/Scripts/inputmask.extensions.js",
-                        "~/Scripts/jquery.inputmask.js"));            
+                        "~/Scripts/jquery.inputmask.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -31,6 +31,8 @@ namespace _170516
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/bootstrap-select.js",
+                      "~/Scripts/bootstrap-collapse.js",
+                      "~/Scripts/bootstrap-transaction.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery_upload").Include(
@@ -59,6 +61,8 @@ namespace _170516
                         "~/Scripts/tinymce/tinymce.min.js",
                         "~/Scripts/slick.min.js",
                         "~/Scripts/owl.carousel.js",
+                        "~/Scripts/bootstrap-collapse.js",
+                        "~/Scripts/bootstrap-transition.js",
                         "~/Scripts/bootbox.min.js",
                         "~/Scripts/toastr.min.js"));
 
@@ -68,13 +72,11 @@ namespace _170516
                       "~/Content/bootstrap-select/bootstrap-select.css",
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/common.css",
-                      "~/Content/fullwidth-list/default.css",
-                      "~/Content/fullwidth-list/component.css",
-                      "~/Content/parallax_slider.css",
                       "~/Content/slick.css",
                       "~/Content/slick-theme.css",
                       "~/Content/owl.carousel/owl.carousel.css",
-                      "~/Content/owl.carousel/owl.theme.css",                      
+                      "~/Content/owl.carousel/owl.theme.css",
+                      "~/Content/owl.carousel/owl.transitions.css",
                       "~/Content/toastr.css"));
 
             bundles.Add(new StyleBundle("~/Content/admin_css").Include(

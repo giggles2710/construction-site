@@ -25,6 +25,8 @@ namespace _170516.Models
         public double Discount { get; set; }
 
         public List<ShowcaseProductSpecification> SpecificationList { get; set; }
+        public List<PostCommentModel> CommentList { get; set; }
+
     }
 
     public class ShowcaseProductSpecification

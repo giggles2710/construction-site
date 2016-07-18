@@ -3,14 +3,14 @@
 }
 
 <div class="index-content-wrapper container-fluid">
-    <div class="banner dark-translucent-bg" style="background-image:url('http://htmlcoder.me/preview/the_project/v.1.2/template/images/page-about-banner-1.jpg'); background-position: 50% 32%;">
+    <div class="banner dark-translucent-bg" style="background-image: url('../../Content/Image/about_image.jpg');  background-position: 50% 32%;">
         <!-- breadcrumb start -->
         <!-- ================ -->
         <div class="breadcrumb-container">
             <div class="container">
                 <ol class="breadcrumb">
-                    <li><i class="fa fa-home pr-10"></i><a href="@Url.Action("Index","Home")">Trang Chủ</a></li>
-                    <li><a href="@Url.Action("Showcase","Product")">Sản Phẩm</a></li>
+                    <li><i class="fa fa-home pr-10"></i><a class="link-dark" href="@Url.Action("Index","Home")">Trang Chủ</a></li>
+                    <li><a class="link-dark" href="@Url.Action("Showcase","Product")">Sản Phẩm</a></li>
                     <li class="active">Giới Thiệu</li>
                 </ol>
             </div>
@@ -162,7 +162,7 @@
         </div>
     </section>
 
-    <section class="main-container border-clear light-gray-bg padding-bottom-clear" style="background:#fff;">
+    <section class="main-container border-clear light-gray-bg padding-bottom-clear" style="background:#fff;margin-bottom:50px;">
         <div class="container">
             <div class="row">
                 <div class="main col-md-12">
@@ -174,24 +174,25 @@
                                 <div class="overlay-container">
                                     <img src="http://dhcgroup.vn/Content/UserFiles/Images/Service/dautu.jpg" alt="">
                                     <div class="overlay-to-top">
-                                        <p class="small margin-clear">
-                                            Với những tiềm năng vốn có từ tài nguyên thiên nhiên cũng như nội lực phát triển của thành phố Đà Nẵng và các địa phương khác trên cả nước, Tổng Công ty Cổ phần Đầu tư DHC đã tìm kiếm những cơ hội phát triển kinh doanh tại đây.
-                                        </p>
-                                        <p class="small margin-clear">
-                                            Các dự án về du lịch, bất động sản, nghỉ dưỡng, giải trí đã lần lượt ra đời hứa hẹn mang đến một diện mạo mới cho thành phố trẻ năng động cũng như mang lại công ăn việc làm cho người dân địa phương.
-                                        </p>
-                                        <p class="small margin-clear">
-                                            Với kinh nghiệm đầu tư tại các quốc gia phát triển Châu Âu, các cổ đông của Tổng Công ty Cổ phần Đầu Tư DHC đã có những chiến lược đầu tư vào nền kinh tế Việt Nam trong giai đoạn mới dựa trên phương châm "Đầu tư - Hợp tác - Cùng phát triển".
-                                        </p>
+                                        <p class="small margin-clear">Với kinh nghiệm đầu tư tại các quốc gia phát triển Châu Âu, các cổ đông của Tổng Công ty Cổ phần Đầu Tư DHC đã có những chiến lược đầu tư vào nền kinh tế Việt Nam trong giai đoạn mới.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="body">
+                                <div class="body about-body">
                                     <div class="pv-30 visible-lg"></div>
                                     <h3>Hoạt Động Đầu Tư</h3>
                                     <div class="separator-2"></div>
-                                    <p class="margin-clear">Với kinh nghiệm đầu tư tại các quốc gia phát triển Châu Âu, các cổ đông của Tổng Công ty Cổ phần Đầu Tư DHC đã có những chiến lược đầu tư vào nền kinh tế Việt Nam trong giai đoạn mới.</p>
+                                    <p class="margin-clear">
+                                        Với những tiềm năng vốn có từ tài nguyên thiên nhiên cũng như nội lực phát triển của thành phố Đà Nẵng và các địa phương khác trên cả nước, Tổng Công ty Cổ phần Đầu tư DHC đã tìm kiếm những cơ hội phát triển kinh doanh tại đây.
+                                    </p>
+                                    <p class="margin-clear">
+                                        Các dự án về du lịch, bất động sản, nghỉ dưỡng, giải trí đã lần lượt ra đời hứa hẹn mang đến một diện mạo mới cho thành phố trẻ năng động cũng như mang lại công ăn việc làm cho người dân địa phương.
+                                    </p>
+                                    <p class="margin-clear">
+                                        Với kinh nghiệm đầu tư tại các quốc gia phát triển Châu Âu, các cổ đông của Tổng Công ty Cổ phần Đầu Tư DHC đã có những chiến lược đầu tư vào nền kinh tế Việt Nam trong giai đoạn mới dựa trên phương châm "Đầu tư - Hợp tác - Cùng phát triển".
+                                    </p>
+
                                 </div>
                             </div>
                         </div>
@@ -199,12 +200,19 @@
                     <div class="image-box style-4">
                         <div class="row grid-space-0">
                             <div class="col-md-6">
-                                <div class="body">
+                                <div class="body about-body">
                                     <div class="pv-30 visible-lg"></div>
                                     <h3>Hoạt Động Dịch Vụ</h3>
                                     <div class="separator-2"></div>
+
                                     <p class="margin-clear">
-                                        Chiến dịch Truyền thông marketing nhằm thúc đẩy, đưa nhãn hiệu sản phẩm và thương hiệu của doanh nghiệp đến với cộng đồng người tiêu dùng trên toàn quốc một cách nhanh nhất.
+                                        Truyền thông marketing bao gồm các hoạt động như quảng cáo, xúc tiến bán hàng, marketing trực tiếp, quan hệ công chúng, tổ chức sự kiện đặc biệt, triển lãm thương mại, và nhiều hoạt động khác. Thông điệp gắn với những hoạt động này và phương tiện được sử dụng đều tìm cách đưa thông tin vào tâm trí của khách hàng hiện tại hoặc khách hàng triển vọng vì nó sẽ ảnh hưởng đến các quyết định sử dụng hàng hóa, dịch vụ trong tương lai.
+                                    </p>
+                                    <p class="margin-clear">
+                                        Những chiến dịch marketing đã xác định mục tiêu là một phần quan trọng trong nhiều chiến lược truyền thông tổng thể. Mục đích của những chiến dịch này là để truyền tải thông điệp của doanh nghiệp và thu hút có hệ thống, dễ nhận biết, và đầy thuyết phục chú ý của mọi người.
+                                    </p>
+                                    <p class="margin-clear">
+                                        Với đội ngũ chuyên gia có kinh nghiệm và kiến thức chuyên môn cao, am hiểu sâu sắc về kỹ thuật xây dựng hệ thống truyền thông mạng xã hội, Công ty DHC Services chúng tôi cam kết luôn đem lại hiệu quả lớn nhất trên chi phí đầu tư của bạn.
                                     </p>
                                 </div>
                             </div>
@@ -213,13 +221,7 @@
                                     <img src="http://dhcgroup.vn/Content/UserFiles/Images/Service/dichvu.jpg" alt="">
                                     <div class="overlay-to-top">
                                         <p class="small margin-clear">
-                                            Truyền thông marketing bao gồm các hoạt động như quảng cáo, xúc tiến bán hàng, marketing trực tiếp, quan hệ công chúng, tổ chức sự kiện đặc biệt, triển lãm thương mại, và nhiều hoạt động khác. Thông điệp gắn với những hoạt động này và phương tiện được sử dụng đều tìm cách đưa thông tin vào tâm trí của khách hàng hiện tại hoặc khách hàng triển vọng vì nó sẽ ảnh hưởng đến các quyết định sử dụng hàng hóa, dịch vụ trong tương lai.
-                                        </p>
-                                        <p class="small margin-clear">
-                                            Những chiến dịch marketing đã xác định mục tiêu là một phần quan trọng trong nhiều chiến lược truyền thông tổng thể. Mục đích của những chiến dịch này là để truyền tải thông điệp của doanh nghiệp và thu hút có hệ thống, dễ nhận biết, và đầy thuyết phục chú ý của mọi người.
-                                        </p>
-                                        <p class="small margin-clear">
-                                            Với đội ngũ chuyên gia có kinh nghiệm và kiến thức chuyên môn cao, am hiểu sâu sắc về kỹ thuật xây dựng hệ thống truyền thông mạng xã hội, Công ty DHC Services chúng tôi cam kết luôn đem lại hiệu quả lớn nhất trên chi phí đầu tư của bạn.
+                                            Chiến dịch Truyền thông marketing nhằm thúc đẩy, đưa nhãn hiệu sản phẩm và thương hiệu của doanh nghiệp đến với cộng đồng người tiêu dùng trên toàn quốc một cách nhanh nhất.
                                         </p>
                                     </div>
                                 </div>
@@ -232,24 +234,25 @@
                                 <div class="overlay-container">
                                     <img src="http://dhcgroup.vn/Content/UserFiles/Images/Service/thumnails%20web%20kinh%20doanh.jpg" alt="">
                                     <div class="overlay-to-top">
-                                        <p class="small margin-clear">
-                                            Tổng Công ty Cổ phần Đầu tư DHC đang mở rộng kinh doanh với 2 dự án quy mô lớn là “Bến du thuyền và Câu lạc bộ thể thao dưới nước” (DHC-Marina) và Công viên Suối khoáng nóng Núi Thần Tài (DHC Suối Đôi).
-                                        </p>
-                                        <p class="small margin-clear">
-                                            Với “Bến du thuyền và Câu lạc bộ thể thao dưới nước” DHC-Marina sẽ đẩy mạnh du lịch du thuyền, khai thác các tour thưởng ngoạn sông Hàn, biển đảo Cù Lao Chàm,… Quản lý bến và du thuyền, cung cấp nơi đậu đỗ, bảo quản du thuyền; tổ chức hội thảo; CLB thể thao dưới nước. Định vị thương hiệu, phát triển thị trường thông qua việc bán, cho thuê du thuyền, trở thành cơ sở sản xuất của các thương hiệu tiếng; hợp tác đào tạo lái du thuyền,…
-                                        </p>
-                                        <p class="small margin-clear">
-                                            Công viên Suối khoáng nóng Núi Thần Tài phân thành nhiều hạng mục nhằm khai thác nguồn tài nguyên mỏ nước khoáng nóng cùng cảnh quan sinh thái đẹp mắt. Dự án chú trọng các khu tắm khoáng nóng, tắm bùn, tắm Onsen... cùng các dịch vụ spa giúp thư giãn hiệu quả. Nằm tại xã Hòa Phú, huyện Hòa Vang, TP. Đà Nẵng, dự án hứa hẹn sẽ là một điểm đến hấp dẫn, phát triển tiềm năng kinh tế của khu vực Tây Nam thành phố.
-                                        </p>
+                                        <p class="small margin-clear">"Bến du thuyền và CLB thể thao dưới nước", "Công viên suối khoáng nóng Núi Thần Tài" là những dự án quy mô lớn do các công ty thành viên của Tổng CTy CPĐT DHC làm chủ đầu tư.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="body">
+                                <div class="body about-body">
                                     <div class="pv-30 visible-lg"></div>
                                     <h3>Hoạt Động Kinh Doanh</h3>
                                     <div class="separator-2"></div>
-                                    <p class="margin-clear">"Bến du thuyền và CLB thể thao dưới nước", "Công viên suối khoáng nóng Núi Thần Tài" là những dự án quy mô lớn do các công ty thành viên của Tổng CTy CPĐT DHC làm chủ đầu tư.</p>
+                                    <p class="margin-clear">
+                                        Tổng Công ty Cổ phần Đầu tư DHC đang mở rộng kinh doanh với 2 dự án quy mô lớn là “Bến du thuyền và Câu lạc bộ thể thao dưới nước” (DHC-Marina) và Công viên Suối khoáng nóng Núi Thần Tài (DHC Suối Đôi).
+                                    </p>
+                                    <p class="margin-clear">
+                                        Với “Bến du thuyền và Câu lạc bộ thể thao dưới nước” DHC-Marina sẽ đẩy mạnh du lịch du thuyền, khai thác các tour thưởng ngoạn sông Hàn, biển đảo Cù Lao Chàm,… Quản lý bến và du thuyền, cung cấp nơi đậu đỗ, bảo quản du thuyền; tổ chức hội thảo; CLB thể thao dưới nước. Định vị thương hiệu, phát triển thị trường thông qua việc bán, cho thuê du thuyền, trở thành cơ sở sản xuất của các thương hiệu tiếng; hợp tác đào tạo lái du thuyền,…
+                                    </p>
+                                    <p class="margin-clear">
+                                        Công viên Suối khoáng nóng Núi Thần Tài phân thành nhiều hạng mục nhằm khai thác nguồn tài nguyên mỏ nước khoáng nóng cùng cảnh quan sinh thái đẹp mắt. Dự án chú trọng các khu tắm khoáng nóng, tắm bùn, tắm Onsen... cùng các dịch vụ spa giúp thư giãn hiệu quả. Nằm tại xã Hòa Phú, huyện Hòa Vang, TP. Đà Nẵng, dự án hứa hẹn sẽ là một điểm đến hấp dẫn, phát triển tiềm năng kinh tế của khu vực Tây Nam thành phố.
+                                    </p>
+
                                 </div>
                             </div>
                         </div>
@@ -257,12 +260,32 @@
                     <div class="image-box style-4">
                         <div class="row grid-space-0">
                             <div class="col-md-6">
-                                <div class="body">
+                                <div class="body about-body">
                                     <div class="pv-30 visible-lg"></div>
                                     <h3>Hoạt Động Xây Dựng</h3>
                                     <div class="separator-2"></div>
                                     <p class="margin-clear">
-                                        Nằm trong chiến lược cung cấp dịch vụ trọn gói từ tư vấn thiết kế, giám sát, thi công và nội thất công trình, mảng xây dựng công trình là một trong những phần quan trọng bậc nhất của DHC Group.
+                                        Nằm trong chiến lược cung cấp dịch vụ trọn gói từ tư vấn thiết kế, giám sát, thi công và nội thất công trình, mảng xây dựng công trình là một trong những phần quan trọng bậc nhất của DHC Group. Lĩnh vực hoạt động bao gồm:
+                                    </p>
+                                    <p class="margin-clear">
+
+                                        Nhà hàng và các dịch vụ ăn uống phục vụ lưu động
+                                    </p>
+                                    <p class="margin-clear">
+
+                                        Bán lẻ khác trong các cừa hàng kinh doanh tổng hợp
+                                    </p>
+                                    <p class="margin-clear">
+                                        Dịch vụ lưu trú ngắn ngày: Kinh doanh cơ sở lưu trú du lịch
+                                    </p>
+                                    <p class="margin-clear">
+                                        Bán lẻ đồ ngũ kim, sơn, kính và thiết bị lắp đặt khác trong xây dựng trong các cửa hàng chuyên doanh (Riêng xi măng, gạch xây, ngói, đá, cát, sạn bán tại chân công trình)
+                                    </p>
+                                    <p class="margin-clear">
+                                        Bán lẻ theo yêu cầu đặt hàng qua bưu điện hoặc internet
+                                    </p>
+                                    <p class="margin-clear">
+                                        Hoạt động tư vấn quản lý: Tư vấn đầu tư xây dựng, quản lý dự án
                                     </p>
                                 </div>
                             </div>
@@ -271,28 +294,9 @@
                                     <img src="http://dhcgroup.vn/Content/UserFiles/Images/Service/dichvu.jpg" alt="">
                                     <div class="overlay-to-top">
                                         <p class="small margin-clear">
-                                            Nằm trong chiến lược cung cấp dịch vụ trọn gói từ tư vấn thiết kế, giám sát, thi công và nội thất công trình, mảng xây dựng công trình là một trong những phần quan trọng bậc nhất của DHC Group. Lĩnh vực hoạt động bao gồm:
+                                            Nằm trong chiến lược cung cấp dịch vụ trọn gói từ tư vấn thiết kế, giám sát, thi công và nội thất công trình, mảng xây dựng công trình là một trong những phần quan trọng bậc nhất của DHC Group.
                                         </p>
-                                        <p class="small margin-clear">
 
-                                            Nhà hàng và các dịch vụ ăn uống phục vụ lưu động
-                                        </p>
-                                        <p class="small margin-clear">
-
-                                            Bán lẻ khác trong các cừa hàng kinh doanh tổng hợp
-                                        </p>
-                                        <p class="small margin-clear">
-                                            Dịch vụ lưu trú ngắn ngày: Kinh doanh cơ sở lưu trú du lịch
-                                        </p>
-                                        <p class="small margin-clear">
-                                            Bán lẻ đồ ngũ kim, sơn, kính và thiết bị lắp đặt khác trong xây dựng trong các cửa hàng chuyên doanh (Riêng xi măng, gạch xây, ngói, đá, cát, sạn bán tại chân công trình)
-                                        </p>
-                                        <p class="small margin-clear">
-                                            Bán lẻ theo yêu cầu đặt hàng qua bưu điện hoặc internet
-                                        </p>
-                                        <p class="small margin-clear">
-                                            Hoạt động tư vấn quản lý: Tư vấn đầu tư xây dựng, quản lý dự án
-                                        </p>
                                     </div>
                                 </div>
                             </div>

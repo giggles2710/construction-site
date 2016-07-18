@@ -124,6 +124,18 @@ namespace _170516.Controllers
             return Json(new { base64Thumbnail = Convert.ToBase64String(data), fileType = fileType }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult LoadSystemInformation()
+        {
+            // cart
+            var cart = GetCart(this.HttpContext);
+
+            var systemInformationModel = new SystemInformationViewModel();
+            systemInformationModel.CartCount = cart.Products.Count();
+
+            return Json(new { data = systemInformationModel }, JsonRequestBehavior.AllowGet);
+        }
+
         //public ActionResult ProductMenu(int? id)
         //{
         //    var categories = new List<ProductMenuItem>();

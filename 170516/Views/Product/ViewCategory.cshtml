@@ -4,7 +4,7 @@
 }
 
 <div class="index-content-wrapper container-fluid">
-    <div class="banner dark-translucent-bg" style="background-image:url('http://htmlcoder.me/preview/the_project/v.1.2/template/images/page-contact-banner.jpg'); background-position: 50% 30%;">
+    <div class="banner dark-translucent-bg" style="background-image: url('../../Content/Image/viewcategory_image.jpg'); background-position: 50% 30%;">
         <div class="breadcrumb-container">
             <div class="container">
                 <ol class="breadcrumb">
@@ -38,7 +38,7 @@
                                         @if (Model.MenuOnMainPage.Any())
                                         {
                                             <div class="btn-group bootstrap-select" id="product_itemNumber_select">
-                                                <select class="selectpicker" tabindex="-98">
+                                                <select class="selectpicker" data-style="btn-primary" tabindex="-98">
                                                     @if (Model.ItemOnPage == 10)
                                                     {
                                                         <option selected="" value="10">10</option>
@@ -74,7 +74,7 @@
                                                 </select>
                                             </div>
                                             <div class="btn-group bootstrap-select" id="product_filter_select">
-                                                <select class="selectpicker" tabindex="-98">
+                                                <select class="selectpicker" data-style="btn-primary" tabindex="-98">
                                                     @if (Model.SortField.Equals("latest"))
                                                     {
                                                         <option selected value="latest">Mới nhất</option>
@@ -192,9 +192,12 @@
                                             </li>
                                         }
 
-                                        <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
-                                            <a href="@Url.Action("ViewCategory", "Product", new { id=Model.CategoryId, page = Model.CurrentPage, itemsPerPage = Model.ItemOnPage, sortField = Model.SortField })">@Model.CurrentPage.ToString()</a>
-                                        </li>
+                                        @if (Model.CurrentPage > 1)
+                                        {
+                                            <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
+                                                <a href="@Url.Action("ViewCategory", "Product", new { id = Model.CategoryId, page = Model.CurrentPage, itemsPerPage = Model.ItemOnPage, sortField = Model.SortField })">@Model.CurrentPage.ToString()</a>
+                                            </li>
+                                        }
 
                                         @if (Model.CurrentPage + 1 <= Model.TotalPage)
                                         {

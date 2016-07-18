@@ -26,11 +26,9 @@
                         <table class="table cart table-hover table-colored">
                             <thead>
                                 <tr>
-                                    <th>Tên sản phẩm</th>
-                                    <th>Giá</th>
+                                    <th>Sản Phẩm</th>                                    
                                     <th>Số lượng</th>
-                                    <th>Xóa</th>
-                                    <th class="amount">Tổng Cộng</th>
+                                    <th style="text-align:center;">Giá</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,28 +41,25 @@
                                             @Html.HiddenFor(model => model.Products[i].ProductName)
                                             @Html.HiddenFor(model => model.Products[i].Price)
                                             @Html.HiddenFor(model => model.Products[i].Total)
-                                            <td class="product product-name"><a href="@Url.Action("ViewProductDetail", "Product", new { id = Model.Products[i].ProductId })">@Model.Products[i].ProductName</a> <small></small></td>
-                                            <td class="price">
-                                                @Html.DisplayFor(model => model.Products[i].Price, new { Value = String.Format("{0:0}", Model.Products[i].Price) })
+                                            <td class="product product-name">
+                                                <a href="@Url.Action("ViewProductDetail", "Product", new { id = Model.Products[i].ProductId })" style="font-size: 16px;font-weight: 600;">@Model.Products[i].ProductName</a> 
+                                                <a class="btn-remove deleteProductInCartBtn" data-url="@Url.Action("DeleteProductInCart", "Product", new { @id = Model.Products[i].ProductId })"><span class="small" style="font-size: 12px;margin-top: 10px;cursor: pointer;color: #911808;">Xóa</span></a>
                                             </td>
                                             <td class="quantity">
                                                 <div class="form-group">
-                                                    @Html.TextBoxFor(model => model.Products[i].Quantity, new { @class = "form-control" })
+                                                    @Html.TextBoxFor(model => model.Products[i].Quantity, new { @class = "form-control", @type = "number" })
                                                     <span class="input-error-box text-danger" id="error-pro-@Model.Products[i].ProductId"></span>
                                                 </div>
                                             </td>
-                                            <td class="remove">
-                                                <a class="btn btn-remove btn-sm btn-default deleteProductInCartBtn" data-url="@Url.Action("DeleteProductInCart", "Product", new { @id = Model.Products[i].ProductId })">Xóa</a>
-                                            </td>
-                                            <td class="amount">@Html.DisplayFor(model => model.Products[i].Total, new { Value = String.Format("{0:0}", Model.Products[i].Price) })</td>
+                                            <td class="price">@Model.Products[i].Total.ToString("N0") đ </td>
                                         </tr>
                                     }
                                 }
 
                                 <tr>
-                                    <td class="total-quantity" colspan="4">Tổng cộng @Model.Products.Count sản phẩm</td>
+                                    <td class="total-quantity" colspan="2">Tổng cộng @Model.Products.Count sản phẩm</td>
                                     <td class="total-amount">
-                                        @Html.DisplayFor(model => model.GrandTotal, new { Value = String.Format("{0:0}", Model.GrandTotal) })
+                                        @Model.GrandTotal.ToString("N0") đ
                                     </td>
                                 </tr>
                             </tbody>
@@ -78,7 +73,7 @@
                         }
                         else
                         {
-                            <div class="text-right">                                
+                            <div class="text-right">
                                 <a href="@Url.Action("Index","Home")" class="btn btn-group btn-default">Mua sắm</a>
                             </div>
                         }

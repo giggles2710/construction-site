@@ -28,8 +28,7 @@
             }
         }
 
-        if (isValid)
-        {
+        if (isValid) {
             var cartData = {
                 ProductId: $('#ProductID').val(),
                 Quantity: $('#productInCartQuantity').val()
@@ -67,6 +66,10 @@
             success: function (data) {
                 if (data.isResult) {
                     toastr.success('Đã thêm sản phẩm vào giỏ hàng.');
+
+                    // then, increment the cart total
+                    var cartCount = parseInt($('.cart-count').text());
+                    $('.cart-count').text(cartCount + 1);
                 }
                 else {
                     toastr.error(data.result);
@@ -81,8 +84,8 @@
     $('#btnViewCartPopup').click(function () {
         $.ajax({
             type: "GET",
-            url: staticUrl.ViewPartialCart,            
-            success: function (data) {               
+            url: staticUrl.ViewPartialCart,
+            success: function (data) {
                 $("#cartPartialView").html(data); //the HTML I returned from the controller
             },
             error: function (errorData) {
@@ -104,7 +107,7 @@
         });
     });
 
-    $('#UpdateProductCartBtn').click(function () {        
+    $('#UpdateProductCartBtn').click(function () {
         var form = $("#updateCartForm");
         var isValid = true;
 
@@ -127,8 +130,7 @@
             }
         });
 
-        if (isValid)
-        {
+        if (isValid) {
             $.ajax({
                 url: staticUrl.UpdateCart,
                 data: form.serialize(),
@@ -137,33 +139,29 @@
                 dataType: "json",
                 cache: false,
                 success: function (data) {
-                    if (data.isResult == false)
-                    {
-                        data.errors.forEach(function (item) {                            
-                            var pro = $('#error-pro-'+item.ProductId);
+                    if (data.isResult == false) {
+                        data.errors.forEach(function (item) {
+                            var pro = $('#error-pro-' + item.ProductId);
                             pro.parent().addClass('has-error');
                             pro.text(item.Error);
                         });
                     }
-                    else
-                    {
+                    else {
                         window.location.href = staticUrl.ViewCart;
                     }
                 },
-                error: function () {                    
+                error: function () {
                 }
             });
         }
     });
 
     $('#shipping-info-check').on('change', function () {
-        if ($('#shipping-info-check').is(":checked"))
-        {
+        if ($('#shipping-info-check').is(":checked")) {
             $('#shipping-info-check').prop('checked', true);
             $('#shipping-information').hide();
         }
-        else
-        {
+        else {
             $('#shipping-info-check').prop('checked', false);
             $('#shipping-information').show();
         }
@@ -200,8 +198,7 @@
         var isValid = true;
         form.validate();
 
-        if (!$('#shipping-info-check').is(":checked"))
-        {
+        if (!$('#shipping-info-check').is(":checked")) {
             //address
             if ($('#Customer_ShipAddress').val() == null || $('#Customer_ShipAddress').val() == '' || $('#Customer_ShipAddress').val() == undefined) {
                 //$('#Customer_ShipAddress').parent().addClass('has-error');
@@ -242,9 +239,8 @@
                 $('#Customer_ShipPhone').nextAll('span.input-error-box').text("");
             }
         }
-        
-        if (form.valid() && isValid)
-        {            
+
+        if (form.valid() && isValid) {
             $("#checkoutForm").submit()
         }
     });

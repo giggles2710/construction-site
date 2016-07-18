@@ -1,32 +1,43 @@
 ﻿<!-- put the cart in here -->
 @model _170516.Models.CartViewModel
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th class="quantity">Số lượng</th>
-            <th class="product">Sản phẩm</th>
-            <th class="amount">Tổng tiền</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.Products.Any())
-        {
-            foreach (var item in Model.Products)
+
+@if (Model.Products.Any())
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th class="quantity" style="text-align:center;">Số Lượng</th>
+                <th class="product" style="text-align:center;">Tên</th>
+                <th class="amount" style="text-align:center;">Giá</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Products.Any())
             {
-                <tr>
-                    <td class="quantity">@item.Quantity</td>
-                    <td class="product"><a href="@Url.Action("ViewProductDetail","Product", new {id = @item.ProductId })">@item.ProductName</a><span class="small"></span></td>
-                    <td class="amount">@item.Price.ToString("0.##") đ</td>
-                </tr>
+                foreach (var item in Model.Products)
+                {
+                    <tr>
+                        <td class="quantity" style="width:30%;text-align:center">@item.Quantity</td>
+                        <td class="product" style="width: 50%;text-align:left;"><a href="@Url.Action("ViewProductDetail","Product", new {id = @item.ProductId })">@item.ProductName</a><span class="small"></span></td>
+                        <td class="amount" style="width: 40%;text-align:right;">@item.Price.ToString("N")</td>
+                    </tr>
+                }
             }
-        }
-        <tr>
-            <td class="total-quantity" colspan="2">Có @Model.Products.Count sản phẩm trong giỏ hàng</td>
-            <td class="total-amount">@Model.GrandTotal.ToString("0.##") đ</td>
-        </tr>
-    </tbody>
-</table>
-<div class="panel-body text-right">
-    <a href="@Url.Action("ViewCart","Product")" class="btn btn-group btn-gray btn-sm">Giỏ Hàng</a>
-    <a href="@Url.Action("Checkout","Product")" class="btn btn-group btn-gray btn-sm">Thanh Toán</a>
-</div>
+            <tr>
+                <td class="total-quantity" colspan="2">Có @Model.Products.Count sản phẩm</td>
+                <td class="total-amount">@Model.GrandTotal.ToString("N")</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="panel-body text-right">
+        <a href="@Url.Action("ViewCart","Product")" class="btn btn-group btn-gray btn-sm">Giỏ Hàng</a>
+        <a href="@Url.Action("Checkout","Product")" class="btn btn-group btn-gray btn-sm">Thanh Toán</a>
+    </div>
+}
+else
+{
+    <div class="clearfix empty-cart-box" style="background: #dddddd;">
+        <p style="color: #911808;padding-left: 13px;font-size: 15px;font-weight: 700; padding-top: 10px;">Chưa có sản phẩm nào trong giỏ hàng.</p>
+    </div>
+}
+

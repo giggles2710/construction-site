@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ConstructionSiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="AccountID" />
@@ -391,7 +391,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
           <Parameter Name="Password" Type="nvarchar" Mode="In" />
         </Function>
-        <EntityContainer Name="EntitiesStoreContainer">
+        <EntityContainer Name="ConstructionSiteModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
@@ -472,7 +472,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="ConstructionSiteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="AccountID" />
@@ -949,10 +949,10 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
           <FunctionImport Name="CheckUniqueEmailAddress" ReturnType="Collection(String)">
             <Parameter Name="EmailAddress" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="GetHashTokenByEmailAddress" ReturnType="Collection(Entities.GetHashTokenByEmailAddress_Result)">
+          <FunctionImport Name="GetHashTokenByEmailAddress" ReturnType="Collection(ConstructionSiteModel.GetHashTokenByEmailAddress_Result)">
             <Parameter Name="EmailAddress" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="LoginByEmailAdress" ReturnType="Collection(Entities.LoginByEmailAdress_Result)">
+          <FunctionImport Name="LoginByEmailAdress" ReturnType="Collection(ConstructionSiteModel.LoginByEmailAdress_Result)">
             <Parameter Name="EmailAddress" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
@@ -970,9 +970,9 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="EntitiesStoreContainer" CdmEntityContainer="ConstructionSiteEntities">
+        <EntityContainerMapping StorageEntityContainer="ConstructionSiteModelStoreContainer" CdmEntityContainer="ConstructionSiteEntities">
           <EntitySetMapping Name="Accounts">
-            <EntityTypeMapping TypeName="Entities.Account">
+            <EntityTypeMapping TypeName="ConstructionSiteModel.Account">
               <MappingFragment StoreEntitySet="Account">
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -995,7 +995,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="Entities.Category">
+            <EntityTypeMapping TypeName="ConstructionSiteModel.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1010,7 +1010,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="Entities.Customer">
+            <EntityTypeMapping TypeName="ConstructionSiteModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="Fullname" ColumnName="Fullname" />
@@ -1029,7 +1029,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmailTemplates">
-            <EntityTypeMapping TypeName="Entities.EmailTemplate">
+            <EntityTypeMapping TypeName="ConstructionSiteModel.EmailTemplate">
               <MappingFragment StoreEntitySet="EmailTemplate">
                 <ScalarProperty Name="EmailTemplateId" ColumnName="EmailTemplateId" />
                 <ScalarProperty Name="EmailTemplateName" ColumnName="EmailTemplateName" />
@@ -1044,7 +1044,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MergeFields">
-            <EntityTypeMapping TypeName="Entities.MergeField">
+            <EntityTypeMapping TypeName="ConstructionSiteModel.MergeField">
               <MappingFragment StoreEntitySet="MergeField">
                 <ScalarProperty Name="FieldId" ColumnName="FieldId" />
                 <ScalarProperty Name="FieldName" ColumnName="FieldName" />
@@ -1053,7 +1053,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="Entities.Order">
+            <EntityTypeMapping TypeName="ConstructionSiteModel.Order">
               <MappingFragment StoreEntitySet="Order">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -1073,7 +1073,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderDetails">
-            <EntityTypeMapping TypeName="Entities.OrderDetail">
+            <EntityTypeMapping TypeName="ConstructionSiteModel.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetail">
                 <ScalarProperty Name="OrderDetailID" ColumnName="OrderDetailID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
@@ -1089,7 +1089,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="Entities.Product">
+            <EntityTypeMapping TypeName="ConstructionSiteModel.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1114,7 +1114,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductDetails">
-            <EntityTypeMapping TypeName="Entities.ProductDetail">
+            <EntityTypeMapping TypeName="ConstructionSiteModel.ProductDetail">
               <MappingFragment StoreEntitySet="ProductDetail">
                 <ScalarProperty Name="ProductDetailID" ColumnName="ProductDetailID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1125,7 +1125,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Requests">
-            <EntityTypeMapping TypeName="Entities.Request">
+            <EntityTypeMapping TypeName="ConstructionSiteModel.Request">
               <MappingFragment StoreEntitySet="Request">
                 <ScalarProperty Name="RequestID" ColumnName="RequestID" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
@@ -1139,7 +1139,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Shippers">
-            <EntityTypeMapping TypeName="Entities.Shipper">
+            <EntityTypeMapping TypeName="ConstructionSiteModel.Shipper">
               <MappingFragment StoreEntitySet="Shipper">
                 <ScalarProperty Name="ShipperID" ColumnName="ShipperID" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
@@ -1152,7 +1152,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Suppliers">
-            <EntityTypeMapping TypeName="Entities.Supplier">
+            <EntityTypeMapping TypeName="ConstructionSiteModel.Supplier">
               <MappingFragment StoreEntitySet="Supplier">
                 <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
@@ -1173,7 +1173,7 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SystemVariables">
-            <EntityTypeMapping TypeName="Entities.SystemVariable">
+            <EntityTypeMapping TypeName="ConstructionSiteModel.SystemVariable">
               <MappingFragment StoreEntitySet="SystemVariable">
                 <ScalarProperty Name="VariableId" ColumnName="VariableId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1183,25 +1183,25 @@ warning 6002: The table/view 'ConstructionSite.dbo.Role' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="Entities.Role">
+            <EntityTypeMapping TypeName="ConstructionSiteModel.Role">
               <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="CheckUniqueEmailAddress" FunctionName="Entities.Store.CheckUniqueEmailAddress" />
-          <FunctionImportMapping FunctionImportName="GetHashTokenByEmailAddress" FunctionName="Entities.Store.GetHashTokenByEmailAddress">
+          <FunctionImportMapping FunctionImportName="CheckUniqueEmailAddress" FunctionName="ConstructionSiteModel.Store.CheckUniqueEmailAddress" />
+          <FunctionImportMapping FunctionImportName="GetHashTokenByEmailAddress" FunctionName="ConstructionSiteModel.Store.GetHashTokenByEmailAddress">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="Entities.GetHashTokenByEmailAddress_Result">
+              <ComplexTypeMapping TypeName="ConstructionSiteModel.GetHashTokenByEmailAddress_Result">
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
                 <ScalarProperty Name="HashToken" ColumnName="HashToken" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="LoginByEmailAdress" FunctionName="Entities.Store.LoginByEmailAdress">
+          <FunctionImportMapping FunctionImportName="LoginByEmailAdress" FunctionName="ConstructionSiteModel.Store.LoginByEmailAdress">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="Entities.LoginByEmailAdress_Result">
+              <ComplexTypeMapping TypeName="ConstructionSiteModel.LoginByEmailAdress_Result">
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
               </ComplexTypeMapping>

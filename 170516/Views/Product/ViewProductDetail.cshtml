@@ -8,8 +8,8 @@
         <div class="breadcrumb-container">
             <div class="container">
                 <ol class="breadcrumb">
-                    <li><i class="fa fa-home pr-10"></i><a href="@Url.Action("Index","Home")">Trang Chủ</a></li>
-                    <li><a href="@Url.Action("Showcase","Product")">Sản Phẩm</a></li>
+                    <li><i class="fa fa-home pr-10"></i><a class="link-dark" href="@Url.Action("Index","Home")">Trang Chủ</a></li>
+                    <li><a class="link-dark" href="@Url.Action("Showcase","Product")">Sản Phẩm</a></li>
                     <li class="active">@Model.ProductName</li>
                 </ol>
             </div>
@@ -55,8 +55,8 @@
                                 <form role="form" class="clearfix">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Quantity</label>
-                                            <input type="text" id="productInCartQuantity" class="form-control" value="1">
+                                            <label>Số Lượng</label>
+                                            <input type="number" id="productInCartQuantity" class="form-control" value="1">
                                             <span class="input-error-box text-danger"></span>
                                         </div>
                                     </div>
@@ -110,7 +110,7 @@
                                 @foreach (var specification in Model.SpecificationList.Where(s => !s.IsSize))
                                 {
                                     <dt>@specification.Name</dt>
-                                        <dd>@specification.Value</dd>
+                                    <dd>@specification.Value</dd>
                                 }
                             </dl>
 
@@ -121,7 +121,7 @@
                                 @foreach (var specification in Model.SpecificationList.Where(s => s.IsSize))
                                 {
                                     <dt>@specification.Name</dt>
-                                        <dd>@specification.Value</dd>
+                                    <dd>@specification.Value</dd>
                                 }
                             </dl>
                         </div>
@@ -185,7 +185,7 @@
                                         <textarea class="form-control" rows="8" id="message4" placeholder="" name="message4" required=""></textarea>
                                         <i class="fa fa-envelope-o form-control-feedback"></i>
                                     </div>
-                                    <input type="submit" value="Submit" class="btn btn-default">
+                                    <input type="button" id="btnCommentSubmit" value="Bình Luận" class="btn btn-default">
                                 </form>
                             </div>
                         </div>
@@ -194,7 +194,7 @@
 
                 <aside class="col-md-4 col-lg-3 col-lg-offset-1">
                     <div class="sidebar">
-                       
+
 
                         @{Html.RenderAction("GetSimilarProductPartial", "Product", new { id = Model.ProductID });}
                     </div>
@@ -206,15 +206,43 @@
 
 @section Scripts
 {
-    @*<script>
-            $(document).ready(function () {
-                $(".owl-carousel").owlCarousel({
-                    navigation: false, // Show next and prev buttons
-                    lazyLoad: true,
-                    slideSpeed: 300,
-                    paginationSpeed: 400,
-                    singleItem: true
-                });
+    <script>
+        $(document).ready(function () {
+            $(".owl-carousel").owlCarousel({
+                navigation: false, // Show next and prev buttons
+                lazyLoad: true,
+                slideSpeed: 300,
+                paginationSpeed: 400,
+                singleItem: true
             });
-        </script>*@
+
+            // binding submit comment button
+            $('#btnCommentSubmit').on('click', function () {
+                var form = $("#comment-form");
+                form.validate();
+                if (form.valid()) {
+                    $.ajax({
+                        url: staticUrl.updateCust1omer,
+                        data: $('#comment-form').serialize(),
+                        async: true,
+                        method: "POST",
+                        dataType: "json",
+                        cache: false,
+                        success: function (data) {
+                            if (data != null) {
+                                if (data.isResult == false) {
+                                    toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
+                                } else {
+                                    // Display an info toast with no title
+                                    toastr.success('Khách hàng đã được chỉnh sữa thành công.');
+                                }
+                            }
+                        }, error: function (e) {
+                            toastr.error('Có lỗi xảy ra trong quá trình chỉnh sữa. Vui lòng thử lại.');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 }
