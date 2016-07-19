@@ -184,6 +184,25 @@ namespace _170516.Controllers
         {
             var product = dbContext.Products.FirstOrDefault(p => p.ProductID == id);
 
+            //increase View count by 1
+            if (product.ViewCount == null || product.ViewCount == 0)
+            {
+                product.ViewCount = 1;
+            }
+            else
+            {
+                product.ViewCount++;
+            }
+
+            try
+            {                
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index","Home");
+            }
+
             if (product != null)
             {
                 var model = new ShowcaseProductDetail();
