@@ -14,13 +14,24 @@ namespace GenerateDatabase.Entity
     
     public partial class Comment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Comment()
+        {
+            this.Comment1 = new HashSet<Comment>();
+        }
+    
         public int CommentId { get; set; }
-        public int ParentCommentId { get; set; }
+        public Nullable<int> ParentCommentId { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
         public string Message { get; set; }
+        public Nullable<int> Rating { get; set; }
         public string PageType { get; set; }
         public int PageObjectId { get; set; }
         public System.DateTime DateCreated { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comment1 { get; set; }
+        public virtual Comment Comment2 { get; set; }
     }
 }

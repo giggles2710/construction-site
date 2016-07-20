@@ -114,7 +114,16 @@
     <Compile Include="Entity\Shipper.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sp_helpdiagrams_Result.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\Supplier.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sysdiagram.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\SystemVariable.cs">
