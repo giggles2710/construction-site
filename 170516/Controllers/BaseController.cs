@@ -13,6 +13,21 @@ namespace _170516.Controllers
     {
         protected ConstructionSiteEntities dbContext = new ConstructionSiteEntities();
 
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            Exception ex = filterContext.Exception;
+            filterContext.ExceptionHandled = true;
+
+            var model = new HandleErrorInfo(filterContext.Exception, "Controller", "Action");
+
+            filterContext.Result = new ViewResult()
+            {
+                ViewName = "Error",
+                ViewData = new ViewDataDictionary(model)
+            };
+
+        }
+
         protected string GetCurrentUserId()
         {
             var user = dbContext.Accounts.FirstOrDefault(a => a.Username.Equals(User.Identity.Name));

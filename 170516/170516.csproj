@@ -179,6 +179,9 @@
     <Compile Include="Entities\Category.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Comment.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\ConstructionEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -230,7 +233,16 @@
     <Compile Include="Entities\Shipper.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\sp_helpdiagrams_Result.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Supplier.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\sysdiagram.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\SystemVariable.cs">
@@ -1466,6 +1478,9 @@
     <Content Include="Scripts\jquery-upload\vendor\jquery.ui.widget.js" />
     <Content Include="Scripts\jquery-upload\vendor\load-image.all.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.blockUI.js" />
+    <Content Include="Scripts\jquery.colourbrightness.js" />
+    <Content Include="Scripts\jquery.colourbrightness.min.js" />
     <Content Include="Scripts\jquery.cslider.js" />
     <Content Include="Scripts\jquery.dataTables.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
@@ -1728,6 +1743,7 @@
     <Content Include="Views\Product\_PartialAdvertiseProduct.cshtml" />
     <Content Include="Views\Product\_PartialGetSimiliarProduct.cshtml" />
     <Content Include="Views\Product\CheckoutConfirmation.cshtml" />
+    <Content Include="Views\Product\_PartialCommentList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

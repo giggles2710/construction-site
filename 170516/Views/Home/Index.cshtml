@@ -4,7 +4,7 @@
 }
 
 <div class="index-content-wrapper container-fluid">
-    <div id="banner clearfix">
+    <div id="banner clearfix dark-translucent-bg">
         <div id="owl-demo" class="owl-carousel owl-theme">
             <div class="item"><img src="~/Content/Image/slider/slider-1.jpg" /></div>
             <div class="item"><img src="~/Content/Image/slider/slider-2.jpg" /></div>
@@ -140,10 +140,10 @@
                                                                 <h3><a href="@Url.Action("ViewProductDetail","Product",new {id=product.ProductId })">@product.Name</a></h3>
                                                                 <p class="small">@product.Summary</p>
                                                                 <div class="elements-list clearfix">
-                                                                    <span class="price"><del>@product.Price.ToString("N") đ</del></span>
+                                                                    <span class="price"><del>@product.Price.ToString("N0") đ</del></span>
                                                                 </div>
                                                                 <div class="elements-list clearfix">
-                                                                    <span class="price">@product.DiscountedPrice.ToString("N") đ</span>
+                                                                    <span class="price">@product.DiscountedPrice.ToString("N0") đ</span>
                                                                     <button class="pull-right margin-clear btn btn-sm btn-default btn-animated add-to-cart-quantity-1" data-content="@product.ProductId">Thêm vào giỏ<i class="fa fa-shopping-cart"></i></button>
                                                                 </div>
                                                             </div>
@@ -199,10 +199,10 @@
                                                                 <h3><a href="@Url.Action("ViewProductDetail","Product",new {id=product.ProductId })">@product.Name</a></h3>
                                                                 <p class="small">@product.Summary</p>
                                                                 <div class="elements-list clearfix">
-                                                                    <span class="price"><del>@product.Price.ToString("N") đ</del></span>
+                                                                    <span class="price"><del>@product.Price.ToString("N0") đ</del></span>
                                                                 </div>
                                                                 <div class="elements-list clearfix">
-                                                                    <span class="price">@product.DiscountedPrice.ToString("N") đ</span>
+                                                                    <span class="price">@product.DiscountedPrice.ToString("N0") đ</span>
                                                                     @*<a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated add-to-cart-quantity-1" data-content="@product.ProductId">Thêm vào giỏ<i class="fa fa-shopping-cart"></i></a>*@
                                                                     <button class="pull-right margin-clear btn btn-sm btn-default btn-animated add-to-cart-quantity-1" data-content="@product.ProductId">Thêm vào giỏ<i class="fa fa-shopping-cart"></i></button>
                                                                 </div>
@@ -260,10 +260,10 @@
                                                                 <h3><a href="@Url.Action("ViewProductDetail","Product",new {id=product.ProductId })">@product.Name</a></h3>
                                                                 <p class="small">@product.Summary</p>
                                                                 <div class="elements-list clearfix">
-                                                                    <span class="price"><del>@product.Price.ToString("N") đ</del></span>
+                                                                    <span class="price"><del>@product.Price.ToString("N0") đ</del></span>
                                                                 </div>
                                                                 <div class="elements-list clearfix">
-                                                                    <span class="price">@product.DiscountedPrice.ToString("N") đ</span>
+                                                                    <span class="price">@product.DiscountedPrice.ToString("N0") đ</span>
                                                                     @*<a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated add-to-cart-quantity-1" data-content="@product.ProductId">Thêm vào giỏ<i class="fa fa-shopping-cart"></i></a>*@
                                                                     <button class="pull-right margin-clear btn btn-sm btn-default btn-animated add-to-cart-quantity-1" data-content="@product.ProductId">Thêm vào giỏ<i class="fa fa-shopping-cart"></i></button>
                                                                 </div>

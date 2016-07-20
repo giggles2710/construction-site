@@ -15,6 +15,7 @@ namespace _170516.Models
         public string ProductDescription { get; set; }
         public string ProductSummary { get; set; }
         public double Price { get; set; }
+        public SubmitPostComment SubmitComment { get; set; }
         public double DiscountedPrice
         {
             get
@@ -23,10 +24,9 @@ namespace _170516.Models
             }
         }
         public double Discount { get; set; }
+        public int CommentCount { get; set; }
 
         public List<ShowcaseProductSpecification> SpecificationList { get; set; }
-        public List<PostCommentModel> CommentList { get; set; }
-
     }
 
     public class ShowcaseProductSpecification

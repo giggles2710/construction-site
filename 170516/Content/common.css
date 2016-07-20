@@ -10065,3 +10065,31 @@ h6.media-heading {
     .empty-cart-box img {
         max-width: 30%;
     }
+
+.input-validation-error {
+    border-color: #c0392b;
+}
+
+.field-validation-error {
+    color: #c0392b;
+}
+
+/*.light .container .row .pv-20 .title {
+    color: #000 !important;
+}
+
+.light .container .row .pv-20 p {
+    color: #000 !important;
+}
+
+.dark.title {
+    color: #fff !important;
+}*/
+
+.banner .title {
+    color: #ecf0f1 !important;
+}
+
+.banner p{
+    color: #ecf0f1 !important;
+}

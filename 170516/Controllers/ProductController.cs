@@ -219,14 +219,14 @@ namespace _170516.Controllers
                     }
                 }
 
-                // comment list
-                
+                // get comment count
+                model.CommentCount = dbContext.Comments.Count(c => c.PageType == Constant.ProductCommentType && c.PageObjectId == id);
 
                 return View(model);
             }
 
             return View();
-        }        
+        }
 
         public void AddCartToCookie(HttpContextBase context, CartViewModel cart)
         {
@@ -250,7 +250,8 @@ namespace _170516.Controllers
         {
             Product product;
             List<ProductError> errors = new List<ProductError>();
-            model.Products.ForEach(p => {
+            model.Products.ForEach(p =>
+            {
                 product = dbContext.Products.FirstOrDefault(ob => ob.ProductID == p.ProductId);
 
                 if (product.UnitsInStock == 0)
@@ -274,10 +275,11 @@ namespace _170516.Controllers
             {
                 model.GrandTotal = 0;
 
-                model.Products.ForEach(p => {
+                model.Products.ForEach(p =>
+                {
                     p.Total = p.Price * p.Quantity;
                     model.GrandTotal += p.Total;
-                });                
+                });
 
                 AddCartToCookie(this.HttpContext, model);
 
@@ -322,7 +324,7 @@ namespace _170516.Controllers
                 return RedirectToAction("ViewCart", cart);
             }
 
-            var model = new CheckoutModel { Cart = cart, Customer = new CustomerCheckoutModel()};            
+            var model = new CheckoutModel { Cart = cart, Customer = new CustomerCheckoutModel() };
 
             return View(model);
         }
@@ -332,7 +334,8 @@ namespace _170516.Controllers
         {
             Product product;
             List<ProductError> errors = new List<ProductError>();
-            model.Cart.Products.ForEach(p => {
+            model.Cart.Products.ForEach(p =>
+            {
                 product = dbContext.Products.FirstOrDefault(ob => ob.ProductID == p.ProductId);
 
                 if (product.UnitsInStock == 0)
@@ -356,7 +359,8 @@ namespace _170516.Controllers
             {
                 model.Cart.GrandTotal = 0;
 
-                model.Cart.Products.ForEach(p => {
+                model.Cart.Products.ForEach(p =>
+                {
                     p.Total = p.Price * p.Quantity;
                     model.Cart.GrandTotal += p.Total;
                 });
@@ -378,7 +382,7 @@ namespace _170516.Controllers
 
         [HttpGet]
         public ActionResult CheckoutConfirmation()
-        {            
+        {
             var model = TempData["ConfirmationModel"] as CheckoutModel;
 
             if (model == null || model.Cart.Products.Count == 0)
@@ -410,7 +414,8 @@ namespace _170516.Controllers
             //create order details
             List<OrderDetail> listProduct = new List<OrderDetail>();
 
-            model.Cart.Products.ForEach(p => {
+            model.Cart.Products.ForEach(p =>
+            {
                 OrderDetail orderDetails = new OrderDetail();
                 orderDetails.ProductID = p.ProductId;
                 orderDetails.Price = p.Price;
@@ -487,7 +492,7 @@ namespace _170516.Controllers
                 var productInCart = cart.Products.FirstOrDefault(p => p.ProductId == model.ProductId);
 
                 int numberOfQuantity = productInCart == null ? 0 : productInCart.Quantity;
-                
+
                 if (product.UnitsInStock < (model.Quantity + numberOfQuantity))
                 {
                     if (product.UnitsInStock == 0)
@@ -502,10 +507,14 @@ namespace _170516.Controllers
                         }
                         else
                         {
-                            return Json(new { isResult = false, result = "Bạn đã có "+ numberOfQuantity+" sản phẩm trong giỏ hàng. Chỉ còn " +
-                                                                        + product.UnitsInStock + " sản phẩm trong kho." }, 
+                            return Json(new
+                            {
+                                isResult = false,
+                                result = "Bạn đã có " + numberOfQuantity + " sản phẩm trong giỏ hàng. Chỉ còn " +
+                                                                        +product.UnitsInStock + " sản phẩm trong kho."
+                            },
                                 JsonRequestBehavior.AllowGet);
-                        }                        
+                        }
                     }
                 }
                 else
@@ -638,6 +647,90 @@ namespace _170516.Controllers
             return PartialView("_PartialGetSimiliarProduct", model);
         }
 
-        
+        [HttpPost]
+        public JsonResult PostProductComment(SubmitPostComment commentModel)
+        {
+            Comment comment;
+
+            if (commentModel != null)
+            {
+                if (commentModel.CommentId > 0)
+                {
+                    // reply
+                    comment = new Comment()
+                    {
+                        Name = commentModel.Name,
+                        Message = commentModel.Content,
+                        DateCreated = DateTime.Now,
+                        PageType = Constant.ProductCommentType,
+                        PageObjectId = commentModel.ObjectId,
+                        ParentCommentId = commentModel.CommentId,
+                        Rating = 0,
+                        Title = commentModel.Title
+                    };
+                }
+                else
+                {
+                    // add new comment
+                    comment = new Comment()
+                    {
+                        Name = commentModel.Name,
+                        Message = commentModel.Content,
+                        DateCreated = DateTime.Now,
+                        PageType = Constant.ProductCommentType,
+                        PageObjectId = commentModel.ObjectId,
+                        ParentCommentId = null,
+                        Rating = commentModel.Rating,
+                        Title = commentModel.Title
+                    };
+                }
+
+                dbContext.Comments.Add(comment);
+
+                try
+                {
+                    dbContext.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    return Json(new { isResult = false }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { isResult = false }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetCommentList(int id)
+        {
+            // get the list of comment for this product
+            var commentList = new List<PostCommentModel>();
+            var comments = dbContext.Comments.Where(c => c.PageType == Constant.ProductCommentType && c.PageObjectId == id).ToList();
+
+            if (comments.Any())
+            {
+                foreach (var comment in comments)
+                {
+                    var commentModel = new PostCommentModel
+                    {
+                        CommentId = comment.CommentId,
+                        Content = comment.Message,
+                        Name = comment.Name,
+                        ParentCommentId = comment.ParentCommentId,
+                        Title = comment.Title,
+                        Rating = comment.Rating.GetValueOrDefault(),
+                        CommentDate = comment.DateCreated
+                    };
+
+                    commentList.Add(commentModel);
+                }
+            }
+
+            return PartialView("_PartialCommentList", commentList);
+        }
     }
 }

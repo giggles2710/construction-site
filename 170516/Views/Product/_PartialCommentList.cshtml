@@ -1,0 +1,43 @@
+﻿@model List<_170516.Models.PostCommentModel>
+
+<div class="comments margin-clear space-top">
+    @foreach (var comment in Model.Where(c => c.ParentCommentId == null))
+    {
+        <div class="comment clearfix">
+            <header>
+                <h3>@comment.Title</h3>
+                <div class="comment-meta">
+                    @for (var i = 0; i < comment.Rating; i++)
+                    {
+                        <i class="fa fa-star text-default"></i>
+                    }
+
+                    @for (var j = 0; j < 5 - comment.Rating; j++)
+                    {
+                        <i class="fa fa-star"></i>
+                    }
+                    by <strong>@comment.Name</strong> | @comment.CommentDate.ToShortDateString() @comment.CommentDate.ToShortTimeString()
+                </div>
+            </header>
+            <div class="comment-content">
+                <div class="comment-body clearfix">
+                    <p>@comment.Content</p>
+                    <a href="" class="btn-sm-link link-dark pull-right linkReplyComment" data-comment-id="@comment.CommentId"><i class="fa fa-reply"></i> Trả Lời</a>
+                </div>
+                @foreach (var replyComment in Model.Where(c => c.ParentCommentId == comment.CommentId))
+                {
+                    <div class="comment-reply">
+                        <header>
+                            <div class="comment-meta">
+                                <strong>@replyComment.Name</strong> | @replyComment.CommentDate.ToShortDateString() @replyComment.CommentDate.ToShortTimeString()
+                            </div>
+                        </header>
+                        <div class="comment-body clearfix">
+                            <p>@replyComment.Content</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>

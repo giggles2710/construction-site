@@ -34,13 +34,13 @@
                                         <div class="overlay-container overlay-visible">
                                             @if (string.IsNullOrWhiteSpace(Model.ImageSrc))
                                             {
-                                                <img src="~/Content/Image/image_placeholder.jpg" alt="">
-                                                <a href="#" class="popup-img overlay-link" title="image title"><i class="fa fa-search-plus"></i></a>
+                                            <img src="~/Content/Image/image_placeholder.jpg" alt="">
+                                            <a href="#" class="popup-img overlay-link" title="image title"><i class="fa fa-search-plus"></i></a>
                                             }
                                             else
                                             {
-                                                <img src="@Model.ImageSrc" alt="">
-                                                <a href="@Model.ImageSrc" class="popup-img overlay-link" title="image title"><i class="fa fa-search-plus"></i></a>
+                                            <img src="@Model.ImageSrc" alt="">
+                                            <a href="@Model.ImageSrc" class="popup-img overlay-link" title="image title"><i class="fa fa-search-plus"></i></a>
                                             }
                                         </div>
                                     </div>
@@ -75,7 +75,7 @@
                                 <span class="product price"><i class="fa fa-tag pr-10"></i>@Model.DiscountedPrice.ToString("N0") đ</span>
                                 @if (Model.Discount > 0)
                                 {
-                                    <span class="product price" style="margin-left: 5px;color: #7f8c8d;font-size: 15px;"><del>@Model.Price.ToString("N0") đ</del></span>
+                                <span class="product price" style="margin-left: 5px;color: #7f8c8d;font-size: 15px;"><del>@Model.Price.ToString("N0") đ</del></span>
                                 }
                                 <div class="product elements-list pull-right clearfix">
                                     <button id="addToCartBtn" class="btn btn-default btn-animated add-to-cart"><i class="fa fa-cart-plus"></i> Thêm vào giỏ hàng</button>
@@ -95,7 +95,7 @@
                     <ul class="nav nav-tabs style-4" role="tablist">
                         <li class="active"><a href="#h2tab1" role="tab" data-toggle="tab"><i class="fa fa-star pr-5"></i>Thông Tin Thêm</a></li>
                         <li><a href="#h2tab2" role="tab" data-toggle="tab"><i class="fa fa-files-o pr-5"></i>Thông Số</a></li>
-                        <li><a href="#h2tab3" role="tab" data-toggle="tab"><i class="fa fa-files-o pr-5"></i>Bình Luận (4)</a></li>
+                        <li><a href="#h2tab3" role="tab" data-toggle="tab"><i class="fa fa-files-o pr-5"></i>Bình Luận (@Model.CommentCount)</a></li>
                     </ul>
                     <div class="tab-content padding-top-clear padding-bottom-clear">
                         <div class="tab-pane fade in active" id="h2tab1">
@@ -109,8 +109,8 @@
                             <dl class="dl-horizontal">
                                 @foreach (var specification in Model.SpecificationList.Where(s => !s.IsSize))
                                 {
-                                    <dt>@specification.Name</dt>
-                                    <dd>@specification.Value</dd>
+                                <dt>@specification.Name</dt>
+                                <dd>@specification.Value</dd>
                                 }
                             </dl>
 
@@ -120,69 +120,49 @@
                             <dl class="dl-horizontal">
                                 @foreach (var specification in Model.SpecificationList.Where(s => s.IsSize))
                                 {
-                                    <dt>@specification.Name</dt>
-                                    <dd>@specification.Value</dd>
+                                <dt>@specification.Name</dt>
+                                <dd>@specification.Value</dd>
                                 }
                             </dl>
                         </div>
                         <div class="tab-pane fade" id="h2tab3">
-                            <!-- comment -->
-                            <div class="comments margin-clear space-top">
-                                <div class="comment clearfix">
-                                    <header>
-                                        <h3>Amazing!</h3>
-                                        <div class="comment-meta">
-                                            <i class="fa fa-star text-default"></i>
-                                            <i class="fa fa-star text-default"></i>
-                                            <i class="fa fa-star text-default"></i>
-                                            <i class="fa fa-star text-default"></i>
-                                            <i class="fa fa-star"></i> by <strong>Thuan</strong> | Today 12:31
-                                        </div>
-                                    </header>
-                                    <div class="comment-content">
-                                        <div class="comment-body clearfix">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
-                                            <a href="blog-post.html" class="btn-sm-link link-dark pull-right"><i class="fa fa-reply"></i> Reply</a>
-                                        </div>
-                                        <div class="comment-reply">
-                                            <header>
-                                                <div class="comment-meta">
-                                                    <strong>Thuan</strong> | Today 12:31
-                                                </div>
-                                            </header>
-                                            <div class="comment-body clearfix">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div id="comment-list-wrapper">
+                                @{Html.RenderAction("GetCommentList", "Product", new { id = Model.ProductID });}
                             </div>
+
                             <div class="comments-form">
                                 <h2 class="title">Ý Kiến Của Bạn</h2>
                                 <form role="form" id="comment-form">
+                                    <input type="hidden" id="SubmitComment_CommentType" value="Product" />
+                                    <input type="hidden" id="SubmitComment_CommentId" />
+                                    <input type="hidden" id="SubmitComment_ObjectId" value="@Model.ProductID" />
                                     <div class="form-group has-feedback">
-                                        <label for="name4">Họ và Tên</label>
-                                        <input type="text" class="form-control" id="name4" placeholder="" name="name4" required="">
+                                        <label for="SubmitComment_Name">Họ và Tên</label>
+                                        @Html.TextBoxFor(m => m.SubmitComment.Name, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.SubmitComment.Name)
                                         <i class="fa fa-user form-control-feedback"></i>
                                     </div>
-                                    <div class="form-group has-feedback">
-                                        <label for="subject4">Tiêu Đề</label>
-                                        <input type="text" class="form-control" id="subject4" placeholder="" name="subject4" required="">
+                                    <div class="form-group has-feedback" id="title_div">
+                                        <label for="SubmitComment_Title">Tiêu Đề</label>
+                                        @Html.TextBoxFor(m => m.SubmitComment.Title, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.SubmitComment.Title)
                                         <i class="fa fa-pencil form-control-feedback"></i>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" id="rating_div">
                                         <label>Đánh Giá</label>
-                                        <select class="form-control" id="review">
-                                            <option value="five">5</option>
-                                            <option value="four">4</option>
-                                            <option value="three">3</option>
-                                            <option value="two">2</option>
-                                            <option value="one">1</option>
+                                        <select class="form-control" id="SubmitComment_Rating">
+                                            <option value="5">5</option>
+                                            <option value="4">4</option>
+                                            <option value="3">3</option>
+                                            <option value="2">2</option>
+                                            <option value="1">1</option>
                                         </select>
                                     </div>
                                     <div class="form-group has-feedback">
-                                        <label for="message4">Nội Dung</label>
-                                        <textarea class="form-control" rows="8" id="message4" placeholder="" name="message4" required=""></textarea>
+                                        <label for="SubmitComment_Content">Nội Dung</label>
+                                        @*<textarea class="form-control" rows="8" id="SubmitComment_Content" placeholder="" name="SubmitComment_Content" required=""></textarea>*@
+                                        @Html.TextAreaFor(m => m.SubmitComment.Content, new { @class = "form-control", @rows = "8" })
+                                        @Html.ValidationMessageFor(m => m.SubmitComment.Content)
                                         <i class="fa fa-envelope-o form-control-feedback"></i>
                                     </div>
                                     <input type="button" id="btnCommentSubmit" value="Bình Luận" class="btn btn-default">
@@ -194,8 +174,6 @@
 
                 <aside class="col-md-4 col-lg-3 col-lg-offset-1">
                     <div class="sidebar">
-
-
                         @{Html.RenderAction("GetSimilarProductPartial", "Product", new { id = Model.ProductID });}
                     </div>
                 </aside>
@@ -206,43 +184,106 @@
 
 @section Scripts
 {
-    <script>
-        $(document).ready(function () {
-            $(".owl-carousel").owlCarousel({
-                navigation: false, // Show next and prev buttons
-                lazyLoad: true,
-                slideSpeed: 300,
-                paginationSpeed: 400,
-                singleItem: true
-            });
-
-            // binding submit comment button
-            $('#btnCommentSubmit').on('click', function () {
-                var form = $("#comment-form");
-                form.validate();
-                if (form.valid()) {
-                    $.ajax({
-                        url: staticUrl.updateCust1omer,
-                        data: $('#comment-form').serialize(),
-                        async: true,
-                        method: "POST",
-                        dataType: "json",
-                        cache: false,
-                        success: function (data) {
-                            if (data != null) {
-                                if (data.isResult == false) {
-                                    toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
-                                } else {
-                                    // Display an info toast with no title
-                                    toastr.success('Khách hàng đã được chỉnh sữa thành công.');
-                                }
-                            }
-                        }, error: function (e) {
-                            toastr.error('Có lỗi xảy ra trong quá trình chỉnh sữa. Vui lòng thử lại.');
-                        }
-                    });
+<script>
+    var reloadCommentList = function (id) {
+        $.ajax({
+            url: staticUrl.GetCommentList + "?id=" + id,
+            async: true,
+            method: "GET",
+            cache: false,
+            success: function (data) {
+                if (data != null) {
+                    $('#comment-list-wrapper').html(data);
+                } else {
+                    toastr.error('Có lỗi xảy ra. Làm ơn gửi lại bình luận của bạn.');
                 }
-            });
+            }, error: function (e) {
+                toastr.error('Có lỗi xảy ra trong quá trình chỉnh sữa. Vui lòng thử lại.');
+            }
         });
-    </script>
+    };
+
+
+    $(document).ready(function () {
+        $(".owl-carousel").owlCarousel({
+            navigation: false, // Show next and prev buttons
+            lazyLoad: true,
+            slideSpeed: 300,
+            paginationSpeed: 400,
+            singleItem: true
+        });
+
+        // binding submit comment button
+        $('#btnCommentSubmit').on('click', function () {
+            var form = $("#comment-form");
+            form.validate();
+
+            if (form.valid()) {
+                // prepare model
+                var postProductCommentModel = {
+                    CommentId: $('#SubmitComment_CommentId').val(),
+                    Name: $("#SubmitComment_Name").val(),
+                    Title: $("#SubmitComment_Title").val(),
+                    Content: $("#SubmitComment_Content").val(),
+                    Rating: $("#SubmitComment_Rating").val(),
+                    CommentType: $("#SubmitComment_CommentType").val(),
+                    ObjectId: $("#SubmitComment_ObjectId").val()
+                };
+
+                $.ajax({
+                    url: staticUrl.PostProductComment,
+                    data: postProductCommentModel,
+                    async: true,
+                    method: "POST",
+                    dataType: "json",
+                    cache: false,
+                    beforeSend: function(){
+                        $.blockUI({ message: "<h1><img src='/Content/Image/ajax-loader.gif' /> Đang tải trang...</h1>" });
+
+                        //setTimeout($.unblockUI, 100000000);
+                    },
+                    success: function (data) {
+                        if (data != null) {
+                            if (data.isResult == false) {
+                                toastr.error('Có lỗi xảy ra. Làm ơn gửi lại bình luận của bạn.');
+                            } else {
+                                // Display an info toast with no title
+                                toastr.success('Cảm ơn bình luận của bạn.');
+
+                                // restore the orginal form
+                                $('#rating_div').show();
+                                $('#title_div').show();
+
+                                // then reset form
+                                $('#comment-form')[0].reset();
+
+                                // after all, reload the comment box
+                                reloadCommentList(postProductCommentModel.ObjectId);
+                            }
+                        }
+                    }, error: function (e) {
+                        toastr.error('Có lỗi xảy ra trong quá trình chỉnh sữa. Vui lòng thử lại.');
+                    },
+                    complete: function () {
+                        $.unblockUI();
+                    }
+                });
+            }
+        });
+
+        // binding reply comment
+        $('.linkReplyComment').on('click', function (e) {
+            e.preventDefault();
+            // hide the title and the rating field
+            $('#rating_div').attr('style', 'display:none;');
+            $('#title_div').attr('style', 'display:none;');
+
+            // set the comment parent id
+            $('#SubmitComment_CommentId').val($(this).data('comment-id'));
+
+            // focus to name
+            $('#SubmitComment_Name').focus();
+        });
+    });
+</script>
 }

@@ -155,11 +155,11 @@
                                                                 <a href="@Url.Action("ViewProductDetail", "Product", new { id = Model.MenuOnMainPage[i].ProductID })">@Model.MenuOnMainPage[i].ProductName</a>
                                                             </h3>
                                                             <p class="price">
-                                                                <span class="product-price">@Model.MenuOnMainPage[i].DiscountedPrice.ToString("N") đ</span>
+                                                                <span class="product-price">@Model.MenuOnMainPage[i].DiscountedPrice.ToString("N0") đ</span>
                                                                 @if (Model.MenuOnMainPage[i].Discount > 0)
                                                                 {
                                                                     <span class="product-price" style="margin-left:10px;">
-                                                                        <del>@Model.MenuOnMainPage[i].Price.ToString("N") đ</del>
+                                                                        <del>@Model.MenuOnMainPage[i].Price.ToString("N0") đ</del>
                                                                     </span>
                                                                 }
                                                             </p>

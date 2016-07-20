@@ -60,6 +60,9 @@
     <Compile Include="Entity\Category.cs">
       <DependentUpon>ConstructionEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\Comment.cs">
+      <DependentUpon>ConstructionEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\ConstructionEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

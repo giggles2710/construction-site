@@ -12,6 +12,8 @@ namespace _170516
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery-ui.js",
                         "~/Scripts/jquery.cslider.js",
+                        "~/Scripts/jquery.blockUI.js",
+                        "~/Scripts/jquery.colourbrightness.js",                        
                         "~/Scripts/inputmask.js",
                         "~/Scripts/inputmask.date.extensions.js",
                         "~/Scripts/inputmask.numeric.extensions.js",

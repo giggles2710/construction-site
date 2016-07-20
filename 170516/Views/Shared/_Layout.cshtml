@@ -47,7 +47,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <ul class="list-inline hidden-sm hidden-xs">
+                                <ul class="list-inline hidden-sm hidden-xs" style="float:right;">
                                     <li><i class="fa fa-map-marker pr-5 pl-10"></i>K10/27 Phan Châu Trinh, Hải Châu, Đà Nẵng</li>
                                     <li><i class="fa fa-phone pr-5 pl-10"></i>+12 123 123 123</li>
                                     <li><i class="fa fa-envelope-o pr-5 pl-10"></i> han.solo@mail.com</li>
@@ -73,7 +73,7 @@
             <header class="header fixed clearfix">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-3 ">
+                        <div class="col-md-2 ">
                             <div class="header-left clearfix">
                                 <div id="logo" class="logo">
                                     <a href="@Url.Action("Index", "Home")">
@@ -119,6 +119,20 @@
 
                                                 <div class="header-dropdown-buttons hidden-xs ">
                                                     <div class="btn-group dropdown">
+                                                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-search"></i></button>
+                                                        <ul class="dropdown-menu dropdown-menu-right dropdown-animation" style="background: #f2f2f2;">
+                                                            <li>
+                                                                <form role="search" class="search-box margin-clear">
+                                                                    <div class="form-group has-feedback">
+                                                                        <input type="text" class="form-control" placeholder="Tìm Kiếm">
+                                                                        <i class="fa fa-search form-control-feedback"></i>
+                                                                    </div>
+                                                                </form>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <div class="btn-group dropdown">
                                                         <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="true" id="btnViewCartPopup">
                                                             <i class="fa fa-shopping-cart"></i><span class="cart-count default-bg">
                                                                 <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
@@ -151,7 +165,7 @@
                     <div class="subfooter-inner">
                         <div class="row">
                             <div class="col-md-12">
-                                <p class="text-center">Copyright © 2016 The Project by <a target="_blank" href="#">...</a>. All Rights Reserved</p>
+                                <p class="text-center">Copyright © 2016 The Project by <a target="_blank" href="#" style="color:#ecf0f1;">N.E.R.D</a>. All Rights Reserved</p>
                             </div>
                         </div>
                     </div>
@@ -179,7 +193,9 @@
             ViewPartialCart: "@Url.Action("ViewCartMinimal", "Product")",
             CheckOut: "@Url.Action("CheckOut", "Product")",
             CheckoutConfirmation: "@Url.Action("CheckoutConfirmation", "Product")",
-            LoadSystemInformation: "@Url.Action("LoadSystemInformation", "Home")"
+            LoadSystemInformation: "@Url.Action("LoadSystemInformation", "Home")",
+            PostProductComment: "@Url.Action("PostProductComment", "Product")",
+            GetCommentList: "@Url.Action("GetCommentList","Product")"
         };
 
         var sampleRegex = {

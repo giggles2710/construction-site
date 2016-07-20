@@ -4,9 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b76cb7f5a76e4a9b80d674d9be6c7e68" Name="Diagram1">
+      <Diagram DiagramId="05697b54f7b347deb2926625a57ceec5" Name="Diagram1">
         <EntityTypeShape EntityType="ConstructionSiteModel.Account" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ConstructionSiteModel.Category" Width="1.5" PointX="3.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.Comment" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ConstructionSiteModel.Customer" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ConstructionSiteModel.EmailTemplate" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ConstructionSiteModel.MergeField" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
@@ -17,7 +18,8 @@
         <EntityTypeShape EntityType="ConstructionSiteModel.Request" Width="1.5" PointX="3" PointY="23" IsExpanded="true" />
         <EntityTypeShape EntityType="ConstructionSiteModel.Shipper" Width="1.5" PointX="0.75" PointY="16" IsExpanded="true" />
         <EntityTypeShape EntityType="ConstructionSiteModel.Supplier" Width="1.5" PointX="3.75" PointY="17" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConstructionSiteModel.SystemVariable" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.sysdiagram" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionSiteModel.SystemVariable" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ConstructionSiteModel.Role" Width="1.5" PointX="3" PointY="26.5" IsExpanded="true" />
         <AssociationConnector Association="ConstructionSiteModel.FK_Account_Account" ManuallyRouted="false" />
         <AssociationConnector Association="ConstructionSiteModel.FK_EmailTemplate_Account" ManuallyRouted="false" />
@@ -27,6 +29,7 @@
         <AssociationConnector Association="ConstructionSiteModel.FK_Role_Account" ManuallyRouted="false" />
         <AssociationConnector Association="ConstructionSiteModel.FK_Category_Category" ManuallyRouted="false" />
         <AssociationConnector Association="ConstructionSiteModel.FK_Product_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="ConstructionSiteModel.FK_Comment_Comment" ManuallyRouted="false" />
         <AssociationConnector Association="ConstructionSiteModel.FK_Order_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="ConstructionSiteModel.FK_Order_Shipper" ManuallyRouted="false" />
         <AssociationConnector Association="ConstructionSiteModel.FK_OrderDetail_Order" ManuallyRouted="false" />

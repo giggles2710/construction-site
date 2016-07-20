@@ -1,9 +1,28 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
 
 @{
-    ViewBag.Title = "Error";
+    ViewBag.Title = "Lỗi 404";
+    //Layout = "~/Views/Shared/_LayoutPlain.cshtml";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<div class="index-content-wrapper container-fluid">
+    <section class="main-container jumbotron light-gray-bg text-center margin-clear">
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-6 col-md-offset-3 pv-40">
+                    <h1 class="page-title"><span class="text-default">404</span></h1>
+                    <h2>Ooops! Page Not Found</h2>
+                    <p>Không tìm thấy liên kết trang này. Làm ơn kiểm tra đường dẫn và thử lại.</p>
+                    <form role="search">
+                        <div class="form-group has-feedback">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm">
+                            <i class="fa fa-search form-control-feedback"></i>
+                        </div>
+                    </form>
+                    <a href="@Url.Action("Index","Home")" class="btn btn-default btn-animated btn-lg">Trang Chủ <i class="fa fa-home"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 

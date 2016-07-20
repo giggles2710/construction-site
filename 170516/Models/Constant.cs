@@ -63,6 +63,9 @@ namespace _170516.Models
         public const string Cart = "Cart";
         public const string CartCookie = "ConstructionSiteCart";
         public const string ProductInCartCookie = "ConstructionSiteProducts";
+
+        // comment constant
+        public const string ProductCommentType = "Product";
     }
 
     public enum OrderStatuses
