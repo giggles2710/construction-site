@@ -1,21 +1,25 @@
-﻿@model _170516.Models.Administrator.ViewRequestModel
+﻿@model _170516.Models.Administrator.ViewSystemVariableModel
 @{
-    ViewBag.Title = "Quản lý feedback từ khách hàng";
+    ViewBag.Title = "Quản lý thông tin hệ thống";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-            <h4 class="page-title">Quản lý feedback khách hàng</h4>
+            <div class="btn-group pull-right m-t-5 m-b-20">
+                <a href="@Url.Action("AddSystemVariable","Administrator")" class="btn btn-custom dropdown-toggle waves-effect waves-light">Thêm thông tin hệ thống <span class="m-l-5"><i class="fa fa-plus"></i></span></a>
+            </div>
+            <h4 class="page-title">Quản lý thông tin hệ thống</h4>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box table-responsive">
-                <h4 class="header-title m-t-0 m-b-30">Danh sách feedback từ khách hàng @Constant</h4>
+                <h4 class="header-title m-t-0 m-b-30">Danh sách thông tin hệ thống</h4>
 
                 <div class="data-table-wrapper form-inline dt-bootstrap no-footer">
-                    @if (Model.Requests.Any())
+                    @if (Model.SystemVariables.Any())
                     {
                         <div class="row">
                             <div class="col-sm-6">
@@ -75,29 +79,20 @@
                                 <div class="table-wrapper">
                                     <table class="table table-striped dt-responsive nowrap no-footer dtr-inline" role="grid">
                                         <tbody>
-                                            @for (var i = 1; i <= Model.Requests.Count; i++)
+                                            @for (var i = 1; i <= Model.SystemVariables.Count; i++)
                                             {
                                                 <tr class="gradeA odd" role="row">
                                                     <td>@i</td>
-                                                    <td>@Model.Requests[i - 1].FullName</td>
-                                                    <td>@Model.Requests[i - 1].Content</td>
-                                                    <td>@Model.Requests[i - 1].ReplyUser</td>
-                                                    <td style="text-align:center;">
-                                                        @if (Model.Requests[i - 1].IsNew)
-                                                        {
-                                                            <i class="fa fa-check fa-2x text-success"></i>
-                                                        }
-                                                    </td>
-                                                    <td>@Model.Requests[i - 1].DateCreated.ToString("dd/MM/yyyy hh:mm:ss")</td>
-                                                    <td style="text-align:center;">
-                                                        <a class="action-link detail-link" title="Chi tiết" href="@Url.Action("ViewRequestDetail", "Administrator", new { id = Model.Requests[i - 1].RequestId })"><i class="fa fa-info-circle fa-lg" title="Chi tiết"></i></a>
-                                                    </td>
+                                                    <td>@Model.SystemVariables[i - 1].Code</td>
+                                                    <td>@Model.SystemVariables[i - 1].Name</td>
+                                                    <td>@Model.SystemVariables[i - 1].Value</td>
+                                                    <td style="text-align:center;"></td>
                                                 </tr>
                                             }
 
-                                            @if (Model.Requests.Count < Model.ItemOnPage)
+                                            @if (Model.SystemVariables.Count < Model.ItemOnPage)
                                             {
-                                                for (var i = Model.Requests.Count + 1; i <= Model.ItemOnPage; i++)
+                                                for (var i = Model.SystemVariables.Count + 1; i <= Model.ItemOnPage; i++)
                                                 {
                                                     <tr class="odd" role="row">
                                                         <td>@i</td>
@@ -114,80 +109,50 @@
                                         <thead>
                                             <tr role="row">
                                                 <th class="center" tabindex="0" rowspan="1" colspan="1">#</th>
-                                                @if (Model.SortField.Equals("FullName"))
+                                                @if (Model.SortField.Equals("Code"))
                                                 {
                                                     if (Model.IsAsc)
                                                     {
-                                                        <th class="center" tabindex="0" rowspan="1" data-sort="FullName" data-direction="desc" colspan="1">Họ và Tên<i class="fa fa-fw fa-sort-asc"></i></th>
+                                                        <th class="center" tabindex="0" rowspan="1" data-sort="Code" data-direction="desc" colspan="1">Phân Loại <i class="fa fa-fw fa-sort-asc"></i></th>
                                                     }
                                                     else
                                                     {
-                                                        <th class="center" tabindex="0" rowspan="1" data-sort="FullName" data-direction="asc" colspan="1">Họ và Tên <i class="fa fa-fw fa-sort-desc"></i></th>
+                                                        <th class="center" tabindex="0" rowspan="1" data-sort="Code" data-direction="asc" colspan="1">Phân Loại <i class="fa fa-fw fa-sort-desc"></i></th>
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    <th class="center" tabindex="0" rowspan="1" data-sort="FullName" data-direction="asc" colspan="1">Họ và Tên <i class="fa fa-fw fa-sort-asc"></i></th>
+                                                    <th class="center" tabindex="0" rowspan="1" data-sort="Code" data-direction="asc" colspan="1">Phân Loại <i class="fa fa-fw fa-sort-asc"></i></th>
                                                 }
-                                                @if (Model.SortField.Equals("RequestContent"))
+                                                @if (Model.SortField.Equals("Name"))
                                                 {
                                                     if (Model.IsAsc)
                                                     {
-                                                        <th class="center" tabindex="0" rowspan="1" data-sort="RequestContent" data-direction="desc" colspan="1">Nội dung yêu cầu <i class="fa fa-fw fa-sort-asc"></i></th>
+                                                        <th class="center" tabindex="0" rowspan="1" data-sort="Name" data-direction="desc" colspan="1">Tên <i class="fa fa-fw fa-sort-asc"></i></th>
                                                     }
                                                     else
                                                     {
-                                                        <th class="center" tabindex="0" rowspan="1" data-sort="RequestContent" data-direction="asc" colspan="1">Nội dung yêu cầu <i class="fa fa-fw fa-sort-desc"></i></th>
+                                                        <th class="center" tabindex="0" rowspan="1" data-sort="Name" data-direction="asc" colspan="1">Tên <i class="fa fa-fw fa-sort-desc"></i></th>
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    <th class="center" tabindex="0" rowspan="1" data-sort="RequestContent" data-direction="asc" colspan="1">Nội dung yêu cầu <i class="fa fa-fw fa-sort-asc"></i></th>
+                                                    <th class="center" tabindex="0" rowspan="1" data-sort="Name" data-direction="asc" colspan="1">Tên <i class="fa fa-fw fa-sort-asc"></i></th>
                                                 }
-                                                @if (Model.SortField.Equals("ReplyUser"))
+                                                @if (Model.SortField.Equals("Value"))
                                                 {
                                                     if (Model.IsAsc)
                                                     {
-                                                        <th class="center" tabindex="0" rowspan="1" data-sort="ReplyUser" data-direction="desc" colspan="1">Người duyệt <i class="fa fa-fw fa-sort-asc"></i></th>
+                                                        <th class="center" tabindex="0" rowspan="1" data-sort="Value" data-direction="desc" colspan="1">Giá Trị <i class="fa fa-fw fa-sort-asc"></i></th>
                                                     }
                                                     else
                                                     {
-                                                        <th class="center" tabindex="0" rowspan="1" data-sort="ReplyUser" data-direction="asc" colspan="1">Người duyệt <i class="fa fa-fw fa-sort-desc"></i></th>
+                                                        <th class="center" tabindex="0" rowspan="1" data-sort="Value" data-direction="asc" colspan="1">Giá Trị <i class="fa fa-fw fa-sort-desc"></i></th>
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    <th class="center" tabindex="0" rowspan="1" data-sort="ReplyUser" data-direction="asc" colspan="1">Người duyệt <i class="fa fa-fw fa-sort-asc"></i></th>
-                                                }
-                                                @if (Model.SortField.Equals("IsNew"))
-                                                {
-                                                    if (Model.IsAsc)
-                                                    {
-                                                        <th class="center" tabindex="0" rowspan="1" data-sort="IsNew" data-direction="desc" colspan="1">Đã đọc <i class="fa fa-fw fa-sort-asc"></i></th>
-                                                    }
-                                                    else
-                                                    {
-                                                        <th class="center" tabindex="0" rowspan="1" data-sort="IsNew" data-direction="asc" colspan="1">Đã đọc <i class="fa fa-fw fa-sort-desc"></i></th>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    <th class="center" tabindex="0" rowspan="1" data-sort="IsNew" data-direction="asc" colspan="1">Đã đọc <i class="fa fa-fw fa-sort-asc"></i></th>
-                                                }
-                                                @if (Model.SortField.Equals("DateCreated"))
-                                                {
-                                                    if (Model.IsAsc)
-                                                    {
-                                                        <th class="center" tabindex="0" rowspan="1" data-sort="DateCreated" data-direction="desc" colspan="1">Ngày yêu cầu <i class="fa fa-fw fa-sort-asc"></i></th>
-                                                    }
-                                                    else
-                                                    {
-                                                        <th class="center" tabindex="0" rowspan="1" data-sort="DateCreated" data-direction="asc" colspan="1">Ngày yêu cầu <i class="fa fa-fw fa-sort-desc"></i></th>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    <th class="center" tabindex="0" rowspan="1" data-sort="DateCreated" data-direction="asc" colspan="1">Ngày yêu cầu <i class="fa fa-fw fa-sort-asc"></i></th>
+                                                    <th class="center" tabindex="0" rowspan="1" data-sort="Value" data-direction="asc" colspan="1">Giá Trị <i class="fa fa-fw fa-sort-asc"></i></th>
                                                 }
                                                 <th class="center" tabindex="0" rowspan="1" colspan="1"></th>
                                             </tr>
@@ -264,5 +229,5 @@
 
 @section Scripts
 {
-    <script src="@Url.Content("~/Scripts/Admin/request.js")"></script>
+    <script src="@Url.Content("~/Scripts/Admin/systemVariable.js")"></script>
 }

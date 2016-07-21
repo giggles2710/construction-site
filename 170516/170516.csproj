@@ -258,6 +258,7 @@
     <Compile Include="Models\Administrator\CreateProductModel.cs" />
     <Compile Include="Models\Administrator\CreateShipperModel.cs" />
     <Compile Include="Models\Administrator\CreateSupplierModel.cs" />
+    <Compile Include="Models\Administrator\CreateSystemVariableModel.cs" />
     <Compile Include="Models\Administrator\EmailTemplateModel.cs" />
     <Compile Include="Models\Administrator\UpdateUserModel.cs" />
     <Compile Include="Models\Administrator\DetailProductModel.cs" />
@@ -273,6 +274,7 @@
     <Compile Include="Models\Administrator\ViewRequestItem.cs" />
     <Compile Include="Models\Administrator\ViewShipperModel.cs" />
     <Compile Include="Models\Administrator\ViewSupplierModel.cs" />
+    <Compile Include="Models\Administrator\ViewSystemVariableModel.cs" />
     <Compile Include="Models\Administrator\ViewUserModel.cs" />
     <Compile Include="Models\CategoryIndexModel.cs" />
     <Compile Include="Models\CheckoutModel.cs" />
@@ -285,6 +287,7 @@
     <Compile Include="Models\ShowcaseProductDetail.cs" />
     <Compile Include="Models\SubCategoryModel.cs" />
     <Compile Include="Models\SystemInformationViewModel.cs" />
+    <Compile Include="Models\SystemVariableModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utility\EmailMergingHelper.cs" />
@@ -360,6 +363,7 @@
     <Content Include="Scripts\Admin\request.js" />
     <Content Include="Scripts\Admin\shipper.js" />
     <Content Include="Scripts\Admin\supplier.js" />
+    <Content Include="Scripts\Admin\systemVariable.js" />
     <Content Include="Scripts\Admin\user.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap-collapse.js" />
@@ -1744,6 +1748,8 @@
     <Content Include="Views\Product\_PartialGetSimiliarProduct.cshtml" />
     <Content Include="Views\Product\CheckoutConfirmation.cshtml" />
     <Content Include="Views\Product\_PartialCommentList.cshtml" />
+    <Content Include="Views\Administrator\ViewSystemVariable.cshtml" />
+    <Content Include="Views\Administrator\_AddSystemVariable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

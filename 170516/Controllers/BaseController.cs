@@ -13,20 +13,34 @@ namespace _170516.Controllers
     {
         protected ConstructionSiteEntities dbContext = new ConstructionSiteEntities();
 
-        protected override void OnException(ExceptionContext filterContext)
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            Exception ex = filterContext.Exception;
-            filterContext.ExceptionHandled = true;
+            // now, get the system variable, then apply to view
+            // system variables
+            Constant.SystemVariables = this.GetSystemVariable();
 
-            var model = new HandleErrorInfo(filterContext.Exception, "Controller", "Action");
-
-            filterContext.Result = new ViewResult()
+            foreach (var variable in Constant.SystemVariables)
             {
-                ViewName = "Error",
-                ViewData = new ViewDataDictionary(model)
-            };
+                ViewData[variable.Key] = variable.Value;
+            }
 
+            base.OnActionExecuted(filterContext);
         }
+
+        //protected override void OnException(ExceptionContext filterContext)
+        //{
+        //    Exception ex = filterContext.Exception;
+        //    filterContext.ExceptionHandled = true;
+
+        //    var model = new HandleErrorInfo(filterContext.Exception, "Controller", "Action");
+
+        //    filterContext.Result = new ViewResult()
+        //    {
+        //        ViewName = "Error",
+        //        ViewData = new ViewDataDictionary(model)
+        //    };
+
+        //}
 
         protected string GetCurrentUserId()
         {
@@ -74,6 +88,19 @@ namespace _170516.Controllers
             }
 
             return cart;
+        }
+
+        protected Dictionary<string, string> GetSystemVariable()
+        {
+            // get system variables
+            var systemVariables = new Dictionary<string, string>();
+
+            foreach(var variable in dbContext.SystemVariables)
+            {
+                systemVariables.Add(variable.Code, variable.Value);
+            }
+
+            return systemVariables;
         }
     }
 }

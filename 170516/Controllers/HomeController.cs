@@ -141,7 +141,7 @@ namespace _170516.Controllers
             }else
             {
                 systemInformationModel.CartCount = 0;
-            }
+            }                        
 
             return Json(new { data = systemInformationModel }, JsonRequestBehavior.AllowGet);
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -21,6 +22,7 @@ namespace _170516.Models
         public const string EmailExists = "Email đã được dùng.";
         public const string ErrorOccur = "Có lỗi xảy ra trong quá trình cập nhật dữ liệu.";
         public const string InvalidLogin = "Địa chỉ email hoặc mật khẩu không đúng.";
+        public const string SystemVariableNotFound = "Thông tin hệ thống này không còn tồn tại.";
 
         public const string OrderCanceledStatus = "Canceled";
         public const string OrderDeliveredStatus = "Delivered";
@@ -66,6 +68,9 @@ namespace _170516.Models
 
         // comment constant
         public const string ProductCommentType = "Product";
+
+        // system variable list
+        public static Dictionary<string, string> SystemVariables = null;
     }
 
     public enum OrderStatuses

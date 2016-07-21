@@ -929,6 +929,180 @@ namespace _170516.Controllers
             return PartialView("_PartialSpecificationTable", specificationTableModel);
         }
 
+        #region System Variables
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult ViewSystemVariable(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
+        {
+            var pageNo = page.GetValueOrDefault();
+            var pageSize = itemsPerPage.GetValueOrDefault();
+
+            if (pageNo == 0) pageNo = 1;
+            if (pageSize == 0) pageSize = 10;
+            if (isAsc == null) isAsc = true;
+            if (string.IsNullOrEmpty(searchText)) searchText = null;
+            if (string.IsNullOrEmpty(sortField)) sortField = "Name";
+
+            IQueryable<SystemVariable> systemVariables;
+            systemVariables = dbContext.SystemVariables
+                            .Where(p => string.IsNullOrEmpty(searchText) || p.Name.Contains(searchText));
+
+            var systemVariablesModel = systemVariables.ToList().Select(s => new SystemVariableItem
+            {
+                Code = s.Code,
+                Name = s.Name,
+                Value = s.Value
+            });
+
+            IEnumerable<SystemVariableItem> result;
+
+            switch (sortField)
+            {
+                case "Code":
+                    if (isAsc.GetValueOrDefault())
+                        result = systemVariablesModel.OrderBy(s => s.Code);
+                    else
+                        result = systemVariablesModel.OrderByDescending(s => s.Code);
+                    break;
+                case "Value":
+                    if (isAsc.GetValueOrDefault())
+                        result = systemVariablesModel.OrderBy(s => s.Value);
+                    else
+                        result = systemVariablesModel.OrderByDescending(s => s.Value);
+                    break;
+                default:
+                    if (isAsc.GetValueOrDefault())
+                        result = systemVariablesModel.OrderBy(s => s.Name);
+                    else
+                        result = systemVariablesModel.OrderByDescending(s => s.Name);
+                    break;
+            }
+
+            int totalRecord = result.Count();
+
+            result = result.Select(s => s).Skip(pageSize * (pageNo - 1)).Take(pageSize);
+
+            var model = new ViewSystemVariableModel();
+            model.CurrentPage = pageNo;
+            model.SearchText = searchText;
+            model.ItemOnPage = pageSize;
+            model.StartIndex = pageSize * pageNo - pageSize + 1;
+            model.EndIndex = model.StartIndex + pageSize - 1;
+            model.TotalNumber = totalRecord;
+            model.TotalPage = (int)Math.Ceiling((double)model.TotalNumber / pageSize);
+            model.SystemVariables = result.ToList();
+            model.SortField = sortField;
+            model.IsAsc = isAsc.GetValueOrDefault();
+
+            return View(model);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult AddSystemVariable()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public JsonResult AddSystemVariable(CreateSystemVariableModel model)
+        {
+            var systemVariable = new SystemVariable
+            {
+                Code = model.Code,
+                Name = model.Name,
+                Value = model.Value
+            };
+
+            dbContext.SystemVariables.Add(systemVariable);
+
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult UpdateSystemVariable(int id)
+        {
+            var systemVariable = dbContext.SystemVariables.FirstOrDefault(s => s.VariableId == id);
+
+            if (systemVariable == null)
+            {
+                return RedirectToAction("ViewSystemVariable");
+            }
+
+            var systemVariableUpdateModel = new CreateSystemVariableModel
+            {
+                Code = systemVariable.Code,
+                Value = systemVariable.Name,
+                Name = systemVariable.Value
+            };
+
+            return View(systemVariableUpdateModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public JsonResult UpdateSystemVariable(CreateSystemVariableModel model)
+        {
+            var systemVariable = dbContext.SystemVariables.FirstOrDefault(s => s.VariableId == model.VariableId);
+
+            systemVariable.Code = model.Code;
+            systemVariable.Value = model.Value;
+            systemVariable.Name = model.Name;
+
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        [Authorize]
+        public JsonResult RemoveSystemVariable(int id)
+        {
+            try
+            {
+                var systemVariable = dbContext.SystemVariables.FirstOrDefault(p => p.VariableId == id);
+
+                if (systemVariable != null)
+                {
+                    // remove it
+                    dbContext.SystemVariables.Remove(systemVariable);
+                    dbContext.SaveChanges();
+                }
+                else
+                {
+                    return Json(new { isResult = false, result = Constant.SystemVariableNotFound }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { isResult = false, result = Constant.ErrorOccur }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { isResult = true, result = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
         #region Supplier
         [Authorize]
         public ActionResult ViewSupplier(int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)

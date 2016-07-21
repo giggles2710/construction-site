@@ -32,25 +32,25 @@
                                             <i class="fa fa-skype"></i>
                                         </a>
                                     </li>
-                                    <li class="linkedin"><a target="_blank" href="http://www.linkedin.com"><i class="fa fa-linkedin"></i></a></li>
-                                    <li class="googleplus"><a target="_blank" href="http://plus.google.com"><i class="fa fa-google-plus"></i></a></li>
-                                    <li class="facebook"><a target="_blank" href="http://www.facebook.com"><i class="fa fa-facebook"></i></a></li>
+                                    <li class="linkedin"><a target="_blank" href="@ViewData["LinkedInLink"]"><i class="fa fa-linkedin"></i></a></li>
+                                    <li class="googleplus"><a target="_blank" href="@ViewData["GoogleLink"]"><i class="fa fa-google-plus"></i></a></li>
+                                    <li class="facebook"><a target="_blank" href="@ViewData["FacebookLink"]"><i class="fa fa-facebook"></i></a></li>
                                 </ul>
                                 <div class="social-links hidden-lg hidden-md hidden-sm circle small">
                                     <div class="btn-group dropdown">
                                         <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></button>
                                         <ul class="dropdown-menu dropdown-animation">
-                                            <li class="skype"><a target="_blank" href="http://www.skype.com"><i class="fa fa-skype"></i></a></li>
-                                            <li class="linkedin"><a target="_blank" href="http://www.linkedin.com"><i class="fa fa-linkedin"></i></a></li>
-                                            <li class="googleplus"><a target="_blank" href="http://plus.google.com"><i class="fa fa-google-plus"></i></a></li>
-                                            <li class="facebook"><a target="_blank" href="http://www.facebook.com"><i class="fa fa-facebook"></i></a></li>
+                                            <li class="skype"><a target="_blank" href="@ViewData["SkypeLink"]"><i class="fa fa-skype"></i></a></li>
+                                            <li class="linkedin"><a target="_blank" href="@ViewData["LinkedInLink"]"><i class="fa fa-linkedin"></i></a></li>
+                                            <li class="googleplus"><a target="_blank" href="@ViewData["GoogleLink"]"><i class="fa fa-google-plus"></i></a></li>
+                                            <li class="facebook"><a target="_blank" href="@ViewData["FacebookLink"]"><i class="fa fa-facebook"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <ul class="list-inline hidden-sm hidden-xs" style="float:right;">
-                                    <li><i class="fa fa-map-marker pr-5 pl-10"></i>K10/27 Phan Châu Trinh, Hải Châu, Đà Nẵng</li>
-                                    <li><i class="fa fa-phone pr-5 pl-10"></i>+12 123 123 123</li>
-                                    <li><i class="fa fa-envelope-o pr-5 pl-10"></i> han.solo@mail.com</li>
+                                    <li><i class="fa fa-map-marker pr-5 pl-10"></i>@ViewData["Address"]</li>
+                                    <li><i class="fa fa-phone pr-5 pl-10"></i> @ViewData["Phone"]</li>
+                                    <li><i class="fa fa-envelope-o pr-5 pl-10"></i> @ViewData["EmaiMElAddress"]</li>
                                 </ul>
                             </div>
                         </div>
@@ -230,8 +230,21 @@
                 method: "GET",
                 success: function (data) {
                     if (data != null) {
+                        var model = data.data;
                         // cart
-                        $('.cart-count').text(data.data.CartCount);
+                        $('.cart-count').text(model.CartCount);
+                        // system informations
+                        if (model.SystemVariables != null) {
+                            for (var i = 0; i < model.SystemVariables; i++) {
+                                if (model.SystemVariables[i].Code == "link") {
+                                    $('.' + model.SystemVariables[i].Name).attr('href',model.SystemVariables[i].Value);
+                                }
+
+                                if (model.SystemVariables[i].Code == "text") {
+                                    $('.' + model.SystemVariables[i].Name).text(model.SystemVariables[i].Value);
+                                }
+                            }
+                        }
                     }
                 },
                 error: function (e) {
