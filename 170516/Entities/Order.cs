@@ -20,7 +20,7 @@ namespace _170516.Entities
             this.OrderDetails = new HashSet<OrderDetail>();
         }
     
-        public int OrderID { get; set; }
+        public string OrderID { get; set; }
         public int CustomerID { get; set; }
         public string OrderNumber { get; set; }
         public System.DateTime OrderDate { get; set; }

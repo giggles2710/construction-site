@@ -18,7 +18,7 @@ namespace _170516.Utility
         {
             var emailTemp = dbContext.EmailTemplates.FirstOrDefault(p => p.EmailType == (int)FieldTypes.OrderConfirmation);
 
-            var order = dbContext.Orders.FirstOrDefault(o => o.OrderID == orderId);
+            var order = dbContext.Orders.FirstOrDefault(o => o.OrderID.Equals(orderId));
 
             if (emailTemp == null || order == null)
             {

@@ -93,7 +93,7 @@ namespace _170516.Controllers
             {
                 dbContext.SaveChanges();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Json(new { isValid = false }, JsonRequestBehavior.AllowGet);
             }

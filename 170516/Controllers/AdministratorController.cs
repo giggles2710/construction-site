@@ -1794,9 +1794,9 @@ namespace _170516.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult UpdateOrder(int id)
+        public ActionResult UpdateOrder(string id)
         {
-            var order = dbContext.Orders.FirstOrDefault(o => o.OrderID == id);
+            var order = dbContext.Orders.FirstOrDefault(o => o.OrderID.Equals(id));
 
             if (order == null)
             {
@@ -1898,9 +1898,9 @@ namespace _170516.Controllers
 
         [HttpPost]
         [Authorize]
-        public JsonResult CancelOrder(int id)
+        public JsonResult CancelOrder(string id)
         {
-            var order = dbContext.Orders.FirstOrDefault(o => o.OrderID == id);
+            var order = dbContext.Orders.FirstOrDefault(o => o.OrderID.Equals(id));
 
             try
             {
@@ -1925,14 +1925,14 @@ namespace _170516.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult ViewOrderDetails(int id, int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
+        public ActionResult ViewOrderDetails(string id, int? page, int? itemsPerPage, string searchText, string sortField, bool? isAsc)
         {
-            if (id == 0)
+            if (string.IsNullOrWhiteSpace(id))
             {
                 return RedirectToAction("ViewOrder");
             }
 
-            var order = dbContext.Orders.FirstOrDefault(o => o.OrderID == id);
+            var order = dbContext.Orders.FirstOrDefault(o => o.OrderID.Equals(id));
 
             if (order == null)
             {

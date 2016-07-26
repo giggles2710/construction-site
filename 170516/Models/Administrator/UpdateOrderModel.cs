@@ -27,7 +27,7 @@ namespace _170516.Models.Administrator
             Fulfills.Add(new SelectListItem { Text = "Chưa giao", Value = false.ToString()});
         }
 
-        public int OrderID { get; set; }
+        public string OrderID { get; set; }
         public int CustomerID { get; set; }
         public string CustomerName { get; set; }
         public string OrderNumber { get; set; }

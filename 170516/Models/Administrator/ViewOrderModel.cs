@@ -22,7 +22,7 @@ namespace _170516.Models.Administrator
 
     public class ViewOrderItem
     {
-        public int OrderID { get; set; }
+        public string OrderID { get; set; }
         public int CustomerID { get; set; }
         public string CustomerName { get; set; }
         public string OrderNumber { get; set; }

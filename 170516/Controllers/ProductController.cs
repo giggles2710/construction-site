@@ -463,7 +463,7 @@ namespace _170516.Controllers
                 dbContext.Orders.Add(order);
                 dbContext.SaveChanges();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Json(new { isResult = false, result = "Lỗi khi lưu thông tin giỏ hàng. Vui lòng thử lại sau" }, JsonRequestBehavior.AllowGet);
             }

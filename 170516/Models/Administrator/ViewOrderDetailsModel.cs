@@ -9,7 +9,7 @@ namespace _170516.Models.Administrator
     public class ViewOrderDetailsModel
     {
         public List<ViewOrderDetailsItem> OrderDetails { get; set; }
-        public int OrderID { get; set; }
+        public string OrderID { get; set; }
         public int TotalNumber { get; set; }
         public int CurrentPage { get; set; }
         public int TotalPage { get; set; }
@@ -29,7 +29,7 @@ namespace _170516.Models.Administrator
         public int OrderDetailID { get; set; }
         public int ProductID { get; set; }
         public string ProductName { get; set; }
-        public int OrderID { get; set; }
+        public string OrderID { get; set; }
         public string OrderNumber { get; set; }
         [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
         public double Price { get; set; }
