@@ -952,7 +952,8 @@ namespace _170516.Controllers
             {
                 Code = s.Code,
                 Name = s.Name,
-                Value = s.Value
+                Value = s.Value,
+                VariableId = s.VariableId
             });
 
             IEnumerable<SystemVariableItem> result;
@@ -1009,14 +1010,38 @@ namespace _170516.Controllers
         [Authorize]
         public JsonResult AddSystemVariable(CreateSystemVariableModel model)
         {
-            var systemVariable = new SystemVariable
+            if(model.VariableId > 0)
             {
-                Code = model.Code,
-                Name = model.Name,
-                Value = model.Value
-            };
+                var systemVariable = dbContext.SystemVariables.FirstOrDefault(s => s.VariableId == model.VariableId);
 
-            dbContext.SystemVariables.Add(systemVariable);
+                if(systemVariable != null)
+                {
+                    systemVariable.Code = model.Code;
+                    systemVariable.Name = model.Name;
+                    systemVariable.Value = model.Value;
+                }
+            }
+            else
+            {
+                // validate name and code
+                var isExisted = dbContext.SystemVariables.Any(a => a.Code.ToUpper().Equals(model.Code.ToUpper()));
+
+                if (!isExisted)
+                {
+                    var systemVariable = new SystemVariable
+                    {
+                        Code = model.Code,
+                        Name = model.Name,
+                        Value = model.Value
+                    };
+
+                    dbContext.SystemVariables.Add(systemVariable);
+                }
+                else
+                {
+                    return Json(new { isResult = false, result = Constant.DuplicateSystemVariable }, JsonRequestBehavior.AllowGet);
+                }         
+            }
 
             try
             {

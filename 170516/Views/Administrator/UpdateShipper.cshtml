@@ -6,23 +6,19 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="main-content-wrapper">
-            <div class="panel-heading">
-                @*nav bar*@
-                <ol class="breadcrumb">
-                    <li><a href="@Url.Action("ViewShipper","Administrator")">Quản lý đơn vị vận chuyển</a></li>
-                    <li class="active">Cập nhật đơn vị vận chuyển</li>
-                </ol>
-                <div class="container-fluid admin-header">
-                    <div class="title col-md-6 col-xs-6"><h3>Cập nhật đơn vị vận chuyển</h3></div>
-                    <div class="col-md-6 col-xs-6">
-                        <a id="addBtn" href="@Url.Action("AddProduct", "Administrator")" class="btn btn-primary btn-sm add-button"><i class="glyphicon glyphicon-plus"></i> Tạo Sản phẩm</a>
-                    </div>
-                </div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="btn-group pull-right m-t-5 m-b-20">
+
             </div>
-            <div class="container-fluid">
+            <h4 class="page-title">Cập nhật đơn vị vận chuyển</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box">
                 @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "updateShipperForm" }))
                 {
                     <div class="form-horizontal">
@@ -93,6 +89,7 @@
         </div>
     </div>
 </div>
+
 @section Scripts
 {
     <script src="@Url.Content("~/Scripts/Admin/shipper.js")"></script>

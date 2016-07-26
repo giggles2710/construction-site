@@ -47,7 +47,7 @@ File: Menu
     }
 
 .navbar-default {
-    background-color: #57c5a5;
+    background-color: #e96154;
     border-radius: 0px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 6px 0 rgba(0, 0, 0, 0.12);
     border: none;
@@ -276,7 +276,7 @@ body.fixed-left .side-menu.left {
         display: block;
         padding: 12px 20px;
         margin: 4px 0px;
-        font-size: 15px;
+        font-size: 14px;
         border-left: 3px solid transparent;
     }
 
@@ -442,7 +442,7 @@ body.fixed-left .side-menu.left {
             }
 
                 #wrapper.enlarged .left.side-menu #sidebar-menu ul > li:hover > ul a:hover {
-                    color: #57c5a5;
+                    color: #e96154;
                 }
 
         #wrapper.enlarged .left.side-menu #sidebar-menu ul > li:hover a span {
@@ -471,11 +471,11 @@ body.fixed-left .side-menu.left {
     }
 
     #wrapper.enlarged .left.side-menu #sidebar-menu ul ul li.active a {
-        color: #57c5a5;
+        color: #e96154;
     }
 
     #wrapper.enlarged .left.side-menu #sidebar-menu ul ul a:hover {
-        color: #57c5a5 !important;
+        color: #e96154 !important;
     }
 
     #wrapper.enlarged .left.side-menu #sidebar-menu ul > li > a span {
@@ -1004,7 +1004,7 @@ a:focus {
 }
 
 .header-title {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     line-height: 16px;
     margin-bottom: 8px;
@@ -1390,13 +1390,13 @@ a:focus {
     .nav-pills-custom li a {
         padding: 5px 18px;
         border-radius: 20px;
-        color: #57c5a5 !important;
+        color: #e96154 !important;
         line-height: 28px !important;
     }
 
     .nav-pills-custom li.active a {
         background-color: #ffffff !important;
-        color: #57c5a5 !important;
+        color: #e96154 !important;
     }
 
 .breadcrumb {
@@ -1427,7 +1427,7 @@ a:focus {
 
         .dropdown-menu > li > a:focus,
         .dropdown-menu > li > a:hover {
-            background-color: #57c5a5 !important;
+            background-color: #e96154 !important;
             color: #ffffff;
         }
 
@@ -1494,7 +1494,7 @@ a:focus {
 }
 /* Text colors */
 .text-custom {
-    color: #57c5a5 !important;
+    color: #e96154 !important;
 }
 
 .text-white {
@@ -1620,7 +1620,7 @@ textarea.form-control {
 }
 
 .label-default {
-    background-color: #57c5a5;
+    background-color: #e96154;
 }
 
 .label-primary {
@@ -1661,7 +1661,7 @@ textarea.form-control {
     padding: 3px 5px;
     font-size: 12px;
     margin-top: 1px;
-    background-color: #57c5a5;
+    background-color: #e96154;
 }
 
 .badge-xs {
@@ -1755,8 +1755,8 @@ textarea.form-control {
 .pagination > .active > span:hover,
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
-    background-color: #57c5a5;
-    border-color: #57c5a5;
+    background-color: #e96154;
+    border-color: #e96154;
 }
 
 .pager li > a,
@@ -1957,7 +1957,7 @@ textarea.form-control {
     padding: 15px 25px 15px 25px;
     line-height: 22px;
     font-size: 18px;
-    background-color: #57c5a5;
+    background-color: #e96154;
     color: #ffffff;
     text-align: left;
     margin: 0px;
@@ -1989,12 +1989,12 @@ textarea.form-control {
 .list-group-item.active,
 .list-group-item.active:hover,
 .list-group-item.active:focus {
-    background-color: #57c5a5;
-    border-color: #57c5a5;
+    background-color: #e96154;
+    border-color: #e96154;
 }
 
 .nav-pills > .active > a > .badge {
-    color: #57c5a5;
+    color: #e96154;
 }
 
 .has-success .form-control {
@@ -2042,13 +2042,13 @@ textarea.form-control {
 
     .popover .popover-title {
         background-color: transparent;
-        color: #57c5a5;
+        color: #e96154;
         font-weight: 500;
         font-size: 15px;
     }
 /* Code */
 code {
-    color: #57c5a5;
+    color: #e96154;
     background-color: #ffffff;
     border-radius: 4px;
 }
@@ -2270,7 +2270,7 @@ pre {
 
         .data-table-wrapper .filter-wrapper label {
             font-size: 15px;
-            font-weight: bold;
+            font-weight: normal;
         }
 
     .data-table-wrapper .search-wrapper {

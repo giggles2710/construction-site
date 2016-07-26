@@ -5,20 +5,19 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="btn-group pull-right m-t-5 m-b-20">
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="main-content-wrapper">
-            <div class="panel-heading">
-                <ol class="breadcrumb">
-                    <li><a href="@Url.Action("ViewShipper","Administrator")">Quản lý đơn vị vận chuyển</a></li>
-                    <li class="active">Đăng ký đơn vị vận chuyển</li>
-                </ol>
-                <div class="container-fluid admin-header">
-                    <div class="title col-md-6 col-xs-6"><h3>Đăng ký đơn vị vận chuyển</h3></div>
-                </div>
             </div>
-            <div class="container-fluid">
+            <h4 class="page-title">Đăng ký đơn vị vận chuyển mới</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box">
                 @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "addShipperForm" }))
                 {
                     <div class="form-horizontal">
@@ -88,6 +87,9 @@
         </div>
     </div>
 </div>
+
+
+
 @section Scripts
 {
     <script src="@Url.Content("~/Scripts/Admin/shipper.js")"></script>

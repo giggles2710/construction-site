@@ -47,7 +47,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <ul class="list-inline hidden-sm hidden-xs" style="float:right;">
+                                <ul class="list-inline hidden-sm hidden-xs">
                                     <li><i class="fa fa-map-marker pr-5 pl-10"></i>@ViewData["Address"]</li>
                                     <li><i class="fa fa-phone pr-5 pl-10"></i> @ViewData["Phone"]</li>
                                     <li><i class="fa fa-envelope-o pr-5 pl-10"></i> @ViewData["EmaiMElAddress"]</li>
@@ -195,7 +195,7 @@
             CheckoutConfirmation: "@Url.Action("CheckoutConfirmation", "Product")",
             LoadSystemInformation: "@Url.Action("LoadSystemInformation", "Home")",
             PostProductComment: "@Url.Action("PostProductComment", "Product")",
-            GetCommentList: "@Url.Action("GetCommentList","Product")"
+            GetCommentList: "@Url.Action("GetCommentList","Product")"           
         };
 
         var sampleRegex = {

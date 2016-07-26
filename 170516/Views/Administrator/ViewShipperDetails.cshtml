@@ -5,59 +5,59 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="main-content-wrapper">
-            <div class="panel-heading">
-                @*nav bar*@
-                <ol class="breadcrumb">
-                    <li><a href="@Url.Action("ViewShipper","Administrator")">Quản lý đơn vị vận chuyển</a></li>
-                    <li class="active">Chi tiết đơn vị vận chuyển</li>
-                </ol>
-                <div class="container-fluid admin-header">
-                    <div class="title col-md-6 col-xs-6"><h3>@Model.CompanyName</h3></div>
-                </div>
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="btn-group pull-right m-t-5 m-b-20">
+                @*<button type="button" class="btn btn-custom dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">Thêm sản phẩm <span class="m-l-5"><i class="fa fa-plus"></i></span></button>*@
             </div>
-            <div class="container-fluid">
+            <h4 class="page-title">@Model.CompanyName</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box">
                 <div class="form-horizontal">
                     <div class="row">
                         <div class="col-md-12 col-lg-12 detail-view">
                             @Html.HiddenFor(model => model.ShipperID)
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="CompanyName">Tên công ty <span class="text-danger">*</span></label>
+                                <label class="col-sm-3 control-label" for="CompanyName">Tên công ty  </label>
                                 <div class="col-sm-7">
                                     <p class="info-box">@Model.CompanyName</p>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="Address1">Điện thoại <span class="text-danger">*</span></label>
+                                <label class="col-sm-3 control-label" for="Address1">Điện thoại  </label>
                                 <div class="col-sm-7">
                                     <p class="info-box">@Model.Phone</p>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="Address2">Địa chỉ Email <span class="text-danger">*</span></label>
+                                <label class="col-sm-3 control-label" for="Address2">Địa chỉ Email  </label>
                                 <div class="col-sm-7">
                                     <p class="info-box">@Model.EmailAddress</p>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="City">Địa chỉ <span class="text-danger">*</span></label>
+                                <label class="col-sm-3 control-label" for="City">Địa chỉ  </label>
                                 <div class="col-sm-7">
                                     <p class="info-box">@Model.Address</p>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="Phone">Tỉnh/Thành phố <span class="text-danger">*</span></label>
+                                <label class="col-sm-3 control-label" for="Phone">Tỉnh/Thành phố  </label>
                                 <div class="col-sm-7">
                                     <p class="info-box">@Model.City</p>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="Fax">Quận <span class="text-danger">*</span></label>
+                                <label class="col-sm-3 control-label" for="Fax">Quận  </label>
                                 <div class="col-sm-7">
                                     <p class="info-box">@Model.District</p>
                                 </div>
@@ -69,6 +69,7 @@
         </div>
     </div>
 </div>
+
 @section Scripts
 {
     <script src="@Url.Content("~/Scripts/Admin/shipper.js")"></script>

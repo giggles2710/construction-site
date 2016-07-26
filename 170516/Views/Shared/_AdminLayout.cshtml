@@ -19,7 +19,7 @@
             <div class="topbar-left">
                 <div class="text-center">
                     <a href="@Url.Action("Index", "Administrator")" class="logo">
-                        <i class="zmdi zmdi-toys icon-c-logo"></i><span>LOGO</span>
+                        <i class="zmdi zmdi-toys icon-c-logo"></i><span>MEICO</span>
                     </a>
                 </div>
             </div>
@@ -39,41 +39,44 @@
         </div>
 
         <div class="left side-menu">
-            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 1183px;">
-                <div class="sidebar-inner slimscrollleft" style="overflow: hidden; width: auto; height: 1183px;">
+            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;">
+                <div class="sidebar-inner slimscrollleft" style="overflow: hidden; width: auto;">
                     <div id="sidebar-menu">
                         <ul>
                             <li class="text-muted menu-title">Quản Lý Thông Tin</li>
                             <li class="has_sub">
-                                <a href="@Url.Action("ViewProduct","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Sản Phẩm </span> </a>                                
+                                <a href="@Url.Action("ViewOrder","Administrator")" class="waves-effect subdrop"><i class="fa fa-usd"></i> <span> Đơn Hàng</span> </a>
                             </li>
                             <li class="has_sub">
-                                <a href="@Url.Action("ViewProductCategory","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Danh Mục Sản Phẩm </span> </a>                                
+                                <a href="@Url.Action("ViewProduct","Administrator")" class="waves-effect subdrop"><i class="fa fa-product-hunt"></i> <span> Sản Phẩm </span> </a>                                
                             </li>
                             <li class="has_sub">
-                                <a href="@Url.Action("ViewShipper","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Đơn Vị Vận Chuyển </span> </a>
+                                <a href="@Url.Action("ViewProductCategory","Administrator")" class="waves-effect subdrop"><i class="fa fa-archive"></i> <span> Danh Mục Sản Phẩm </span> </a>                                
                             </li>
                             <li class="has_sub">
-                                <a href="@Url.Action("ViewSupplier","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Nhà Cung Cấp </span> </a>
+                                <a href="@Url.Action("ViewShipper","Administrator")" class="waves-effect subdrop"><i class="fa fa-truck"></i> <span> Đơn Vị Vận Chuyển </span> </a>
                             </li>
                             <li class="has_sub">
-                                <a href="@Url.Action("ViewRequest","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Feedback Khách Hàng </span> </a>
+                                <a href="@Url.Action("ViewSupplier","Administrator")" class="waves-effect subdrop"><i class="fa fa-building"></i> <span> Nhà Cung Cấp </span> </a>
                             </li>
                             <li class="has_sub">
-                                <a href="@Url.Action("ViewEmailTemplate","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Mẫu Email </span> </a>
+                                <a href="@Url.Action("ViewRequest","Administrator")" class="waves-effect subdrop"><i class="fa fa-comments"></i> <span> Feedback Khách Hàng </span> </a>
                             </li>
                             <li class="has_sub">
-                                <a href="@Url.Action("ViewSystemVariable","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Thông Tin Hệ Thống </span> </a>
+                                <a href="@Url.Action("ViewEmailTemplate","Administrator")" class="waves-effect subdrop"><i class="fa fa-envelope"></i> <span> Mẫu Email </span> </a>
                             </li>
                             <li class="has_sub">
-                                <a href="@Url.Action("ViewUser","Administrator")" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Tài Khoản </span> </a>
+                                <a href="@Url.Action("ViewSystemVariable","Administrator")" class="waves-effect subdrop"><i class="fa fa-gears"></i> <span> Thông Tin Hệ Thống </span> </a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="@Url.Action("ViewUser","Administrator")" class="waves-effect subdrop"><i class="fa fa-group"></i> <span> Tài Khoản </span> </a>
                             </li>
                             <li class="text-muted menu-title">Quản Lý Cá Nhân</li>
                             <li class="has_sub">
-                                <a href="index.html" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Thông Tin </span> </a>
+                                <a href="@Url.Action("ViewProfile","Account")" class="waves-effect subdrop"><i class="fa fa-user"></i> <span> Thông Tin </span> </a>
                             </li>
                             <li class="has_sub">
-                                <a href="index.html" class="waves-effect subdrop"><i class="zmdi zmdi-view-dashboard"></i> <span> Đăng Xuất </span> </a>
+                                <a href="@Url.Action("LogOff", "Account")" class="waves-effect subdrop"><i class="fa fa-sign-out"></i> <span> Đăng Xuất </span> </a>
                             </li>
                         </ul>
                         <div class="clearfix"></div>
@@ -92,7 +95,7 @@
             </div>
 
             <footer class="footer">
-                2016 © Flacto. Design by <a href="http://coderthemes.com/" target="_blank" class="text-muted">Coderthemes</a>
+                2016 © N.E.R.D
             </footer>
 
         </div>
@@ -223,7 +226,10 @@
             viewEmailTemplate:  "@Url.Action("ViewEmailTemplate","Administrator")",
             addEmailTemplate: "@Url.Action("AddEmailTemplate","Administrator")",
             updateEmailTemplate: "@Url.Action("UpdateEmailTemplate","Administrator")",
-            getEmailTemplateById: "@Url.Action("GetEmailTemplateContent", "Administrator")"
+            getEmailTemplateById: "@Url.Action("GetEmailTemplateContent", "Administrator")",
+
+            AddUpdateSystemVariable: "@Url.Action("AddSystemVariable","Administrator")",
+            ViewSystemVariable: "@Url.Action("ViewSystemVariable","Administrator")"
         };
 
         var sampleRegex = {

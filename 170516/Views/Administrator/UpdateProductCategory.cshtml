@@ -9,7 +9,7 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <h4 class="page-title">Quản lý danh mục sản phẩm</h4>
+            <h4 class="page-title">Cập nhật danh mục sản phẩm</h4>
         </div>
     </div>
 
@@ -25,7 +25,7 @@
                                 <!-- PRODUCT CATEGORY NAME -->
                                 @Html.HiddenFor(model => model.CategoryID)
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ProductName">Tên Danh mục <span class="text-danger">*</span></label>
+                                    <label class="col-sm-3 control-label" for="ProductName">Tên danh mục <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
                                         @Html.TextBoxFor(model => model.Name, new { @class = "form-control" }) <span class="input-error-box text-danger"></span>
                                         @Html.ValidationMessageFor(model => model.Name, null, new { @class = "input-error-box text-danger" })
@@ -33,7 +33,7 @@
                                 </div>                                
                                 <!-- PRODUCT CATEGORY PARENT -->
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="ParentID">Danh Mục cha</label>
+                                    <label class="col-sm-3 control-label" for="ParentID">Danh mục cha</label>
                                     <div class="col-sm-7">
                                         <select id="ParentID" class="form-control" name="ParentID">
                                             <option value=""></option>

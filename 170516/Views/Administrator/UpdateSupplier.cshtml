@@ -6,21 +6,19 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="btn-group pull-right m-t-5 m-b-20">
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="main-content-wrapper">
-            <div class="panel-heading">
-                @*nav bar*@
-                <ol class="breadcrumb">
-                    <li><a href="@Url.Action("ViewSupplier","Administrator")">Quản lý nhà cung cấp</a></li>
-                    <li class="active">Cập nhật nhà cung cấp</li>
-                </ol>
-                <div class="container-fluid admin-header">
-                    <div class="title col-md-6 col-xs-6"><h3>Cập Nhật Nhà Cung Cấp</h3></div>
-                </div>
             </div>
-            <div class="container-fluid">
+            <h4 class="page-title">Cập nhật nhà phân phối</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box">
                 @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "updateSupplierForm" }))
                 {
                     <div class="form-horizontal">
@@ -124,7 +122,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Logo nhà cung cấp</label>
                                     <!-- IMAGE -->
-                                    <div class="image-box">
+                                    <div class="image-upload-box">
                                         @if (string.IsNullOrEmpty(Model.Logo))
                                         {
                                             <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
@@ -158,6 +156,8 @@
         </div>
     </div>
 </div>
+
+
 @section Scripts
 {
     <script src="@Url.Content("~/Scripts/Admin/supplier.js")"></script>

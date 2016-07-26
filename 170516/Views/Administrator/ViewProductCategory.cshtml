@@ -10,18 +10,17 @@
             <div class="btn-group pull-right m-t-5 m-b-20">
                 <a href="@Url.Action("AddProductCategory","Administrator")" class="btn btn-custom dropdown-toggle waves-effect waves-light">Thêm danh mục sản phẩm <span class="m-l-5"><i class="fa fa-plus"></i></span></a>
             </div>
-            <h4 class="page-title">Quản lý sản phẩm</h4>
+            <h4 class="page-title">Quản lý danh mục sản phẩm</h4>
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box table-responsive">
-                <h4 class="header-title m-t-0 m-b-30">Danh sách danh mục sản phẩm</h4>
-
                 <div class="data-table-wrapper form-inline dt-bootstrap no-footer">
                     @if (Model.Categories.Any())
                     {
+                        <h4 class="header-title m-t-0 m-b-30">Danh sách danh mục sản phẩm</h4>
                         <div class="row">
                             <div class="col-sm-6">
                                 <input type="hidden" id="dataTables_sort_field_hidden" value="@Model.SortField" />

@@ -8,7 +8,7 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <h4 class="page-title">Tạo danh mục sản phẩm</h4>
+            <h4 class="page-title">Chi tiết danh mục sản phẩm</h4>
         </div>
     </div>
 
@@ -18,6 +18,21 @@
                 <div class="form-horizontal">
                     <div class="row">
                         <div class="col-md-offset-2 col-md-8 col-lg-8 detail-view">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Ảnh</label>
+                                <!-- IMAGE -->
+                                <div class="col-sm-7 image-box">
+                                    @if (string.IsNullOrEmpty(Model.CategoryImage))
+                                    {
+                                        <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
+                                    }
+                                    else
+                                    {
+                                        <img id="ImageBox" src="@Model.CategoryImage" class="image-box" />
+                                    }
+
+                                </div>
+                            </div>
                             <!-- PRODUCT CATEGORY NAME -->
                             @Html.HiddenFor(model => model.CategoryID)
                             <div class="form-group">
@@ -38,21 +53,6 @@
                                 <label class="col-sm-3 control-label" for="ProductName">Mô tả </label>
                                 <div class="col-sm-7">
                                     <p class="info-box">@Model.Description</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">Ảnh</label>
-                                <!-- IMAGE -->
-                                <div class="col-sm-7 image-box">
-                                    @if (string.IsNullOrEmpty(Model.CategoryImage))
-                                    {
-                                        <img id="ImageBox" src="~/Content/Image/image_placeholder.jpg" class="image-box" />
-                                    }
-                                    else
-                                    {
-                                        <img id="ImageBox" src="@Model.CategoryImage" class="image-box" />
-                                    }
-
                                 </div>
                             </div>
                         </div>

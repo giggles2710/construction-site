@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="btn-group pull-right m-t-5 m-b-20">
-                <a href="@Url.Action("AddSystemVariable","Administrator")" class="btn btn-custom dropdown-toggle waves-effect waves-light">Thêm thông tin hệ thống <span class="m-l-5"><i class="fa fa-plus"></i></span></a>
+                <a id="btnAddSystemVariable" href="#" class="btn btn-custom dropdown-toggle waves-effect waves-light">Thêm thông tin hệ thống <span class="m-l-5"><i class="fa fa-plus"></i></span></a>
             </div>
             <h4 class="page-title">Quản lý thông tin hệ thống</h4>
         </div>
@@ -86,7 +86,14 @@
                                                     <td>@Model.SystemVariables[i - 1].Code</td>
                                                     <td>@Model.SystemVariables[i - 1].Name</td>
                                                     <td>@Model.SystemVariables[i - 1].Value</td>
-                                                    <td style="text-align:center;"></td>
+                                                    <td style="text-align:center;">
+                                                        <a id="updateSystemVariableLink" class="action-link update-link add-update-modal" title="Cập nhật" href="#" 
+                                                           data-id="@Model.SystemVariables[i - 1].VariableId"
+                                                           data-code="@Model.SystemVariables[i - 1].Code"
+                                                           data-name="@Model.SystemVariables[i - 1].Name"
+                                                           data-value="@Model.SystemVariables[i - 1].Value"><i class="fa fa-pencil"></i></a>
+                                                        <a id="removeSystemVariableLink" class="action-link remove-link product" title="Xóa" href="#" data-url="@Url.Action("RemoveSystemVariable", "Administrator", new { id = Model.SystemVariables[i - 1].VariableId })"><i class="fa fa-remove"></i></a>
+                                                    </td>
                                                 </tr>
                                             }
 
@@ -96,8 +103,6 @@
                                                 {
                                                     <tr class="odd" role="row">
                                                         <td>@i</td>
-                                                        <td></td>
-                                                        <td></td>
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
@@ -222,6 +227,64 @@
                         <h5>Không có record nào được lưu trong cơ sở dữ liệu.</h5>
                     }
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="add-system-variable-modal" tabindex="-1" role="dialog" aria-labelledby="add-system-variable-modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Thêm thông tin hệ thống</h4>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("AddSystemVariable", "Administrator", FormMethod.Post, new { @id = "addSystemVariableForm" }))
+                {
+                    <div class="form-horizontal">
+                        <div class="row">
+                            <input type="hidden" value="0" id="VariableId" />
+                            <div class="col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="Code">Mã thông tin <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <input type="text" id="Code" class="form-control" />
+                                        <span class="input-error-box text-danger field-validation-error"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="Name">Tên <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <input type="text" id="Name" class="form-control" />
+                                        <span class="input-error-box text-danger field-validation-error"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="Value">Giá trị <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <input type="text" id="Value" class="form-control" />
+                                        <span class="input-error-box text-danger field-validation-error"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <div class="col-md-12 form-button">
+                                        <button class="btn btn-primary add-update-modal" type="button" id="SubmitSystemVariable"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                                        <button class="btn btn-danger" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i> Đóng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
