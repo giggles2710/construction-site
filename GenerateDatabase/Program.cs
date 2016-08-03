@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -83,7 +84,7 @@ namespace GenerateDatabase
                             case "user":
                                 account = new Account();
                                 account.AccountID = Guid.NewGuid().ToString();
-                                account.HashToken = UtilityHelper.RandomString(10);
+                                account.HashToken = GeneratorUtilityHelper.RandomString(10);
                                 account.IsActive = true;
                                 break;
                             case "username":
@@ -92,7 +93,7 @@ namespace GenerateDatabase
                                 break;
                             case "password":
                                 reader.Read();
-                                account.Password = EncryptionHelper.HashPassword(reader.Value, account.HashToken);
+                                account.Password = GeneratorEncryptionHelper.HashPassword(reader.Value, account.HashToken);
                                 break;
                             case "firstName":
                                 reader.Read();
@@ -295,20 +296,20 @@ namespace GenerateDatabase
                 if (supplier == null)
                     supplier = new Supplier();
 
-                supplier.Address1 = UtilityHelper.RandomString(50);
-                supplier.Address2 = random.Next() % 2 != 0 ? UtilityHelper.RandomString(50) : string.Empty;
+                supplier.Address1 = GeneratorUtilityHelper.RandomString(50);
+                supplier.Address2 = random.Next() % 2 != 0 ? GeneratorUtilityHelper.RandomString(50) : string.Empty;
                 supplier.City = "Da Nang";
-                supplier.CompanyName = string.Format("Supplier {0}", UtilityHelper.RandomString(10));
+                supplier.CompanyName = string.Format("Supplier {0}", GeneratorUtilityHelper.RandomString(10));
                 supplier.Discount = random.Next() % 2 != 0 ? random.NextDouble() : 0;
                 supplier.EmailAddress = string.Format("Supplier_{0}.TEST@gmail.com", i);
-                supplier.Fax = random.Next() % 2 != 0 ? UtilityHelper.RandomTelephoneNumber() : null;
-                supplier.Phone = UtilityHelper.RandomTelephoneNumber();
-                supplier.ProductType = UtilityHelper.RandomString(20);
+                supplier.Fax = random.Next() % 2 != 0 ? GeneratorUtilityHelper.RandomTelephoneNumber() : null;
+                supplier.Phone = GeneratorUtilityHelper.RandomTelephoneNumber();
+                supplier.ProductType = GeneratorUtilityHelper.RandomString(20);
 
                 if (random.Next() % 2 != 0)
                 {
-                    supplier.ContactFName = UtilityHelper.RandomString(15);
-                    supplier.ContactLName = UtilityHelper.RandomString(15);
+                    supplier.ContactFName = GeneratorUtilityHelper.RandomString(15);
+                    supplier.ContactLName = GeneratorUtilityHelper.RandomString(15);
                 }
                 else
                 {
@@ -559,4 +560,82 @@ namespace GenerateDatabase
             }
         }
     }
+
+    public static class GeneratorEncryptionHelper
+    {
+        private static string SecretKey = "9TZTi6PdCcG0JurXNjH6ww==";
+        private static string IvKey = "TZJbkD968uwJ2ZVEDmyPiw==";
+
+        public static byte[] Encrypt(string value)
+        {
+            var key = Convert.FromBase64String(SecretKey);
+            var iv = Convert.FromBase64String(IvKey);
+
+            byte[] encrypted;
+            using (var rijAlg = Rijndael.Create())
+            {
+                rijAlg.Key = key;
+                rijAlg.IV = iv;
+
+                // Create a decrytor to perform the stream transform.
+                var encryptor = rijAlg.CreateEncryptor(rijAlg.Key, rijAlg.IV);
+
+                // Create the streams used for encryption.
+                using (var msEncrypt = new MemoryStream())
+                {
+                    using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (var swEncrypt = new StreamWriter(csEncrypt))
+                        {
+                            //Write all data to the stream.
+                            swEncrypt.Write(value);
+                        }
+                        encrypted = msEncrypt.ToArray();
+                    }
+                }
+            }
+
+            return encrypted;
+        }
+
+        public static string HashPassword(string password, string saltToken)
+        {
+            var hmacSHA1 = new HMACSHA1(System.Text.Encoding.UTF8.GetBytes(saltToken));
+            var saltedHash = hmacSHA1.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+
+            return Convert.ToBase64String(saltedHash);
+        }
+    }
+
+    public static class GeneratorUtilityHelper
+    {
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        public static string RandomTelephoneNumber()
+        {
+            var rand = new Random();
+            StringBuilder telNo = new StringBuilder(12);
+            int number;
+            for (int i = 0; i < 3; i++)
+            {
+                number = rand.Next(0, 8); // digit between 0 (incl) and 8 (excl)
+                telNo = telNo.Append(number.ToString());
+            }
+            telNo = telNo.Append("-");
+            number = rand.Next(0, 743); // number between 0 (incl) and 743 (excl)
+            telNo = telNo.Append(String.Format("{0:D3}", number));
+            telNo = telNo.Append("-");
+            number = rand.Next(0, 10000); // number between 0 (incl) and 10000 (excl)
+            telNo = telNo.Append(String.Format("{0:D4}", number));
+
+            return telNo.ToString();
+        }
+    }
+
 }
