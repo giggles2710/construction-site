@@ -12,11 +12,11 @@
                 success: function (data) {
                     if (data != null) {
                         if (data.isResult == false) {
+                            $('#Password').val('');
+
                             toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
                         } else {
-                            $('#AddProductForm')[0].reset();
-                            // Display an info toast with no title
-                            toastr.success('Sản phẩm mới lưu thành công.')
+                            window.location.href = staticUrl.index;
                         }
                     }
                 }, error: function (e) {

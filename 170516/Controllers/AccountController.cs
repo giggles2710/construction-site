@@ -73,8 +73,6 @@ namespace _170516.Controllers
                                 var loginDetail = loginDetails.First();
                                 // log him in
                                 SignInUser(loginDetail.Username, false);
-
-                                return RedirectToAction("Index", "Administrator");
                             }
                         }
                     }
@@ -87,7 +85,7 @@ namespace _170516.Controllers
                 // log error
             }
 
-            return View("Login", "_LayoutPlain", model);
+            return Json(new { isResult = true }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult LogOff()
