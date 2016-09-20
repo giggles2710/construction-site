@@ -72,6 +72,7 @@ namespace _170516.Models
 
         // system variable list
         public static Dictionary<string, string> SystemVariables = null;
+        public const string ReturnUrl = "/Administrator";
     }
 
     public enum OrderStatuses

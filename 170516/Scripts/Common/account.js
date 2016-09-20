@@ -5,7 +5,7 @@
             $.ajax({
                 url: staticUrl.login,
                 data: $('#LoginForm').serialize(),
-                async: true,
+                async: false,
                 method: "POST",
                 dataType: "json",
                 cache: false,
@@ -16,7 +16,7 @@
 
                             toastr.error('Có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại.');
                         } else {
-                            window.location.href = staticUrl.index;
+                            location.reload();
                         }
                     }
                 }, error: function (e) {

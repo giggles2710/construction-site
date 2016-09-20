@@ -24,13 +24,13 @@ namespace _170516.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login()
         {
             try
             {
                 if (this.Request.IsAuthenticated)
                 {
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToLocal(Constant.ReturnUrl);
                 }
             }
             catch (Exception ex)
